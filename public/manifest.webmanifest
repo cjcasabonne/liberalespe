@@ -1,0 +1,16 @@
+{
+  "name": "Liberales PE Padron",
+  "short_name": "Liberales PE",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f6f1",
+  "theme_color": "#12613a",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
