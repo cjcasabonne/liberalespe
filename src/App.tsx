@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { dniToAuthEmail, isValidDni, normalizeDni } from './lib/auth';
 import { buscarDni } from './lib/dniService';
-import { supabase } from './lib/supabase';
+import { supabase, supabaseConfigReady } from './lib/supabase';
 import type { AuditLog, Perfil, SolicitudAfiliacion, SolicitudDesafiliacion } from './types';
 import './styles.css';
 
@@ -46,6 +46,10 @@ export default function App() {
   const isAdmin = profile?.estado === 'activo' && ['administrador', 'fundador'].includes(profile.rol_sistema);
 
   useEffect(() => {
+    if (!supabase) {
+      return;
+    }
+
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
     });
@@ -82,6 +86,10 @@ export default function App() {
   }, [isAdmin, adminPage, adminDniFilter]);
 
   async function loadProfile() {
+    if (!supabase) {
+      return;
+    }
+
     setError('');
     const { data, error: profileError } = await supabase
       .from('perfiles')
@@ -99,6 +107,10 @@ export default function App() {
   }
 
   async function loadPanelData() {
+    if (!supabase) {
+      return;
+    }
+
     setPanelLoading(true);
     setError('');
 
@@ -180,6 +192,10 @@ export default function App() {
 
   async function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!supabase) {
+      return;
+    }
+
     setError('');
     setStatus('');
 
@@ -206,6 +222,10 @@ export default function App() {
 
   async function handleRegister(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!supabase) {
+      return;
+    }
+
     setError('');
     setStatus('');
 
@@ -292,7 +312,7 @@ export default function App() {
   }
 
   async function handleSolicitarAfiliacion() {
-    if (!profile) {
+    if (!profile || !supabase) {
       return;
     }
 
@@ -314,7 +334,7 @@ export default function App() {
   }
 
   async function handleSolicitarDesafiliacion() {
-    if (!profile) {
+    if (!profile || !supabase) {
       return;
     }
 
@@ -342,6 +362,10 @@ export default function App() {
   }
 
   async function runProfileRpc(action: 'validar_usuario' | 'anular_usuario', usuarioId: string) {
+    if (!supabase) {
+      return;
+    }
+
     setError('');
     setStatus('');
 
@@ -370,6 +394,10 @@ export default function App() {
   }
 
   async function runAffiliationRpc(action: 'aprobar_afiliacion' | 'rechazar_afiliacion', solicitudId: string) {
+    if (!supabase) {
+      return;
+    }
+
     setError('');
     setStatus('');
 
@@ -397,6 +425,10 @@ export default function App() {
   }
 
   async function runDisaffiliationRpc(solicitudId: string) {
+    if (!supabase) {
+      return;
+    }
+
     setError('');
     setStatus('');
     setPanelLoading(true);
@@ -414,6 +446,10 @@ export default function App() {
   }
 
   async function handleLogout() {
+    if (!supabase) {
+      return;
+    }
+
     await supabase.auth.signOut();
     setLoginPassword('');
     setStatus('Sesion cerrada.');
@@ -433,7 +469,16 @@ export default function App() {
         ) : null}
       </section>
 
-      {session ? (
+      {!supabaseConfigReady ? (
+        <section className="panel">
+          <h2>Configuracion incompleta</h2>
+          <p className="muted">
+            Falta configurar `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` en el entorno de despliegue.
+          </p>
+        </section>
+      ) : null}
+
+      {supabaseConfigReady && session ? (
         <>
           <section className="panel">
           <h2>Perfil</h2>
@@ -641,7 +686,7 @@ export default function App() {
           </section>
           ) : null}
         </>
-      ) : (
+      ) : supabaseConfigReady ? (
         <section className="auth-grid">
           <div className="tabs" aria-label="Modo de acceso">
             <button className={mode === 'login' ? 'active' : ''} type="button" onClick={() => setMode('login')}>
@@ -732,7 +777,7 @@ export default function App() {
             </form>
           )}
         </section>
-      )}
+      ) : null}
 
       {status ? <p className="status">{status}</p> : null}
       {error ? <p className="error">{error}</p> : null}
