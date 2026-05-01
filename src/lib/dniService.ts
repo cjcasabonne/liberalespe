@@ -32,7 +32,7 @@ function readNombreCompleto(payload: unknown) {
   return parts.join(' ').trim();
 }
 
-export async function buscarDni(dni: string, timeoutMs = 3000): Promise<BuscarDniResult> {
+export async function buscarDni(dni: string, timeoutMs = 12000): Promise<BuscarDniResult> {
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
 

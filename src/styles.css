@@ -11,8 +11,8 @@
   --color-destructive: #b42318;
   --color-success: #4d7c0f;
   --color-warning: #b45309;
-  color: #17211b;
-  background: #f4f6f1;
+  color: var(--color-foreground);
+  background: var(--color-background);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,6 +23,7 @@
 }
 
 body {
+  background: var(--color-background);
   margin: 0;
   min-width: 320px;
 }
@@ -37,8 +38,8 @@ textarea {
 button {
   border: 0;
   border-radius: 6px;
-  background: #12613a;
-  color: #fff;
+  background: var(--color-accent);
+  color: #fffdf8;
   cursor: pointer;
   min-height: 42px;
   padding: 0 16px;
@@ -51,13 +52,13 @@ button:disabled {
 
 button.secondary,
 .tabs button {
-  background: #dce5d8;
-  color: #17211b;
+  background: var(--color-muted);
+  color: var(--color-secondary);
 }
 
 .tabs button.active {
-  background: #12613a;
-  color: #fff;
+  background: var(--color-primary);
+  color: #fffdf8;
 }
 
 .app-shell {
@@ -93,7 +94,7 @@ h2 {
 .topbar p,
 .muted,
 .hint {
-  color: #627067;
+  color: var(--color-muted-fg);
   margin-top: 4px;
 }
 
@@ -114,8 +115,8 @@ h2 {
 }
 
 .panel {
-  background: #fff;
-  border: 1px solid #d8dfd4;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 20px;
 }
@@ -141,7 +142,7 @@ h2 {
 
 .panel-heading span,
 .pager span {
-  color: #627067;
+  color: var(--color-muted-fg);
   font-size: 13px;
 }
 
@@ -338,7 +339,7 @@ h2 {
 }
 
 label {
-  color: #3d4a40;
+  color: var(--color-secondary);
   display: grid;
   gap: 6px;
   font-size: 14px;
@@ -346,7 +347,7 @@ label {
 
 input,
 textarea {
-  border: 1px solid #bcc8b7;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   padding: 0 12px;
 }
@@ -363,7 +364,7 @@ textarea {
 
 select {
   background: #fff;
-  border: 1px solid #bcc8b7;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   min-height: 42px;
   padding: 0 12px;
@@ -372,8 +373,8 @@ select {
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: #12613a;
-  outline: 2px solid rgba(18, 97, 58, 0.18);
+  border-color: var(--color-accent);
+  outline: 2px solid rgba(194, 90, 26, 0.18);
 }
 
 .filter-grid {
@@ -389,7 +390,7 @@ textarea:focus {
 }
 
 .stats-grid div {
-  border: 1px solid #e4e9e1;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   display: grid;
   gap: 4px;
@@ -398,12 +399,12 @@ textarea:focus {
 }
 
 .stats-grid span {
-  color: #627067;
+  color: var(--color-muted-fg);
   font-size: 12px;
 }
 
 .stats-grid strong {
-  color: #17211b;
+  color: var(--color-primary);
   font-size: 24px;
   line-height: 1;
 }
@@ -420,14 +421,14 @@ table {
 
 th,
 td {
-  border-bottom: 1px solid #e4e9e1;
+  border-bottom: 1px solid var(--color-border);
   padding: 10px 8px;
   text-align: left;
   vertical-align: top;
 }
 
 th {
-  color: #4f5c53;
+  color: var(--color-muted-fg);
   font-size: 12px;
 }
 
@@ -443,7 +444,7 @@ th {
 }
 
 button.danger {
-  background: #8a2d2d;
+  background: var(--color-destructive);
 }
 
 .request-list {
@@ -452,14 +453,14 @@ button.danger {
 }
 
 .detail-panel {
-  border-top: 1px solid #e4e9e1;
+  border-top: 1px solid var(--color-border);
   display: grid;
   gap: 16px;
   padding-top: 16px;
 }
 
 .request-item {
-  border: 1px solid #e4e9e1;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   padding: 12px;
 }
@@ -472,12 +473,12 @@ button.danger {
 }
 
 .profile-grid div {
-  border-bottom: 1px solid #e4e9e1;
+  border-bottom: 1px solid var(--color-border);
   padding-bottom: 10px;
 }
 
 dt {
-  color: #627067;
+  color: var(--color-muted-fg);
   font-size: 12px;
   margin-bottom: 4px;
 }
@@ -488,7 +489,7 @@ dd {
 }
 
 code {
-  color: #314136;
+  color: var(--color-secondary);
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 12px;
   white-space: pre-wrap;
@@ -502,13 +503,13 @@ code {
 }
 
 .status {
-  background: #dceade;
-  color: #194925;
+  background: #eef6df;
+  color: var(--color-success);
 }
 
 .error {
-  background: #f7dddd;
-  color: #7d1c1c;
+  background: #fff1ef;
+  color: var(--color-destructive);
 }
 
 @media (max-width: 640px) {
