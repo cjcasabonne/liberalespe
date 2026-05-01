@@ -12,6 +12,7 @@ export interface Perfil {
   tipo_miembro: TipoMiembro;
   estado: EstadoUsuario;
   validado_manualmente: boolean;
+  creado_en?: string;
 }
 
 export type EstadoSolicitud = 'pendiente' | 'aprobada' | 'rechazada' | 'cancelada';
@@ -32,6 +33,16 @@ export interface SolicitudDesafiliacion {
   creado_en: string;
 }
 
+export interface SolicitudRecuperacion {
+  id: string;
+  dni: string;
+  telefono_contacto: string;
+  comentario_usuario: string | null;
+  perfil_id: string | null;
+  estado: EstadoSolicitud;
+  creado_en: string;
+}
+
 export interface AuditLog {
   id: string;
   actor_id: string | null;
@@ -40,4 +51,6 @@ export interface AuditLog {
   tabla: string;
   registro_id: string | null;
   creado_en: string;
+  antes?: unknown;
+  despues?: unknown;
 }

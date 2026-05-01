@@ -239,7 +239,7 @@ Condicion critica:
 No crear constraint SQL para:
 
 ```sql
-auth_email = 'dni-' || dni || '@auth.local'
+auth_email = 'dni-' || dni || '@liberalespe.example.com'
 ```
 
 Esa regla queda fuera de la base de datos.

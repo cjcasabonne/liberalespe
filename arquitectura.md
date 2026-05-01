@@ -243,7 +243,7 @@ Supabase Auth se mantiene como proveedor de sesion. Como Supabase Auth opera nat
 
 ```text
 dni: 12345678
-email interno: dni-12345678@auth.local
+email interno: dni-12345678@liberalespe.example.com
 ```
 
 Reglas:
@@ -262,7 +262,7 @@ Ejemplo conceptual:
 
 ```ts
 function dniToAuthEmail(dni: string) {
-  return `dni-${dni}@auth.local`;
+  return `dni-${dni}@liberalespe.example.com`;
 }
 ```
 
@@ -329,7 +329,7 @@ create table perfiles (
   creado_en timestamptz not null default now(),
   actualizado_en timestamptz not null default now(),
   constraint dni_formato check (dni ~ '^[0-9]{8}$'),
-  constraint auth_email_formato check (auth_email = 'dni-' || dni || '@auth.local')
+  constraint auth_email_formato check (auth_email = 'dni-' || dni || '@liberalespe.example.com')
 );
 ```
 

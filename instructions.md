@@ -72,7 +72,7 @@ Helper canonico:
 
 ```ts
 function dniToAuthEmail(dni: string) {
-  return `dni-${dni}@auth.local`;
+  return `dni-${dni}@liberalespe.example.com`;
 }
 ```
 

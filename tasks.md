@@ -85,7 +85,7 @@ Reglas de avance:
 
 - [ ] Confirmar que no existe constraint SQL para `auth_email`.
   - Regla: `auth_email` es derivado durante registro, no fuente de verdad.
-  - Verificacion: no hay constraint `auth_email = 'dni-' || dni || '@auth.local'`.
+  - Verificacion: no hay constraint que ate `auth_email` al DNI dentro de `perfiles`.
 
 - [ ] Agregar unicidad de `dni`.
   - Verificacion: la base rechaza DNI duplicado.
@@ -145,7 +145,7 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 - [ ] Crear policy para lectura de perfil propio.
   - Verificacion: usuario comun lee solo su `perfiles.id`.
 
-- [ ] Crear policy para actualizacion limitada del perfil propio.
+- [x] Crear policy para actualizacion limitada del perfil propio.
   - Verificacion: usuario puede actualizar telefono si esta permitido.
 
 - [ ] Bloquear cambios de campos sensibles por usuario comun.
@@ -180,8 +180,8 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
   - Verificacion: login correcto no cambia `validado_manualmente`, `tipo_miembro`, `estado` ni derechos politicos.
 
 - [ ] Implementar helper `dniToAuthEmail`.
-  - Regla: `dni-<dni>@auth.local`.
-  - Verificacion: `12345678` produce `dni-12345678@auth.local`.
+  - Regla: `dni-<dni>@liberalespe.example.com`.
+  - Verificacion: `12345678` produce `dni-12345678@liberalespe.example.com`.
 
 - [ ] Centralizar validacion de DNI.
   - Regla: 8 digitos numericos.
@@ -219,7 +219,7 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 - [ ] Bloquear uso de email real en UI.
   - Verificacion: no hay campo email en registro/login.
 
-- [ ] Definir recuperacion manual de acceso.
+- [x] Definir recuperacion manual de acceso.
   - Verificacion: no existe flujo automatico por email, magic link o SMS.
 
 ## Fase 5 — Integracion DNI
@@ -298,7 +298,7 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 - [ ] Manejar errores publicos neutrales.
   - Verificacion: errores no exponen estados internos ni detalles de RLS/Auth.
 
-- [ ] Implementar PWA base.
+- [x] Implementar PWA base.
   - Verificacion: build genera assets PWA.
 
 ## Fase 7 — Panel minimo
@@ -322,60 +322,60 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
   - Campos: `estado`, `tipo_miembro`, `rol_sistema`, `validado_manualmente`.
   - Verificacion: filtros no cargan padron completo.
 
-- [ ] Implementar vista de detalle de usuario.
+- [x] Implementar vista de detalle de usuario.
   - Verificacion: muestra estado, tipo, rol y validacion manual segun permisos.
 
-- [ ] Crear bandeja de solicitudes de afiliacion.
+- [x] Crear bandeja de solicitudes de afiliacion.
   - Verificacion: administrador/fundador ve solicitudes pendientes.
 
-- [ ] Implementar RPC `aprobar_afiliacion`.
+- [x] Implementar RPC `aprobar_afiliacion`.
   - Verificacion: solicitud pasa a aprobada y usuario queda `afiliado`.
 
-- [ ] Confirmar que aprobar afiliacion no usa update directo desde frontend.
+- [x] Confirmar que aprobar afiliacion no usa update directo desde frontend.
   - Verificacion: el cambio ocurre mediante RPC o mecanismo controlado en DB.
 
-- [ ] Implementar RPC `rechazar_afiliacion`.
+- [x] Implementar RPC `rechazar_afiliacion`.
   - Verificacion: solicitud pasa a rechazada con comentario.
 
-- [ ] Implementar RPC `anular_usuario`.
+- [x] Implementar RPC `anular_usuario`.
   - Verificacion: usuario pasa a `estado = anulado`.
 
-- [ ] Confirmar que anular cuenta no usa update directo desde frontend.
+- [x] Confirmar que anular cuenta no usa update directo desde frontend.
   - Verificacion: el cambio ocurre mediante RPC o mecanismo controlado en DB.
 
-- [ ] Bloquear acciones administrativas no permitidas.
+- [x] Bloquear acciones administrativas no permitidas.
   - Verificacion: usuario comun no puede ejecutar RPC administrativas.
 
-- [ ] Evitar carga completa de usuarios.
+- [x] Evitar carga completa de usuarios.
   - Verificacion: no existe query sin limite en listados.
 
 ## Fase 8 — Auditoria
 
-- [ ] Insertar auditoria al validar usuario.
+- [x] Insertar auditoria al validar usuario.
   - Verificacion: `audit_log` registra actor, sujeto, accion y cambios.
 
-- [ ] Insertar auditoria al aprobar afiliacion.
+- [x] Insertar auditoria al aprobar afiliacion.
   - Verificacion: `audit_log` registra cambio a `afiliado`.
 
-- [ ] Insertar auditoria al rechazar afiliacion.
+- [x] Insertar auditoria al rechazar afiliacion.
   - Verificacion: `audit_log` registra decision y comentario.
 
-- [ ] Insertar auditoria al anular cuenta.
+- [x] Insertar auditoria al anular cuenta.
   - Verificacion: `audit_log` registra cambio de estado.
 
-- [ ] Insertar auditoria al aprobar desafiliacion.
+- [x] Insertar auditoria al aprobar desafiliacion.
   - Verificacion: `audit_log` registra cambio a `desafiliado`.
 
-- [ ] Insertar auditoria al cambiar rol.
+- [x] Insertar auditoria al cambiar rol.
   - Verificacion: `audit_log` registra rol anterior y nuevo.
 
-- [ ] Insertar auditoria al resetear contrasena manualmente.
+- [x] Insertar auditoria al resetear contrasena manualmente.
   - Verificacion: `audit_log` registra operador, sujeto y motivo.
 
-- [ ] Crear vista administrativa de auditoria por usuario.
+- [x] Crear vista administrativa de auditoria por usuario.
   - Verificacion: administrador/fundador puede revisar trazabilidad.
 
-- [ ] Bloquear lectura de auditoria para usuario comun.
+- [x] Bloquear lectura de auditoria para usuario comun.
   - Verificacion: usuario comun no puede consultar `audit_log`.
 
 - [ ] Validar trazabilidad end-to-end.
@@ -408,32 +408,32 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 
 Esta fase prepara estructura futura. No habilita UI ni flujo de votacion en v1/v2.
 
-- [ ] Crear tabla `temas`.
+- [x] Crear tabla `temas`.
   - Verificacion: estructura creada aunque no se use en UI.
 
-- [ ] Crear tabla `votos`.
+- [x] Crear tabla `votos`.
   - Verificacion: existe relacion con `temas` y `perfiles`.
 
-- [ ] Definir constraint de voto unico.
+- [x] Definir constraint de voto unico.
   - Regla: un usuario no puede votar mas de una vez por tema.
   - Verificacion futura: `unique(usuario_id, tema_id)` o equivalente bloquea duplicados.
   - Nota: no implementar en la fase actual de kickoff.
 
-- [ ] Definir RLS basica para insertar votos.
+- [x] Definir RLS basica para insertar votos.
   - Regla: solo usuarios con `tipo_miembro = afiliado` y `estado = activo` pueden insertar votos.
   - Verificacion: adherente, anulado y desafiliado no pueden votar.
 
-- [ ] Bloquear updates de votos emitidos.
+- [x] Bloquear updates de votos emitidos.
   - Verificacion: un voto insertado no puede modificarse desde frontend.
 
-- [ ] Bloquear deletes de votos emitidos.
+- [x] Bloquear deletes de votos emitidos.
   - Verificacion: un voto insertado no puede borrarse desde frontend.
 
-- [ ] Registrar trazabilidad de votos.
+- [x] Registrar trazabilidad de votos.
   - Verificacion: emision de voto y cambios de estado de temas quedan auditados.
 
-- [ ] Confirmar que el frontend no decide elegibilidad de voto.
+- [x] Confirmar que el frontend no decide elegibilidad de voto.
   - Verificacion: intento no autorizado falla en RLS/RPC aunque la UI sea manipulada.
 
-- [ ] NO implementar UI de votacion.
+- [x] NO implementar UI de votacion.
   - Verificacion: no existe pantalla de votacion en frontend.
