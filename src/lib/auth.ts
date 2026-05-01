@@ -9,3 +9,7 @@ export function isValidDni(dni: string) {
 export function dniToAuthEmail(dni: string) {
   return `dni-${dni}@liberalespe.example.com`;
 }
+
+export function legacyDniToAuthEmail(dni: string) {
+  return `dni-${dni}@auth.local`;
+}

@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
-import { dniToAuthEmail, isValidDni, normalizeDni } from './lib/auth';
+import { dniToAuthEmail, isValidDni, legacyDniToAuthEmail, normalizeDni } from './lib/auth';
 import { supabase, supabaseConfigReady } from './lib/supabase';
 import { RegisterScreen } from './RegisterScreen';
 import type { AuditLog, Perfil, SolicitudAfiliacion, SolicitudDesafiliacion, SolicitudRecuperacion } from './types';
@@ -323,10 +323,22 @@ export default function App() {
     }
 
     setLoading(true);
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: dniToAuthEmail(dni),
-      password: loginPassword,
-    });
+    const authEmails = [dniToAuthEmail(dni), legacyDniToAuthEmail(dni)];
+    let signInError: unknown = null;
+
+    for (const email of authEmails) {
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password: loginPassword,
+      });
+
+      signInError = authError;
+      if (!authError) {
+        signInError = null;
+        break;
+      }
+    }
+
     setLoading(false);
 
     if (signInError) {
