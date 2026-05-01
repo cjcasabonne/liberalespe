@@ -17,6 +17,10 @@ function isStrongPassword(password: string) {
   return password.length >= 10 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /\d/.test(password);
 }
 
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 function passwordStrength(password: string) {
   if (!password) {
     return 0;
@@ -40,6 +44,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
   const [dni, setDni] = useState('');
   const [nombres, setNombres] = useState('');
   const [telefono, setTelefono] = useState('');
+  const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [dniLoading, setDniLoading] = useState(false);
@@ -114,6 +119,11 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
       return;
     }
 
+    if (!isValidEmail(correo.trim())) {
+      setError('Ingresa un correo de contacto valido.');
+      return;
+    }
+
     if (!isStrongPassword(password)) {
       setError('La contrasena debe tener al menos 10 caracteres, una mayuscula, una minuscula y un numero.');
       return;
@@ -140,6 +150,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
     const normalizedDni = normalizeDni(dni);
     const normalizedNames = nombres.trim().replace(/\s+/g, ' ');
     const normalizedPhone = telefono.trim();
+    const normalizedEmail = correo.trim().toLowerCase();
 
     const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
       email: dniToAuthEmail(normalizedDni),
@@ -160,6 +171,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
       dni: normalizedDni,
       nombres: normalizedNames.toUpperCase(),
       telefono: normalizedPhone || null,
+      correo_contacto: normalizedEmail,
     });
 
     setSubmitting(false);
@@ -250,6 +262,16 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
               />
             </label>
             <label>
+              Correo de contacto
+              <input
+                type="email"
+                value={correo}
+                onChange={(event) => setCorreo(event.target.value.trim().toLowerCase())}
+                autoComplete="email"
+                placeholder="nombre@correo.com"
+              />
+            </label>
+            <label>
               Contrasena
               <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="new-password" />
             </label>
@@ -295,6 +317,10 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
               <div>
                 <dt>Telefono</dt>
                 <dd>{telefono || '-'}</dd>
+              </div>
+              <div>
+                <dt>Correo</dt>
+                <dd>{correo}</dd>
               </div>
             </dl>
             {error ? <p className="register-error">{error}</p> : null}

@@ -8,6 +8,7 @@ export interface Perfil {
   dni: string;
   nombres: string;
   telefono: string | null;
+  correo_contacto: string | null;
   rol_sistema: RolSistema;
   tipo_miembro: TipoMiembro;
   estado: EstadoUsuario;

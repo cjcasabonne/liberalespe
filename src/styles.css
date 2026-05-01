@@ -443,6 +443,16 @@ th {
   padding: 0 10px;
 }
 
+.link-button {
+  background: transparent;
+  color: var(--color-accent);
+  min-height: auto;
+  overflow-wrap: anywhere;
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+}
+
 button.danger {
   background: var(--color-destructive);
 }

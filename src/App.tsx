@@ -22,6 +22,9 @@ type OperationalStats = {
 };
 
 const pageSize = 10;
+const perfilSelectColumns =
+  'id,user_id,dni,nombres,telefono,correo_contacto,rol_sistema,tipo_miembro,estado,validado_manualmente';
+const perfilSelectColumnsWithCreated = `${perfilSelectColumns},creado_en`;
 const emptyOperationalStats: OperationalStats = {
   pendingValidation: 0,
   pendingAffiliation: 0,
@@ -68,6 +71,7 @@ export default function App() {
   const [panelLoading, setPanelLoading] = useState(false);
 
   const isAdmin = profile?.estado === 'activo' && ['administrador', 'fundador'].includes(profile.rol_sistema);
+  const isFounder = profile?.estado === 'activo' && profile.rol_sistema === 'fundador';
   const selectedUser = adminUsers.find((user) => user.id === selectedUserId) ?? null;
 
   useEffect(() => {
@@ -131,7 +135,7 @@ export default function App() {
     setError('');
     const { data, error: profileError } = await supabase
       .from('perfiles')
-      .select('id,user_id,dni,nombres,telefono,rol_sistema,tipo_miembro,estado,validado_manualmente')
+      .select(perfilSelectColumns)
       .eq('user_id', session?.user.id)
       .single();
 
@@ -154,7 +158,7 @@ export default function App() {
 
     let usersQuery = supabase
       .from('perfiles')
-      .select('id,user_id,dni,nombres,telefono,rol_sistema,tipo_miembro,estado,validado_manualmente,creado_en', {
+      .select(perfilSelectColumnsWithCreated, {
         count: 'exact',
       })
       .order('creado_en', { ascending: false })
@@ -265,7 +269,7 @@ export default function App() {
 
     const { data: requestProfileData, error: requestProfileError } = await supabase
       .from('perfiles')
-      .select('id,user_id,dni,nombres,telefono,rol_sistema,tipo_miembro,estado,validado_manualmente,creado_en')
+      .select(perfilSelectColumnsWithCreated)
       .in('id', requestProfileIds);
 
     if (requestProfileError) {
@@ -347,6 +351,15 @@ export default function App() {
     }
 
     setStatus('Sesion iniciada.');
+  }
+
+  function openGmailCompose(correo: string | null) {
+    if (!correo) {
+      return;
+    }
+
+    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(correo)}`;
+    window.open(url, 'gmail-compose', 'popup=yes,width=760,height=720,noopener,noreferrer');
   }
 
   async function handleRecoveryRequest(event: FormEvent<HTMLFormElement>) {
@@ -953,6 +966,7 @@ export default function App() {
                   <tr>
                     <th>DNI</th>
                     <th>Nombres</th>
+                    {isFounder ? <th>Correo</th> : null}
                     <th>Rol</th>
                     <th>Tipo</th>
                     <th>Estado</th>
@@ -965,6 +979,17 @@ export default function App() {
                     <tr key={user.id}>
                       <td>{user.dni}</td>
                       <td>{user.nombres}</td>
+                      {isFounder ? (
+                        <td>
+                          {user.correo_contacto ? (
+                            <button className="link-button" type="button" onClick={() => openGmailCompose(user.correo_contacto)}>
+                              {user.correo_contacto}
+                            </button>
+                          ) : (
+                            '-'
+                          )}
+                        </td>
+                      ) : null}
                       <td>{user.rol_sistema}</td>
                       <td>{user.tipo_miembro}</td>
                       <td>{user.estado}</td>
@@ -1057,6 +1082,20 @@ export default function App() {
                     <dt>Telefono</dt>
                     <dd>{selectedUser.telefono ?? '-'}</dd>
                   </div>
+                  {isFounder ? (
+                    <div>
+                      <dt>Correo</dt>
+                      <dd>
+                        {selectedUser.correo_contacto ? (
+                          <button className="link-button" type="button" onClick={() => openGmailCompose(selectedUser.correo_contacto)}>
+                            {selectedUser.correo_contacto}
+                          </button>
+                        ) : (
+                          '-'
+                        )}
+                      </dd>
+                    </div>
+                  ) : null}
                   <div>
                     <dt>Creado</dt>
                     <dd>{selectedUser.creado_en ? new Date(selectedUser.creado_en).toLocaleString() : '-'}</dd>
