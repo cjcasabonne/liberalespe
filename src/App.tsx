@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { dniToAuthEmail, isValidDni, legacyDniToAuthEmail, normalizeDni } from './lib/auth';
 import { supabase, supabaseConfigReady } from './lib/supabase';
+import { ContactActions } from './ContactActions';
 import { RegisterScreen } from './RegisterScreen';
 import type { AuditLog, Perfil, SolicitudAfiliacion, SolicitudDesafiliacion, SolicitudRecuperacion } from './types';
 import './styles.css';
@@ -351,15 +352,6 @@ export default function App() {
     }
 
     setStatus('Sesion iniciada.');
-  }
-
-  function openGmailCompose(correo: string | null) {
-    if (!correo) {
-      return;
-    }
-
-    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(correo)}`;
-    window.open(url, 'gmail-compose', 'popup=yes,width=760,height=720,noopener,noreferrer');
   }
 
   async function handleRecoveryRequest(event: FormEvent<HTMLFormElement>) {
@@ -966,7 +958,6 @@ export default function App() {
                   <tr>
                     <th>DNI</th>
                     <th>Nombres</th>
-                    {isFounder ? <th>Correo</th> : null}
                     <th>Rol</th>
                     <th>Tipo</th>
                     <th>Estado</th>
@@ -979,17 +970,6 @@ export default function App() {
                     <tr key={user.id}>
                       <td>{user.dni}</td>
                       <td>{user.nombres}</td>
-                      {isFounder ? (
-                        <td>
-                          {user.correo_contacto ? (
-                            <button className="link-button" type="button" onClick={() => openGmailCompose(user.correo_contacto)}>
-                              {user.correo_contacto}
-                            </button>
-                          ) : (
-                            '-'
-                          )}
-                        </td>
-                      ) : null}
                       <td>{user.rol_sistema}</td>
                       <td>{user.tipo_miembro}</td>
                       <td>{user.estado}</td>
@@ -1029,6 +1009,7 @@ export default function App() {
                             Rol
                           </button>
                         ) : null}
+                        {isFounder ? <ContactActions email={user.correo_contacto} phone={user.telefono} /> : null}
                       </td>
                     </tr>
                   ))}
@@ -1082,17 +1063,11 @@ export default function App() {
                     <dt>Telefono</dt>
                     <dd>{selectedUser.telefono ?? '-'}</dd>
                   </div>
-                  {isFounder ? (
+                  {isFounder && (selectedUser.correo_contacto || selectedUser.telefono) ? (
                     <div>
-                      <dt>Correo</dt>
+                      <dt>Contacto</dt>
                       <dd>
-                        {selectedUser.correo_contacto ? (
-                          <button className="link-button" type="button" onClick={() => openGmailCompose(selectedUser.correo_contacto)}>
-                            {selectedUser.correo_contacto}
-                          </button>
-                        ) : (
-                          '-'
-                        )}
+                        <ContactActions email={selectedUser.correo_contacto} phone={selectedUser.telefono} />
                       </dd>
                     </div>
                   ) : null}

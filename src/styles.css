@@ -443,6 +443,42 @@ th {
   padding: 0 10px;
 }
 
+.contact-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.contact-action {
+  align-items: center;
+  background: var(--color-accent);
+  border-radius: 6px;
+  color: #fffdf8;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 650;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 10px;
+  text-decoration: none;
+}
+
+.contact-action span {
+  align-items: center;
+  background: rgba(255, 253, 248, 0.2);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 11px;
+  height: 20px;
+  justify-content: center;
+  min-width: 20px;
+}
+
+.contact-action-whatsapp {
+  background: #2f7d32;
+}
+
 .link-button {
   background: transparent;
   color: var(--color-accent);
