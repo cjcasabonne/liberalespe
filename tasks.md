@@ -449,3 +449,26 @@ Esta fase prepara estructura futura. No habilita UI ni flujo de votacion en v1/v
 
 - [x] NO implementar UI de votacion.
   - Verificacion: no existe pantalla de votacion en frontend.
+
+## Fase 10 — V2: robustez operativa y control
+
+- [x] Confirmar dashboards operativos basicos.
+  - Verificacion: el panel muestra pendientes de validacion, afiliacion, desafiliacion, recuperacion, usuarios activos y afiliados.
+
+- [x] Confirmar filtros operativos basicos.
+  - Verificacion: el panel filtra por DNI, estado, tipo, rol y validacion manual sin cargar todo el padron en memoria.
+
+- [x] Normalizar motivos administrativos en frontend.
+  - Verificacion: anulaciones, rechazos, desafiliaciones y correcciones operativas usan categorias de motivo con detalle opcional, sin cambiar RLS ni DB.
+
+- [x] Definir alertas operativas v2.
+  - Verificacion: documentar umbrales para actividad sospechosa antes de implementar UI o SQL.
+
+- [x] Diseñar pruebas automatizadas de RLS.
+  - Verificacion: definir usuarios fixture y comandos reproducibles sin afectar usuarios reales.
+
+- [x] Evaluar bitacora extendida con IP/user agent.
+  - Verificacion: decidir si se guarda en `audit_log` o en tabla separada sin exponer datos excesivos.
+
+- [x] Definir exportaciones controladas.
+  - Verificacion: alcance, permiso, justificacion y auditoria definidos antes de crear cualquier exportacion.

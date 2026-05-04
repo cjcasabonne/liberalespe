@@ -1049,6 +1049,58 @@ Posibles mejoras:
 - verificacion operativa adicional de telefono si el proceso interno lo requiere;
 - rate limiting mas formal para registro y DNI.
 
+#### Alertas operativas v2
+
+Las alertas deben orientar supervision, no bloquear automaticamente operaciones. Cualquier bloqueo real debe vivir en RLS, constraints o RPC.
+
+Umbrales iniciales recomendados:
+
+- validaciones pendientes: alerta si hay mas de 20 usuarios pendientes;
+- solicitudes de recuperacion: alerta si hay mas de 5 pendientes;
+- solicitudes de afiliacion o desafiliacion: alerta si una bandeja supera 10 pendientes;
+- cambios de rol: cualquier cambio de rol debe revisarse en auditoria reciente;
+- anulaciones: alerta si hay 3 o mas anulaciones en una misma jornada;
+- rechazos: alerta si se acumulan 5 o mas rechazos de afiliacion/desafiliacion en una jornada.
+
+Reglas:
+
+- las alertas son informativas en v2;
+- no deben enviar datos sensibles a servicios externos;
+- no deben reemplazar confirmaciones ni auditoria;
+- deben poder calcularse desde datos ya disponibles para administradores/fundador.
+
+#### Bitacora extendida v2
+
+La bitacora actual registra actor, sujeto, accion, tabla, registro y cambios. En v2 puede extenderse con contexto de request si aporta trazabilidad sin exponer datos excesivos.
+
+Decision inicial:
+
+- no agregar IP/user agent a la UI publica;
+- evaluar guardar contexto tecnico solo en `audit_log.despues` o en una tabla separada `audit_context`;
+- preferir tabla separada si el contexto crece o requiere politicas de retencion distintas;
+- no enviar IP/user agent a servicios externos;
+- no bloquear v2 por esta extension si las acciones criticas ya quedan auditadas.
+
+Campos candidatos:
+
+- user agent del navegador;
+- IP resuelta por Supabase/PostgREST si esta disponible;
+- origen de la accion: `frontend`, `rpc`, `system`;
+- version de app o commit si se incorpora en build futuro.
+
+#### Exportaciones controladas v2
+
+No debe existir exportacion masiva por defecto. Cualquier exportacion debe ser una accion administrativa trazable.
+
+Reglas minimas:
+
+- solo fundador puede exportar datos sensibles;
+- toda exportacion debe pedir justificacion;
+- toda exportacion debe registrar auditoria;
+- las exportaciones deben tener alcance acotado por filtros visibles;
+- DNI completo y datos de contacto solo se incluyen si el rol y el motivo lo justifican;
+- no crear CSV/descargas hasta tener RPC o funcion controlada que registre la accion.
+
 ### v3: Democracia directa y escalamiento funcional
 
 Objetivo: ampliar capacidades politicas sin reescribir la base.

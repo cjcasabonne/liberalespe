@@ -72,6 +72,60 @@ function formatAuditTable(table: string) {
   return labels[table] ?? table.replace(/_/g, ' ');
 }
 
+type ReasonOption = {
+  label: string;
+  detailLabel?: string;
+};
+
+const disaffiliationReasonOptions: ReasonOption[] = [
+  { label: 'Solicitud voluntaria del usuario', detailLabel: 'Detalle opcional de la solicitud' },
+  { label: 'Registro creado por error', detailLabel: 'Detalle opcional del error' },
+  { label: 'Cambio de situación personal', detailLabel: 'Detalle opcional' },
+  { label: 'Otro motivo', detailLabel: 'Describe el motivo' },
+];
+
+const annulmentReasonOptions: ReasonOption[] = [
+  { label: 'Datos inconsistentes', detailLabel: 'Detalle de la inconsistencia' },
+  { label: 'Registro duplicado', detailLabel: 'DNI o referencia del duplicado' },
+  { label: 'Uso indebido de cuenta', detailLabel: 'Detalle operativo' },
+  { label: 'Solicitud administrativa interna', detailLabel: 'Detalle de la solicitud' },
+  { label: 'Otro motivo', detailLabel: 'Describe el motivo' },
+];
+
+const rejectionReasonOptions: ReasonOption[] = [
+  { label: 'Información insuficiente', detailLabel: 'Qué información falta' },
+  { label: 'No cumple criterio operativo', detailLabel: 'Detalle del criterio' },
+  { label: 'Solicitud duplicada', detailLabel: 'Referencia opcional' },
+  { label: 'Solicitud enviada por error', detailLabel: 'Detalle opcional' },
+  { label: 'Otro motivo', detailLabel: 'Describe el motivo' },
+];
+
+const operationalCorrectionReasonOptions: ReasonOption[] = [
+  { label: 'Corrección solicitada por el usuario', detailLabel: 'Detalle de la solicitud' },
+  { label: 'Corrección por validación documental', detailLabel: 'Documento o referencia' },
+  { label: 'Corrección de digitación', detailLabel: 'Detalle del campo corregido' },
+  { label: 'Otro motivo', detailLabel: 'Describe el motivo' },
+];
+
+function promptNormalizedReason(title: string, options: ReasonOption[]) {
+  const choices = options.map((option, index) => `${index + 1}. ${option.label}`).join('\n');
+  const selected = window.prompt(`${title}\n\n${choices}\n\nEscribe el número de motivo.`)?.trim();
+
+  if (!selected) {
+    return null;
+  }
+
+  const selectedIndex = Number(selected) - 1;
+  const option = Number.isInteger(selectedIndex) ? options[selectedIndex] : null;
+
+  if (!option) {
+    return null;
+  }
+
+  const detail = window.prompt(option.detailLabel ?? 'Detalle opcional')?.trim();
+  return detail ? `${option.label}: ${detail}` : option.label;
+}
+
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Perfil | null>(null);
@@ -489,7 +543,7 @@ export default function App() {
       return;
     }
 
-    const motivo = window.prompt('Motivo de desafiliación')?.trim();
+    const motivo = promptNormalizedReason('Motivo de desafiliación', disaffiliationReasonOptions);
     if (!motivo) {
       setError('La solicitud de desafiliación requiere motivo.');
       return;
@@ -522,7 +576,7 @@ export default function App() {
 
     const params =
       action === 'anular_usuario'
-        ? { usuario_id: usuarioId, motivo: window.prompt('Motivo de anulación')?.trim() }
+        ? { usuario_id: usuarioId, motivo: promptNormalizedReason('Motivo de anulación', annulmentReasonOptions) }
         : { usuario_id: usuarioId, observacion: null };
 
     if (action === 'anular_usuario' && !params.motivo) {
@@ -567,7 +621,7 @@ export default function App() {
 
     const params =
       action === 'rechazar_afiliacion'
-        ? { solicitud_id: solicitudId, comentario: window.prompt('Comentario de rechazo')?.trim() }
+        ? { solicitud_id: solicitudId, comentario: promptNormalizedReason('Motivo de rechazo de afiliación', rejectionReasonOptions) }
         : { solicitud_id: solicitudId };
 
     if (action === 'rechazar_afiliacion' && !params.comentario) {
@@ -610,7 +664,9 @@ export default function App() {
     setStatus('');
 
     const comentario =
-      action === 'rechazar_desafiliacion' ? window.prompt('Comentario de rechazo')?.trim() : null;
+      action === 'rechazar_desafiliacion'
+        ? promptNormalizedReason('Motivo de rechazo de desafiliación', rejectionReasonOptions)
+        : null;
 
     if (action === 'rechazar_desafiliacion' && !comentario) {
       setError('El rechazo de desafiliación requiere comentario.');
@@ -753,7 +809,7 @@ export default function App() {
       return;
     }
 
-    const motivo = window.prompt('Motivo de corrección operativa')?.trim();
+    const motivo = promptNormalizedReason('Motivo de corrección operativa', operationalCorrectionReasonOptions);
     if (!motivo) {
       setError('La corrección operativa requiere motivo.');
       return;
