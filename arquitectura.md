@@ -1101,6 +1101,13 @@ Reglas minimas:
 - DNI completo y datos de contacto solo se incluyen si el rol y el motivo lo justifican;
 - no crear CSV/descargas hasta tener RPC o funcion controlada que registre la accion.
 
+Implementacion v2:
+
+- el frontend ofrece `Exportar CSV` solo al fundador usando la condicion de UI existente;
+- se exporta unicamente la pagina visible del panel, ya acotada por filtros;
+- `registrar_exportacion_usuarios` valida fundador en base de datos y registra `audit_log`;
+- si la auditoria falla, no se genera descarga.
+
 ### v3: Democracia directa y escalamiento funcional
 
 Objetivo: ampliar capacidades politicas sin reescribir la base.

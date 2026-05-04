@@ -475,3 +475,6 @@ Esta fase prepara estructura futura. No habilita UI ni flujo de votacion en v1/v
 
 - [x] Definir exportaciones controladas.
   - Verificacion: alcance, permiso, justificacion y auditoria definidos antes de crear cualquier exportacion.
+
+- [x] Implementar exportacion CSV controlada para fundador.
+  - Verificacion: exporta solo usuarios visibles con filtros aplicados, exige justificacion, registra `audit_log` mediante RPC controlada y no modifica RLS.

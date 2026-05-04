@@ -59,6 +59,7 @@ function formatAuditAction(action: string) {
     rechazar_afiliacion: 'Rechazar afiliación',
     rechazar_desafiliacion: 'Rechazar desafiliación',
     resolver_recuperacion: 'Resolver recuperación',
+    exportar_usuarios_filtrados: 'Exportar usuarios filtrados',
     validar_usuario: 'Validar usuario',
   };
 
@@ -75,6 +76,50 @@ function formatAuditTable(table: string) {
   };
 
   return labels[table] ?? table.replace(/_/g, ' ');
+}
+
+function escapeCsvValue(value: string | number | boolean | null | undefined) {
+  const text = value === null || value === undefined ? '' : String(value);
+  return `"${text.replace(/"/g, '""')}"`;
+}
+
+function buildUsersCsv(users: Perfil[]) {
+  const headers = [
+    'DNI',
+    'Nombres',
+    'Teléfono',
+    'Correo de contacto',
+    'Rol',
+    'Tipo',
+    'Estado',
+    'Validación manual',
+    'Creado en',
+  ];
+  const rows = users.map((user) => [
+    user.dni,
+    user.nombres,
+    user.telefono ?? '',
+    user.correo_contacto ?? '',
+    user.rol_sistema,
+    user.tipo_miembro,
+    user.estado,
+    user.validado_manualmente ? 'validado' : 'pendiente',
+    user.creado_en ? new Date(user.creado_en).toLocaleString('es-PE') : '',
+  ]);
+
+  return [headers, ...rows].map((row) => row.map(escapeCsvValue).join(',')).join('\r\n');
+}
+
+function downloadCsv(filename: string, csv: string) {
+  const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
 }
 
 type ReasonOption = {
@@ -919,6 +964,63 @@ export default function App() {
     await loadProfile();
   }
 
+  async function handleFilteredUsersExport() {
+    if (!supabase || !isFounder || !session?.user) {
+      return;
+    }
+
+    setError('');
+    setStatus('');
+
+    if (adminUsers.length === 0) {
+      setError('No hay usuarios visibles para exportar.');
+      return;
+    }
+
+    const justificacion = window.prompt('Justificación de la exportación')?.trim();
+    if (!justificacion) {
+      setError('La exportación requiere justificación.');
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `Confirmar exportación de ${adminUsers.length} usuario(s) visibles en la página actual.`,
+    );
+    if (!confirmed) {
+      return;
+    }
+
+    const filters = {
+      dni: normalizeDni(adminDniFilter) || 'todos',
+      estado: adminEstadoFilter,
+      tipo: adminTipoFilter,
+      rol: adminRolFilter,
+      validacion: adminValidationFilter,
+      pagina: adminPage + 1,
+      registros_visibles: adminUsers.length,
+      total_filtrado: adminUserCount,
+    };
+
+    setPanelLoading(true);
+    const { error: auditError } = await supabase.rpc('registrar_exportacion_usuarios', {
+      justificacion,
+      filtros: filters,
+      cantidad: adminUsers.length,
+    });
+    setPanelLoading(false);
+
+    if (auditError) {
+      setError('No se pudo auditar la exportación. No se descargó ningún archivo.');
+      return;
+    }
+
+    const csv = buildUsersCsv(adminUsers);
+    const date = new Date().toISOString().slice(0, 10);
+    downloadCsv(`usuarios-filtrados-${date}.csv`, csv);
+    setStatus('Exportación auditada y descargada.');
+    await loadPanelData();
+  }
+
   async function handleLogout() {
     if (!supabase) {
       return;
@@ -1012,7 +1114,19 @@ export default function App() {
           <section className="panel admin-panel">
             <div className="panel-heading">
               <h2>Panel operativo</h2>
-              <span>{panelLoading ? 'Cargando...' : `${adminUserCount} registros`}</span>
+              <div className="panel-heading-actions">
+                <span>{panelLoading ? 'Cargando...' : `${adminUserCount} registros`}</span>
+                {isFounder ? (
+                  <button
+                    className="secondary"
+                    type="button"
+                    disabled={panelLoading || adminUsers.length === 0}
+                    onClick={handleFilteredUsersExport}
+                  >
+                    Exportar CSV
+                  </button>
+                ) : null}
+              </div>
             </div>
 
             <div className="stats-grid" aria-label="Resumen operativo">

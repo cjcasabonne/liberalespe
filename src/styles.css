@@ -146,6 +146,19 @@ h2 {
   font-size: 13px;
 }
 
+.panel-heading-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.panel-heading-actions button {
+  min-height: 34px;
+  padding: 0 12px;
+}
+
 .form {
   display: grid;
   gap: 14px;
