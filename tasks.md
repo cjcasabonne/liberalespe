@@ -164,7 +164,7 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 - [x] Bloquear update/delete directo de `audit_log`.
   - Verificacion: cliente no puede modificar ni borrar auditoria.
 
-- [ ] Probar matriz de permisos.
+- [x] Probar matriz de permisos.
   - Casos: usuario comun, administrador, fundador.
   - Verificacion: cada rol ve solo lo permitido.
 
@@ -355,6 +355,9 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 - [x] Confirmar que contacto no usa popups ni Gmail web.
   - Verificacion: no existe `window.open`, Gmail ni `mail.google` en `src`.
 
+- [x] Revisar castellano visible del sitio.
+  - Verificacion: textos visibles usan tildes, signos de apertura y `ñ`; React renderiza UTF-8 correctamente y no se usan entidades HTML dentro de strings.
+
 ## Fase 8 — Auditoria
 
 - [x] Insertar auditoria al validar usuario.
@@ -384,24 +387,24 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 - [x] Bloquear lectura de auditoria para usuario comun.
   - Verificacion: usuario comun no puede consultar `audit_log`.
 
-- [ ] Validar trazabilidad end-to-end.
+- [x] Validar trazabilidad end-to-end.
   - Verificacion: toda accion critica deja registro completo.
 
 ## Cierre de implementacion
 
-- [ ] Ejecutar pruebas manuales de RLS.
+- [x] Ejecutar pruebas manuales de RLS.
   - Verificacion: usuario comun, administrador y fundador tienen permisos correctos.
 
 - [x] Ejecutar prueba de registro con servicio DNI activo.
   - Verificacion: `POST /api/buscar-dni` con DNI provisto respondio con nombre usable; no se creo cuenta de prueba para no afectar usuarios existentes.
 
-- [ ] Ejecutar prueba de registro con servicio DNI fallando.
+- [x] Ejecutar prueba de registro con servicio DNI fallando.
   - Verificacion: fallback manual permite crear cuenta.
 
-- [ ] Ejecutar prueba de DNI duplicado.
+- [x] Ejecutar prueba de DNI duplicado.
   - Verificacion: mensaje neutral y sin exposicion de estado interno.
 
-- [ ] Ejecutar prueba de panel minimo.
+- [x] Ejecutar prueba de panel minimo.
   - Verificacion: listar, aprobar afiliacion y anular cuenta funcionan con auditoria.
 
 - [x] Configurar deploy en Cloudflare Pages.

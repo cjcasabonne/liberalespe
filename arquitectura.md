@@ -751,6 +751,18 @@ Reglas:
 - telefono normalizado a Peru con prefijo `51`;
 - visibilidad basada en la misma condicion de fundador que ya protege datos sensibles en UI.
 
+### Castellano y codificacion de textos
+
+La interfaz debe mostrarse en castellano correcto, con tildes, `ñ` y signos de apertura donde correspondan.
+
+Reglas:
+
+- `index.html` debe mantener `UTF-8`;
+- JSX puede usar caracteres Unicode reales directamente;
+- strings TypeScript deben usar caracteres reales, no entidades como `&iacute;`, porque React renderizaria la entidad como texto literal;
+- no cambiar nombres tecnicos de tablas, columnas, enums ni RPC para corregir textos visibles;
+- cuando se muestre auditoria o nombres tecnicos al operador, traducirlos solo en la capa visual.
+
 ## 9. Trazabilidad
 
 Toda accion critica debe registrar:

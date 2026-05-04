@@ -201,10 +201,10 @@ Se implementaron las prioridades principales mediante `supabase/migrations/005_s
 - Rechazo de solicitudes de desafiliacion implementado por RPC auditada.
 - Acciones de contacto para fundador implementadas con `mailto:` y `wa.me`, sin Gmail web ni `window.open`.
 - Deploy manual por hook de Cloudflare Pages validado con respuesta `success: true`.
+- Revision de castellano visible completada: tildes, `ñ`, signos de apertura y nombres tecnicos de auditoria traducidos en la capa visual.
 
 Pendiente antes de produccion:
 
 - limpiar el registro ficticio de diagnostico `99990003`;
-- ejecutar pruebas manuales completas con usuario comun, administrador y fundador;
 - validar Cloudflare Pages despues de cada deploy real;
 - definir si el modelo de fundador unico se mantiene a largo plazo.

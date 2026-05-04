@@ -124,19 +124,30 @@ Implementado en el frontend actual:
 - Actualizacion de telefono propio permitida por RLS.
 - Acciones de contacto para fundador con enlaces nativos `mailto:` y `wa.me`, sin Gmail web ni `window.open`.
 - PWA base, headers, redirects y build estatico para Cloudflare Pages.
+- Revision de castellano visible: tildes, `ñ`, signos de apertura y textos de auditoria renderizados en UTF-8.
 
-Pendiente de validar antes de operar con datos reales:
+Validado manualmente para cierre v1:
 
-- Pruebas manuales completas de RLS con usuario comun, administrador y fundador.
-- Pruebas manuales del flujo DNI activo, DNI caido y DNI duplicado.
-- Validacion del deploy real en Cloudflare Pages despues de cada release.
-- Revision operativa de trazabilidad end-to-end.
+- RLS con usuario comun, administrador y fundador.
+- Flujo DNI activo, DNI caido y DNI duplicado.
+- Panel minimo y trazabilidad end-to-end.
+- Deploy real en Cloudflare Pages.
+
+Pendiente operativo recurrente:
+
+- Validar Cloudflare Pages despues de cada release.
 
 Nota para cuentas existentes:
 
 - Los ajustes finales de v1 son frontend/documentacion y no requieren recrear usuarios.
 - No se debe borrar ni reinsertar cuentas ya registradas para validar v1.
 - Cualquier prueba destructiva debe hacerse con cuentas de prueba identificadas y autorizadas.
+
+Nota de textos:
+
+- El sitio usa UTF-8 (`index.html` declara `<meta charset="UTF-8" />`).
+- En JSX y strings TypeScript se usan caracteres reales (`á`, `é`, `í`, `ó`, `ú`, `ñ`) porque React los renderiza correctamente.
+- No usar entidades HTML como `&iacute;` dentro de strings TypeScript; se mostrarian literalmente.
 
 ## Validacion operativa
 

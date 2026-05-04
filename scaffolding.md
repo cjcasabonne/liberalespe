@@ -522,10 +522,12 @@ Controles:
 
 ### Verificacion
 
-- [ ] Usuario comun no puede cambiar campos sensibles.
-- [ ] Usuario comun no puede leer otros perfiles.
-- [ ] Administrador puede revisar solicitudes.
-- [ ] Fundador controla roles administrativos.
+- [x] Usuario comun no puede cambiar campos sensibles.
+- [x] Usuario comun no puede leer otros perfiles.
+- [x] Administrador puede revisar solicitudes.
+- [x] Fundador controla roles administrativos.
+- [x] Castellano visible revisado.
+  - Verificacion: textos de la app usan tildes, `ñ` y signos de apertura; el build mantiene UTF-8.
 - [x] Acciones criticas generan `audit_log`.
 - [x] Falla del servicio DNI no bloquea registro.
 - [x] DNI duplicado no expone estado interno.
