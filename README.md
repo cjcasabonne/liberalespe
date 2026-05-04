@@ -27,11 +27,18 @@ VITE_SUPABASE_ANON_KEY=<anon-public-key>
 VITE_DNI_SERVICE_URL=https://busqueda-dni.onrender.com
 ```
 
+Variable operativa opcional para disparar deploy manual desde entorno local:
+
+```bash
+CLOUDFLARE_DEPLOY_HOOK_URL=<cloudflare-pages-deploy-hook>
+```
+
 Reglas:
 
 - Nunca usar `service_role` en frontend.
 - Nunca commitear `.env.local`.
 - Usar una sola URL canonica para el servicio DNI.
+- No commitear hooks reales de deploy.
 
 ## Desarrollo local
 
@@ -99,6 +106,37 @@ El repo incluye:
 - `public/_redirects` para fallback SPA.
 - `public/_headers` para headers basicos de seguridad.
 - `public/manifest.webmanifest` y `public/sw.js` para PWA base.
+
+Deploy manual:
+
+- Push a `main` dispara el pipeline Git configurado en Cloudflare Pages.
+- Si existe `CLOUDFLARE_DEPLOY_HOOK_URL` en `.env.local`, puede dispararse un deploy manual con `POST` al hook.
+
+## Estado actual sincronizado
+
+Implementado en el frontend actual:
+
+- Registro y login con DNI + contrasena mediante email tecnico interno.
+- Integracion con Supabase Auth, RLS y RPC administrativas.
+- Perfil propio, solicitudes operativas y panel basico para administradores/fundador.
+- Listado paginado de usuarios, filtros, detalle de usuario y auditoria por usuario.
+- Recuperacion manual de acceso.
+- Actualizacion de telefono propio permitida por RLS.
+- Acciones de contacto para fundador con enlaces nativos `mailto:` y `wa.me`, sin Gmail web ni `window.open`.
+- PWA base, headers, redirects y build estatico para Cloudflare Pages.
+
+Pendiente de validar antes de operar con datos reales:
+
+- Pruebas manuales completas de RLS con usuario comun, administrador y fundador.
+- Pruebas manuales del flujo DNI activo, DNI caido y DNI duplicado.
+- Validacion del deploy real en Cloudflare Pages despues de cada release.
+- Revision operativa de trazabilidad end-to-end.
+
+Nota para cuentas existentes:
+
+- Los ajustes finales de v1 son frontend/documentacion y no requieren recrear usuarios.
+- No se debe borrar ni reinsertar cuentas ya registradas para validar v1.
+- Cualquier prueba destructiva debe hacerse con cuentas de prueba identificadas y autorizadas.
 
 ## Validacion operativa
 

@@ -593,7 +593,7 @@ Response degradada:
 
 El frontend debe:
 
-- aplicar timeout de 2 a 3 segundos;
+- aplicar timeout de 12 segundos para tolerar cold start de Render;
 - mostrar captura manual obligatoria si falla, demora demasiado o responde degradado;
 - activar fallback manual cuando haya error, timeout o respuesta degradada;
 - mostrar estado de carga mientras espera respuesta;
@@ -727,6 +727,7 @@ Acciones:
 - anular;
 - cambiar rol segun permisos;
 - corregir datos auditados.
+- contactar por correo o WhatsApp cuando la base entregue datos de contacto al fundador.
 
 ### Reglas operativas
 
@@ -735,6 +736,20 @@ Acciones:
 - Acciones de alto riesgo deben requerir confirmacion explicita.
 - Cambios masivos deben evitarse en v1 salvo que existan controles y auditoria robusta.
 - El panel debe priorizar busqueda, filtros y resolucion de pendientes.
+
+### Acciones de contacto
+
+El contacto operativo es una comodidad de UI, no una regla de autorizacion. El frontend solo renderiza los datos que recibe desde Supabase bajo RLS/policies existentes.
+
+Reglas:
+
+- no usar Gmail web;
+- no usar `window.open`;
+- no usar APIs externas para enviar mensajes;
+- correo mediante `mailto:`;
+- WhatsApp mediante `https://wa.me/<telefono>?text=<mensaje>`;
+- telefono normalizado a Peru con prefijo `51`;
+- visibilidad basada en la misma condicion de fundador que ya protege datos sensibles en UI.
 
 ## 9. Trazabilidad
 
@@ -901,6 +916,8 @@ git push
   -> merge a main
   -> deploy produccion
 ```
+
+El deploy tambien puede dispararse por hook de Cloudflare Pages cuando exista `CLOUDFLARE_DEPLOY_HOOK_URL` en el entorno local o de CI. El hook real no debe versionarse.
 
 ### Supabase
 

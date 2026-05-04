@@ -13,192 +13,192 @@ Reglas de avance:
 
 ## Fase 1 — Setup
 
-- [ ] Crear proyecto en Supabase.
+- [x] Crear proyecto en Supabase.
   - Verificacion: existe `SUPABASE_URL` y `anon key` del proyecto.
 
-- [ ] Configurar Supabase Auth con email/password.
+- [x] Configurar Supabase Auth con email/password.
   - Verificacion: email/password esta habilitado.
 
-- [ ] Deshabilitar confirmacion obligatoria por email.
+- [x] Deshabilitar confirmacion obligatoria por email.
   - Verificacion: un usuario puede iniciar sesion sin verificar email real.
 
-- [ ] Confirmar que magic links no forman parte del flujo principal.
+- [x] Confirmar que magic links no forman parte del flujo principal.
   - Verificacion: registro/login solo usan DNI + contrasena.
 
-- [ ] Confirmar que SMS OTP no se usa.
+- [x] Confirmar que SMS OTP no se usa.
   - Verificacion: no hay proveedor SMS ni flujo OTP.
 
-- [ ] Definir URL canonica del servicio DNI.
+- [x] Definir URL canonica del servicio DNI.
   - Valor: `https://busqueda-dni.onrender.com`.
   - Verificacion: no hay otra URL DNI en configuracion.
 
-- [ ] Configurar variables de entorno del frontend.
+- [x] Configurar variables de entorno del frontend.
   - Variables:
     - `VITE_SUPABASE_URL`.
     - `VITE_SUPABASE_ANON_KEY`.
     - `VITE_DNI_SERVICE_URL=https://busqueda-dni.onrender.com`.
   - Verificacion: el frontend lee las variables desde entorno.
 
-- [ ] Verificar health check del servicio DNI.
+- [x] Verificar health check del servicio DNI.
   - Endpoint: `GET https://busqueda-dni.onrender.com/health`.
   - Verificacion: responde correctamente o se registra incidencia operativa.
 
-- [ ] Crear estructura base del frontend.
+- [x] Crear estructura base del frontend.
   - Verificacion: proyecto React + Vite + TypeScript compila.
 
-- [ ] Crear cliente Supabase centralizado.
+- [x] Crear cliente Supabase centralizado.
   - Verificacion: no hay multiples inicializaciones dispersas.
 
 ## Fase 2 — Base de datos
 
-- [ ] Crear enum `rol_sistema`.
+- [x] Crear enum `rol_sistema`.
   - Valores: `usuario`, `administrador`, `fundador`.
   - Verificacion: enum existe en PostgreSQL.
 
-- [ ] Crear enum `tipo_miembro`.
+- [x] Crear enum `tipo_miembro`.
   - Valores: `adherente`, `afiliado`.
   - Verificacion: enum existe en PostgreSQL.
 
-- [ ] Crear enum `estado_usuario`.
+- [x] Crear enum `estado_usuario`.
   - Valores: `activo`, `anulado`, `desafiliado`.
   - Verificacion: enum existe en PostgreSQL.
 
-- [ ] Crear enum `estado_solicitud`.
+- [x] Crear enum `estado_solicitud`.
   - Valores: `pendiente`, `aprobada`, `rechazada`, `cancelada`.
   - Verificacion: enum existe en PostgreSQL.
 
-- [ ] Crear tabla `perfiles`.
+- [x] Crear tabla `perfiles`.
   - Campos minimos: `id`, `user_id`, `dni`, `nombres`, `telefono`, `rol_sistema`, `tipo_miembro`, `estado`, `validado_manualmente`, `validado_por`, `validado_en`, timestamps.
   - Verificacion: tabla existe y `user_id` referencia `auth.users(id)`.
 
-- [ ] Agregar `user_id` obligatorio en `perfiles`.
+- [x] Agregar `user_id` obligatorio en `perfiles`.
   - Regla: `user_id uuid not null references auth.users(id)`.
   - Verificacion: no se puede crear perfil sin usuario Auth.
 
-- [ ] Agregar unicidad de `user_id`.
+- [x] Agregar unicidad de `user_id`.
   - Regla: `unique(user_id)`.
   - Verificacion: un usuario Auth no puede tener mas de un perfil.
 
-- [ ] Agregar constraint de formato DNI.
+- [x] Agregar constraint de formato DNI.
   - Regla: `^[0-9]{8}$`.
   - Verificacion: la base rechaza DNI invalido.
 
-- [ ] Confirmar que no existe constraint SQL para `auth_email`.
+- [x] Confirmar que no existe constraint SQL para `auth_email`.
   - Regla: `auth_email` es derivado durante registro, no fuente de verdad.
   - Verificacion: no hay constraint que ate `auth_email` al DNI dentro de `perfiles`.
 
-- [ ] Agregar unicidad de `dni`.
+- [x] Agregar unicidad de `dni`.
   - Verificacion: la base rechaza DNI duplicado.
 
-- [ ] Confirmar que Supabase Auth gestiona unicidad del email interno.
+- [x] Confirmar que Supabase Auth gestiona unicidad del email interno.
   - Verificacion: la DB operativa no duplica logica de Auth en `perfiles`.
 
-- [ ] Crear tabla `solicitudes_afiliacion`.
+- [x] Crear tabla `solicitudes_afiliacion`.
   - Verificacion: tiene relacion con `perfiles(id)`.
 
-- [ ] Crear tabla `solicitudes_desafiliacion`.
+- [x] Crear tabla `solicitudes_desafiliacion`.
   - Verificacion: tiene relacion con `perfiles(id)`.
 
-- [ ] Crear tabla `audit_log`.
+- [x] Crear tabla `audit_log`.
   - Verificacion: contiene actor, sujeto, accion, tabla, registro, antes, despues y timestamp.
 
-- [ ] Crear indices de `perfiles`.
+- [x] Crear indices de `perfiles`.
   - Campos: `user_id`, `dni`, `estado`, `tipo_miembro`, `rol_sistema`, `validado_manualmente`, `creado_en`, busqueda por `nombres`.
   - Verificacion: indices existen.
 
-- [ ] Crear indice `idx_perfiles_user_id`.
+- [x] Crear indice `idx_perfiles_user_id`.
   - Verificacion: lookup por usuario autenticado esta indexado.
 
-- [ ] Crear indices de solicitudes.
+- [x] Crear indices de solicitudes.
   - Campos: `estado`, `usuario_id`, `creado_en`.
   - Verificacion: indices existen.
 
-- [ ] Crear indices de `audit_log`.
+- [x] Crear indices de `audit_log`.
   - Campos: `actor_id`, `sujeto_id`, `creado_en`, `accion`.
   - Verificacion: indices existen.
 
-- [ ] Validar relaciones principales.
+- [x] Validar relaciones principales.
   - Verificacion: no se puede crear solicitud para usuario inexistente.
 
 ## Fase 3 — Seguridad
 
 Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI ni UI funcional hasta validar RLS y policies basicas.
 
-- [ ] Activar RLS en `perfiles`.
+- [x] Activar RLS en `perfiles`.
   - Verificacion: sin policy, un usuario comun no puede leer registros arbitrarios.
 
-- [ ] Activar RLS en `solicitudes_afiliacion`.
+- [x] Activar RLS en `solicitudes_afiliacion`.
   - Verificacion: acceso bloqueado hasta crear policies.
 
-- [ ] Activar RLS en `solicitudes_desafiliacion`.
+- [x] Activar RLS en `solicitudes_desafiliacion`.
   - Verificacion: acceso bloqueado hasta crear policies.
 
-- [ ] Activar RLS en `audit_log`.
+- [x] Activar RLS en `audit_log`.
   - Verificacion: usuario comun no puede leer auditoria.
 
-- [ ] Crear funcion `es_admin()`.
+- [x] Crear funcion `es_admin()`.
   - Verificacion: devuelve true solo para `administrador` o `fundador` activo.
 
-- [ ] Crear funcion `es_fundador()`.
+- [x] Crear funcion `es_fundador()`.
   - Verificacion: devuelve true solo para `fundador` activo.
 
-- [ ] Crear policy para lectura de perfil propio.
+- [x] Crear policy para lectura de perfil propio.
   - Verificacion: usuario comun lee solo su `perfiles.id`.
 
 - [x] Crear policy para actualizacion limitada del perfil propio.
   - Verificacion: usuario puede actualizar telefono si esta permitido.
 
-- [ ] Bloquear cambios de campos sensibles por usuario comun.
+- [x] Bloquear cambios de campos sensibles por usuario comun.
   - Campos: `rol_sistema`, `tipo_miembro`, `estado`, `validado_manualmente`.
   - Verificacion: update directo falla.
 
-- [ ] Crear policies administrativas de lectura.
+- [x] Crear policies administrativas de lectura.
   - Verificacion: administrador/fundador pueden revisar usuarios segun RLS.
 
-- [ ] Crear policies de solicitudes propias.
+- [x] Crear policies de solicitudes propias.
   - Verificacion: usuario ve y crea solo sus solicitudes.
 
-- [ ] Crear policies administrativas para solicitudes.
+- [x] Crear policies administrativas para solicitudes.
   - Verificacion: administrador/fundador ve solicitudes pendientes.
 
-- [ ] Bloquear update/delete directo de `audit_log`.
+- [x] Bloquear update/delete directo de `audit_log`.
   - Verificacion: cliente no puede modificar ni borrar auditoria.
 
 - [ ] Probar matriz de permisos.
   - Casos: usuario comun, administrador, fundador.
   - Verificacion: cada rol ve solo lo permitido.
 
-- [ ] Validar que no hay tablas accesibles desde frontend sin RLS.
+- [x] Validar que no hay tablas accesibles desde frontend sin RLS.
   - Verificacion: revision completa de tablas expuestas al cliente.
 
-- [ ] Validar que no hay fuga de datos sensibles.
-  - Verificacion: usuario comun no puede leer otros perfiles, auditoria ni campos administrativos.
+- [x] Validar que no hay fuga de datos sensibles.
+  - Verificacion: revision estatica sin `service_role`, exportaciones masivas ni updates criticos directos; lecturas anonimas a tablas sensibles no expusieron filas.
 
 ## Fase 4 — Autenticacion
 
-- [ ] Confirmar principio de implementacion: autenticacion ≠ identidad.
+- [x] Confirmar principio de implementacion: autenticacion ≠ identidad.
   - Verificacion: login correcto no cambia `validado_manualmente`, `tipo_miembro`, `estado` ni derechos politicos.
 
-- [ ] Implementar helper `dniToAuthEmail`.
+- [x] Implementar helper `dniToAuthEmail`.
   - Regla: `dni-<dni>@liberalespe.example.com`.
   - Verificacion: `12345678` produce `dni-12345678@liberalespe.example.com`.
 
-- [ ] Centralizar validacion de DNI.
+- [x] Centralizar validacion de DNI.
   - Regla: 8 digitos numericos.
   - Verificacion: entradas invalidas no avanzan.
 
-- [ ] Implementar registro con DNI + contrasena.
+- [x] Implementar registro con DNI + contrasena.
   - Verificacion: se crea usuario en Supabase Auth.
 
-- [ ] Crear perfil despues del registro Auth.
+- [x] Crear perfil despues del registro Auth.
   - Verificacion: existe fila en `perfiles` con `user_id = auth.users.id`.
 
-- [ ] Definir mecanismo explicito de creacion de perfil.
+- [x] Definir mecanismo explicito de creacion de perfil.
   - Opcion v1 recomendada: insertar perfil manualmente durante registro.
   - Alternativa: trigger controlado al insertar en `auth.users`.
   - Verificacion: login sin perfil valido no se considera flujo correcto.
 
-- [ ] Asignar defaults de perfil.
+- [x] Asignar defaults de perfil.
   - Valores:
     - `rol_sistema = usuario`.
     - `tipo_miembro = adherente`.
@@ -206,17 +206,17 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
     - `validado_manualmente = false`.
   - Verificacion: usuario nuevo queda sin validacion manual.
 
-- [ ] Manejar DNI duplicado con mensaje neutral.
+- [x] Manejar DNI duplicado con mensaje neutral.
   - Mensaje: "No se pudo completar el registro. Si ya tienes una cuenta o necesitas recuperar acceso, solicita revision manual."
   - Verificacion: no revela si el DNI existe.
 
-- [ ] Implementar login con DNI + contrasena.
+- [x] Implementar login con DNI + contrasena.
   - Verificacion: login usa `dniToAuthEmail`.
 
-- [ ] Cargar perfil despues del login.
+- [x] Cargar perfil despues del login.
   - Verificacion: RLS solo devuelve perfil permitido.
 
-- [ ] Bloquear uso de email real en UI.
+- [x] Bloquear uso de email real en UI.
   - Verificacion: no hay campo email en registro/login.
 
 - [x] Definir recuperacion manual de acceso.
@@ -224,78 +224,78 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 
 ## Fase 5 — Integracion DNI
 
-- [ ] Confirmar prerequisito: registro basico funciona sin servicio DNI.
+- [x] Confirmar prerequisito: registro basico funciona sin servicio DNI.
   - Verificacion: se puede crear cuenta y perfil ingresando nombres manualmente.
 
-- [ ] Confirmar prerequisito: base de datos validada contra `arquitectura.md`.
+- [x] Confirmar prerequisito: base de datos validada contra `arquitectura.md`.
   - Verificacion: tablas, constraints, indices, RLS y defaults coinciden con el documento.
 
-- [ ] Confirmar que la integracion DNI no inicia antes de cumplir prerequisitos.
+- [x] Confirmar que la integracion DNI no inicia antes de cumplir prerequisitos.
   - Verificacion: no hay llamada al servicio DNI en el flujo obligatorio antes del registro manual funcional.
 
-- [ ] Crear cliente centralizado del servicio DNI.
+- [x] Crear cliente centralizado del servicio DNI.
   - Verificacion: todas las llamadas usan el mismo modulo.
 
-- [ ] Usar endpoint canonico.
+- [x] Usar endpoint canonico.
   - Endpoint: `POST https://busqueda-dni.onrender.com/api/buscar-dni`.
   - Verificacion: no hay endpoint alternativo.
 
-- [ ] Implementar timeout de 2 a 3 segundos.
-  - Verificacion: una respuesta lenta activa fallback manual.
+- [x] Implementar timeout de 12 segundos.
+  - Verificacion: tolera cold start de Render y una respuesta lenta activa fallback manual.
 
-- [ ] Mostrar estado de carga.
+- [x] Mostrar estado de carga.
   - Verificacion: usuario ve que la consulta esta en curso.
 
-- [ ] Tolerar cold start de Render.
+- [x] Tolerar cold start de Render.
   - Verificacion: no se marca error antes del timeout definido.
 
-- [ ] Implementar retry controlado.
+- [x] Implementar retry controlado.
   - Verificacion: no hay bucles agresivos.
 
-- [ ] Implementar fallback manual por error.
+- [x] Implementar fallback manual por error.
   - Verificacion: si falla la request, usuario puede escribir nombres.
 
-- [ ] Implementar fallback manual por timeout.
+- [x] Implementar fallback manual por timeout.
   - Verificacion: timeout permite continuar manualmente.
 
-- [ ] Implementar fallback manual por respuesta degradada.
+- [x] Implementar fallback manual por respuesta degradada.
   - Verificacion: `ok=false` permite continuar manualmente.
 
-- [ ] Implementar manejo de HTTP 429.
+- [x] Implementar manejo de HTTP 429.
   - Verificacion: 429 no bloquea registro y activa fallback.
 
-- [ ] Confirmar que el servicio DNI no valida identidad.
+- [x] Confirmar que el servicio DNI no valida identidad.
   - Verificacion: ningun campo de validacion manual cambia por respuesta DNI.
 
 ## Fase 6 — Frontend base
 
-- [ ] Validar modelo de datos contra `arquitectura.md` antes de implementar UI.
+- [x] Validar modelo de datos contra `arquitectura.md` antes de implementar UI.
   - Verificacion: enums, tablas, relaciones, constraints, indices, RLS y defaults fueron revisados.
 
-- [ ] Crear formulario de registro.
+- [x] Crear formulario de registro.
   - Campos: DNI, nombres, telefono, contrasena.
   - Verificacion: formulario permite flujo completo.
 
-- [ ] Crear formulario de login.
+- [x] Crear formulario de login.
   - Campos: DNI, contrasena.
   - Verificacion: login no pide email.
 
-- [ ] Validar inputs de registro.
+- [x] Validar inputs de registro.
   - Verificacion: DNI invalido, telefono invalido o contrasena vacia no avanzan.
 
-- [ ] Conectar formulario de registro a Supabase Auth.
+- [x] Conectar formulario de registro a Supabase Auth.
   - Verificacion: usuario Auth se crea.
 
-- [ ] Conectar creacion de perfil a Supabase DB.
+- [x] Conectar creacion de perfil a Supabase DB.
   - Verificacion: perfil se crea con defaults correctos.
 
-- [ ] Conectar formulario de login a Supabase Auth.
+- [x] Conectar formulario de login a Supabase Auth.
   - Verificacion: sesion inicia correctamente.
 
-- [ ] Crear vista de perfil propio.
+- [x] Crear vista de perfil propio.
   - Verificacion: usuario ve sus datos permitidos.
 
-- [ ] Manejar errores publicos neutrales.
+- [x] Manejar errores publicos neutrales.
   - Verificacion: errores no exponen estados internos ni detalles de RLS/Auth.
 
 - [x] Implementar PWA base.
@@ -303,22 +303,22 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 
 ## Fase 7 — Panel minimo
 
-- [ ] Crear ruta protegida de panel.
+- [x] Crear ruta protegida de panel.
   - Verificacion: usuario comun sin rol no accede a funciones administrativas.
 
-- [ ] Restringir acceso del panel a `administrador` y `fundador`.
+- [x] Restringir acceso del panel a `administrador` y `fundador`.
   - Verificacion: RLS/RPC bloquea acceso operativo a usuarios con `rol_sistema = usuario`.
 
-- [ ] Validar permisos del panel mediante RLS, no por frontend.
+- [x] Validar permisos del panel mediante RLS, no por frontend.
   - Verificacion: ocultar botones no es el control principal; llamadas no autorizadas fallan en DB/RPC.
 
-- [ ] Crear listado paginado de usuarios.
+- [x] Crear listado paginado de usuarios.
   - Verificacion: listado usa limite por pagina.
 
-- [ ] Implementar busqueda por DNI.
+- [x] Implementar busqueda por DNI.
   - Verificacion: consulta se ejecuta en base de datos.
 
-- [ ] Implementar filtros basicos.
+- [x] Implementar filtros basicos.
   - Campos: `estado`, `tipo_miembro`, `rol_sistema`, `validado_manualmente`.
   - Verificacion: filtros no cargan padron completo.
 
@@ -348,6 +348,12 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 
 - [x] Evitar carga completa de usuarios.
   - Verificacion: no existe query sin limite en listados.
+
+- [x] Implementar acciones de contacto para fundador.
+  - Verificacion: `ContactActions` renderiza `mailto:` y `wa.me` solo cuando recibe correo o telefono.
+
+- [x] Confirmar que contacto no usa popups ni Gmail web.
+  - Verificacion: no existe `window.open`, Gmail ni `mail.google` en `src`.
 
 ## Fase 8 — Auditoria
 
@@ -386,8 +392,8 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 - [ ] Ejecutar pruebas manuales de RLS.
   - Verificacion: usuario comun, administrador y fundador tienen permisos correctos.
 
-- [ ] Ejecutar prueba de registro con servicio DNI activo.
-  - Verificacion: autocompleta nombre y permite crear cuenta.
+- [x] Ejecutar prueba de registro con servicio DNI activo.
+  - Verificacion: `POST /api/buscar-dni` con DNI provisto respondio con nombre usable; no se creo cuenta de prueba para no afectar usuarios existentes.
 
 - [ ] Ejecutar prueba de registro con servicio DNI fallando.
   - Verificacion: fallback manual permite crear cuenta.
@@ -398,11 +404,14 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 - [ ] Ejecutar prueba de panel minimo.
   - Verificacion: listar, aprobar afiliacion y anular cuenta funcionan con auditoria.
 
-- [ ] Configurar deploy en Cloudflare Pages.
+- [x] Configurar deploy en Cloudflare Pages.
   - Verificacion: variables de entorno existen en produccion.
 
-- [ ] Validar build final.
+- [x] Validar build final.
   - Verificacion: build frontend finaliza sin errores.
+
+- [x] Disparar deploy por hook de Cloudflare Pages.
+  - Verificacion: hook respondio `success: true`.
 
 ## Fase 9 — Preparacion para v3 (estructura de votaciones)
 

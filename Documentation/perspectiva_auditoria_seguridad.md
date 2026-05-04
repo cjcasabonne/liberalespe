@@ -4,11 +4,13 @@
 **Documento revisado:** `Documentation/auditoria_seguridad.md`  
 **Objetivo:** evaluar las sugerencias externas contra el estado actual del repositorio y priorizar acciones.
 
+**Actualizacion 2026-05-04:** este documento conserva el diagnostico original para trazabilidad. El estado vigente esta en "Estado de implementacion posterior": C1, C2, R1 y la politica de fundador unico ya fueron implementados en el repo. Lo que sigue pendiente es validacion manual operativa, no necesariamente codigo.
+
 ## Resumen ejecutivo
 
-La auditoria externa acierta en los puntos de mayor riesgo: los headers de Cloudflare no se estan aplicando correctamente y `aprobar_desafiliacion` permite una transicion de estado que no deberia existir. Ambos hallazgos deben tratarse como bloqueantes antes de produccion.
+La auditoria externa acerto en los puntos de mayor riesgo del momento: los headers de Cloudflare no se estaban aplicando correctamente y `aprobar_desafiliacion` permitia una transicion de estado que no debia existir. Ambos hallazgos ya fueron tratados en las migraciones y archivos actuales; se conservan aqui como contexto historico.
 
-Hay un punto desactualizado: la auditoria indica que el frontend es un stub, pero actualmente `src/App.tsx` ya implementa registro, login, solicitudes y panel operativo basico. Eso no invalida los riesgos de frontend; cambia su naturaleza. Ya no es "no auditable", sino "auditable parcialmente y todavia con controles de UX/seguridad por endurecer".
+Habia un punto desactualizado: la auditoria indicaba que el frontend era un stub, pero actualmente `src/App.tsx` ya implementa registro, login, solicitudes y panel operativo basico. Eso no invalida los riesgos de frontend; cambia su naturaleza. Ya no es "no auditable", sino "auditable parcialmente y todavia con controles de UX/seguridad por endurecer".
 
 Tambien hay un hallazgo no cubierto por la auditoria: el mapeo `dni -> email interno` debe usar un dominio aceptado por Supabase Auth. Ya se corrigio de `@auth.local` a `@liberalespe.example.com`, y el remoto fue ajustado para autoconfirmar emails.
 
@@ -178,9 +180,9 @@ Debe eliminarse antes de usar el sistema con datos reales, pero la eliminacion r
 
 ## Veredicto
 
-Mi veredicto actual es **operable para pruebas controladas, no listo para produccion**.
+Mi veredicto al momento de esa revision era **operable para pruebas controladas, no listo para produccion**.
 
-La base de datos esta razonablemente bien planteada, pero C1 y C2 son reales. El registro ya funciona despues del ajuste de email interno y Auth remoto, pero todavia falta endurecer la superficie de navegador, cerrar la transicion invalida de desafiliacion y definir reglas de gobernanza para fundadores.
+La base de datos estaba razonablemente bien planteada, pero C1 y C2 eran reales. El registro ya funcionaba despues del ajuste de email interno y Auth remoto; desde entonces se endurecio la superficie de navegador, se cerro la transicion invalida de desafiliacion y se aplico gobernanza conservadora de fundador unico.
 
 ## Estado de implementacion posterior
 
@@ -197,10 +199,12 @@ Se implementaron las prioridades principales mediante `supabase/migrations/005_s
 - Actualizacion de telefono propio limitada por RLS y auditada.
 - Correccion operativa de nombres/telefono por administradores implementada por RPC auditada.
 - Rechazo de solicitudes de desafiliacion implementado por RPC auditada.
+- Acciones de contacto para fundador implementadas con `mailto:` y `wa.me`, sin Gmail web ni `window.open`.
+- Deploy manual por hook de Cloudflare Pages validado con respuesta `success: true`.
 
 Pendiente antes de produccion:
 
 - limpiar el registro ficticio de diagnostico `99990003`;
 - ejecutar pruebas manuales completas con usuario comun, administrador y fundador;
-- validar Cloudflare Pages despues de deploy real;
+- validar Cloudflare Pages despues de cada deploy real;
 - definir si el modelo de fundador unico se mantiene a largo plazo.

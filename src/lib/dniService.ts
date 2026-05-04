@@ -9,8 +9,20 @@ type BuscarDniFail = {
 };
 
 type BuscarDniResult = BuscarDniOk | BuscarDniFail;
+type InternalBuscarDniResult = BuscarDniResult & {
+  retryable?: boolean;
+};
 
 const dniServiceUrl = import.meta.env.VITE_DNI_SERVICE_URL ?? 'https://busqueda-dni.onrender.com';
+const defaultTimeoutMs = 12000;
+const maxDniLookupAttempts = 2;
+const retryDelayMs = 350;
+
+function wait(ms: number) {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
+}
 
 function readNombreCompleto(payload: unknown) {
   if (!payload || typeof payload !== 'object') {
@@ -32,7 +44,7 @@ function readNombreCompleto(payload: unknown) {
   return parts.join(' ').trim();
 }
 
-export async function buscarDni(dni: string, timeoutMs = 12000): Promise<BuscarDniResult> {
+async function requestDni(dni: string, timeoutMs: number): Promise<InternalBuscarDniResult> {
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
 
@@ -51,7 +63,7 @@ export async function buscarDni(dni: string, timeoutMs = 12000): Promise<BuscarD
     }
 
     if (!response.ok) {
-      return { ok: false, reason: 'error' };
+      return { ok: false, reason: 'error', retryable: response.status >= 500 };
     }
 
     const payload: unknown = await response.json();
@@ -67,8 +79,22 @@ export async function buscarDni(dni: string, timeoutMs = 12000): Promise<BuscarD
       return { ok: false, reason: 'timeout' };
     }
 
-    return { ok: false, reason: 'error' };
+    return { ok: false, reason: 'error', retryable: true };
   } finally {
     window.clearTimeout(timeout);
   }
+}
+
+export async function buscarDni(dni: string, timeoutMs = defaultTimeoutMs): Promise<BuscarDniResult> {
+  for (let attempt = 1; attempt <= maxDniLookupAttempts; attempt += 1) {
+    const result = await requestDni(dni, timeoutMs);
+
+    if (result.ok || !result.retryable || attempt === maxDniLookupAttempts) {
+      return result;
+    }
+
+    await wait(retryDelayMs);
+  }
+
+  return { ok: false, reason: 'error' };
 }

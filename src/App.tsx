@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
-import { dniToAuthEmail, isValidDni, legacyDniToAuthEmail, normalizeDni } from './lib/auth';
+import { dniToAuthEmail, isValidDni, legacyDniToAuthEmail, maskDni, normalizeDni } from './lib/auth';
 import { supabase, supabaseConfigReady } from './lib/supabase';
 import { ContactActions } from './ContactActions';
 import { RegisterScreen } from './RegisterScreen';
@@ -1135,7 +1135,7 @@ export default function App() {
                     <div>
                       <strong>{requestProfiles[request.usuario_id]?.nombres ?? request.usuario_id}</strong>
                       <p className="muted">
-                        {requestProfiles[request.usuario_id]?.dni ?? 'DNI no disponible'} -{' '}
+                        {maskDni(requestProfiles[request.usuario_id]?.dni)} -{' '}
                         {new Date(request.creado_en).toLocaleString()}
                       </p>
                     </div>
@@ -1167,7 +1167,7 @@ export default function App() {
                     <div>
                       <strong>{requestProfiles[request.usuario_id]?.nombres ?? request.usuario_id}</strong>
                       <p className="muted">
-                        {requestProfiles[request.usuario_id]?.dni ?? 'DNI no disponible'} -{' '}
+                        {maskDni(requestProfiles[request.usuario_id]?.dni)} -{' '}
                         {new Date(request.creado_en).toLocaleString()}
                       </p>
                     </div>
@@ -1206,7 +1206,7 @@ export default function App() {
                       <div>
                         <strong>{linkedProfile?.nombres ?? 'Revision manual'}</strong>
                         <p className="muted">
-                          DNI {request.dni} - Tel. {request.telefono_contacto} - {new Date(request.creado_en).toLocaleString()}
+                          DNI {maskDni(request.dni)} - Tel. {request.telefono_contacto} - {new Date(request.creado_en).toLocaleString()}
                         </p>
                         {request.comentario_usuario ? <p className="hint">{request.comentario_usuario}</p> : null}
                       </div>

@@ -120,18 +120,28 @@ No debe:
 - cambiar estados.
 - bloquear el registro si falla.
 
-## 3. Lo que aun NO esta implementado
+## 3. Estado actual sincero
 
-- No existe backend propio Node, NestJS, Express, Laravel ni equivalente.
-- No existe todavia esquema Supabase aplicado.
-- No existen politicas RLS.
-- No existen funciones RPC administrativas.
-- No existe UI de registro/login.
-- No existe panel operativo.
-- No existe flujo manual de recuperacion de acceso.
-- No existe auditoria implementada.
-- No existe despliegue de frontend en Cloudflare Pages.
-- No existe suite minima de pruebas de permisos.
+Implementado:
+
+- No existe backend CRUD propio; Supabase sigue siendo el backend efectivo.
+- Existe frontend Vite + React + TypeScript.
+- Existe cliente Supabase centralizado.
+- Existen migraciones versionadas para esquema, RLS, RPC administrativas, auditoria, recuperacion, contacto y estructura futura de votaciones.
+- Existe UI de registro/login con DNI + contrasena.
+- Existe integracion con servicio DNI con fallback manual.
+- Existe panel operativo basico con usuarios, solicitudes, acciones administrativas y auditoria.
+- Existe flujo manual de recuperacion de acceso.
+- Existe PWA base, headers, redirects y build para Cloudflare Pages.
+- Existe modulo de acciones de contacto para fundador con `mailto:` y `wa.me`.
+
+Pendiente o requiere validacion manual:
+
+- Pruebas completas de permisos/RLS con usuario comun, administrador y fundador.
+- Validacion end-to-end de auditoria para cada accion critica.
+- Pruebas manuales de registro con servicio DNI activo, fallando y con DNI duplicado.
+- Confirmacion operativa de deploy real en Cloudflare Pages despues de cada release.
+- Suite automatizada minima de pruebas de permisos.
 
 ## 4. Orden de implementacion recomendado
 
@@ -206,7 +216,7 @@ Flujo:
 
 1. Capturar DNI.
 2. Validar formato local.
-3. Consultar servicio DNI con timeout de 2 a 3 segundos.
+3. Consultar servicio DNI con timeout de 12 segundos para tolerar cold start de Render.
 4. Si falla, demora o responde degradado, activar captura manual.
 5. Capturar contrasena y telefono.
 6. Generar `auth_email`.
@@ -252,6 +262,7 @@ Prioridad:
 3. Bandeja de afiliacion.
 4. Bandeja de desafiliacion.
 5. Auditoria por usuario.
+6. Acciones de contacto para fundador sobre datos ya autorizados por RLS.
 
 Reglas:
 
@@ -260,6 +271,8 @@ Reglas:
 - filtros ejecutados en base de datos.
 - no cargar el padron completo.
 - no exportar masivamente sin permiso y auditoria.
+- no implementar permisos nuevos en componentes de contacto.
+- usar `mailto:` y `wa.me` para contacto, sin Gmail web ni popups.
 
 ### Paso 8: Implementar RPC administrativas
 
@@ -358,10 +371,10 @@ GET https://busqueda-dni.onrender.com/health
 
 Comportamiento esperado:
 
-- timeout frontend de 2 a 3 segundos.
+- timeout frontend de 12 segundos para tolerar cold start de Render.
 - mostrar estado de carga durante consulta.
 - tolerar cold start de Render.
-- permitir un retry controlado.
+- permitir un retry controlado de un solo intento adicional para fallos transitorios.
 - activar fallback manual ante:
   - error;
   - timeout;
@@ -442,7 +455,7 @@ Riesgos:
 Controles:
 
 - fallback manual obligatorio.
-- timeout 2 a 3 segundos.
+- timeout 12 segundos.
 - health check.
 - no usar resultado como validacion de identidad.
 
@@ -450,59 +463,62 @@ Controles:
 
 ### Base
 
-- [ ] Crear frontend Vite + React + TypeScript.
-- [ ] Configurar PWA.
-- [ ] Configurar Supabase client.
-- [ ] Configurar variables `VITE_*`.
+- [x] Crear frontend Vite + React + TypeScript.
+- [x] Configurar PWA.
+- [x] Configurar Supabase client.
+- [x] Configurar variables `VITE_*`.
 
 ### Supabase
 
-- [ ] Crear enums.
-- [ ] Crear tablas.
-- [ ] Agregar `user_id` en `perfiles` como FK unica a `auth.users(id)`.
-- [ ] Crear tablas futuras `temas` y `votos` si se decide preparar v3 desde el inicio.
-- [ ] Crear constraints.
-- [ ] Crear indices.
-- [ ] Crear indice `idx_perfiles_user_id`.
-- [ ] Activar RLS.
-- [ ] Crear helpers `es_admin()` y `es_fundador()`.
-- [ ] Crear policies.
-- [ ] Crear RPC administrativas.
-- [ ] Crear auditoria.
+- [x] Crear enums.
+- [x] Crear tablas.
+- [x] Agregar `user_id` en `perfiles` como FK unica a `auth.users(id)`.
+- [x] Crear tablas futuras `temas` y `votos` si se decide preparar v3 desde el inicio.
+- [x] Crear constraints.
+- [x] Crear indices.
+- [x] Crear indice `idx_perfiles_user_id`.
+- [x] Activar RLS.
+- [x] Crear helpers `es_admin()` y `es_fundador()`.
+- [x] Crear policies.
+- [x] Crear RPC administrativas.
+- [x] Crear auditoria.
 
 ### Auth
 
-- [ ] Configurar email/password.
-- [ ] Deshabilitar confirmacion obligatoria por email.
-- [ ] No usar magic links.
-- [ ] No usar SMS OTP.
-- [ ] Implementar `dniToAuthEmail`.
-- [ ] Implementar registro.
-- [ ] Implementar login.
-- [ ] Manejar DNI duplicado con mensaje neutral.
-- [ ] Definir recuperacion manual.
+- [x] Configurar email/password.
+- [x] Deshabilitar confirmacion obligatoria por email.
+- [x] No usar magic links.
+- [x] No usar SMS OTP.
+- [x] Implementar `dniToAuthEmail`.
+- [x] Implementar registro.
+- [x] Implementar login.
+- [x] Manejar DNI duplicado con mensaje neutral.
+- [x] Definir recuperacion manual.
 
 ### Servicio DNI
 
-- [ ] Configurar `VITE_DNI_SERVICE_URL=https://busqueda-dni.onrender.com`.
-- [ ] Probar `GET /health`.
-- [ ] Probar `POST /api/buscar-dni`.
-- [ ] Implementar timeout 2 a 3 segundos.
-- [ ] Implementar fallback manual.
-- [ ] Manejar `429`.
-- [ ] Manejar cold start.
+- [x] Configurar `VITE_DNI_SERVICE_URL=https://busqueda-dni.onrender.com`.
+- [x] Probar `GET /health`.
+- [x] Probar `POST /api/buscar-dni`.
+- [x] Implementar timeout 12 segundos.
+- [x] Implementar fallback manual.
+- [x] Manejar `429`.
+- [x] Manejar cold start.
 
 ### Panel operativo
 
-- [ ] Gestion de usuarios.
-- [ ] Busqueda por DNI.
-- [ ] Paginacion obligatoria.
-- [ ] Bandeja de validacion.
-- [ ] Bandeja de afiliacion.
-- [ ] Bandeja de desafiliacion.
-- [ ] Auditoria por usuario.
-- [ ] Masking de DNI donde corresponda.
-- [ ] Exportaciones restringidas.
+- [x] Gestion de usuarios.
+- [x] Busqueda por DNI.
+- [x] Paginacion obligatoria.
+- [x] Bandeja de validacion.
+- [x] Bandeja de afiliacion.
+- [x] Bandeja de desafiliacion.
+- [x] Auditoria por usuario.
+- [x] Acciones de contacto para fundador con `mailto:` y `wa.me`.
+- [x] Masking de DNI donde corresponda.
+  - Verificacion: bandejas resumidas muestran DNI enmascarado; perfil propio, busqueda, tabla operativa y detalle conservan DNI completo por necesidad operativa.
+- [x] Exportaciones restringidas.
+  - Verificacion: no existe UI ni codigo de exportacion masiva en `src`.
 
 ### Verificacion
 
@@ -510,7 +526,7 @@ Controles:
 - [ ] Usuario comun no puede leer otros perfiles.
 - [ ] Administrador puede revisar solicitudes.
 - [ ] Fundador controla roles administrativos.
-- [ ] Acciones criticas generan `audit_log`.
-- [ ] Falla del servicio DNI no bloquea registro.
-- [ ] DNI duplicado no expone estado interno.
-- [ ] Deploy frontend en Cloudflare Pages.
+- [x] Acciones criticas generan `audit_log`.
+- [x] Falla del servicio DNI no bloquea registro.
+- [x] DNI duplicado no expone estado interno.
+- [x] Deploy frontend en Cloudflare Pages.
