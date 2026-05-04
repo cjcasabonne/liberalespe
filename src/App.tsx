@@ -22,6 +22,11 @@ type OperationalStats = {
   activeAffiliates: number;
 };
 
+type OperationalAlert = {
+  label: string;
+  detail: string;
+};
+
 const pageSize = 10;
 const perfilSelectColumns =
   'id,user_id,dni,nombres,telefono,correo_contacto,rol_sistema,tipo_miembro,estado,validado_manualmente';
@@ -126,6 +131,79 @@ function promptNormalizedReason(title: string, options: ReasonOption[]) {
   return detail ? `${option.label}: ${detail}` : option.label;
 }
 
+function isToday(dateValue: string) {
+  const date = new Date(dateValue);
+  const today = new Date();
+
+  return (
+    date.getFullYear() === today.getFullYear() &&
+    date.getMonth() === today.getMonth() &&
+    date.getDate() === today.getDate()
+  );
+}
+
+function buildOperationalAlerts(stats: OperationalStats, auditLogs: AuditLog[]): OperationalAlert[] {
+  const alerts: OperationalAlert[] = [];
+
+  if (stats.pendingValidation > 20) {
+    alerts.push({
+      label: 'Validaciones pendientes',
+      detail: `${stats.pendingValidation} usuarios esperan revisión manual.`,
+    });
+  }
+
+  if (stats.pendingRecovery > 5) {
+    alerts.push({
+      label: 'Recuperaciones pendientes',
+      detail: `${stats.pendingRecovery} solicitudes requieren atención operativa.`,
+    });
+  }
+
+  if (stats.pendingAffiliation > 10) {
+    alerts.push({
+      label: 'Afiliaciones pendientes',
+      detail: `${stats.pendingAffiliation} solicitudes esperan decisión.`,
+    });
+  }
+
+  if (stats.pendingDisaffiliation > 10) {
+    alerts.push({
+      label: 'Desafiliaciones pendientes',
+      detail: `${stats.pendingDisaffiliation} solicitudes esperan decisión.`,
+    });
+  }
+
+  const todayLogs = auditLogs.filter((log) => isToday(log.creado_en));
+  const roleChanges = auditLogs.filter((log) => log.accion === 'cambiar_rol_sistema').length;
+  const annulmentsToday = todayLogs.filter((log) => log.accion === 'anular_usuario').length;
+  const rejectionsToday = todayLogs.filter((log) =>
+    ['rechazar_afiliacion', 'rechazar_desafiliacion'].includes(log.accion),
+  ).length;
+
+  if (roleChanges > 0) {
+    alerts.push({
+      label: 'Cambios de rol recientes',
+      detail: `${roleChanges} cambio(s) de rol aparecen en la auditoría reciente.`,
+    });
+  }
+
+  if (annulmentsToday >= 3) {
+    alerts.push({
+      label: 'Anulaciones del día',
+      detail: `${annulmentsToday} anulaciones registradas hoy.`,
+    });
+  }
+
+  if (rejectionsToday >= 5) {
+    alerts.push({
+      label: 'Rechazos del día',
+      detail: `${rejectionsToday} rechazos registrados hoy.`,
+    });
+  }
+
+  return alerts;
+}
+
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Perfil | null>(null);
@@ -157,6 +235,7 @@ export default function App() {
   const isAdmin = profile?.estado === 'activo' && ['administrador', 'fundador'].includes(profile.rol_sistema);
   const isFounder = profile?.estado === 'activo' && profile.rol_sistema === 'fundador';
   const selectedUser = adminUsers.find((user) => user.id === selectedUserId) ?? null;
+  const operationalAlerts = buildOperationalAlerts(operationalStats, auditLogs);
 
   useEffect(() => {
     if (!supabase) {
@@ -962,6 +1041,17 @@ export default function App() {
                 <strong>{operationalStats.activeAffiliates}</strong>
               </div>
             </div>
+
+            {operationalAlerts.length > 0 ? (
+              <div className="alert-list" aria-label="Alertas operativas">
+                {operationalAlerts.map((alert) => (
+                  <div key={alert.label}>
+                    <strong>{alert.label}</strong>
+                    <span>{alert.detail}</span>
+                  </div>
+                ))}
+              </div>
+            ) : null}
 
             <label>
               Buscar por DNI

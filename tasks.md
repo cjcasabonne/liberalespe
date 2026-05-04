@@ -464,6 +464,9 @@ Esta fase prepara estructura futura. No habilita UI ni flujo de votacion en v1/v
 - [x] Definir alertas operativas v2.
   - Verificacion: documentar umbrales para actividad sospechosa antes de implementar UI o SQL.
 
+- [x] Implementar alertas operativas informativas en panel.
+  - Verificacion: usa metricas y bitacora existentes, no bloquea acciones, no llama servicios externos y no modifica RLS ni base de datos.
+
 - [x] Diseñar pruebas automatizadas de RLS.
   - Verificacion: definir usuarios fixture y comandos reproducibles sin afectar usuarios reales.
 
