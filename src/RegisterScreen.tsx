@@ -11,7 +11,7 @@ type RegisterScreenProps = {
 };
 
 const neutralRegisterError =
-  'No se pudo completar el registro. Si ya tienes una cuenta o necesitas recuperar acceso, solicita revision manual.';
+  'No se pudo completar el registro. Si ya tienes una cuenta o necesitas recuperar acceso, solicita revisión manual.';
 
 function isStrongPassword(password: string) {
   return password.length >= 10 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /\d/.test(password);
@@ -55,7 +55,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
   const [hint, setHint] = useState('');
 
   const strength = useMemo(() => passwordStrength(password), [password]);
-  const stepLabels = ['Tu DNI', 'Tu nombre', 'Tu contacto', 'Confirmacion'];
+  const stepLabels = ['Tu DNI', 'Tu nombre', 'Tu contacto', 'Confirmación'];
 
   async function handleDniSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -64,7 +64,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
 
     const normalizedDni = normalizeDni(dni);
     if (!isValidDni(normalizedDni)) {
-      setError('Ingresa un DNI valido de 8 digitos.');
+      setError('Ingresa un DNI válido de 8 dígitos.');
       return;
     }
 
@@ -88,7 +88,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
     if (result.reason === 'rate_limit') {
       setHint('Servicio ocupado por muchas solicitudes. Ingresa el nombre manualmente.');
     } else if (result.reason === 'timeout') {
-      setHint('La consulta esta tardando mas de lo esperado. Ingresa el nombre manualmente.');
+      setHint('La consulta está tardando más de lo esperado. Ingresa el nombre manualmente.');
     } else {
       setHint('No se pudo autocompletar. Ingresa el nombre manualmente.');
     }
@@ -102,7 +102,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
 
     const normalizedNames = nombres.trim().replace(/\s+/g, ' ');
     if (normalizedNames.length < 3) {
-      setError('Ingresa nombres validos.');
+      setError('Ingresa nombres válidos.');
       return;
     }
 
@@ -115,22 +115,22 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
     setError('');
 
     if (telefono.trim().length > 0 && telefono.trim().length < 6) {
-      setError('Ingresa un telefono de contacto valido.');
+      setError('Ingresa un teléfono de contacto válido.');
       return;
     }
 
     if (!isValidEmail(correo.trim())) {
-      setError('Ingresa un correo de contacto valido.');
+      setError('Ingresa un correo de contacto válido.');
       return;
     }
 
     if (!isStrongPassword(password)) {
-      setError('La contrasena debe tener al menos 10 caracteres, una mayuscula, una minuscula y un numero.');
+      setError('La contraseña debe tener al menos 10 caracteres, una mayúscula, una minúscula y un número.');
       return;
     }
 
     if (password !== confirmPassword) {
-      setError('Las contrasenas no coinciden.');
+      setError('Las contraseñas no coinciden.');
       return;
     }
 
@@ -206,9 +206,9 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
 
         {step === 1 ? (
           <form className="register-form" onSubmit={handleDniSubmit} noValidate>
-            <h2>Cual es tu numero de DNI?</h2>
+            <h2>¿Cuál es tu número de DNI?</h2>
             <label>
-              Numero de DNI
+              Número de DNI
               <input
                 inputMode="numeric"
                 maxLength={8}
@@ -232,7 +232,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
 
         {step === 2 ? (
           <form className="register-form" onSubmit={handleNameSubmit} noValidate>
-            <h2>Cuales son tus nombres completos?</h2>
+            <h2>¿Cuáles son tus nombres completos?</h2>
             {autoFilled ? <p className="register-info">{hint}</p> : null}
             {manualFallback ? <p className="register-warning">{hint}</p> : null}
             <label>
@@ -242,7 +242,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
             {error ? <p className="register-error">{error}</p> : null}
             <div className="register-actions">
               <button type="button" className="register-ghost" onClick={() => setStep(1)}>
-                Atras
+                Atrás
               </button>
               <button type="submit">{autoFilled ? 'Confirmar nombre' : 'Continuar'}</button>
             </div>
@@ -253,7 +253,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
           <form className="register-form" onSubmit={handleContactSubmit} noValidate>
             <h2>Completa tus datos de contacto</h2>
             <label>
-              Telefono
+              Teléfono
               <input
                 inputMode="tel"
                 value={telefono}
@@ -272,19 +272,19 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
               />
             </label>
             <label>
-              Contrasena
+              Contraseña
               <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="new-password" />
             </label>
             {password ? (
-              <div className="register-strength" aria-label="Fortaleza de contrasena">
+              <div className="register-strength" aria-label="Fortaleza de contraseña">
                 {[1, 2, 3].map((value) => (
                   <span key={value} className={strength >= value ? 'active' : ''} />
                 ))}
-                <strong>{['', 'Debil', 'Media', 'Fuerte'][strength]}</strong>
+                <strong>{['', 'Débil', 'Media', 'Fuerte'][strength]}</strong>
               </div>
             ) : null}
             <label>
-              Confirmar contrasena
+              Confirmar contraseña
               <input
                 type="password"
                 value={confirmPassword}
@@ -295,7 +295,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
             {error ? <p className="register-error">{error}</p> : null}
             <div className="register-actions">
               <button type="button" className="register-ghost" onClick={() => setStep(2)}>
-                Atras
+                Atrás
               </button>
               <button type="submit">Continuar</button>
             </div>
@@ -315,7 +315,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
                 <dd>{nombres}</dd>
               </div>
               <div>
-                <dt>Telefono</dt>
+                <dt>Teléfono</dt>
                 <dd>{telefono || '-'}</dd>
               </div>
               <div>
@@ -326,7 +326,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
             {error ? <p className="register-error">{error}</p> : null}
             <div className="register-actions">
               <button type="button" className="register-ghost" onClick={() => setStep(3)}>
-                Atras
+                Atrás
               </button>
               <button type="submit" disabled={submitting}>
                 {submitting ? 'Creando cuenta...' : 'Crear cuenta'}
@@ -336,7 +336,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
         ) : null}
 
         <p className="register-switch">
-          Ya tienes cuenta?{' '}
+          ¿Ya tienes cuenta?{' '}
           <button type="button" onClick={onLogin}>
             Ingresa
           </button>

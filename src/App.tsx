@@ -43,6 +43,35 @@ function emptyRecoveryForm() {
   };
 }
 
+function formatAuditAction(action: string) {
+  const labels: Record<string, string> = {
+    actualizar_perfil_operativo: 'Actualizar perfil operativo',
+    actualizar_telefono: 'Actualizar teléfono',
+    anular_usuario: 'Anular usuario',
+    aprobar_afiliacion: 'Aprobar afiliación',
+    aprobar_desafiliacion: 'Aprobar desafiliación',
+    cambiar_rol_sistema: 'Cambiar rol del sistema',
+    rechazar_afiliacion: 'Rechazar afiliación',
+    rechazar_desafiliacion: 'Rechazar desafiliación',
+    resolver_recuperacion: 'Resolver recuperación',
+    validar_usuario: 'Validar usuario',
+  };
+
+  return labels[action] ?? action.replace(/_/g, ' ');
+}
+
+function formatAuditTable(table: string) {
+  const labels: Record<string, string> = {
+    audit_log: 'Auditoría',
+    perfiles: 'Perfiles',
+    solicitudes_afiliacion: 'Solicitudes de afiliación',
+    solicitudes_desafiliacion: 'Solicitudes de desafiliación',
+    solicitudes_recuperacion: 'Solicitudes de recuperación',
+  };
+
+  return labels[table] ?? table.replace(/_/g, ' ');
+}
+
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Perfil | null>(null);
@@ -142,7 +171,7 @@ export default function App() {
 
     if (profileError) {
       setProfile(null);
-      setError('No se encontro un perfil operativo asociado a esta cuenta.');
+      setError('No se encontró un perfil operativo asociado a esta cuenta.');
       return;
     }
 
@@ -323,7 +352,7 @@ export default function App() {
 
     const dni = normalizeDni(loginDni);
     if (!isValidDni(dni)) {
-      setError('Ingresa un DNI valido de 8 digitos.');
+      setError('Ingresa un DNI válido de 8 dígitos.');
       return;
     }
 
@@ -347,11 +376,11 @@ export default function App() {
     setLoading(false);
 
     if (signInError) {
-      setError('No se pudo iniciar sesion con las credenciales ingresadas.');
+      setError('No se pudo iniciar sesión con las credenciales ingresadas.');
       return;
     }
 
-    setStatus('Sesion iniciada.');
+    setStatus('Sesión iniciada.');
   }
 
   async function handleRecoveryRequest(event: FormEvent<HTMLFormElement>) {
@@ -368,12 +397,12 @@ export default function App() {
     const comentario = recoveryForm.comentario.trim();
 
     if (!isValidDni(dni)) {
-      setError('Ingresa un DNI valido de 8 digitos.');
+      setError('Ingresa un DNI válido de 8 dígitos.');
       return;
     }
 
     if (telefono.length < 6) {
-      setError('Ingresa un telefono de contacto valido.');
+      setError('Ingresa un teléfono de contacto válido.');
       return;
     }
 
@@ -386,13 +415,13 @@ export default function App() {
     setLoading(false);
 
     if (recoveryError) {
-      setError('No se pudo registrar la solicitud de revision manual.');
+      setError('No se pudo registrar la solicitud de revisión manual.');
       return;
     }
 
     setRecoveryForm(emptyRecoveryForm());
     setMode('login');
-    setStatus('Solicitud registrada para revision manual.');
+    setStatus('Solicitud registrada para revisión manual.');
   }
 
   async function handleUpdatePhone() {
@@ -400,17 +429,17 @@ export default function App() {
       return;
     }
 
-    const nextPhone = window.prompt('Nuevo telefono de contacto', profile.telefono ?? '')?.trim();
+    const nextPhone = window.prompt('Nuevo teléfono de contacto', profile.telefono ?? '')?.trim();
     if (nextPhone === undefined) {
       return;
     }
 
     if (nextPhone && nextPhone.length < 6) {
-      setError('Ingresa un telefono de contacto valido.');
+      setError('Ingresa un teléfono de contacto válido.');
       return;
     }
 
-    const confirmed = window.confirm('Confirmar actualizacion del telefono de contacto.');
+    const confirmed = window.confirm('Confirmar actualización del teléfono de contacto.');
     if (!confirmed) {
       return;
     }
@@ -425,11 +454,11 @@ export default function App() {
     setLoading(false);
 
     if (updateError) {
-      setError('No se pudo actualizar el telefono.');
+      setError('No se pudo actualizar el teléfono.');
       return;
     }
 
-    setStatus('Telefono actualizado.');
+    setStatus('Teléfono actualizado.');
     await loadProfile();
   }
 
@@ -448,11 +477,11 @@ export default function App() {
     setLoading(false);
 
     if (requestError) {
-      setError('No se pudo registrar la solicitud de afiliacion.');
+      setError('No se pudo registrar la solicitud de afiliación.');
       return;
     }
 
-    setStatus('Solicitud de afiliacion registrada para revision manual.');
+    setStatus('Solicitud de afiliación registrada para revisión manual.');
   }
 
   async function handleSolicitarDesafiliacion() {
@@ -460,9 +489,9 @@ export default function App() {
       return;
     }
 
-    const motivo = window.prompt('Motivo de desafiliacion')?.trim();
+    const motivo = window.prompt('Motivo de desafiliación')?.trim();
     if (!motivo) {
-      setError('La solicitud de desafiliacion requiere motivo.');
+      setError('La solicitud de desafiliación requiere motivo.');
       return;
     }
 
@@ -476,11 +505,11 @@ export default function App() {
     setLoading(false);
 
     if (requestError) {
-      setError('No se pudo registrar la solicitud de desafiliacion.');
+      setError('No se pudo registrar la solicitud de desafiliación.');
       return;
     }
 
-    setStatus('Solicitud de desafiliacion registrada para revision manual.');
+    setStatus('Solicitud de desafiliación registrada para revisión manual.');
   }
 
   async function runProfileRpc(action: 'validar_usuario' | 'anular_usuario', usuarioId: string) {
@@ -493,18 +522,18 @@ export default function App() {
 
     const params =
       action === 'anular_usuario'
-        ? { usuario_id: usuarioId, motivo: window.prompt('Motivo de anulacion')?.trim() }
+        ? { usuario_id: usuarioId, motivo: window.prompt('Motivo de anulación')?.trim() }
         : { usuario_id: usuarioId, observacion: null };
 
     if (action === 'anular_usuario' && !params.motivo) {
-      setError('La anulacion requiere motivo.');
+      setError('La anulación requiere motivo.');
       return;
     }
 
     const confirmed = window.confirm(
       action === 'validar_usuario'
-        ? 'Confirmar validacion manual del usuario seleccionado.'
-        : 'Confirmar anulacion del usuario seleccionado. Esta accion cambia su estado operativo.',
+        ? 'Confirmar validación manual del usuario seleccionado.'
+        : 'Confirmar anulación del usuario seleccionado. Esta acción cambia su estado operativo.',
     );
 
     if (!confirmed) {
@@ -516,7 +545,7 @@ export default function App() {
     setPanelLoading(false);
 
     if (rpcError) {
-      setError('La accion administrativa no pudo completarse.');
+      setError('La acción administrativa no pudo completarse.');
       return;
     }
 
@@ -548,8 +577,8 @@ export default function App() {
 
     const confirmed = window.confirm(
       action === 'aprobar_afiliacion'
-        ? 'Confirmar aprobacion de afiliacion. El usuario quedara como afiliado.'
-        : 'Confirmar rechazo de afiliacion.',
+        ? 'Confirmar aprobación de afiliación. El usuario quedará como afiliado.'
+        : 'Confirmar rechazo de afiliación.',
     );
 
     if (!confirmed) {
@@ -565,7 +594,7 @@ export default function App() {
       return;
     }
 
-    setStatus(action === 'aprobar_afiliacion' ? 'Afiliacion aprobada.' : 'Afiliacion rechazada.');
+    setStatus(action === 'aprobar_afiliacion' ? 'Afiliación aprobada.' : 'Afiliación rechazada.');
     await loadPanelData();
     if (selectedUserId) {
       await loadSelectedUserLogs(selectedUserId);
@@ -584,14 +613,14 @@ export default function App() {
       action === 'rechazar_desafiliacion' ? window.prompt('Comentario de rechazo')?.trim() : null;
 
     if (action === 'rechazar_desafiliacion' && !comentario) {
-      setError('El rechazo de desafiliacion requiere comentario.');
+      setError('El rechazo de desafiliación requiere comentario.');
       return;
     }
 
     const confirmed = window.confirm(
       action === 'aprobar_desafiliacion'
-        ? 'Confirmar aprobacion de desafiliacion. El usuario quedara desafiliado.'
-        : 'Confirmar rechazo de desafiliacion.',
+        ? 'Confirmar aprobación de desafiliación. El usuario quedará desafiliado.'
+        : 'Confirmar rechazo de desafiliación.',
     );
 
     if (!confirmed) {
@@ -600,7 +629,7 @@ export default function App() {
 
     const params =
       action === 'aprobar_desafiliacion'
-        ? { solicitud_id: solicitudId, observacion: window.prompt('Observacion operativa opcional')?.trim() || null }
+        ? { solicitud_id: solicitudId, observacion: window.prompt('Observación operativa opcional')?.trim() || null }
         : { solicitud_id: solicitudId, comentario };
 
     setPanelLoading(true);
@@ -608,11 +637,11 @@ export default function App() {
     setPanelLoading(false);
 
     if (rpcError) {
-      setError('La desafiliacion no pudo procesarse.');
+      setError('La desafiliación no pudo procesarse.');
       return;
     }
 
-    setStatus(action === 'aprobar_desafiliacion' ? 'Desafiliacion aprobada.' : 'Desafiliacion rechazada.');
+    setStatus(action === 'aprobar_desafiliacion' ? 'Desafiliación aprobada.' : 'Desafiliación rechazada.');
     await loadPanelData();
     if (selectedUserId) {
       await loadSelectedUserLogs(selectedUserId);
@@ -630,16 +659,16 @@ export default function App() {
 
     const comentario = window.prompt(
       nuevoEstado === 'aprobada'
-        ? 'Comentario del reseteo administrativo realizado'
+        ? 'Comentario del restablecimiento administrativo realizado'
         : 'Comentario de cierre de la solicitud',
     )?.trim();
 
     if (!comentario) {
-      setError('La solicitud de recuperacion requiere comentario operador.');
+      setError('La solicitud de recuperación requiere comentario del operador.');
       return;
     }
 
-    const confirmed = window.confirm('Confirmar cierre de solicitud de recuperacion.');
+    const confirmed = window.confirm('Confirmar cierre de solicitud de recuperación.');
     if (!confirmed) {
       return;
     }
@@ -653,11 +682,11 @@ export default function App() {
     setPanelLoading(false);
 
     if (rpcError) {
-      setError('La solicitud de recuperacion no pudo procesarse.');
+      setError('La solicitud de recuperación no pudo procesarse.');
       return;
     }
 
-    setStatus('Solicitud de recuperacion actualizada.');
+    setStatus('Solicitud de recuperación actualizada.');
     await loadPanelData();
     if (selectedUserId) {
       await loadSelectedUserLogs(selectedUserId);
@@ -679,7 +708,7 @@ export default function App() {
       | undefined;
 
     if (!nuevoRol || !['usuario', 'administrador', 'fundador'].includes(nuevoRol)) {
-      setError('Rol no valido.');
+      setError('Rol no válido.');
       return;
     }
 
@@ -714,23 +743,23 @@ export default function App() {
 
     const nombres = window.prompt('Nombres completos', user.nombres)?.trim().replace(/\s+/g, ' ');
     if (!nombres || nombres.length < 3) {
-      setError('Ingresa nombres validos.');
+      setError('Ingresa nombres válidos.');
       return;
     }
 
-    const telefono = window.prompt('Telefono de contacto', user.telefono ?? '')?.trim() ?? '';
+    const telefono = window.prompt('Teléfono de contacto', user.telefono ?? '')?.trim() ?? '';
     if (telefono && telefono.length < 6) {
-      setError('Ingresa un telefono de contacto valido.');
+      setError('Ingresa un teléfono de contacto válido.');
       return;
     }
 
-    const motivo = window.prompt('Motivo de correccion operativa')?.trim();
+    const motivo = window.prompt('Motivo de corrección operativa')?.trim();
     if (!motivo) {
-      setError('La correccion operativa requiere motivo.');
+      setError('La corrección operativa requiere motivo.');
       return;
     }
 
-    const confirmed = window.confirm('Confirmar correccion auditada del perfil seleccionado.');
+    const confirmed = window.confirm('Confirmar corrección auditada del perfil seleccionado.');
     if (!confirmed) {
       return;
     }
@@ -762,7 +791,7 @@ export default function App() {
 
     await supabase.auth.signOut();
     setLoginPassword('');
-    setStatus('Sesion cerrada.');
+    setStatus('Sesión cerrada.');
   }
 
   return (
@@ -770,18 +799,18 @@ export default function App() {
       <section className="topbar">
         <div>
           <h1>Liberales PE</h1>
-          <p>Padron operativo</p>
+          <p>Padrón operativo</p>
         </div>
         {session ? (
           <button className="secondary" type="button" onClick={handleLogout}>
-            Cerrar sesion
+            Cerrar sesión
           </button>
         ) : null}
       </section>
 
       {!supabaseConfigReady ? (
         <section className="panel">
-          <h2>Configuracion incompleta</h2>
+          <h2>Configuración incompleta</h2>
           <p className="muted">
             Falta configurar `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` en el entorno de despliegue.
           </p>
@@ -804,7 +833,7 @@ export default function App() {
                   <dd>{profile.nombres}</dd>
                 </div>
                 <div>
-                  <dt>Telefono</dt>
+                  <dt>Teléfono</dt>
                   <dd>{profile.telefono ?? '-'}</dd>
                 </div>
                 <div>
@@ -820,23 +849,23 @@ export default function App() {
                   <dd>{profile.estado}</dd>
                 </div>
                 <div>
-                  <dt>Validacion</dt>
-                  <dd>{profile.validado_manualmente ? 'manual validada' : 'pendiente'}</dd>
+                  <dt>Validación</dt>
+                  <dd>{profile.validado_manualmente ? 'validación manual' : 'pendiente'}</dd>
                 </div>
               </dl>
               {profile.estado === 'activo' ? (
                 <button className="secondary section-action" type="button" disabled={loading} onClick={handleUpdatePhone}>
-                  Actualizar telefono
+                  Actualizar teléfono
                 </button>
               ) : null}
               {profile.estado === 'activo' && profile.tipo_miembro === 'adherente' ? (
                 <button className="secondary section-action" type="button" disabled={loading} onClick={handleSolicitarAfiliacion}>
-                  Solicitar afiliacion
+                  Solicitar afiliación
                 </button>
               ) : null}
               {profile.estado === 'activo' ? (
                 <button className="secondary section-action" type="button" disabled={loading} onClick={handleSolicitarDesafiliacion}>
-                  Solicitar desafiliacion
+                  Solicitar desafiliación
                 </button>
               ) : null}
             </>
@@ -853,19 +882,19 @@ export default function App() {
 
             <div className="stats-grid" aria-label="Resumen operativo">
               <div>
-                <span>Validacion</span>
+                <span>Validación</span>
                 <strong>{operationalStats.pendingValidation}</strong>
               </div>
               <div>
-                <span>Afiliacion</span>
+                <span>Afiliación</span>
                 <strong>{operationalStats.pendingAffiliation}</strong>
               </div>
               <div>
-                <span>Desafiliacion</span>
+                <span>Desafiliación</span>
                 <strong>{operationalStats.pendingDisaffiliation}</strong>
               </div>
               <div>
-                <span>Recuperacion</span>
+                <span>Recuperación</span>
                 <strong>{operationalStats.pendingRecovery}</strong>
               </div>
               <div>
@@ -937,7 +966,7 @@ export default function App() {
                 </select>
               </label>
               <label>
-                Validacion
+                Validación
                 <select
                   value={adminValidationFilter}
                   onChange={(event) => {
@@ -961,7 +990,7 @@ export default function App() {
                     <th>Rol</th>
                     <th>Tipo</th>
                     <th>Estado</th>
-                    <th>Validacion</th>
+                    <th>Validación</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -1021,7 +1050,7 @@ export default function App() {
               <button className="secondary" type="button" disabled={adminPage === 0} onClick={() => setAdminPage((page) => page - 1)}>
                 Anterior
               </button>
-              <span>Pagina {adminPage + 1}</span>
+              <span>Página {adminPage + 1}</span>
               <button
                 className="secondary"
                 type="button"
@@ -1060,7 +1089,7 @@ export default function App() {
                     <dd>{selectedUser.nombres}</dd>
                   </div>
                   <div>
-                    <dt>Telefono</dt>
+                    <dt>Teléfono</dt>
                     <dd>{selectedUser.telefono ?? '-'}</dd>
                   </div>
                   {isFounder && (selectedUser.correo_contacto || selectedUser.telefono) ? (
@@ -1088,18 +1117,18 @@ export default function App() {
                     <dd>{selectedUser.estado}</dd>
                   </div>
                   <div>
-                    <dt>Validacion</dt>
+                    <dt>Validación</dt>
                     <dd>{selectedUser.validado_manualmente ? 'validado' : 'pendiente'}</dd>
                   </div>
                 </dl>
 
-                <h2>Auditoria del usuario</h2>
+                <h2>Auditoría del usuario</h2>
                 <div className="table-wrap">
                   <table>
                     <thead>
                       <tr>
                         <th>Fecha</th>
-                        <th>Accion</th>
+                        <th>Acción</th>
                         <th>Tabla</th>
                         <th>Cambio</th>
                       </tr>
@@ -1109,8 +1138,8 @@ export default function App() {
                         selectedUserLogs.map((log) => (
                           <tr key={log.id}>
                             <td>{new Date(log.creado_en).toLocaleString()}</td>
-                            <td>{log.accion}</td>
-                            <td>{log.tabla}</td>
+                            <td>{formatAuditAction(log.accion)}</td>
+                            <td>{formatAuditTable(log.tabla)}</td>
                             <td>
                               <code>{JSON.stringify(log.despues ?? log.antes ?? {})}</code>
                             </td>
@@ -1127,7 +1156,7 @@ export default function App() {
               </section>
             ) : null}
 
-            <h2>Solicitudes de afiliacion</h2>
+            <h2>Solicitudes de afiliación</h2>
             <div className="request-list">
               {affiliationRequests.length > 0 ? (
                 affiliationRequests.map((request) => (
@@ -1159,7 +1188,7 @@ export default function App() {
               )}
             </div>
 
-            <h2>Solicitudes de desafiliacion</h2>
+            <h2>Solicitudes de desafiliación</h2>
             <div className="request-list">
               {disaffiliationRequests.length > 0 ? (
                 disaffiliationRequests.map((request) => (
@@ -1195,7 +1224,7 @@ export default function App() {
               )}
             </div>
 
-            <h2>Recuperacion de acceso</h2>
+            <h2>Recuperación de acceso</h2>
             <div className="request-list">
               {recoveryRequests.length > 0 ? (
                 recoveryRequests.map((request) => {
@@ -1204,9 +1233,9 @@ export default function App() {
                   return (
                     <div className="request-item" key={request.id}>
                       <div>
-                        <strong>{linkedProfile?.nombres ?? 'Revision manual'}</strong>
+                        <strong>{linkedProfile?.nombres ?? 'Revisión manual'}</strong>
                         <p className="muted">
-                          DNI {maskDni(request.dni)} - Tel. {request.telefono_contacto} - {new Date(request.creado_en).toLocaleString()}
+                          DNI {maskDni(request.dni)} - Teléfono {request.telefono_contacto} - {new Date(request.creado_en).toLocaleString()}
                         </p>
                         {request.comentario_usuario ? <p className="hint">{request.comentario_usuario}</p> : null}
                       </div>
@@ -1231,13 +1260,13 @@ export default function App() {
               )}
             </div>
 
-            <h2>Auditoria reciente</h2>
+            <h2>Auditoría reciente</h2>
             <div className="table-wrap">
               <table>
                 <thead>
                   <tr>
                     <th>Fecha</th>
-                    <th>Accion</th>
+                    <th>Acción</th>
                     <th>Tabla</th>
                     <th>Registro</th>
                   </tr>
@@ -1246,8 +1275,8 @@ export default function App() {
                   {auditLogs.map((log) => (
                     <tr key={log.id}>
                       <td>{new Date(log.creado_en).toLocaleString()}</td>
-                      <td>{log.accion}</td>
-                      <td>{log.tabla}</td>
+                      <td>{formatAuditAction(log.accion)}</td>
+                      <td>{formatAuditTable(log.tabla)}</td>
                       <td>{log.registro_id ?? '-'}</td>
                     </tr>
                   ))}
@@ -1285,7 +1314,7 @@ export default function App() {
                 />
               </label>
               <label>
-                Contrasena
+                Contraseña
                 <input
                   type="password"
                   value={loginPassword}
@@ -1304,7 +1333,7 @@ export default function App() {
               onRegistered={() => {
                 setError('');
                 setMode('login');
-                setStatus('Cuenta registrada. Ingresa con tu DNI y contrasena.');
+                setStatus('Cuenta registrada. Ingresa con tu DNI y contraseña.');
               }}
               onLogin={() => setMode('login')}
             />
@@ -1312,7 +1341,7 @@ export default function App() {
 
           {mode === 'recover' ? (
             <form className="panel form" onSubmit={handleRecoveryRequest}>
-              <h2>Revision manual</h2>
+              <h2>Revisión manual</h2>
               <label>
                 DNI
                 <input
@@ -1326,7 +1355,7 @@ export default function App() {
                 />
               </label>
               <label>
-                Telefono de contacto
+                Teléfono de contacto
                 <input
                   inputMode="tel"
                   value={recoveryForm.telefono}
@@ -1343,7 +1372,7 @@ export default function App() {
                 />
               </label>
               <button type="submit" disabled={loading}>
-                {loading ? 'Registrando...' : 'Solicitar revision'}
+                {loading ? 'Registrando...' : 'Solicitar revisión'}
               </button>
             </form>
           ) : null}
