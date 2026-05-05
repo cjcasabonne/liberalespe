@@ -351,6 +351,7 @@ export default function App() {
   const isAdmin = profile?.estado === 'activo' && ['administrador', 'fundador'].includes(profile.rol_sistema);
   const isFounder = profile?.estado === 'activo' && profile.rol_sistema === 'fundador';
   const selectedUser = adminUsers.find((user) => user.id === selectedUserId) ?? null;
+  const passwordResetUser = adminUsers.find((user) => user.user_id === passwordResetUserId) ?? null;
   const operationalAlerts = buildOperationalAlerts(operationalStats, auditLogs);
   const pendingRequestsTotal = operationalStats.pendingAffiliation + operationalStats.pendingDisaffiliation + operationalStats.pendingRecovery;
   const isPasswordRecoveryPath = window.location.pathname === '/recuperar-password';
@@ -362,6 +363,16 @@ export default function App() {
     { key: 'password', label: 'Contraseña' },
     { key: 'auditoria', label: 'Auditoría', count: auditLogs.length },
   ];
+  const passwordResetMessage =
+    passwordResetUser && temporaryPassword
+      ? `Hola ${passwordResetUser.nombres},
+
+Se restableció manualmente tu contraseña de acceso a Liberales PE.
+
+Contraseña temporal: ${temporaryPassword}
+
+Ingresa con tu DNI y esta contraseña temporal.`
+      : '';
 
   useEffect(() => {
     if (!supabase) {
@@ -1091,17 +1102,19 @@ export default function App() {
 
     if (!response.ok) {
       const result = (await response.json().catch(() => null)) as { error?: string } | null;
-      setError(
-        result?.error === 'password_policy_rejected' || result?.error === 'invalid_request'
-          ? 'La contraseña temporal no cumple la política de seguridad.'
-          : 'No se pudo restablecer la contraseña.',
-      );
+      const errorMessages: Record<string, string> = {
+        invalid_request: 'La solicitud no es válida o la contraseña temporal no cumple la política de seguridad.',
+        password_policy_rejected: 'La contraseña temporal no cumple la política de seguridad.',
+        not_authorized: 'Tu sesión no tiene permiso para restablecer contraseñas.',
+        not_found: 'No se encontró el usuario seleccionado.',
+        server_not_configured: 'La función de restablecimiento no está configurada en el servidor.',
+      };
+      setError(errorMessages[result?.error ?? ''] ?? 'No se pudo restablecer la contraseña.');
       return;
     }
 
-    setTemporaryPassword('');
     setTemporaryPasswordConfirm('');
-    setStatus('Contraseña temporal actualizada. Comunícala por correo o WhatsApp registrado.');
+    setStatus('Contraseña temporal actualizada. Usa los botones de contacto del usuario seleccionado para comunicarla.');
     await loadPanelData();
   }
 
@@ -2038,6 +2051,20 @@ export default function App() {
                   />
                 </label>
                 <p className="hint">Usa al menos 10 caracteres con mayúscula, minúscula y número. Comunica la contraseña temporal por el correo o WhatsApp registrado. No se guarda en el sistema.</p>
+                {passwordResetUser ? (
+                  <div className="request-item">
+                    <div>
+                      <strong>{passwordResetUser.nombres}</strong>
+                      <p className="muted">DNI {maskDni(passwordResetUser.dni)}</p>
+                    </div>
+                    <ContactActions
+                      email={passwordResetUser.correo_contacto}
+                      phone={passwordResetUser.telefono}
+                      subject="Contraseña temporal Liberales PE"
+                      message={passwordResetMessage}
+                    />
+                  </div>
+                ) : null}
                 <button type="submit" disabled={panelLoading || !passwordResetUserId}>
                   Restablecer contraseña
                 </button>
