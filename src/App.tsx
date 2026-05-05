@@ -23,6 +23,7 @@ type AdminEstadoFilter = 'todos' | 'activo' | 'anulado' | 'desafiliado';
 type AdminTipoFilter = 'todos' | 'adherente' | 'afiliado';
 type AdminRolFilter = 'todos' | 'usuario' | 'administrador' | 'fundador';
 type AdminValidationFilter = 'todos' | 'validado' | 'pendiente';
+type AdminSection = 'resumen' | 'usuarios' | 'votaciones' | 'solicitudes' | 'auditoria';
 
 type OperationalStats = {
   pendingValidation: number;
@@ -333,11 +334,21 @@ export default function App() {
   const [ownVotes, setOwnVotes] = useState<Voto[]>([]);
   const [voteSummaries, setVoteSummaries] = useState<Record<string, VoteSummary[]>>({});
   const [votingLoading, setVotingLoading] = useState(false);
+  const [adminSection, setAdminSection] = useState<AdminSection>('resumen');
+  const [adminMenuOpen, setAdminMenuOpen] = useState(false);
 
   const isAdmin = profile?.estado === 'activo' && ['administrador', 'fundador'].includes(profile.rol_sistema);
   const isFounder = profile?.estado === 'activo' && profile.rol_sistema === 'fundador';
   const selectedUser = adminUsers.find((user) => user.id === selectedUserId) ?? null;
   const operationalAlerts = buildOperationalAlerts(operationalStats, auditLogs);
+  const pendingRequestsTotal = operationalStats.pendingAffiliation + operationalStats.pendingDisaffiliation + operationalStats.pendingRecovery;
+  const adminNavItems: Array<{ key: AdminSection; label: string; count?: number }> = [
+    { key: 'resumen', label: 'Resumen' },
+    { key: 'usuarios', label: 'Usuarios', count: adminUserCount },
+    { key: 'votaciones', label: 'Votaciones', count: topics.length },
+    { key: 'solicitudes', label: 'Solicitudes', count: pendingRequestsTotal },
+    { key: 'auditoria', label: 'Auditoría', count: auditLogs.length },
+  ];
 
   useEffect(() => {
     if (!supabase) {
@@ -1403,6 +1414,37 @@ export default function App() {
               </div>
             </div>
 
+            <div className="admin-nav-wrap">
+              <button
+                className="secondary admin-menu-button"
+                type="button"
+                aria-expanded={adminMenuOpen}
+                aria-label="Abrir menú del panel"
+                onClick={() => setAdminMenuOpen((open) => !open)}
+              >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </button>
+              <nav className={`admin-nav ${adminMenuOpen ? 'open' : ''}`} aria-label="Secciones del panel operativo">
+                {adminNavItems.map((item) => (
+                  <button
+                    className={adminSection === item.key ? 'active' : ''}
+                    type="button"
+                    key={item.key}
+                    onClick={() => {
+                      setAdminSection(item.key);
+                      setAdminMenuOpen(false);
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    {typeof item.count === 'number' ? <strong>{item.count}</strong> : null}
+                  </button>
+                ))}
+              </nav>
+            </div>
+
+            <section className={adminSection === 'resumen' ? 'admin-section active' : 'admin-section'} aria-label="Resumen operativo">
             <div className="stats-grid" aria-label="Resumen operativo">
               <div>
                 <span>Validación</span>
@@ -1440,8 +1482,9 @@ export default function App() {
                 ))}
               </div>
             ) : null}
+            </section>
 
-            <section className="admin-voting-panel">
+            <section className={adminSection === 'votaciones' ? 'admin-section admin-voting-panel active' : 'admin-section admin-voting-panel'}>
               <div className="panel-heading">
                 <h2>Control de votaciones</h2>
                 <button className="secondary" type="button" disabled={votingLoading} onClick={handleCreateTopic}>
@@ -1483,6 +1526,7 @@ export default function App() {
               </div>
             </section>
 
+            <section className={adminSection === 'usuarios' ? 'admin-section active' : 'admin-section'} aria-label="Usuarios">
             <label>
               Buscar por DNI
               <input
@@ -1636,9 +1680,10 @@ export default function App() {
                 Siguiente
               </button>
             </div>
+            </section>
 
             {selectedUser ? (
-              <section className="detail-panel">
+              <section className={adminSection === 'usuarios' ? 'detail-panel active' : 'detail-panel'}>
                 <div className="panel-heading">
                   <h2>Detalle de usuario</h2>
                   <div className="row-actions">
@@ -1732,6 +1777,7 @@ export default function App() {
               </section>
             ) : null}
 
+            <section className={adminSection === 'solicitudes' ? 'admin-section active' : 'admin-section'} aria-label="Solicitudes">
             <h2>Solicitudes de afiliación</h2>
             <div className="request-list">
               {affiliationRequests.length > 0 ? (
@@ -1836,6 +1882,9 @@ export default function App() {
               )}
             </div>
 
+            </section>
+
+            <section className={adminSection === 'auditoria' ? 'admin-section active' : 'admin-section'} aria-label="Auditoría reciente">
             <h2>Auditoría reciente</h2>
             <div className="table-wrap">
               <table>
@@ -1859,6 +1908,7 @@ export default function App() {
                 </tbody>
               </table>
             </div>
+            </section>
           </section>
           ) : null}
         </>
