@@ -52,6 +52,14 @@ export async function onRequestPost(context: PagesContext) {
   const adminClient = createClient(supabaseUrl, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
+  const userClient = createClient(supabaseUrl, anonKey, {
+    global: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
 
   const { data: authData, error: authError } = await adminClient.auth.getUser(token);
   if (authError || !authData.user) {
@@ -59,7 +67,7 @@ export async function onRequestPost(context: PagesContext) {
   }
 
   const actorId = authData.user.id;
-  const { data: actorProfile, error: actorError } = await adminClient
+  const { data: actorProfile, error: actorError } = await userClient
     .from('perfiles')
     .select('user_id,rol_sistema,estado')
     .eq('user_id', actorId)
