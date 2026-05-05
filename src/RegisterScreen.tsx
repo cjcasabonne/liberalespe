@@ -188,10 +188,7 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
     <section className="register-screen" aria-label="Registro">
       <div className="register-card">
         <div className="register-brand">
-          <svg width="30" height="30" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-            <circle cx="18" cy="18" r="18" fill="currentColor" />
-            <path d="M10 26V12l8-4 8 4v14H22v-7h-4v7H10z" fill="var(--color-background)" opacity="0.92" />
-          </svg>
+          <img src="/logo_cs.svg" alt="Logo Cs" />
           <span>Liberales</span>
         </div>
 

@@ -75,6 +75,18 @@ button.secondary,
   margin-bottom: 24px;
 }
 
+.topbar-brand {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.topbar-brand img {
+  display: block;
+  height: 44px;
+  width: 44px;
+}
+
 h1,
 h2,
 p {
@@ -357,6 +369,12 @@ h2 {
   font-weight: 700;
   gap: 10px;
   line-height: 1;
+}
+
+.register-brand img {
+  display: block;
+  height: 34px;
+  width: 34px;
 }
 
 .register-progress {

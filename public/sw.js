@@ -1,5 +1,5 @@
 const CACHE_NAME = 'liberales-pe-shell-v1';
-const SHELL_ASSETS = ['/', '/manifest.webmanifest', '/icon.svg'];
+const SHELL_ASSETS = ['/', '/manifest.webmanifest', '/icon.svg', '/logo_cs.svg'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL_ASSETS)));

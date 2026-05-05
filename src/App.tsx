@@ -1295,9 +1295,12 @@ export default function App() {
   return (
     <main className="app-shell">
       <section className="topbar">
-        <div>
+        <div className="topbar-brand">
+          <img src="/logo_cs.svg" alt="Logo Cs" />
+          <div>
           <h1>Liberales PE</h1>
           <p>Padrón operativo</p>
+          </div>
         </div>
         {session ? (
           <button className="secondary" type="button" onClick={handleLogout}>
