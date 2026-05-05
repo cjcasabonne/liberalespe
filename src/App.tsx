@@ -311,6 +311,11 @@ function topicStateDetail(topic: Tema) {
   return 'Tema anulado.';
 }
 
+function generateTemporaryPassword() {
+  const suffix = Math.random().toString(36).slice(2, 8).toUpperCase();
+  return `Temporal${suffix}7`;
+}
+
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Perfil | null>(null);
@@ -345,8 +350,7 @@ export default function App() {
   const [adminSection, setAdminSection] = useState<AdminSection>('resumen');
   const [adminMenuOpen, setAdminMenuOpen] = useState(false);
   const [passwordResetUserId, setPasswordResetUserId] = useState('');
-  const [temporaryPassword, setTemporaryPassword] = useState('');
-  const [temporaryPasswordConfirm, setTemporaryPasswordConfirm] = useState('');
+  const [temporaryPassword, setTemporaryPassword] = useState(generateTemporaryPassword);
 
   const isAdmin = profile?.estado === 'activo' && ['administrador', 'fundador'].includes(profile.rol_sistema);
   const isFounder = profile?.estado === 'activo' && profile.rol_sistema === 'fundador';
@@ -1071,16 +1075,6 @@ Ingresa con tu DNI y esta contraseña temporal.`
       return;
     }
 
-    if (temporaryPassword.length < 10 || !/[a-z]/.test(temporaryPassword) || !/[A-Z]/.test(temporaryPassword) || !/\d/.test(temporaryPassword)) {
-      setError('La contraseña temporal debe tener al menos 10 caracteres, mayúscula, minúscula y número.');
-      return;
-    }
-
-    if (temporaryPassword !== temporaryPasswordConfirm) {
-      setError('Las contraseñas no coinciden.');
-      return;
-    }
-
     const confirmed = window.confirm('Confirmar restablecimiento manual de contraseña.');
     if (!confirmed) {
       return;
@@ -1113,7 +1107,6 @@ Ingresa con tu DNI y esta contraseña temporal.`
       return;
     }
 
-    setTemporaryPasswordConfirm('');
     setStatus('Contraseña temporal actualizada. Usa los botones de contacto del usuario seleccionado para comunicarla.');
     await loadPanelData();
   }
@@ -2031,26 +2024,13 @@ Ingresa con tu DNI y esta contraseña temporal.`
                   </select>
                 </label>
                 <label>
-                  Contraseña temporal
-                  <input
-                    type="password"
-                    minLength={10}
-                    value={temporaryPassword}
-                    onChange={(event) => setTemporaryPassword(event.target.value)}
-                    autoComplete="new-password"
-                  />
+                  Contraseña temporal generada
+                  <input type="text" value={temporaryPassword} readOnly />
                 </label>
-                <label>
-                  Confirmar contraseña temporal
-                  <input
-                    type="password"
-                    minLength={10}
-                    value={temporaryPasswordConfirm}
-                    onChange={(event) => setTemporaryPasswordConfirm(event.target.value)}
-                    autoComplete="new-password"
-                  />
-                </label>
-                <p className="hint">Usa al menos 10 caracteres con mayúscula, minúscula y número. Comunica la contraseña temporal por el correo o WhatsApp registrado. No se guarda en el sistema.</p>
+                <button className="secondary" type="button" onClick={() => setTemporaryPassword(generateTemporaryPassword())}>
+                  Generar otra
+                </button>
+                <p className="hint">Comunica la contraseña temporal por el correo o WhatsApp registrado. No se guarda en el sistema.</p>
                 {passwordResetUser ? (
                   <div className="request-item">
                     <div>
