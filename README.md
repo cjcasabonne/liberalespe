@@ -123,6 +123,7 @@ Implementado en el frontend actual:
 - Recuperacion manual de acceso.
 - Actualizacion de telefono propio permitida por RLS.
 - Acciones de contacto para fundador con enlaces nativos `mailto:` y `wa.me`, sin Gmail web ni `window.open`.
+- Votaciones V3 con temas, voto de afiliados activos, resultados controlados y administracion minima.
 - PWA base, headers, redirects y build estatico para Cloudflare Pages.
 - Revision de castellano visible: tildes, `ñ`, signos de apertura y textos de auditoria renderizados en UTF-8.
 
@@ -136,6 +137,7 @@ Validado manualmente para cierre v1:
 Pendiente operativo recurrente:
 
 - Validar Cloudflare Pages despues de cada release.
+- Aplicar migraciones nuevas de Supabase antes de usar funcionalidades V3 en produccion.
 
 Nota para cuentas existentes:
 

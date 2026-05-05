@@ -55,3 +55,31 @@ export interface AuditLog {
   antes?: unknown;
   despues?: unknown;
 }
+
+export type EstadoTema = 'borrador' | 'abierto' | 'cerrado' | 'anulado';
+export type OpcionVoto = 'si' | 'no' | 'abstencion';
+
+export interface Tema {
+  id: string;
+  titulo: string;
+  descripcion: string | null;
+  estado: EstadoTema;
+  creado_por: string;
+  creado_en: string;
+  actualizado_en: string;
+  abre_en: string | null;
+  cierra_en: string | null;
+}
+
+export interface Voto {
+  id: string;
+  tema_id: string;
+  usuario_id: string;
+  opcion: OpcionVoto;
+  creado_en: string;
+}
+
+export interface VoteSummary {
+  opcion: OpcionVoto;
+  total: number;
+}

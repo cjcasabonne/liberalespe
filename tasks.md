@@ -478,3 +478,26 @@ Esta fase prepara estructura futura. No habilita UI ni flujo de votacion en v1/v
 
 - [x] Implementar exportacion CSV controlada para fundador.
   - Verificacion: exporta solo usuarios visibles con filtros aplicados, exige justificacion, registra `audit_log` mediante RPC controlada y no modifica RLS.
+
+## Fase 11 — V3: votaciones operativas
+
+- [x] Activar flujo de votacion sobre `temas` y `votos`.
+  - Verificacion: la UI consulta temas disponibles y votos propios mediante RLS.
+
+- [x] Implementar RPC controlada para emitir voto.
+  - Verificacion: `emitir_voto_controlado` resuelve el perfil desde `auth.uid()`, valida afiliado activo, valida tema abierto e inserta un solo voto.
+
+- [x] Implementar RPC controlada para resultados.
+  - Verificacion: `resumen_votos_tema` muestra resultados a administradores o a usuarios autenticados cuando el tema esta cerrado.
+
+- [x] Implementar UI ciudadana de votacion.
+  - Verificacion: afiliados activos pueden votar `si`, `no` o `abstencion`; adherentes o usuarios no activos no pueden emitir voto.
+
+- [x] Implementar control administrativo minimo de temas.
+  - Verificacion: administradores/fundador crean temas en borrador y pueden abrir, cerrar o anular segun RLS.
+
+- [x] Mantener inmutabilidad de votos.
+  - Verificacion: el frontend no actualiza ni borra votos y la base revoca update/delete sobre `votos`.
+
+- [x] Mantener auditoria de votaciones.
+  - Verificacion: triggers existentes registran creacion/cambio de estado de temas y emision de votos.

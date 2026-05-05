@@ -4,7 +4,18 @@ import { dniToAuthEmail, isValidDni, legacyDniToAuthEmail, maskDni, normalizeDni
 import { supabase, supabaseConfigReady } from './lib/supabase';
 import { ContactActions } from './ContactActions';
 import { RegisterScreen } from './RegisterScreen';
-import type { AuditLog, Perfil, SolicitudAfiliacion, SolicitudDesafiliacion, SolicitudRecuperacion } from './types';
+import type {
+  AuditLog,
+  EstadoTema,
+  OpcionVoto,
+  Perfil,
+  SolicitudAfiliacion,
+  SolicitudDesafiliacion,
+  SolicitudRecuperacion,
+  Tema,
+  VoteSummary,
+  Voto,
+} from './types';
 import './styles.css';
 
 type Mode = 'login' | 'register' | 'recover';
@@ -31,6 +42,7 @@ const pageSize = 10;
 const perfilSelectColumns =
   'id,user_id,dni,nombres,telefono,correo_contacto,rol_sistema,tipo_miembro,estado,validado_manualmente';
 const perfilSelectColumnsWithCreated = `${perfilSelectColumns},creado_en`;
+const temaSelectColumns = 'id,titulo,descripcion,estado,creado_por,creado_en,actualizado_en,abre_en,cierra_en';
 const emptyOperationalStats: OperationalStats = {
   pendingValidation: 0,
   pendingAffiliation: 0,
@@ -249,6 +261,43 @@ function buildOperationalAlerts(stats: OperationalStats, auditLogs: AuditLog[]):
   return alerts;
 }
 
+function formatVoteOption(option: OpcionVoto) {
+  const labels: Record<OpcionVoto, string> = {
+    si: 'Sí',
+    no: 'No',
+    abstencion: 'Abstención',
+  };
+
+  return labels[option];
+}
+
+function formatTopicState(state: EstadoTema) {
+  const labels: Record<EstadoTema, string> = {
+    borrador: 'Borrador',
+    abierto: 'Abierto',
+    cerrado: 'Cerrado',
+    anulado: 'Anulado',
+  };
+
+  return labels[state];
+}
+
+function topicStateDetail(topic: Tema) {
+  if (topic.estado === 'abierto' && topic.cierra_en) {
+    return `Cierra ${new Date(topic.cierra_en).toLocaleString('es-PE')}`;
+  }
+
+  if (topic.estado === 'borrador') {
+    return 'Pendiente de apertura administrativa.';
+  }
+
+  if (topic.estado === 'cerrado') {
+    return 'Resultados disponibles.';
+  }
+
+  return 'Tema anulado.';
+}
+
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Perfil | null>(null);
@@ -276,6 +325,10 @@ export default function App() {
   const [selectedUserLogs, setSelectedUserLogs] = useState<AuditLog[]>([]);
   const [operationalStats, setOperationalStats] = useState<OperationalStats>(emptyOperationalStats);
   const [panelLoading, setPanelLoading] = useState(false);
+  const [topics, setTopics] = useState<Tema[]>([]);
+  const [ownVotes, setOwnVotes] = useState<Voto[]>([]);
+  const [voteSummaries, setVoteSummaries] = useState<Record<string, VoteSummary[]>>({});
+  const [votingLoading, setVotingLoading] = useState(false);
 
   const isAdmin = profile?.estado === 'activo' && ['administrador', 'fundador'].includes(profile.rol_sistema);
   const isFounder = profile?.estado === 'activo' && profile.rol_sistema === 'fundador';
@@ -335,6 +388,17 @@ export default function App() {
     void loadSelectedUserLogs(selectedUserId);
   }, [isAdmin, selectedUserId]);
 
+  useEffect(() => {
+    if (!profile) {
+      setTopics([]);
+      setOwnVotes([]);
+      setVoteSummaries({});
+      return;
+    }
+
+    void loadVotingData();
+  }, [profile?.id, isAdmin]);
+
   async function loadProfile() {
     if (!supabase) {
       return;
@@ -354,6 +418,51 @@ export default function App() {
     }
 
     setProfile(data as Perfil);
+  }
+
+  async function loadVotingData() {
+    if (!supabase || !profile) {
+      return;
+    }
+
+    const client = supabase;
+    setVotingLoading(true);
+    const [topicsResult, ownVotesResult] = await Promise.all([
+      client.from('temas').select(temaSelectColumns).order('creado_en', { ascending: false }).limit(30),
+      client
+        .from('votos')
+        .select('id,tema_id,usuario_id,opcion,creado_en')
+        .eq('usuario_id', profile.id)
+        .order('creado_en', { ascending: false }),
+    ]);
+    setVotingLoading(false);
+
+    if (topicsResult.error || ownVotesResult.error) {
+      setTopics([]);
+      setOwnVotes([]);
+      setVoteSummaries({});
+      return;
+    }
+
+    const nextTopics = (topicsResult.data ?? []) as Tema[];
+    setTopics(nextTopics);
+    setOwnVotes((ownVotesResult.data ?? []) as Voto[]);
+
+    const summaries = await Promise.all(
+      nextTopics
+        .filter((topic) => isAdmin || topic.estado === 'cerrado')
+        .map(async (topic) => {
+          const { data, error: summaryError } = await client.rpc('resumen_votos_tema', { p_tema_id: topic.id });
+          return [topic.id, summaryError ? [] : ((data ?? []) as VoteSummary[])] as const;
+        }),
+    );
+
+    setVoteSummaries(
+      summaries.reduce<Record<string, VoteSummary[]>>((nextSummaries, [topicId, summary]) => {
+        nextSummaries[topicId] = summary;
+        return nextSummaries;
+      }, {}),
+    );
   }
 
   async function loadPanelData() {
@@ -1021,6 +1130,99 @@ export default function App() {
     await loadPanelData();
   }
 
+  async function handleVote(topicId: string, option: OpcionVoto) {
+    if (!supabase || !profile) {
+      return;
+    }
+
+    const confirmed = window.confirm(`Confirmar voto: ${formatVoteOption(option)}.`);
+    if (!confirmed) {
+      return;
+    }
+
+    setError('');
+    setStatus('');
+    setVotingLoading(true);
+    const { error: voteError } = await supabase.rpc('emitir_voto_controlado', {
+      p_tema_id: topicId,
+      p_opcion: option,
+    });
+    setVotingLoading(false);
+
+    if (voteError) {
+      setError('No se pudo emitir el voto. Verifica que el tema siga abierto y que tu perfil esté habilitado.');
+      return;
+    }
+
+    setStatus('Voto registrado.');
+    await loadVotingData();
+  }
+
+  async function handleCreateTopic() {
+    if (!supabase || !isAdmin || !session?.user) {
+      return;
+    }
+
+    const title = window.prompt('Título del tema de votación')?.trim();
+    if (!title || title.length < 4) {
+      setError('El tema requiere un título válido.');
+      return;
+    }
+
+    const description = window.prompt('Descripción opcional del tema')?.trim() || null;
+    const confirmed = window.confirm('Crear tema en estado borrador.');
+    if (!confirmed) {
+      return;
+    }
+
+    setError('');
+    setStatus('');
+    setVotingLoading(true);
+    const { error: topicError } = await supabase.rpc('crear_tema_controlado', {
+      p_titulo: title,
+      p_descripcion: description,
+    });
+    setVotingLoading(false);
+
+    if (topicError) {
+      setError('No se pudo crear el tema.');
+      return;
+    }
+
+    setStatus('Tema creado en borrador.');
+    await loadVotingData();
+    await loadPanelData();
+  }
+
+  async function handleTopicState(topic: Tema, nextState: EstadoTema) {
+    if (!supabase || !isAdmin) {
+      return;
+    }
+
+    const confirmed = window.confirm(`Confirmar cambio de estado a ${formatTopicState(nextState)}.`);
+    if (!confirmed) {
+      return;
+    }
+
+    setError('');
+    setStatus('');
+    setVotingLoading(true);
+    const { error: topicError } = await supabase.rpc('cambiar_estado_tema_controlado', {
+      p_tema_id: topic.id,
+      p_estado: nextState,
+    });
+    setVotingLoading(false);
+
+    if (topicError) {
+      setError('No se pudo cambiar el estado del tema.');
+      return;
+    }
+
+    setStatus('Tema actualizado.');
+    await loadVotingData();
+    await loadPanelData();
+  }
+
   async function handleLogout() {
     if (!supabase) {
       return;
@@ -1110,6 +1312,74 @@ export default function App() {
             <p className="muted">Cargando perfil...</p>
           )}
           </section>
+
+          <section className="panel voting-panel">
+            <div className="panel-heading">
+              <h2>Votaciones</h2>
+              <span>{votingLoading ? 'Cargando...' : `${topics.length} tema(s)`}</span>
+            </div>
+            {profile?.tipo_miembro !== 'afiliado' || profile.estado !== 'activo' ? (
+              <p className="hint">Solo afiliados activos pueden emitir voto. Los temas cerrados pueden consultarse segÃºn permisos.</p>
+            ) : null}
+            <div className="topic-list">
+              {topics.length > 0 ? (
+                topics.map((topic) => {
+                  const vote = ownVotes.find((currentVote) => currentVote.tema_id === topic.id);
+                  const summary = voteSummaries[topic.id] ?? [];
+                  const canVote = profile?.estado === 'activo' && profile.tipo_miembro === 'afiliado' && topic.estado === 'abierto' && !vote;
+
+                  return (
+                    <article className="topic-item" key={topic.id}>
+                      <div className="topic-main">
+                        <div className="topic-title-row">
+                          <h3>{topic.titulo}</h3>
+                          <span className={`state-pill state-${topic.estado}`}>{formatTopicState(topic.estado)}</span>
+                        </div>
+                        {topic.descripcion ? <p className="muted">{topic.descripcion}</p> : null}
+                        <p className="hint">{topicStateDetail(topic)}</p>
+                        {vote ? (
+                          <p className="hint">Tu voto: {formatVoteOption(vote.opcion)} - {new Date(vote.creado_en).toLocaleString('es-PE')}</p>
+                        ) : null}
+                      </div>
+
+                      {canVote ? (
+                        <div className="vote-actions">
+                          <button type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'si')}>
+                            SÃ­
+                          </button>
+                          <button className="secondary" type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'no')}>
+                            No
+                          </button>
+                          <button
+                            className="secondary"
+                            type="button"
+                            disabled={votingLoading}
+                            onClick={() => handleVote(topic.id, 'abstencion')}
+                          >
+                            AbstenciÃ³n
+                          </button>
+                        </div>
+                      ) : null}
+
+                      {summary.length > 0 ? (
+                        <div className="vote-summary" aria-label={`Resultados de ${topic.titulo}`}>
+                          {summary.map((item) => (
+                            <div key={`${topic.id}-${item.opcion}`}>
+                              <span>{formatVoteOption(item.opcion)}</span>
+                              <strong>{item.total}</strong>
+                            </div>
+                          ))}
+                        </div>
+                      ) : null}
+                    </article>
+                  );
+                })
+              ) : (
+                <p className="muted">No hay temas de votaciÃ³n disponibles.</p>
+              )}
+            </div>
+          </section>
+
           {isAdmin ? (
           <section className="panel admin-panel">
             <div className="panel-heading">
@@ -1166,6 +1436,48 @@ export default function App() {
                 ))}
               </div>
             ) : null}
+
+            <section className="admin-voting-panel">
+              <div className="panel-heading">
+                <h2>Control de votaciones</h2>
+                <button className="secondary" type="button" disabled={votingLoading} onClick={handleCreateTopic}>
+                  Crear tema
+                </button>
+              </div>
+              <div className="request-list">
+                {topics.length > 0 ? (
+                  topics.map((topic) => (
+                    <div className="request-item" key={`admin-${topic.id}`}>
+                      <div>
+                        <strong>{topic.titulo}</strong>
+                        <p className="muted">
+                          {formatTopicState(topic.estado)} - {new Date(topic.creado_en).toLocaleString('es-PE')}
+                        </p>
+                      </div>
+                      <div className="row-actions">
+                        {topic.estado === 'borrador' ? (
+                          <button type="button" disabled={votingLoading} onClick={() => handleTopicState(topic, 'abierto')}>
+                            Abrir
+                          </button>
+                        ) : null}
+                        {topic.estado === 'abierto' ? (
+                          <button type="button" disabled={votingLoading} onClick={() => handleTopicState(topic, 'cerrado')}>
+                            Cerrar
+                          </button>
+                        ) : null}
+                        {topic.estado !== 'anulado' && topic.estado !== 'cerrado' ? (
+                          <button className="danger" type="button" disabled={votingLoading} onClick={() => handleTopicState(topic, 'anulado')}>
+                            Anular
+                          </button>
+                        ) : null}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="muted">No hay temas creados.</p>
+                )}
+              </div>
+            </section>
 
             <label>
               Buscar por DNI

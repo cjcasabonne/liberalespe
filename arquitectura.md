@@ -1126,6 +1126,13 @@ Principio para v3:
 
 La votacion y democracia directa deben construirse sobre el padron validado, no reemplazarlo. El derecho a votar depende de datos operativos trazables, no de una validacion automatica por DNI.
 
+Estado de implementacion v3:
+
+- La emision de voto se ejecuta por RPC controlada (`emitir_voto_controlado`) y no por decision local del frontend.
+- La elegibilidad se resuelve en base de datos desde `auth.uid()` y requiere perfil `activo` con `tipo_miembro = afiliado`.
+- Los resultados se consultan por RPC (`resumen_votos_tema`) y solo se exponen a administradores o a usuarios autenticados cuando el tema esta cerrado.
+- Administradores y fundador pueden crear temas en borrador y cambiar su estado mediante RLS y auditoria.
+
 ## Extension futura: Democracia directa (v3)
 
 Esta extension prepara el modelo para democracia directa sin implementar UI ni flujos de votacion en v1/v2.

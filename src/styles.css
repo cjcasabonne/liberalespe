@@ -131,6 +131,101 @@ h2 {
   margin-top: 16px;
 }
 
+.voting-panel {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.topic-list {
+  display: grid;
+  gap: 12px;
+}
+
+.topic-item {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.topic-main {
+  display: grid;
+  gap: 6px;
+}
+
+.topic-title-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.topic-title-row h3 {
+  color: var(--color-primary);
+  font-size: 16px;
+  margin: 0;
+}
+
+.state-pill {
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+}
+
+.state-abierto {
+  background: #eef6df;
+  color: var(--color-success);
+}
+
+.state-cerrado {
+  background: var(--color-muted);
+}
+
+.state-anulado {
+  background: #fff1ef;
+  color: var(--color-destructive);
+}
+
+.vote-actions,
+.vote-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vote-summary div {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  display: grid;
+  gap: 2px;
+  min-width: 92px;
+  padding: 10px;
+}
+
+.vote-summary span {
+  color: var(--color-muted-fg);
+  font-size: 12px;
+}
+
+.vote-summary strong {
+  color: var(--color-primary);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.admin-voting-panel {
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: 12px;
+  padding-top: 16px;
+}
+
 .panel-heading,
 .pager,
 .request-item {
