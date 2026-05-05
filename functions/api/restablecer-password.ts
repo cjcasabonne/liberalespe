@@ -45,7 +45,7 @@ export async function onRequestPost(context: PagesContext) {
   }
 
   const { userId, password } = payload;
-  if (!userId || !password || password.length < 8) {
+  if (!userId || !password || password.length < 10 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/\d/.test(password)) {
     return jsonResponse({ error: 'invalid_request' }, 400);
   }
 
@@ -90,7 +90,7 @@ export async function onRequestPost(context: PagesContext) {
 
   const { error: updateError } = await adminClient.auth.admin.updateUserById(userId, { password });
   if (updateError) {
-    return jsonResponse({ error: 'update_failed' }, 400);
+    return jsonResponse({ error: 'password_policy_rejected' }, 400);
   }
 
   await adminClient.from('audit_log').insert({

@@ -1060,8 +1060,8 @@ export default function App() {
       return;
     }
 
-    if (temporaryPassword.length < 8) {
-      setError('La contraseña temporal debe tener al menos 8 caracteres.');
+    if (temporaryPassword.length < 10 || !/[a-z]/.test(temporaryPassword) || !/[A-Z]/.test(temporaryPassword) || !/\d/.test(temporaryPassword)) {
+      setError('La contraseña temporal debe tener al menos 10 caracteres, mayúscula, minúscula y número.');
       return;
     }
 
@@ -1090,7 +1090,12 @@ export default function App() {
     setPanelLoading(false);
 
     if (!response.ok) {
-      setError('No se pudo restablecer la contraseña.');
+      const result = (await response.json().catch(() => null)) as { error?: string } | null;
+      setError(
+        result?.error === 'password_policy_rejected' || result?.error === 'invalid_request'
+          ? 'La contraseña temporal no cumple la política de seguridad.'
+          : 'No se pudo restablecer la contraseña.',
+      );
       return;
     }
 
@@ -2016,7 +2021,7 @@ export default function App() {
                   Contraseña temporal
                   <input
                     type="password"
-                    minLength={8}
+                    minLength={10}
                     value={temporaryPassword}
                     onChange={(event) => setTemporaryPassword(event.target.value)}
                     autoComplete="new-password"
@@ -2026,13 +2031,13 @@ export default function App() {
                   Confirmar contraseña temporal
                   <input
                     type="password"
-                    minLength={8}
+                    minLength={10}
                     value={temporaryPasswordConfirm}
                     onChange={(event) => setTemporaryPasswordConfirm(event.target.value)}
                     autoComplete="new-password"
                   />
                 </label>
-                <p className="hint">Comunica la contraseña temporal por el correo o WhatsApp registrado. No se guarda en el sistema.</p>
+                <p className="hint">Usa al menos 10 caracteres con mayúscula, minúscula y número. Comunica la contraseña temporal por el correo o WhatsApp registrado. No se guarda en el sistema.</p>
                 <button type="submit" disabled={panelLoading || !passwordResetUserId}>
                   Restablecer contraseña
                 </button>
