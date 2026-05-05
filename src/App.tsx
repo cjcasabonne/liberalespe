@@ -23,7 +23,7 @@ type AdminEstadoFilter = 'todos' | 'activo' | 'anulado' | 'desafiliado';
 type AdminTipoFilter = 'todos' | 'adherente' | 'afiliado';
 type AdminRolFilter = 'todos' | 'usuario' | 'administrador' | 'fundador';
 type AdminValidationFilter = 'todos' | 'validado' | 'pendiente';
-type AdminSection = 'resumen' | 'usuarios' | 'votaciones' | 'solicitudes' | 'auditoria';
+type AdminSection = 'resumen' | 'usuarios' | 'votaciones' | 'solicitudes' | 'password' | 'auditoria';
 
 type OperationalStats = {
   pendingValidation: number;
@@ -344,17 +344,22 @@ export default function App() {
   const [votingLoading, setVotingLoading] = useState(false);
   const [adminSection, setAdminSection] = useState<AdminSection>('resumen');
   const [adminMenuOpen, setAdminMenuOpen] = useState(false);
+  const [passwordResetUserId, setPasswordResetUserId] = useState('');
+  const [temporaryPassword, setTemporaryPassword] = useState('');
+  const [temporaryPasswordConfirm, setTemporaryPasswordConfirm] = useState('');
 
   const isAdmin = profile?.estado === 'activo' && ['administrador', 'fundador'].includes(profile.rol_sistema);
   const isFounder = profile?.estado === 'activo' && profile.rol_sistema === 'fundador';
   const selectedUser = adminUsers.find((user) => user.id === selectedUserId) ?? null;
   const operationalAlerts = buildOperationalAlerts(operationalStats, auditLogs);
   const pendingRequestsTotal = operationalStats.pendingAffiliation + operationalStats.pendingDisaffiliation + operationalStats.pendingRecovery;
+  const isPasswordRecoveryPath = window.location.pathname === '/recuperar-password';
   const adminNavItems: Array<{ key: AdminSection; label: string; count?: number }> = [
     { key: 'resumen', label: 'Resumen' },
     { key: 'usuarios', label: 'Usuarios', count: adminUserCount },
     { key: 'votaciones', label: 'Votaciones', count: topics.length },
     { key: 'solicitudes', label: 'Solicitudes', count: pendingRequestsTotal },
+    { key: 'password', label: 'Contraseña' },
     { key: 'auditoria', label: 'Auditoría', count: auditLogs.length },
   ];
 
@@ -1039,6 +1044,60 @@ export default function App() {
     if (selectedUserId) {
       await loadSelectedUserLogs(selectedUserId);
     }
+  }
+
+  async function handleManualPasswordReset(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!supabase || !session?.access_token || !isAdmin) {
+      return;
+    }
+
+    setError('');
+    setStatus('');
+
+    if (!passwordResetUserId) {
+      setError('Selecciona un usuario.');
+      return;
+    }
+
+    if (temporaryPassword.length < 8) {
+      setError('La contraseña temporal debe tener al menos 8 caracteres.');
+      return;
+    }
+
+    if (temporaryPassword !== temporaryPasswordConfirm) {
+      setError('Las contraseñas no coinciden.');
+      return;
+    }
+
+    const confirmed = window.confirm('Confirmar restablecimiento manual de contraseña.');
+    if (!confirmed) {
+      return;
+    }
+
+    setPanelLoading(true);
+    const response = await fetch('/api/restablecer-password', {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${session.access_token}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: passwordResetUserId,
+        password: temporaryPassword,
+      }),
+    });
+    setPanelLoading(false);
+
+    if (!response.ok) {
+      setError('No se pudo restablecer la contraseña.');
+      return;
+    }
+
+    setTemporaryPassword('');
+    setTemporaryPasswordConfirm('');
+    setStatus('Contraseña temporal actualizada. Comunícala por correo o WhatsApp registrado.');
+    await loadPanelData();
   }
 
   async function runRoleRpc(usuarioId: string) {
@@ -1939,6 +1998,47 @@ export default function App() {
 
             </section>
 
+            <section className={adminSection === 'password' ? 'admin-section active' : 'admin-section'} aria-label="Restablecer contraseña">
+              <form className="form" onSubmit={handleManualPasswordReset}>
+                <h2>Restablecer contraseña</h2>
+                <label>
+                  Usuario visible
+                  <select value={passwordResetUserId} onChange={(event) => setPasswordResetUserId(event.target.value)}>
+                    <option value="">Seleccionar</option>
+                    {adminUsers.map((user) => (
+                      <option value={user.user_id} key={user.id}>
+                        {user.dni} - {user.nombres}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Contraseña temporal
+                  <input
+                    type="password"
+                    minLength={8}
+                    value={temporaryPassword}
+                    onChange={(event) => setTemporaryPassword(event.target.value)}
+                    autoComplete="new-password"
+                  />
+                </label>
+                <label>
+                  Confirmar contraseña temporal
+                  <input
+                    type="password"
+                    minLength={8}
+                    value={temporaryPasswordConfirm}
+                    onChange={(event) => setTemporaryPasswordConfirm(event.target.value)}
+                    autoComplete="new-password"
+                  />
+                </label>
+                <p className="hint">Comunica la contraseña temporal por el correo o WhatsApp registrado. No se guarda en el sistema.</p>
+                <button type="submit" disabled={panelLoading || !passwordResetUserId}>
+                  Restablecer contraseña
+                </button>
+              </form>
+            </section>
+
             <section className={adminSection === 'auditoria' ? 'admin-section active' : 'admin-section'} aria-label="Auditoría reciente">
             <h2>Auditoría reciente</h2>
             <div className="table-wrap">
@@ -1967,6 +2067,46 @@ export default function App() {
           </section>
           ) : null}
         </>
+      ) : supabaseConfigReady && isPasswordRecoveryPath ? (
+        <section className="auth-grid">
+          <form className="panel form" onSubmit={handleRecoveryRequest}>
+            <h2>Recuperar contraseña</h2>
+            <p className="muted">Solicita al fundador o administrador que restablezca tu contraseña.</p>
+            <label>
+              DNI
+              <input
+                inputMode="numeric"
+                maxLength={8}
+                value={recoveryForm.dni}
+                onChange={(event) => setRecoveryForm((current) => ({ ...current, dni: normalizeDni(event.target.value) }))}
+                autoComplete="username"
+              />
+            </label>
+            <label>
+              Teléfono de contacto
+              <input
+                inputMode="tel"
+                value={recoveryForm.telefono}
+                onChange={(event) => setRecoveryForm((current) => ({ ...current, telefono: event.target.value }))}
+                autoComplete="tel"
+              />
+            </label>
+            <label>
+              Mensaje opcional
+              <textarea
+                value={recoveryForm.comentario}
+                onChange={(event) => setRecoveryForm((current) => ({ ...current, comentario: event.target.value }))}
+                rows={4}
+              />
+            </label>
+            <button type="submit" disabled={loading}>
+              {loading ? 'Registrando...' : 'Solicitar ayuda'}
+            </button>
+            <a className="link-button" href="/">
+              Volver al login
+            </a>
+          </form>
+        </section>
       ) : supabaseConfigReady ? (
         <section className="auth-grid">
           <div className="tabs" aria-label="Modo de acceso">
@@ -2006,6 +2146,9 @@ export default function App() {
               <button type="submit" disabled={loading}>
                 {loading ? 'Validando...' : 'Ingresar'}
               </button>
+              <a className="link-button" href="/recuperar-password">
+                ¿Olvidaste tu contraseña?
+              </a>
             </form>
           ) : null}
 
