@@ -124,6 +124,7 @@ Implementado en el frontend actual:
 - Actualizacion de telefono propio permitida por RLS.
 - Acciones de contacto para fundador con enlaces nativos `mailto:` y `wa.me`, sin Gmail web ni `window.open`.
 - Votaciones V3 con temas, voto de afiliados activos, resultados controlados y administracion minima.
+- Reactivacion administrativa controlada de usuarios anulados o desafiliados, con motivo obligatorio y auditoria.
 - PWA base, headers, redirects y build estatico para Cloudflare Pages.
 - Revision de castellano visible: tildes, `ñ`, signos de apertura y textos de auditoria renderizados en UTF-8.
 

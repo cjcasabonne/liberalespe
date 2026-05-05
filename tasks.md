@@ -501,3 +501,8 @@ Esta fase prepara estructura futura. No habilita UI ni flujo de votacion en v1/v
 
 - [x] Mantener auditoria de votaciones.
   - Verificacion: triggers existentes registran creacion/cambio de estado de temas y emision de votos.
+
+## Fase 12 — Cierre operativo post-v3
+
+- [x] Permitir reactivacion controlada de usuarios deshabilitados.
+  - Verificacion: administrador/fundador ejecuta `reactivar_usuario` por RPC, exige motivo, solo cambia `anulado` o `desafiliado` a `activo` y registra auditoria.

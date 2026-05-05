@@ -69,6 +69,7 @@ function formatAuditAction(action: string) {
     aprobar_afiliacion: 'Aprobar afiliación',
     aprobar_desafiliacion: 'Aprobar desafiliación',
     cambiar_rol_sistema: 'Cambiar rol del sistema',
+    reactivar_usuario: 'Reactivar usuario',
     rechazar_afiliacion: 'Rechazar afiliación',
     rechazar_desafiliacion: 'Rechazar desafiliación',
     resolver_recuperacion: 'Resolver recuperación',
@@ -152,6 +153,13 @@ const annulmentReasonOptions: ReasonOption[] = [
   { label: 'Registro duplicado', detailLabel: 'DNI o referencia del duplicado' },
   { label: 'Uso indebido de cuenta', detailLabel: 'Detalle operativo' },
   { label: 'Solicitud administrativa interna', detailLabel: 'Detalle de la solicitud' },
+  { label: 'Otro motivo', detailLabel: 'Describe el motivo' },
+];
+
+const reactivationReasonOptions: ReasonOption[] = [
+  { label: 'Corrección de anulación previa', detailLabel: 'Detalle de la corrección' },
+  { label: 'Revisión documental favorable', detailLabel: 'Documento o referencia' },
+  { label: 'Regularización administrativa', detailLabel: 'Detalle de la regularización' },
   { label: 'Otro motivo', detailLabel: 'Describe el motivo' },
 ];
 
@@ -852,6 +860,42 @@ export default function App() {
     }
 
     setStatus(action === 'validar_usuario' ? 'Usuario validado manualmente.' : 'Usuario anulado.');
+    await loadPanelData();
+    if (selectedUserId) {
+      await loadSelectedUserLogs(selectedUserId);
+    }
+    await loadProfile();
+  }
+
+  async function runReactivateUserRpc(usuarioId: string) {
+    if (!supabase) {
+      return;
+    }
+
+    setError('');
+    setStatus('');
+
+    const motivo = promptNormalizedReason('Motivo de reactivación', reactivationReasonOptions);
+    if (!motivo) {
+      setError('La reactivación requiere motivo.');
+      return;
+    }
+
+    const confirmed = window.confirm('Confirmar reactivación del usuario seleccionado.');
+    if (!confirmed) {
+      return;
+    }
+
+    setPanelLoading(true);
+    const { error: rpcError } = await supabase.rpc('reactivar_usuario', { usuario_id: usuarioId, motivo });
+    setPanelLoading(false);
+
+    if (rpcError) {
+      setError('El usuario no pudo reactivarse.');
+      return;
+    }
+
+    setStatus('Usuario reactivado.');
     await loadPanelData();
     if (selectedUserId) {
       await loadSelectedUserLogs(selectedUserId);
@@ -1647,6 +1691,14 @@ export default function App() {
                           onClick={() => runProfileRpc('anular_usuario', user.id)}
                         >
                           Anular
+                        </button>
+                        <button
+                          className="secondary"
+                          type="button"
+                          disabled={panelLoading || user.user_id === session.user.id || user.estado === 'activo'}
+                          onClick={() => runReactivateUserRpc(user.id)}
+                        >
+                          Reactivar
                         </button>
                         {profile?.rol_sistema === 'fundador' ? (
                           <button
