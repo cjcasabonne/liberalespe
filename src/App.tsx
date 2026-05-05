@@ -1097,11 +1097,9 @@ Ingresa con tu DNI y esta contraseña temporal.`
     if (!response.ok) {
       const result = (await response.json().catch(() => null)) as { error?: string } | null;
       const errorMessages: Record<string, string> = {
-        invalid_request: 'La solicitud no es válida o la contraseña temporal no cumple la política de seguridad.',
-        password_policy_rejected: 'La contraseña temporal no cumple la política de seguridad.',
-        not_authorized: 'Tu sesión no tiene permiso para restablecer contraseñas.',
-        not_found: 'No se encontró el usuario seleccionado.',
-        server_not_configured: 'La función de restablecimiento no está configurada en el servidor.',
+        not_authorized: 'Tu sesión no tiene permisos para esta acción',
+        weak_password: 'La contraseña generada no cumple la política',
+        user_not_found: 'Usuario no encontrado',
       };
       setError(errorMessages[result?.error ?? ''] ?? 'No se pudo restablecer la contraseña.');
       return;
