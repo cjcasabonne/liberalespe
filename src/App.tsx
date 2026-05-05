@@ -287,6 +287,10 @@ function topicStateDetail(topic: Tema) {
     return `Cierra ${new Date(topic.cierra_en).toLocaleString('es-PE')}`;
   }
 
+  if (topic.estado === 'abierto') {
+    return 'Votación abierta.';
+  }
+
   if (topic.estado === 'borrador') {
     return 'Pendiente de apertura administrativa.';
   }
@@ -1319,7 +1323,7 @@ export default function App() {
               <span>{votingLoading ? 'Cargando...' : `${topics.length} tema(s)`}</span>
             </div>
             {profile?.tipo_miembro !== 'afiliado' || profile.estado !== 'activo' ? (
-              <p className="hint">Solo afiliados activos pueden emitir voto. Los temas cerrados pueden consultarse segÃºn permisos.</p>
+              <p className="hint">Solo afiliados activos pueden emitir voto. Los temas cerrados pueden consultarse según permisos.</p>
             ) : null}
             <div className="topic-list">
               {topics.length > 0 ? (
@@ -1345,7 +1349,7 @@ export default function App() {
                       {canVote ? (
                         <div className="vote-actions">
                           <button type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'si')}>
-                            SÃ­
+                            Sí
                           </button>
                           <button className="secondary" type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'no')}>
                             No
@@ -1356,7 +1360,7 @@ export default function App() {
                             disabled={votingLoading}
                             onClick={() => handleVote(topic.id, 'abstencion')}
                           >
-                            AbstenciÃ³n
+                            Abstención
                           </button>
                         </div>
                       ) : null}
@@ -1375,7 +1379,7 @@ export default function App() {
                   );
                 })
               ) : (
-                <p className="muted">No hay temas de votaciÃ³n disponibles.</p>
+                <p className="muted">No hay temas de votación disponibles.</p>
               )}
             </div>
           </section>
