@@ -354,7 +354,7 @@ function canVote(p: Perfil | null, topic: Tema, vote: Voto | undefined): boolean
 }
 
 function canManageSuggestions(p: Perfil | null): boolean {
-  return p !== null && p.estado === 'activo' && ['administrador', 'fundador'].includes(p.rol_sistema);
+  return p !== null && p.estado === 'activo' && p.tipo_miembro === 'afiliado' && ['administrador', 'fundador'].includes(p.rol_sistema);
 }
 
 function topicStateDetail(topic: Tema) {
@@ -427,7 +427,7 @@ export default function App() {
   const [temporaryPassword, setTemporaryPassword] = useState(generateTemporaryPassword);
 
   const isAdmin = canManageSuggestions(profile);
-  const isFounder = profile?.estado === 'activo' && profile.rol_sistema === 'fundador';
+  const isFounder = profile?.estado === 'activo' && profile.tipo_miembro === 'afiliado' && profile.rol_sistema === 'fundador';
   const selectedUser = adminUsers.find((user) => user.id === selectedUserId) ?? null;
   const passwordResetUser = adminUsers.find((user) => user.user_id === passwordResetUserId) ?? null;
   const operationalAlerts = buildOperationalAlerts(operationalStats, auditLogs);
