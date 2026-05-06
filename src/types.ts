@@ -57,6 +57,7 @@ export interface AuditLog {
 }
 
 export type EstadoTema = 'borrador' | 'abierto' | 'cerrado' | 'anulado';
+export type PublicoObjetivoTema = 'afiliados' | 'fundadores';
 export type OpcionVoto = 'si' | 'no' | 'abstencion';
 
 export interface Tema {
@@ -64,6 +65,7 @@ export interface Tema {
   titulo: string;
   descripcion: string | null;
   estado: EstadoTema;
+  publico_objetivo: PublicoObjetivoTema;
   creado_por: string;
   creado_en: string;
   actualizado_en: string;

@@ -8,6 +8,7 @@ import type {
   AuditLog,
   EstadoTema,
   OpcionVoto,
+  PublicoObjetivoTema,
   Perfil,
   SolicitudAfiliacion,
   SolicitudDesafiliacion,
@@ -43,7 +44,7 @@ const pageSize = 10;
 const perfilSelectColumns =
   'id,user_id,dni,nombres,telefono,correo_contacto,rol_sistema,tipo_miembro,estado,validado_manualmente';
 const perfilSelectColumnsWithCreated = `${perfilSelectColumns},creado_en`;
-const temaSelectColumns = 'id,titulo,descripcion,estado,creado_por,creado_en,actualizado_en,abre_en,cierra_en';
+const temaSelectColumns = 'id,titulo,descripcion,estado,publico_objetivo,creado_por,creado_en,actualizado_en,abre_en,cierra_en';
 const emptyOperationalStats: OperationalStats = {
   pendingValidation: 0,
   pendingAffiliation: 0,
@@ -289,6 +290,22 @@ function formatTopicState(state: EstadoTema) {
   };
 
   return labels[state];
+}
+
+function formatTopicAudience(audience: PublicoObjetivoTema) {
+  const labels: Record<PublicoObjetivoTema, string> = {
+    afiliados: 'Afiliados',
+    fundadores: 'Fundadores',
+  };
+  return labels[audience];
+}
+
+function canProfileVoteTopic(profile: Perfil | null, topic: Tema, vote: Voto | undefined) {
+  if (!profile || vote || profile.estado !== 'activo' || profile.tipo_miembro !== 'afiliado' || topic.estado !== 'abierto') {
+    return false;
+  }
+
+  return topic.publico_objetivo === 'afiliados' || profile.rol_sistema === 'fundador';
 }
 
 function topicStateDetail(topic: Tema) {
@@ -1138,7 +1155,11 @@ Ingresa con tu DNI y esta contraseña temporal.`
       return;
     }
 
-    const confirmed = window.confirm('Confirmar cambio de rol del usuario seleccionado.');
+    const confirmed = window.confirm(
+      nuevoRol === 'fundador'
+        ? 'Confirmar cambio de rol a fundador. El usuario también quedará como afiliado.'
+        : 'Confirmar cambio de rol del usuario seleccionado.',
+    );
     if (!confirmed) {
       return;
     }
@@ -1307,7 +1328,15 @@ Ingresa con tu DNI y esta contraseña temporal.`
     }
 
     const description = window.prompt('Descripción opcional del tema')?.trim() || null;
-    const confirmed = window.confirm('Crear tema en estado borrador.');
+    const audienceInput = window.prompt('Público objetivo: afiliados o fundadores', 'afiliados')?.trim().toLowerCase() as
+      | PublicoObjetivoTema
+      | undefined;
+    if (!audienceInput || !['afiliados', 'fundadores'].includes(audienceInput)) {
+      setError('El público objetivo debe ser afiliados o fundadores.');
+      return;
+    }
+
+    const confirmed = window.confirm(`Crear tema para ${formatTopicAudience(audienceInput).toLowerCase()} en estado borrador.`);
     if (!confirmed) {
       return;
     }
@@ -1318,6 +1347,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
     const { error: topicError } = await supabase.rpc('crear_tema_controlado', {
       p_titulo: title,
       p_descripcion: description,
+      p_publico_objetivo: audienceInput,
     });
     setVotingLoading(false);
 
@@ -1459,14 +1489,14 @@ Ingresa con tu DNI y esta contraseña temporal.`
               <span>{votingLoading ? 'Cargando...' : `${topics.length} tema(s)`}</span>
             </div>
             {profile?.tipo_miembro !== 'afiliado' || profile.estado !== 'activo' ? (
-              <p className="hint">Solo afiliados activos pueden emitir voto. Los temas cerrados pueden consultarse según permisos.</p>
+              <p className="hint">Puedes ver las votaciones y sus resultados, pero solo afiliados activos pueden votar.</p>
             ) : null}
             <div className="topic-list">
               {topics.length > 0 ? (
                 topics.map((topic) => {
                   const vote = ownVotes.find((currentVote) => currentVote.tema_id === topic.id);
                   const summary = voteSummaries[topic.id] ?? [];
-                  const canVote = profile?.estado === 'activo' && profile.tipo_miembro === 'afiliado' && topic.estado === 'abierto' && !vote;
+                  const canVote = canProfileVoteTopic(profile, topic, vote);
 
                   return (
                     <article className="topic-item" key={topic.id}>
@@ -1476,6 +1506,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
                           <span className={`state-pill state-${topic.estado}`}>{formatTopicState(topic.estado)}</span>
                         </div>
                         {topic.descripcion ? <p className="muted">{topic.descripcion}</p> : null}
+                        <p className="hint">Dirigida a: {formatTopicAudience(topic.publico_objetivo)}</p>
                         <p className="hint">{topicStateDetail(topic)}</p>
                         {vote ? (
                           <p className="hint">Tu voto: {formatVoteOption(vote.opcion)} - {new Date(vote.creado_en).toLocaleString('es-PE')}</p>
@@ -1623,7 +1654,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
                       <div>
                         <strong>{topic.titulo}</strong>
                         <p className="muted">
-                          {formatTopicState(topic.estado)} - {new Date(topic.creado_en).toLocaleString('es-PE')}
+                          {formatTopicState(topic.estado)} - {formatTopicAudience(topic.publico_objetivo)} - {new Date(topic.creado_en).toLocaleString('es-PE')}
                         </p>
                       </div>
                       <div className="row-actions">
