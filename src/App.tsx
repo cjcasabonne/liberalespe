@@ -419,6 +419,8 @@ export default function App() {
   const [suggestionLoading, setSuggestionLoading] = useState(false);
   const [adminSuggestionFilter, setAdminSuggestionFilter] = useState<'todos' | EstadoTemaSugerencia>('todos');
   const [suggestionProfiles, setSuggestionProfiles] = useState<Record<string, Perfil>>({});
+  const [showAllClosed, setShowAllClosed] = useState(false);
+  const [showAllAnnulled, setShowAllAnnulled] = useState(false);
   const [adminSection, setAdminSection] = useState<AdminSection>('resumen');
   const [adminMenuOpen, setAdminMenuOpen] = useState(false);
   const [passwordResetUserId, setPasswordResetUserId] = useState('');
@@ -434,6 +436,18 @@ export default function App() {
   const adminFilteredSuggestions = adminSuggestionFilter === 'todos'
     ? topicSuggestions
     : topicSuggestions.filter((s) => s.estado === adminSuggestionFilter);
+  const pendingVoteTopics = topics.filter((t) => t.estado === 'abierto' && !ownVotes.some((v) => v.tema_id === t.id));
+  const votedOpenTopics = topics.filter((t) => t.estado === 'abierto' && ownVotes.some((v) => v.tema_id === t.id));
+  const closedTopics = topics.filter((t) => t.estado === 'cerrado');
+  const annulledTopics = topics.filter((t) => t.estado === 'anulado');
+  const visibleClosed = showAllClosed ? closedTopics : closedTopics.slice(0, 3);
+  const visibleAnnulled = showAllAnnulled ? annulledTopics : annulledTopics.slice(0, 2);
+  const myTopicSuggestions = isAdmin
+    ? topicSuggestions.filter((s) => profile && s.created_by === profile.id)
+    : topicSuggestions;
+  const myActiveSuggestions = myTopicSuggestions.filter((s) => ['pendiente', 'aprobado'].includes(s.estado));
+  const myConvertedSuggestions = myTopicSuggestions.filter((s) => s.estado === 'convertido');
+  const myRejectedSuggestions = myTopicSuggestions.filter((s) => s.estado === 'rechazado');
   const isPasswordRecoveryPath = window.location.pathname === '/recuperar-password';
   const adminNavItems: Array<{ key: AdminSection; label: string; count?: number }> = [
     { key: 'resumen', label: 'Resumen' },
@@ -516,6 +530,8 @@ Ingresa con tu DNI y esta contraseña temporal.`
       setVoteSummaries({});
       setTopicSuggestions([]);
       setSuggestionProfiles({});
+      setShowAllClosed(false);
+      setShowAllAnnulled(false);
       return;
     }
 
@@ -1707,19 +1723,36 @@ Ingresa con tu DNI y esta contraseña temporal.`
 
           <section className="panel voting-panel">
             <div className="panel-heading">
-              <h2>Votaciones</h2>
-              <span>{votingLoading ? 'Cargando...' : `${topics.length} tema(s)`}</span>
+              <h2>Participación</h2>
+              {votingLoading ? <span>Cargando...</span> : null}
             </div>
-            {!canSuggestTopics(profile) ? (
+
+            <div className="participation-stats">
+              <div>
+                <strong>{pendingVoteTopics.length}</strong>
+                <span>pendiente{pendingVoteTopics.length !== 1 ? 's' : ''}</span>
+              </div>
+              <div>
+                <strong>{closedTopics.length}</strong>
+                <span>resultado{closedTopics.length !== 1 ? 's' : ''}</span>
+              </div>
+              <div>
+                <strong>{myActiveSuggestions.length}</strong>
+                <span>sugerencia{myActiveSuggestions.length !== 1 ? 's' : ''} activa{myActiveSuggestions.length !== 1 ? 's' : ''}</span>
+              </div>
+            </div>
+
+            {!canSuggestTopics(profile) && topics.some((t) => t.estado === 'abierto') ? (
               <p className="hint">Puedes ver las votaciones y sus resultados, pero solo afiliados activos pueden votar.</p>
             ) : null}
-            <div className="topic-list">
-              {topics.length > 0 ? (
-                topics.map((topic) => {
-                  const vote = ownVotes.find((currentVote) => currentVote.tema_id === topic.id);
-                  const summary = voteSummaries[topic.id] ?? [];
-                  const eligible = canVote(profile, topic, vote);
 
+            {pendingVoteTopics.length > 0 ? (
+              <div className="vote-group">
+                <p className="vote-group-title">Pendientes de votar</p>
+                {pendingVoteTopics.map((topic) => {
+                  const eligible = canVote(profile, topic, undefined);
+                  const summary = voteSummaries[topic.id] ?? [];
+                  const total = summary.reduce((acc, item) => acc + item.total, 0);
                   return (
                     <article className="topic-item" key={topic.id}>
                       <div className="topic-main">
@@ -1733,64 +1766,137 @@ Ingresa con tu DNI y esta contraseña temporal.`
                           <p className="hint">Opciones: {topic.opciones.join(' / ')}</p>
                         ) : null}
                         <p className="hint">{topicStateDetail(topic)}</p>
-                        {vote ? (
-                          <p className="hint">Tu voto: {formatVoteOption(vote.opcion)} - {new Date(vote.creado_en).toLocaleString('es-PE')}</p>
-                        ) : null}
                       </div>
-
                       {eligible ? (
                         <div className="vote-actions">
                           {topic.tipo_votacion === 'opciones' ? (
                             topic.opciones.map((opcion) => (
-                              <button
-                                key={opcion}
-                                className="secondary"
-                                type="button"
-                                disabled={votingLoading}
-                                onClick={() => handleVote(topic.id, opcion)}
-                              >
+                              <button key={opcion} className="secondary" type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, opcion)}>
                                 {opcion}
                               </button>
                             ))
                           ) : (
                             <>
-                              <button type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'si')}>
-                                Sí
-                              </button>
-                              <button className="secondary" type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'no')}>
-                                No
-                              </button>
-                              <button className="secondary" type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'abstencion')}>
-                                Abstención
-                              </button>
+                              <button type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'si')}>Sí</button>
+                              <button className="secondary" type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'no')}>No</button>
+                              <button className="secondary" type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'abstencion')}>Abstención</button>
                             </>
                           )}
                         </div>
                       ) : null}
-
                       {summary.length > 0 ? (
-                        <div className="vote-summary" aria-label={`Resultados de ${topic.titulo}`}>
-                          {summary.map((item) => (
-                            <div key={`${topic.id}-${item.opcion}`}>
-                              <span>{formatVoteOption(item.opcion)}</span>
-                              <strong>{item.total}</strong>
-                            </div>
-                          ))}
+                        <div className="vote-results" aria-label={`Resultados parciales de ${topic.titulo}`}>
+                          {summary.map((item) => {
+                            const pct = total > 0 ? Math.round((item.total / total) * 100) : 0;
+                            return (
+                              <div key={item.opcion} className="result-row">
+                                <div className="result-label">
+                                  <span>{formatVoteOption(item.opcion)}</span>
+                                  <span>{item.total} ({pct}%)</span>
+                                </div>
+                                <div className="result-bar-track">
+                                  <div className="result-bar-fill" style={{ width: `${pct}%` }} />
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
                       ) : null}
                     </article>
                   );
-                })
-              ) : (
-                <p className="muted">No hay temas de votación disponibles.</p>
-              )}
-            </div>
+                })}
+              </div>
+            ) : null}
+
+            {votedOpenTopics.length > 0 ? (
+              <div className="vote-group">
+                <p className="vote-group-title">Ya votaste</p>
+                {votedOpenTopics.map((topic) => {
+                  const vote = ownVotes.find((v) => v.tema_id === topic.id);
+                  return vote ? (
+                    <div className="topic-item-compact" key={topic.id}>
+                      <div>
+                        <strong>{topic.titulo}</strong>
+                        <p className="hint">Tu voto: {formatVoteOption(vote.opcion)} — {new Date(vote.creado_en).toLocaleString('es-PE')}</p>
+                      </div>
+                      <span className={`state-pill state-${topic.estado}`}>{formatTopicState(topic.estado)}</span>
+                    </div>
+                  ) : null;
+                })}
+              </div>
+            ) : null}
+
+            {closedTopics.length > 0 ? (
+              <div className="vote-group">
+                <p className="vote-group-title">Resultados</p>
+                {visibleClosed.map((topic) => {
+                  const summary = voteSummaries[topic.id] ?? [];
+                  const total = summary.reduce((acc, item) => acc + item.total, 0);
+                  const vote = ownVotes.find((v) => v.tema_id === topic.id);
+                  return (
+                    <article className="topic-item" key={topic.id}>
+                      <div className="topic-main">
+                        <div className="topic-title-row">
+                          <h3>{topic.titulo}</h3>
+                          <span className={`state-pill state-${topic.estado}`}>{formatTopicState(topic.estado)}</span>
+                        </div>
+                        {vote ? <p className="hint">Tu voto: {formatVoteOption(vote.opcion)}</p> : null}
+                      </div>
+                      {summary.length > 0 ? (
+                        <div className="vote-results" aria-label={`Resultados de ${topic.titulo}`}>
+                          {summary.map((item) => {
+                            const pct = total > 0 ? Math.round((item.total / total) * 100) : 0;
+                            return (
+                              <div key={item.opcion} className="result-row">
+                                <div className="result-label">
+                                  <span>{formatVoteOption(item.opcion)}</span>
+                                  <span>{item.total} ({pct}%)</span>
+                                </div>
+                                <div className="result-bar-track">
+                                  <div className="result-bar-fill" style={{ width: `${pct}%` }} />
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : null}
+                    </article>
+                  );
+                })}
+                {!showAllClosed && closedTopics.length > 3 ? (
+                  <button className="secondary show-more" type="button" onClick={() => setShowAllClosed(true)}>
+                    Ver más ({closedTopics.length - 3} más)
+                  </button>
+                ) : null}
+              </div>
+            ) : null}
+
+            {annulledTopics.length > 0 ? (
+              <div className="vote-group">
+                <p className="vote-group-title">Anuladas</p>
+                {visibleAnnulled.map((topic) => (
+                  <div className="topic-item-compact" key={topic.id}>
+                    <strong>{topic.titulo}</strong>
+                    <span className={`state-pill state-${topic.estado}`}>{formatTopicState(topic.estado)}</span>
+                  </div>
+                ))}
+                {!showAllAnnulled && annulledTopics.length > 2 ? (
+                  <button className="secondary show-more" type="button" onClick={() => setShowAllAnnulled(true)}>
+                    Ver más ({annulledTopics.length - 2} más)
+                  </button>
+                ) : null}
+              </div>
+            ) : null}
+
+            {topics.length === 0 && !votingLoading ? (
+              <p className="muted">No hay temas de votación disponibles.</p>
+            ) : null}
           </section>
 
           <section className="panel suggestion-panel">
             <div className="panel-heading">
               <h2>Sugerir tema</h2>
-              <span>{suggestionLoading ? 'Guardando...' : `${topicSuggestions.length} sugerencia(s)`}</span>
+              {suggestionLoading ? <span>Guardando...</span> : null}
             </div>
             {canSuggestTopics(profile) ? (
               <form className="form" onSubmit={handleCreateTopicSuggestion}>
@@ -1866,46 +1972,91 @@ Ingresa con tu DNI y esta contraseña temporal.`
               <p className="hint">Solo afiliados activos pueden sugerir temas. Las sugerencias no se convierten automáticamente en votaciones.</p>
             )}
 
-            <div className="request-list">
-              {topicSuggestions.length > 0 ? (
-                topicSuggestions.map((suggestion) => {
+            {myActiveSuggestions.length > 0 ? (
+              <div className="suggestions-group">
+                <p className="suggestions-group-title">En proceso</p>
+                {myActiveSuggestions.map((suggestion) => {
                   const convertedTopic = suggestion.tema_id_generado
                     ? topics.find((t) => t.id === suggestion.tema_id_generado)
                     : null;
                   return (
                     <div className="request-item" key={suggestion.id}>
-                      <div>
-                        <strong>{suggestion.titulo}</strong>
-                        <p className="muted">
-                          <span className={`state-pill state-${suggestion.estado}`}>{formatSuggestionState(suggestion.estado)}</span>
-                          {' '}{formatSuggestionType(suggestion.tipo_votacion_sugerido)} — {new Date(suggestion.created_at).toLocaleString('es-PE')}
-                        </p>
-                        {suggestion.opciones_sugeridas.length > 0 ? (
-                          <p className="hint">Opciones sugeridas: {suggestion.opciones_sugeridas.join(' / ')}</p>
-                        ) : null}
-                        {suggestion.estado === 'pendiente' ? (
-                          <p className="hint">En revisión por el equipo operativo.</p>
-                        ) : suggestion.estado === 'aprobado' ? (
-                          <p className="hint">Aprobada. Puede convertirse en tema oficial de votación.</p>
-                        ) : suggestion.estado === 'rechazado' ? (
-                          <p className="hint">Rechazada por el equipo operativo.</p>
-                        ) : null}
-                        {suggestion.revision_comentario ? (
-                          <p className="hint">Comentario: {suggestion.revision_comentario}</p>
-                        ) : null}
-                        {convertedTopic ? (
-                          <p className="hint">Convertida en tema oficial: <strong>{convertedTopic.titulo}</strong></p>
-                        ) : suggestion.tema_id_generado ? (
-                          <p className="hint">Convertida en tema oficial.</p>
-                        ) : null}
-                      </div>
+                      <strong>{suggestion.titulo}</strong>
+                      <p className="muted">
+                        <span className={`state-pill state-${suggestion.estado}`}>{formatSuggestionState(suggestion.estado)}</span>
+                        {' '}{formatSuggestionType(suggestion.tipo_votacion_sugerido)} — {new Date(suggestion.created_at).toLocaleString('es-PE')}
+                      </p>
+                      {suggestion.opciones_sugeridas.length > 0 ? (
+                        <p className="hint">Opciones sugeridas: {suggestion.opciones_sugeridas.join(' / ')}</p>
+                      ) : null}
+                      {suggestion.estado === 'pendiente' ? (
+                        <p className="hint">En revisión por el equipo operativo.</p>
+                      ) : suggestion.estado === 'aprobado' ? (
+                        <p className="hint">Aprobada. Puede convertirse en tema oficial de votación.</p>
+                      ) : null}
+                      {suggestion.revision_comentario ? (
+                        <p className="hint">Comentario: {suggestion.revision_comentario}</p>
+                      ) : null}
+                      {convertedTopic ? (
+                        <p className="hint">Convertida en tema oficial: <strong>{convertedTopic.titulo}</strong></p>
+                      ) : suggestion.tema_id_generado ? (
+                        <p className="hint">Convertida en tema oficial.</p>
+                      ) : null}
                     </div>
                   );
-                })
-              ) : (
-                <p className="muted">No hay sugerencias registradas.</p>
-              )}
-            </div>
+                })}
+              </div>
+            ) : null}
+
+            {myConvertedSuggestions.length > 0 ? (
+              <div className="suggestions-group">
+                <p className="suggestions-group-title">Convertidas</p>
+                {myConvertedSuggestions.map((suggestion) => {
+                  const convertedTopic = suggestion.tema_id_generado
+                    ? topics.find((t) => t.id === suggestion.tema_id_generado)
+                    : null;
+                  return (
+                    <div className="request-item" key={suggestion.id}>
+                      <strong>{suggestion.titulo}</strong>
+                      <p className="muted">
+                        <span className={`state-pill state-${suggestion.estado}`}>{formatSuggestionState(suggestion.estado)}</span>
+                        {' '}{new Date(suggestion.created_at).toLocaleString('es-PE')}
+                      </p>
+                      {convertedTopic ? (
+                        <p className="hint">Tema oficial: <strong>{convertedTopic.titulo}</strong></p>
+                      ) : (
+                        <p className="hint">Convertida en tema oficial.</p>
+                      )}
+                      {suggestion.revision_comentario ? (
+                        <p className="hint">Comentario: {suggestion.revision_comentario}</p>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : null}
+
+            {myRejectedSuggestions.length > 0 ? (
+              <div className="suggestions-group">
+                <p className="suggestions-group-title">Rechazadas</p>
+                {myRejectedSuggestions.map((suggestion) => (
+                  <div className="request-item" key={suggestion.id}>
+                    <strong>{suggestion.titulo}</strong>
+                    <p className="muted">
+                      <span className={`state-pill state-${suggestion.estado}`}>{formatSuggestionState(suggestion.estado)}</span>
+                      {' '}{new Date(suggestion.created_at).toLocaleString('es-PE')}
+                    </p>
+                    {suggestion.revision_comentario ? (
+                      <p className="hint">Comentario: {suggestion.revision_comentario}</p>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            ) : null}
+
+            {myTopicSuggestions.length === 0 && !suggestionLoading ? (
+              <p className="muted">No hay sugerencias registradas.</p>
+            ) : null}
           </section>
 
           {isAdmin ? (
