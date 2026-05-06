@@ -30,7 +30,6 @@ function isWeakPasswordError(error: { message?: string; status?: number } | null
   if (!error) {
     return false;
   }
-
   const message = error.message?.toLowerCase() ?? '';
   return error.status === 422 || message.includes('password') || message.includes('contrase');
 }
@@ -41,17 +40,18 @@ function getBearerToken(authorization: string) {
 
 export async function onRequestPost(context: PagesContext) {
   const { request, env } = context;
-  const supabaseUrl = env.VITE_SUPABASE_URL;
-  const anonKey = env.VITE_SUPABASE_ANON_KEY;
-  const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabaseUrl = env.VITE_SUPABASE_URL?.trim();
+  const anonKey = env.VITE_SUPABASE_ANON_KEY?.trim();
+  const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY?.trim();
 
   console.info('[restablecer-password] request_start');
 
   try {
     if (!supabaseUrl || !anonKey || !serviceRoleKey) {
-      console.info('[restablecer-password] authorization_result', {
-        authorized: false,
-        reason: 'server_not_configured',
+      console.info('[restablecer-password] config_error', {
+        hasUrl: !!supabaseUrl,
+        hasAnonKey: !!anonKey,
+        hasServiceKey: !!serviceRoleKey,
       });
       return errorResponse('unknown', 500);
     }
@@ -80,9 +80,12 @@ export async function onRequestPost(context: PagesContext) {
       return errorResponse('weak_password', 400);
     }
 
+    // adminClient: service role — used only for auth.admin operations
     const adminClient = createClient(supabaseUrl, serviceRoleKey, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
+
+    // userClient: actor's JWT — used for DB queries with RLS
     const userClient = createClient(supabaseUrl, anonKey, {
       global: {
         headers: {
@@ -99,9 +102,11 @@ export async function onRequestPost(context: PagesContext) {
     }
 
     const actorId = authData.user.id;
+
+    // Verify actor is an active afiliado with admin or founder role
     const { data: actorProfile, error: actorError } = await userClient
       .from('perfiles')
-      .select('user_id,rol_sistema,estado')
+      .select('user_id,rol_sistema,tipo_miembro,estado')
       .eq('user_id', actorId)
       .single();
 
@@ -109,9 +114,17 @@ export async function onRequestPost(context: PagesContext) {
       actorError ||
       !actorProfile ||
       actorProfile.estado !== 'activo' ||
+      actorProfile.tipo_miembro !== 'afiliado' ||
       !['administrador', 'fundador'].includes(actorProfile.rol_sistema)
     ) {
-      console.info('[restablecer-password] authorization_result', { authorized: false, reason: 'insufficient_role' });
+      console.info('[restablecer-password] authorization_result', {
+        authorized: false,
+        reason: 'insufficient_role',
+        estado: actorProfile?.estado,
+        tipo_miembro: actorProfile?.tipo_miembro,
+        rol: actorProfile?.rol_sistema,
+        actorError: actorError?.message,
+      });
       return errorResponse('not_authorized', 403);
     }
 
@@ -121,24 +134,38 @@ export async function onRequestPost(context: PagesContext) {
       return errorResponse('not_authorized', 403);
     }
 
-    const { data: targetProfile, error: targetError } = await adminClient
+    // Look up target profile using userClient (actor JWT + es_admin() in RLS)
+    // This avoids a service role dependency for the DB lookup step.
+    const { data: targetProfile, error: targetError } = await userClient
       .from('perfiles')
       .select('id,user_id')
       .eq('user_id', userId)
       .single();
 
     if (targetError || !targetProfile) {
-      console.info('[restablecer-password] target_lookup_result', { found: false });
+      console.info('[restablecer-password] target_lookup_result', {
+        found: false,
+        errorCode: targetError?.code,
+        errorMessage: targetError?.message,
+      });
       return errorResponse('user_not_found', 404);
     }
+
     console.info('[restablecer-password] target_lookup_result', { found: true });
 
+    // Reset password via service role admin API
     const { error: updateError } = await adminClient.auth.admin.updateUserById(userId, { password });
     if (updateError) {
-      const mappedError =
-        updateError.status === 404 ? 'user_not_found' : isWeakPasswordError(updateError) ? 'weak_password' : 'unknown';
-      console.info('[restablecer-password] updateUserById_result', { success: false, error: mappedError });
-      return errorResponse(mappedError, mappedError === 'user_not_found' ? 404 : 400);
+      // If the target was found in perfiles, a 404 here indicates a data integrity issue,
+      // not a missing user — report as unknown rather than misleading user_not_found.
+      const mappedError = isWeakPasswordError(updateError) ? 'weak_password' : 'unknown';
+      console.info('[restablecer-password] updateUserById_result', {
+        success: false,
+        status: updateError.status,
+        message: updateError.message,
+        error: mappedError,
+      });
+      return errorResponse(mappedError, mappedError === 'weak_password' ? 400 : 500);
     }
 
     console.info('[restablecer-password] updateUserById_result', { success: true });
@@ -154,7 +181,7 @@ export async function onRequestPost(context: PagesContext) {
     });
 
     if (auditError) {
-      console.info('[restablecer-password] audit_result', { success: false });
+      console.info('[restablecer-password] audit_result', { success: false, error: auditError.message });
       return errorResponse('unknown', 500);
     }
 
@@ -165,6 +192,7 @@ export async function onRequestPost(context: PagesContext) {
       success: false,
       error: 'unknown',
       errorType: unexpectedError instanceof Error ? unexpectedError.name : typeof unexpectedError,
+      errorMessage: unexpectedError instanceof Error ? unexpectedError.message : String(unexpectedError),
     });
     return errorResponse('unknown', 500);
   }
