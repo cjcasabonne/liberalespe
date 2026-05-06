@@ -118,29 +118,36 @@ Implementado en el frontend actual:
 
 - Registro y login con DNI + contrasena mediante email tecnico interno.
 - Integracion con Supabase Auth, RLS y RPC administrativas.
-- Perfil propio, solicitudes operativas y panel basico para administradores/fundadores.
+- Perfil propio, solicitudes operativas y panel operativo para administradores/fundadores.
 - Listado paginado de usuarios, filtros, detalle de usuario y auditoria por usuario.
-- Solicitud publica de recuperacion de acceso; el restablecimiento administrativo de contrasena queda pendiente de cierre funcional.
-- Actualizacion de telefono propio permitida por RLS.
+- Recuperacion de acceso: solicitud publica y restablecimiento administrativo de contrasena operativos, con contrasena temporal generada automaticamente, auditoria completa y registro en `audit_log`.
+- Actualizacion de telefono propio permitida por RLS (column-level grant).
 - Acciones de contacto para fundador con enlaces nativos `mailto:` y `wa.me`, sin Gmail web ni `window.open`.
-- Votaciones V3 con temas por publico objetivo (`afiliados` o `fundadores`), voto de afiliados activos segun grupo, resultados visibles para usuarios autenticados y administracion minima.
-- Sugerencias de temas separadas de votaciones oficiales: afiliados activos proponen, administradores/fundadores revisan y convierten manualmente en temas reales.
+- Votaciones V3 con temas por publico objetivo (`afiliados` o `fundadores`), votaciones binarias y por opciones multiples (`tipo_votacion`, `opciones[]`), voto de afiliados activos segun grupo.
+- Modulo de participacion reestructurado: votaciones agrupadas en pendientes / ya votadas (compactas) / cerradas con barras de resultado y porcentajes / anuladas compactas; paginacion simple con "Ver mas"; resumen rapido de participacion.
+- Sugerencias de temas separadas de votaciones oficiales: afiliados activos proponen, administradores/fundadores revisan y convierten manualmente en temas reales; panel de sugerencias separado en grupos (en proceso / convertidas / rechazadas).
+- Solo afiliados activos pueden tener rol administrador o fundador (regla aplicada en frontend y en base de datos).
 - Reactivacion administrativa controlada de usuarios anulados o desafiliados, con motivo obligatorio y auditoria.
 - PWA base, headers, redirects y build estatico para Cloudflare Pages.
-- Revision de castellano visible: tildes, `ñ`, signos de apertura y textos de auditoria renderizados en UTF-8.
+- Castellano estandar: tildes, `ñ`, signos de apertura, textos renderizados en UTF-8.
 
-Validado manualmente para cierre v1:
+Migraciones aplicadas en produccion:
+
+- `001`–`012`: esquema base, RLS, solicitudes, auditoria, votaciones V3.
+- `013`: sistema de sugerencias de temas (`tema_sugerencias`) con RPC completa.
+- `014`: votaciones por opciones multiples (`tipo_votacion`, `opciones[]` en `temas`).
+
+Validado manualmente:
 
 - RLS con usuario comun, administrador y fundador.
 - Flujo DNI activo, DNI caido y DNI duplicado.
-- Panel minimo y trazabilidad end-to-end.
+- Panel operativo y trazabilidad end-to-end.
 - Deploy real en Cloudflare Pages.
 
 Pendiente operativo recurrente:
 
 - Validar Cloudflare Pages despues de cada release.
-- Aplicar migraciones nuevas de Supabase antes de usar funcionalidades V3 en produccion.
-- Cerrar y validar el flujo de recuperacion/restablecimiento de contrasena antes de considerarlo funcional.
+- Aplicar nuevas migraciones de Supabase antes de activar funcionalidades en produccion.
 
 Nota para cuentas existentes:
 

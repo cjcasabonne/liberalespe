@@ -281,7 +281,7 @@ La recuperacion automatica queda deshabilitada para el flujo principal. No se de
 
 El reseteo debe ser administrativo y auditado. En terminos operativos, el panel debe permitir registrar la solicitud y el resultado; la ejecucion del cambio de contrasena puede hacerse con las herramientas administrativas de Supabase por operadores autorizados o mediante una funcion controlada si el proyecto incorpora una capacidad segura para ello sin agregar backend general.
 
-Estado vigente: la solicitud publica de recuperacion existe, pero el restablecimiento administrativo de contrasena queda pendiente de arreglo y validacion funcional. No debe considerarse cerrado hasta verificar cambio efectivo de clave, login posterior del usuario objetivo y registro persistente en `audit_log`.
+Estado vigente: el flujo completo esta implementado y validado. La solicitud publica de recuperacion y el restablecimiento administrativo de contrasena son operativos. El administrador selecciona al usuario, el sistema genera una contrasena temporal, la ejecuta via funcion serverless con token de sesion activo, y registra la accion en `audit_log` con actor, sujeto, fecha y metodo.
 
 Reglas:
 
@@ -464,6 +464,7 @@ as $$
     from perfiles
     where id = auth.uid()
       and rol_sistema in ('administrador', 'fundador')
+      and tipo_miembro = 'afiliado'
       and estado = 'activo'
   );
 $$;
@@ -479,6 +480,7 @@ as $$
     from perfiles
     where id = auth.uid()
       and rol_sistema = 'fundador'
+      and tipo_miembro = 'afiliado'
       and estado = 'activo'
   );
 $$;
@@ -1116,19 +1118,20 @@ Implementacion v2:
 
 Objetivo: ampliar capacidades politicas sin reescribir la base.
 
+**Estado: implementado y en produccion.**
+
 Incluye:
 
-- modulos de consulta/votacion interna;
-- padrones electorales congelados por evento;
-- reglas de elegibilidad basadas en `tipo_miembro = afiliado` y `estado = activo`;
-- auditoria electoral separada;
-- reportes para organos internos;
-- permisos mas granulares si la operacion lo exige;
-- integracion con procesos legales o documentales.
+- votaciones internas con temas por publico objetivo (`afiliados` o `fundadores`);
+- votaciones binarias y por opciones multiples (`tipo_votacion`, `opciones[]`);
+- elegibilidad basada en `tipo_miembro = afiliado` y `estado = activo`, validada en base de datos;
+- sugerencias de temas por afiliados activos, revision y conversion por administradores/fundadores;
+- resultados visibles para usuarios autenticados con barras de progreso y porcentajes;
+- auditoria de creacion, cambio de estado y emision de voto.
 
 Principio para v3:
 
-La votacion y democracia directa deben construirse sobre el padron validado, no reemplazarlo. El derecho a votar depende de datos operativos trazables, no de una validacion automatica por DNI.
+La votacion y democracia directa se construyen sobre el padron validado, no lo reemplazan. El derecho a votar depende de datos operativos trazables, no de una validacion automatica por DNI.
 
 Estado de implementacion v3:
 

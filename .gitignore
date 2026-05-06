@@ -5,3 +5,14 @@ dist/
 .env.local
 .env.*.local
 supabase/.temp/
+
+# Documentos internos de construccion y auditoria
+kickoff.md
+scaffolding.md
+tasks.md
+salvador.md
+salvador2.md
+auditoria_resetpass.md
+Documentation/auditoria_seguridad.md
+Documentation/perspectiva_auditoria_seguridad.md
+Documentation/plan_pruebas_rls_v2.md
