@@ -1833,12 +1833,12 @@ Ingresa con tu DNI y esta contraseña temporal.`
                       onChange={() => setSuggestionForm((current) => ({ ...current, tipo: 'opciones', opciones: ['', ''] }))}
                     />
                     Opciones libres
-                    <span className="radio-hint">especificás las alternativas vos mismo</span>
+                    <span className="radio-hint">especifica las alternativas tú mismo</span>
                   </label>
                 </fieldset>
                 {suggestionForm.tipo === 'opciones' ? (
                   <div className="suggestion-options">
-                    <p className="hint">Escribí cada opción que el afiliado podrá elegir al votar.</p>
+                    <p className="hint">Escribe cada opción que el afiliado podrá elegir al votar.</p>
                     {suggestionForm.opciones.map((option, index) => (
                       <label key={`suggestion-option-${index}`}>
                         Opción {index + 1}
