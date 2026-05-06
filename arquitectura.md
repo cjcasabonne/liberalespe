@@ -281,6 +281,8 @@ La recuperacion automatica queda deshabilitada para el flujo principal. No se de
 
 El reseteo debe ser administrativo y auditado. En terminos operativos, el panel debe permitir registrar la solicitud y el resultado; la ejecucion del cambio de contrasena puede hacerse con las herramientas administrativas de Supabase por operadores autorizados o mediante una funcion controlada si el proyecto incorpora una capacidad segura para ello sin agregar backend general.
 
+Estado vigente: la solicitud publica de recuperacion existe, pero el restablecimiento administrativo de contrasena queda pendiente de arreglo y validacion funcional. No debe considerarse cerrado hasta verificar cambio efectivo de clave, login posterior del usuario objetivo y registro persistente en `audit_log`.
+
 Reglas:
 
 - no resetear contrasenas solo porque alguien conoce un DNI;
@@ -731,6 +733,8 @@ Acciones:
 
 ### Reglas operativas
 
+- El sistema permite multiples fundadores activos como decision de gobernanza operativa.
+- Todo fundador debe ser tambien `afiliado`; al promover a `fundador`, la RPC debe asegurar `tipo_miembro = afiliado`.
 - Un administrador no debe poder convertirse a si mismo en fundador.
 - Un administrador no debe poder degradar a un fundador.
 - Acciones de alto riesgo deben requerir confirmacion explicita.
@@ -1130,8 +1134,28 @@ Estado de implementacion v3:
 
 - La emision de voto se ejecuta por RPC controlada (`emitir_voto_controlado`) y no por decision local del frontend.
 - La elegibilidad se resuelve en base de datos desde `auth.uid()` y requiere perfil `activo` con `tipo_miembro = afiliado`.
-- Los resultados se consultan por RPC (`resumen_votos_tema`) y solo se exponen a administradores o a usuarios autenticados cuando el tema esta cerrado.
-- Administradores y fundador pueden crear temas en borrador y cambiar su estado mediante RLS y auditoria.
+- Cada tema define `publico_objetivo`: `afiliados` o `fundadores`.
+- Los temas para `afiliados` aceptan votos de afiliados activos.
+- Los temas para `fundadores` aceptan votos solo de fundadores activos, que son un subconjunto de afiliados.
+- Los adherentes autenticados pueden ver votaciones y resultados, pero no votar.
+- Los resultados se consultan por RPC (`resumen_votos_tema`) para temas abiertos/cerrados por usuarios autenticados; borradores/anulados quedan restringidos a administradores.
+- Administradores y fundadores pueden crear temas en borrador y cambiar su estado mediante RLS y auditoria.
+- Las sugerencias de nuevos temas viven en `tema_sugerencias`, separadas de `temas`; no usan `temas.estado = pendiente` ni aparecen como votaciones oficiales.
+- Afiliados activos pueden sugerir temas; administradores/fundadores revisan y, si corresponde, convierten la sugerencia en un nuevo registro oficial de `temas`.
+
+### Sugerencias de temas
+
+Las sugerencias son participacion, no aprobacion. Un afiliado puede proponer un tema, pero la propuesta no se convierte automaticamente en votacion oficial.
+
+Reglas:
+
+- `tema_sugerencias` es una tabla separada de `temas`.
+- Estados permitidos: `pendiente`, `aprobado`, `rechazado`, `convertido`.
+- Afiliados activos pueden crear y ver sus propias sugerencias.
+- Administradores/fundadores pueden ver todas, aprobar, rechazar o convertir.
+- Convertir una sugerencia crea un nuevo `temas` en `borrador` y guarda `tema_sugerencias.tema_id_generado`.
+- La conversion puede copiar opciones sugeridas como contexto, pero el tema oficial sigue siendo un registro independiente.
+- Toda creacion, revision y conversion debe quedar trazada en `audit_log`.
 
 ## Extension futura: Democracia directa (v3)
 
@@ -1143,14 +1167,16 @@ Esta extension prepara el modelo para democracia directa sin implementar UI ni f
 
 `votos` son registros asociados a un tema y a un usuario habilitado. Cada voto pertenece a un unico tema y a un unico perfil.
 
-### Modelo futuro recomendado
+### Modelo implementado/recomendado
 
 ```sql
 create table temas (
   id uuid primary key default gen_random_uuid(),
   titulo text not null,
   descripcion text,
-  estado estado_solicitud not null default 'pendiente',
+  estado estado_tema not null default 'borrador',
+  publico_objetivo text not null default 'afiliados'
+    check (publico_objetivo in ('afiliados', 'fundadores')),
   creado_por uuid not null references auth.users(id),
   creado_en timestamptz not null default now(),
   cierra_en timestamptz
@@ -1169,13 +1195,15 @@ create table votos (
 ### Reglas
 
 - Solo usuarios con `tipo_miembro = afiliado` y `estado = activo` pueden votar.
+- Si `temas.publico_objetivo = 'fundadores'`, ademas se exige `rol_sistema = fundador`.
+- Fundadores son un subconjunto operativo de afiliados.
+- Adherentes pueden consultar votaciones y resultados permitidos, pero no emitir votos.
 - El frontend no decide si un usuario puede votar.
 - La elegibilidad debe validarse con RLS, constraints o RPC controlada.
 - Un usuario no puede votar mas de una vez por tema.
 - Los votos deben ser inmutables despues de emitidos.
 - La auditoria tambien aplica a votos y cambios de estado de temas.
-- Esta funcionalidad no se implementa en v1/v2.
-- El modelo se define desde ahora para evitar reescritura cuando se active v3.
+- Esta funcionalidad esta activa como V3 y depende de migraciones Supabase aplicadas antes del deploy frontend.
 
 ## Cierre arquitectonico
 

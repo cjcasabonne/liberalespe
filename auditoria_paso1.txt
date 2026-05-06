@@ -1,0 +1,104 @@
+ PASO 1 — AUDITORÍA DEL ESTADO ACTUAL
+                                                                                                                          ---
+  FUNCIONA                                                                                                              
+  - Autenticación completa: login DNI+contraseña, fallback legacy email, logout (App.tsx:738)
+  - Registro multi-paso (RegisterScreen.tsx, separado correctamente)
+  - Perfil de usuario: carga, render dl.profile-grid, todos los campos (App.tsx:1594)
+  - Actualizar teléfono con confirmación (App.tsx:821)
+  - Solicitar afiliación y desafiliación con motivo normalizado (App.tsx:859, 881)
+  - Votaciones binarias: botones Sí/No/Abstención, RPC emitir_voto_controlado (App.tsx:1647)
+  - Resultados de votación: voteSummaries con conteo por opción (App.tsx:1696)
+  - Formulario de sugerencias con radio buttons y opciones libres (App.tsx:1721)
+  - Lista de sugerencias visibles con estado, tipo, fecha, comentario de revisión (App.tsx:1794)
+  - Panel admin — Resumen: 6 métricas, alertas operativas (App.tsx:1871)
+  - Panel admin — Usuarios: tabla paginada, 4 filtros, acciones validar/anular/reactivar/rol (App.tsx:2019)
+  - Panel admin — Votaciones: controles abrir/cerrar/anular, crear tema (App.tsx:1911)
+  - Panel admin — Sugerencias: aprobar/convertir/rechazar con comentario (App.tsx:1953)
+  - Panel admin — Solicitudes: afiliación, desafiliación, recuperación (App.tsx:2278)
+  - Panel admin — Contraseña: restablecimiento manual vía Edge Function, generación de contraseña temporal
+  (App.tsx:2385)
+  - Panel admin — Auditoría: últimos 20 logs globales (App.tsx:2427)
+  - Detalle de usuario con auditoría individual (App.tsx:2183)
+  - Exportación CSV solo para fundador, auditada con justificación (App.tsx:1281)
+  - Recuperación de acceso: ruta /recuperar-password y tab "Recuperar" (App.tsx:2455)
+  - ContactActions reutilizable para correo y WhatsApp (ContactActions.tsx)
+  - Helpers centralizados: auth.ts, contact.ts, supabase.ts
+  - Todas las acciones críticas pasan por RPC — ningún UPDATE directo para campos sensibles
+  - Nav admin con hamburger funcional en móvil (App.tsx:1841)
+  - Responsive con media query en 640px (styles.css:817)
+  - Mensajes de feedback status/error neutrales
+
+  ---
+  IMPLEMENTADO PERO MAL INTEGRADO
+
+  - Votaciones — siempre binarias visualmente: OpcionVoto = 'si' | 'no' | 'abstencion' en types.ts:61. El modelo Tema no
+   tiene campo tipo_votacion ni opciones. Siempre se muestran 3 botones hardcoded. Si un tema de tipo "opciones" existe
+  en DB, no se puede votar correctamente desde el frontend.
+  - "Crear tema" en admin: usa window.prompt sin preguntar tipo de votación ni opciones (App.tsx:1480). Siempre crea un
+  tema binario implícito. Incongruente con el sistema de sugerencias que sí distingue tipos.
+  - status y error al final del DOM: App.tsx:2591-2592 están después de todos los paneles. Si el usuario está en el
+  panel admin (scrolled down) y ocurre un error, el mensaje queda fuera del viewport. No hay posicionamiento fijo ni
+  toast.
+  - Lista de sugerencias no filtrada por usuario: loadVotingData en App.tsx:541 carga sugerencias con un solo limit sin
+  filtrar por created_by. Un afiliado ve todas las sugerencias del sistema, no solo las suyas.
+  - Badge de auditoría siempre 20: count: auditLogs.length en adminNavItems (App.tsx:428) siempre devuelve 20 (el límite
+   de carga). Es un indicador sin significado.
+
+  ---
+  PARCIAL
+
+  - Votaciones por opciones: TipoVotacionSugerido existe en tipos y en el formulario de sugerencias, pero Tema no tiene
+  tipo_votacion ni opciones. emitir_voto_controlado acepta solo OpcionVoto (enum limitado). El flujo de sugerencia →
+  conversión → votación por opciones no cierra en el frontend.
+  - Estado de carga en votaciones: votingLoading solo actualiza el texto del heading "Cargando..." (App.tsx:1650). No
+  hay skeleton, no hay feedback visual en el cuerpo de la lista mientras carga.
+  - Auditoría de usuario seleccionado: JSON.stringify(log.despues ?? log.antes ?? {}) en celda de tabla (App.tsx:2263).
+  Con objetos grandes queda ilegible en producción.
+  - Panel admin — Votaciones sin state-pill: el estado del tema se muestra como texto plano en .muted (App.tsx:1924). El
+   panel de votaciones del afiliado sí usa state-pill con colores. Inconsistencia visual.
+
+  ---
+  ROTO
+
+  - window.prompt/window.confirm en flujos críticos: bloquean el hilo JS, no son estilizables, y en algunos browsers
+  móviles (Safari en iframe, Android WebView) devuelven null silenciosamente. Los flujos afectados:
+    - promptNormalizedReason → 11 usos en acciones admin
+    - handleCreateTopic y handleReviewTopicSuggestion
+    - runRoleRpc usa window.prompt con texto libre para elegir rol (App.tsx:1194) — un typo del operador cancela la
+  acción sin mensaje de error.
+  - admin-nav tiene 7 items, CSS grid-template-columns: repeat(5, ...) (styles.css:172): en desktop los botones
+  "Contraseña" y "Auditoría" se desbordan a una segunda fila. La nav no fue actualizada al agregar las últimas 2
+  secciones.
+  - passwordResetUser busca en adminUsers de la página actual (App.tsx:416): si el usuario a resetear no está en la
+  página visible del listado, passwordResetUser devuelve null aunque esté seleccionado en el select. El panel de
+  contacto no aparece.
+  - Espaciado inconsistente entre paneles: .voting-panel, .suggestion-panel, .admin-panel tienen margin-top: 16px pero
+  el panel de perfil (.panel plano) no tiene margin-top. El app-shell no usa display: grid; gap: sobre sus hijos
+  directos. El resultado es espaciado ad-hoc que varía panel a panel.
+
+  ---
+  DEUDA TÉCNICA
+
+  - App.tsx tiene 2596 líneas con todo el estado, lógica y JSX en un solo componente. Sin separación de VotingPanel,
+  SuggestionPanel, AdminPanel, etc.
+  - promptNormalizedReason usa window.prompt dos veces en secuencia. Candidato a reemplazar con modal inline.
+  - loadVotingData recarga temas + votos + sugerencias + summaries completos al emitir un voto o crear una sugerencia.
+  Ineficiente.
+  - No existe helper canSuggestTopics(profile) — la lógica está inline en JSX (App.tsx:1720).
+  - generateTemporaryPassword usa Math.random() — no criptográfico. Aceptable en práctica pero documentado.
+  - window.location.pathname === '/recuperar-password' como routing manual sin React Router (App.tsx:420). Frágil ante
+  SPA navigation.
+  - formatSuggestionState devuelve "Aprobada" para aprobado — el estado en DB es aprobado (neutro) pero se muestra
+  femenino. Inconsistencia tipográfica.
+  - Auditlog panel sin paginación: solo 20 registros globales fijos, sin forma de ver más.
+
+  ---
+  Resumen de prioridades para los pasos siguientes:
+
+  1. Crítico — fix inmediato: nav de 7 items con grid de 5 columnas (PASO 2)
+  2. Crítico — UX: status/error invisibles al fondo (PASO 3)
+  3. Crítico — funcionalidad: votaciones por opciones sin soporte en Tema (PASO 4)
+  4. Importante: sugerencias filtradas por usuario (PASO 5)
+  5. Importante: reemplazar window.prompt en acciones críticas (PASO 3)
+
+  ¿Avanzo al PASO 2 — Consistencia visual?

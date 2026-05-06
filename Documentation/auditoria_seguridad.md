@@ -118,6 +118,8 @@ password_requirements = "lower_upper_letters_digits"
 
 **Archivo:** `supabase/migrations/002_controlled_rpcs.sql:374-424`
 
+**Actualizacion vigente:** la arquitectura decidio permitir multiples fundadores auditados. Este hallazgo deja de tratarse como defecto si la capacidad se usa con control operativo; el requisito vigente es que al promover a `fundador` el usuario quede tambien como `afiliado` y que el cambio quede en `audit_log`.
+
 Un fundador puede elevar a cualquier usuario activo al rol `fundador`. No existe verificación del número de fundadores existentes. Si una cuenta fundador es comprometida, el atacante puede crear fundadores arbitrarios. La acción aparece en `audit_log` pero no hay alertas activas.
 
 El modelo de arquitectura no define cuántos fundadores puede haber. Si la respuesta es "uno", este control falta.

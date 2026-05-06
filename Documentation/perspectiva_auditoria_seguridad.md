@@ -4,7 +4,7 @@
 **Documento revisado:** `Documentation/auditoria_seguridad.md`  
 **Objetivo:** evaluar las sugerencias externas contra el estado actual del repositorio y priorizar acciones.
 
-**Actualizacion 2026-05-04:** este documento conserva el diagnostico original para trazabilidad. El estado vigente esta en "Estado de implementacion posterior": C1, C2, R1 y la politica de fundador unico ya fueron implementados en el repo. Lo que sigue pendiente es validacion manual operativa, no necesariamente codigo.
+**Actualizacion 2026-05-06:** este documento conserva el diagnostico original para trazabilidad. El estado vigente esta en "Estado de implementacion posterior": C1, C2 y R1 fueron tratados, la politica vigente permite multiples fundadores auditados, y queda pendiente cerrar la recuperacion/restablecimiento administrativo de contrasenas.
 
 ## Resumen ejecutivo
 
@@ -182,7 +182,7 @@ Debe eliminarse antes de usar el sistema con datos reales, pero la eliminacion r
 
 Mi veredicto al momento de esa revision era **operable para pruebas controladas, no listo para produccion**.
 
-La base de datos estaba razonablemente bien planteada, pero C1 y C2 eran reales. El registro ya funcionaba despues del ajuste de email interno y Auth remoto; desde entonces se endurecio la superficie de navegador, se cerro la transicion invalida de desafiliacion y se aplico gobernanza conservadora de fundador unico.
+La base de datos estaba razonablemente bien planteada, pero C1 y C2 eran reales. El registro ya funcionaba despues del ajuste de email interno y Auth remoto; desde entonces se endurecio la superficie de navegador, se cerro la transicion invalida de desafiliacion y la gobernanza vigente paso a multiples fundadores auditados.
 
 ## Estado de implementacion posterior
 
@@ -192,10 +192,10 @@ Se implementaron las prioridades principales mediante `supabase/migrations/005_s
 - `aprobar_desafiliacion` ahora valida que el perfil siga `activo`.
 - `audit_json_solicitud_desafiliacion` incluye `motivo`.
 - Politica de contrasena endurecida a minimo 10 con minuscula, mayuscula y numero.
-- Gobernanza conservadora: un solo fundador activo.
-- Estructura v3 creada para `temas` y `votos`, con voto unico, RLS de elegibilidad e inmutabilidad de votos.
+- Gobernanza vigente: multiples fundadores activos permitidos; al promover a fundador, el perfil queda como afiliado.
+- Votaciones V3 activas con `temas.publico_objetivo` (`afiliados` o `fundadores`), voto unico, RLS/RPC de elegibilidad e inmutabilidad de votos.
 - Panel operativo ampliado con filtros, confirmaciones y auditoria por usuario.
-- Recuperacion manual de acceso implementada con cola publica neutral, revision administrativa y auditoria.
+- Solicitud publica de recuperacion implementada con cola neutral; el restablecimiento administrativo de contrasena queda pendiente de cierre funcional.
 - Actualizacion de telefono propio limitada por RLS y auditada.
 - Correccion operativa de nombres/telefono por administradores implementada por RPC auditada.
 - Rechazo de solicitudes de desafiliacion implementado por RPC auditada.
@@ -207,4 +207,4 @@ Pendiente antes de produccion:
 
 - limpiar el registro ficticio de diagnostico `99990003`;
 - validar Cloudflare Pages despues de cada deploy real;
-- definir si el modelo de fundador unico se mantiene a largo plazo.
+- arreglar y validar end-to-end la recuperacion/restablecimiento administrativo de contrasenas.

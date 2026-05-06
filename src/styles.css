@@ -137,6 +137,13 @@ h2 {
   margin-top: 16px;
 }
 
+.section-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
 .admin-panel {
   display: grid;
   gap: 16px;
@@ -168,7 +175,7 @@ h2 {
 .admin-nav {
   display: grid;
   gap: 8px;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .admin-nav button {
@@ -210,7 +217,8 @@ h2 {
   gap: 16px;
 }
 
-.voting-panel {
+.voting-panel,
+.suggestion-panel {
   display: grid;
   gap: 14px;
   margin-top: 16px;
@@ -266,9 +274,34 @@ h2 {
   background: var(--color-muted);
 }
 
-.state-anulado {
+.state-anulado,
+.state-rechazado {
   background: #fff1ef;
   color: var(--color-destructive);
+}
+
+.state-borrador,
+.state-cerrado,
+.state-desafiliado {
+  background: var(--color-muted);
+  color: var(--color-muted-fg);
+}
+
+.state-abierto,
+.state-aprobado,
+.state-activo {
+  background: #eef6df;
+  color: var(--color-success);
+}
+
+.state-convertido {
+  background: #f5ede4;
+  color: var(--color-accent);
+}
+
+.state-pendiente {
+  background: #fff4df;
+  color: var(--color-warning);
 }
 
 .vote-actions,
@@ -333,6 +366,49 @@ h2 {
 .form {
   display: grid;
   gap: 14px;
+}
+
+.radio-group {
+  border: none;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.radio-group legend {
+  color: var(--color-fg);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.radio-label {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-weight: 500;
+  gap: 8px;
+}
+
+.radio-label input[type='radio'] {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.radio-hint {
+  color: var(--color-muted-fg);
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  width: 100%;
+}
+
+.suggestion-options {
+  display: grid;
+  gap: 8px;
 }
 
 .register-screen {
@@ -755,9 +831,17 @@ code {
 
 .status,
 .error {
-  border-radius: 6px;
-  margin-top: 16px;
-  padding: 12px 14px;
+  border-radius: 8px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 4px 20px rgba(28, 18, 11, 0.14);
+  left: 50%;
+  max-width: 520px;
+  padding: 12px 16px;
+  position: fixed;
+  text-align: center;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  z-index: 200;
 }
 
 .status {
@@ -768,6 +852,13 @@ code {
 .error {
   background: #fff1ef;
   color: var(--color-destructive);
+}
+
+td.table-empty {
+  color: var(--color-muted-fg);
+  font-size: 14px;
+  padding: 24px;
+  text-align: center;
 }
 
 @media (max-width: 640px) {

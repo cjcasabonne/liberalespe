@@ -7,13 +7,15 @@ import { RegisterScreen } from './RegisterScreen';
 import type {
   AuditLog,
   EstadoTema,
-  OpcionVoto,
+  EstadoTemaSugerencia,
   PublicoObjetivoTema,
   Perfil,
   SolicitudAfiliacion,
   SolicitudDesafiliacion,
   SolicitudRecuperacion,
   Tema,
+  TemaSugerencia,
+  TipoVotacionSugerido,
   VoteSummary,
   Voto,
 } from './types';
@@ -24,7 +26,7 @@ type AdminEstadoFilter = 'todos' | 'activo' | 'anulado' | 'desafiliado';
 type AdminTipoFilter = 'todos' | 'adherente' | 'afiliado';
 type AdminRolFilter = 'todos' | 'usuario' | 'administrador' | 'fundador';
 type AdminValidationFilter = 'todos' | 'validado' | 'pendiente';
-type AdminSection = 'resumen' | 'usuarios' | 'votaciones' | 'solicitudes' | 'password' | 'auditoria';
+type AdminSection = 'resumen' | 'usuarios' | 'votaciones' | 'sugerencias' | 'solicitudes' | 'password' | 'auditoria';
 
 type OperationalStats = {
   pendingValidation: number;
@@ -44,7 +46,9 @@ const pageSize = 10;
 const perfilSelectColumns =
   'id,user_id,dni,nombres,telefono,correo_contacto,rol_sistema,tipo_miembro,estado,validado_manualmente';
 const perfilSelectColumnsWithCreated = `${perfilSelectColumns},creado_en`;
-const temaSelectColumns = 'id,titulo,descripcion,estado,publico_objetivo,creado_por,creado_en,actualizado_en,abre_en,cierra_en';
+const temaSelectColumns = 'id,titulo,descripcion,estado,publico_objetivo,tipo_votacion,opciones,creado_por,creado_en,actualizado_en,abre_en,cierra_en';
+const temaSugerenciaSelectColumns =
+  'id,titulo,descripcion,tipo_votacion_sugerido,opciones_sugeridas,created_by,estado,revision_comentario,reviewed_by,reviewed_at,tema_id_generado,created_at';
 const emptyOperationalStats: OperationalStats = {
   pendingValidation: 0,
   pendingAffiliation: 0,
@@ -62,6 +66,15 @@ function emptyRecoveryForm() {
   };
 }
 
+function emptyTopicSuggestionForm() {
+  return {
+    titulo: '',
+    descripcion: '',
+    tipo: 'binaria' as TipoVotacionSugerido,
+    opciones: ['', ''],
+  };
+}
+
 function formatAuditAction(action: string) {
   const labels: Record<string, string> = {
     actualizar_perfil_operativo: 'Actualizar perfil operativo',
@@ -75,6 +88,10 @@ function formatAuditAction(action: string) {
     rechazar_desafiliacion: 'Rechazar desafiliación',
     resolver_recuperacion: 'Resolver recuperación',
     exportar_usuarios_filtrados: 'Exportar usuarios filtrados',
+    aprobar_sugerencia_tema: 'Aprobar sugerencia de tema',
+    convertir_sugerencia_tema: 'Convertir sugerencia en tema',
+    crear_sugerencia_tema: 'Crear sugerencia de tema',
+    rechazar_sugerencia_tema: 'Rechazar sugerencia de tema',
     validar_usuario: 'Validar usuario',
   };
 
@@ -88,6 +105,9 @@ function formatAuditTable(table: string) {
     solicitudes_afiliacion: 'Solicitudes de afiliación',
     solicitudes_desafiliacion: 'Solicitudes de desafiliación',
     solicitudes_recuperacion: 'Solicitudes de recuperación',
+    tema_sugerencias: 'Sugerencias de temas',
+    temas: 'Temas',
+    votos: 'Votos',
   };
 
   return labels[table] ?? table.replace(/_/g, ' ');
@@ -271,14 +291,18 @@ function buildOperationalAlerts(stats: OperationalStats, auditLogs: AuditLog[]):
   return alerts;
 }
 
-function formatVoteOption(option: OpcionVoto) {
-  const labels: Record<OpcionVoto, string> = {
+function formatVoteOption(option: string) {
+  const labels: Record<string, string> = {
     si: 'Sí',
     no: 'No',
     abstencion: 'Abstención',
   };
 
-  return labels[option];
+  return labels[option] ?? option;
+}
+
+function formatTopicType(tipo: 'binaria' | 'opciones') {
+  return tipo === 'opciones' ? 'Por opciones' : 'Binaria';
 }
 
 function formatTopicState(state: EstadoTema) {
@@ -300,12 +324,37 @@ function formatTopicAudience(audience: PublicoObjetivoTema) {
   return labels[audience];
 }
 
-function canProfileVoteTopic(profile: Perfil | null, topic: Tema, vote: Voto | undefined) {
-  if (!profile || vote || profile.estado !== 'activo' || profile.tipo_miembro !== 'afiliado' || topic.estado !== 'abierto') {
+function formatSuggestionType(type: TipoVotacionSugerido) {
+  const labels: Record<TipoVotacionSugerido, string> = {
+    binaria: 'Binaria',
+    opciones: 'Opciones',
+  };
+  return labels[type];
+}
+
+function formatSuggestionState(state: TemaSugerencia['estado']) {
+  const labels: Record<TemaSugerencia['estado'], string> = {
+    pendiente: 'Pendiente',
+    aprobado: 'Aprobada',
+    rechazado: 'Rechazada',
+    convertido: 'Convertida',
+  };
+  return labels[state];
+}
+
+function canSuggestTopics(p: Perfil | null): boolean {
+  return p !== null && p.estado === 'activo' && p.tipo_miembro === 'afiliado';
+}
+
+function canVote(p: Perfil | null, topic: Tema, vote: Voto | undefined): boolean {
+  if (!p || vote || p.estado !== 'activo' || p.tipo_miembro !== 'afiliado' || topic.estado !== 'abierto') {
     return false;
   }
+  return topic.publico_objetivo === 'afiliados' || p.rol_sistema === 'fundador';
+}
 
-  return topic.publico_objetivo === 'afiliados' || profile.rol_sistema === 'fundador';
+function canManageSuggestions(p: Perfil | null): boolean {
+  return p !== null && p.estado === 'activo' && ['administrador', 'fundador'].includes(p.rol_sistema);
 }
 
 function topicStateDetail(topic: Tema) {
@@ -343,6 +392,7 @@ export default function App() {
   const [status, setStatus] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [profileLoadError, setProfileLoadError] = useState(false);
   const [adminUsers, setAdminUsers] = useState<Perfil[]>([]);
   const [adminUserCount, setAdminUserCount] = useState(0);
   const [adminPage, setAdminPage] = useState(0);
@@ -364,22 +414,32 @@ export default function App() {
   const [ownVotes, setOwnVotes] = useState<Voto[]>([]);
   const [voteSummaries, setVoteSummaries] = useState<Record<string, VoteSummary[]>>({});
   const [votingLoading, setVotingLoading] = useState(false);
+  const [topicSuggestions, setTopicSuggestions] = useState<TemaSugerencia[]>([]);
+  const [suggestionForm, setSuggestionForm] = useState(emptyTopicSuggestionForm);
+  const [suggestionLoading, setSuggestionLoading] = useState(false);
+  const [adminSuggestionFilter, setAdminSuggestionFilter] = useState<'todos' | EstadoTemaSugerencia>('todos');
+  const [suggestionProfiles, setSuggestionProfiles] = useState<Record<string, Perfil>>({});
   const [adminSection, setAdminSection] = useState<AdminSection>('resumen');
   const [adminMenuOpen, setAdminMenuOpen] = useState(false);
   const [passwordResetUserId, setPasswordResetUserId] = useState('');
   const [temporaryPassword, setTemporaryPassword] = useState(generateTemporaryPassword);
 
-  const isAdmin = profile?.estado === 'activo' && ['administrador', 'fundador'].includes(profile.rol_sistema);
+  const isAdmin = canManageSuggestions(profile);
   const isFounder = profile?.estado === 'activo' && profile.rol_sistema === 'fundador';
   const selectedUser = adminUsers.find((user) => user.id === selectedUserId) ?? null;
   const passwordResetUser = adminUsers.find((user) => user.user_id === passwordResetUserId) ?? null;
   const operationalAlerts = buildOperationalAlerts(operationalStats, auditLogs);
   const pendingRequestsTotal = operationalStats.pendingAffiliation + operationalStats.pendingDisaffiliation + operationalStats.pendingRecovery;
+  const pendingTopicSuggestions = topicSuggestions.filter((suggestion) => ['pendiente', 'aprobado'].includes(suggestion.estado)).length;
+  const adminFilteredSuggestions = adminSuggestionFilter === 'todos'
+    ? topicSuggestions
+    : topicSuggestions.filter((s) => s.estado === adminSuggestionFilter);
   const isPasswordRecoveryPath = window.location.pathname === '/recuperar-password';
   const adminNavItems: Array<{ key: AdminSection; label: string; count?: number }> = [
     { key: 'resumen', label: 'Resumen' },
     { key: 'usuarios', label: 'Usuarios', count: adminUserCount },
     { key: 'votaciones', label: 'Votaciones', count: topics.length },
+    { key: 'sugerencias', label: 'Sugerencias', count: pendingTopicSuggestions },
     { key: 'solicitudes', label: 'Solicitudes', count: pendingRequestsTotal },
     { key: 'password', label: 'Contraseña' },
     { key: 'auditoria', label: 'Auditoría', count: auditLogs.length },
@@ -408,6 +468,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
       setSession(nextSession);
       if (!nextSession) {
         setProfile(null);
+        setProfileLoadError(false);
       }
     });
 
@@ -453,6 +514,8 @@ Ingresa con tu DNI y esta contraseña temporal.`
       setTopics([]);
       setOwnVotes([]);
       setVoteSummaries({});
+      setTopicSuggestions([]);
+      setSuggestionProfiles({});
       return;
     }
 
@@ -473,10 +536,12 @@ Ingresa con tu DNI y esta contraseña temporal.`
 
     if (profileError) {
       setProfile(null);
+      setProfileLoadError(true);
       setError('No se encontró un perfil operativo asociado a esta cuenta.');
       return;
     }
 
+    setProfileLoadError(false);
     setProfile(data as Perfil);
   }
 
@@ -487,13 +552,14 @@ Ingresa con tu DNI y esta contraseña temporal.`
 
     const client = supabase;
     setVotingLoading(true);
-    const [topicsResult, ownVotesResult] = await Promise.all([
+    const [topicsResult, ownVotesResult, suggestionsResult] = await Promise.all([
       client.from('temas').select(temaSelectColumns).order('creado_en', { ascending: false }).limit(30),
       client
         .from('votos')
         .select('id,tema_id,usuario_id,opcion,creado_en')
         .eq('usuario_id', profile.id)
         .order('creado_en', { ascending: false }),
+      client.from('tema_sugerencias').select(temaSugerenciaSelectColumns).order('created_at', { ascending: false }).limit(isAdmin ? 50 : 10),
     ]);
     setVotingLoading(false);
 
@@ -501,16 +567,32 @@ Ingresa con tu DNI y esta contraseña temporal.`
       setTopics([]);
       setOwnVotes([]);
       setVoteSummaries({});
+      setTopicSuggestions([]);
       return;
     }
 
     const nextTopics = (topicsResult.data ?? []) as Tema[];
     setTopics(nextTopics);
     setOwnVotes((ownVotesResult.data ?? []) as Voto[]);
+    const nextSuggestions = suggestionsResult.error ? [] : ((suggestionsResult.data ?? []) as TemaSugerencia[]);
+    setTopicSuggestions(nextSuggestions);
+
+    if (isAdmin && nextSuggestions.length > 0) {
+      const createdByIds = [...new Set(nextSuggestions.map((s) => s.created_by))];
+      const { data: profData } = await client.from('perfiles').select(perfilSelectColumns).in('id', createdByIds);
+      setSuggestionProfiles(
+        ((profData ?? []) as Perfil[]).reduce<Record<string, Perfil>>((acc, p) => {
+          acc[p.id] = p;
+          return acc;
+        }, {}),
+      );
+    } else {
+      setSuggestionProfiles({});
+    }
 
     const summaries = await Promise.all(
       nextTopics
-        .filter((topic) => isAdmin || topic.estado === 'cerrado')
+        .filter((topic) => isAdmin || ['abierto', 'cerrado'].includes(topic.estado))
         .map(async (topic) => {
           const { data, error: summaryError } = await client.rpc('resumen_votos_tema', { p_tema_id: topic.id });
           return [topic.id, summaryError ? [] : ((data ?? []) as VoteSummary[])] as const;
@@ -1288,7 +1370,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
     await loadPanelData();
   }
 
-  async function handleVote(topicId: string, option: OpcionVoto) {
+  async function handleVote(topicId: string, option: string) {
     if (!supabase || !profile) {
       return;
     }
@@ -1316,6 +1398,120 @@ Ingresa con tu DNI y esta contraseña temporal.`
     await loadVotingData();
   }
 
+  function updateSuggestionOption(index: number, value: string) {
+    setSuggestionForm((current) => ({
+      ...current,
+      opciones: current.opciones.map((option, optionIndex) => (optionIndex === index ? value : option)),
+    }));
+  }
+
+  async function handleCreateTopicSuggestion(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!supabase || !profile) {
+      return;
+    }
+
+    if (!canSuggestTopics(profile)) {
+      setError('Solo afiliados activos pueden sugerir temas.');
+      return;
+    }
+
+    const options = suggestionForm.opciones.map((option) => option.trim()).filter(Boolean);
+    if (suggestionForm.tipo === 'opciones' && options.length < 2) {
+      setError('Agrega al menos dos opciones sugeridas.');
+      return;
+    }
+
+    setError('');
+    setStatus('');
+    setSuggestionLoading(true);
+    const { error: suggestionError } = await supabase.rpc('crear_sugerencia_tema', {
+      p_titulo: suggestionForm.titulo,
+      p_descripcion: suggestionForm.descripcion,
+      p_tipo_votacion_sugerido: suggestionForm.tipo,
+      p_opciones_sugeridas: suggestionForm.tipo === 'opciones' ? options : [],
+    });
+    setSuggestionLoading(false);
+
+    if (suggestionError) {
+      setError('No se pudo registrar la sugerencia.');
+      return;
+    }
+
+    setSuggestionForm(emptyTopicSuggestionForm());
+    setStatus('Sugerencia registrada para revisión.');
+    await loadVotingData();
+  }
+
+  async function handleReviewTopicSuggestion(suggestion: TemaSugerencia, action: 'aprobar' | 'rechazar' | 'convertir') {
+    if (!supabase || !isAdmin) {
+      return;
+    }
+
+    const comentario =
+      action === 'rechazar'
+        ? window.prompt('Comentario de rechazo (obligatorio)')?.trim()
+        : action === 'convertir'
+          ? window.prompt('Comentario de conversión (opcional, Enter para omitir)')?.trim() ?? null
+          : window.prompt('Comentario de aprobación (opcional)')?.trim() ?? null;
+
+    if (action === 'rechazar' && !comentario) {
+      setError('El rechazo requiere comentario.');
+      return;
+    }
+
+    let publicoObjetivo: PublicoObjetivoTema = 'afiliados';
+    if (action === 'convertir') {
+      const audienceInput = window.prompt('Público objetivo del tema oficial: afiliados o fundadores', 'afiliados')?.trim().toLowerCase() as
+        | PublicoObjetivoTema
+        | undefined;
+      if (!audienceInput || !['afiliados', 'fundadores'].includes(audienceInput)) {
+        setError('El público objetivo debe ser afiliados o fundadores.');
+        return;
+      }
+      publicoObjetivo = audienceInput;
+    }
+
+    const confirmed = window.confirm(
+      action === 'convertir'
+        ? 'Convertir esta sugerencia en un tema oficial en borrador.'
+        : `Confirmar ${action} sugerencia.`,
+    );
+    if (!confirmed) {
+      return;
+    }
+
+    setError('');
+    setStatus('');
+    setSuggestionLoading(true);
+    const result =
+      action === 'aprobar'
+        ? await supabase.rpc('aprobar_sugerencia_tema', {
+            p_sugerencia_id: suggestion.id,
+            p_revision_comentario: comentario,
+          })
+        : action === 'rechazar'
+          ? await supabase.rpc('rechazar_sugerencia_tema', {
+              p_sugerencia_id: suggestion.id,
+              p_revision_comentario: comentario,
+            })
+          : await supabase.rpc('convertir_sugerencia_tema', {
+              p_sugerencia_id: suggestion.id,
+              p_publico_objetivo: publicoObjetivo,
+              p_revision_comentario: comentario,
+            });
+    setSuggestionLoading(false);
+
+    if (result.error) {
+      setError('No se pudo procesar la sugerencia.');
+      return;
+    }
+
+    setStatus(action === 'convertir' ? 'Sugerencia convertida en tema oficial.' : 'Sugerencia actualizada.');
+    await loadVotingData();
+    await loadPanelData();
+  }
+
   async function handleCreateTopic() {
     if (!supabase || !isAdmin || !session?.user) {
       return;
@@ -1336,7 +1532,29 @@ Ingresa con tu DNI y esta contraseña temporal.`
       return;
     }
 
-    const confirmed = window.confirm(`Crear tema para ${formatTopicAudience(audienceInput).toLowerCase()} en estado borrador.`);
+    const tipoVotacion = window.prompt('Tipo de votación: binaria u opciones', 'binaria')?.trim().toLowerCase();
+    if (!tipoVotacion || !['binaria', 'opciones'].includes(tipoVotacion)) {
+      setError('El tipo de votación debe ser binaria u opciones.');
+      return;
+    }
+
+    let topicOpciones: string[] = [];
+    if (tipoVotacion === 'opciones') {
+      const opcionesStr = window.prompt('Opciones de votación, separadas por coma (mínimo 2):')?.trim();
+      if (!opcionesStr) {
+        setError('Ingresa las opciones de votación.');
+        return;
+      }
+      topicOpciones = opcionesStr.split(',').map((o) => o.trim()).filter(Boolean);
+      if (topicOpciones.length < 2) {
+        setError('Se requieren al menos 2 opciones de votación.');
+        return;
+      }
+    }
+
+    const confirmed = window.confirm(
+      `Crear tema ${tipoVotacion} para ${formatTopicAudience(audienceInput).toLowerCase()} en estado borrador.`,
+    );
     if (!confirmed) {
       return;
     }
@@ -1348,6 +1566,8 @@ Ingresa con tu DNI y esta contraseña temporal.`
       p_titulo: title,
       p_descripcion: description,
       p_publico_objetivo: audienceInput,
+      p_tipo_votacion: tipoVotacion,
+      p_opciones: topicOpciones,
     });
     setVotingLoading(false);
 
@@ -1455,7 +1675,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
                 </div>
                 <div>
                   <dt>Estado</dt>
-                  <dd>{profile.estado}</dd>
+                  <dd><span className={`state-pill state-${profile.estado}`}>{profile.estado}</span></dd>
                 </div>
                 <div>
                   <dt>Validación</dt>
@@ -1463,21 +1683,23 @@ Ingresa con tu DNI y esta contraseña temporal.`
                 </div>
               </dl>
               {profile.estado === 'activo' ? (
-                <button className="secondary section-action" type="button" disabled={loading} onClick={handleUpdatePhone}>
-                  Actualizar teléfono
-                </button>
-              ) : null}
-              {profile.estado === 'activo' && profile.tipo_miembro === 'adherente' ? (
-                <button className="secondary section-action" type="button" disabled={loading} onClick={handleSolicitarAfiliacion}>
-                  Solicitar afiliación
-                </button>
-              ) : null}
-              {profile.estado === 'activo' ? (
-                <button className="secondary section-action" type="button" disabled={loading} onClick={handleSolicitarDesafiliacion}>
-                  Solicitar desafiliación
-                </button>
+                <div className="section-actions">
+                  <button className="secondary" type="button" disabled={loading} onClick={handleUpdatePhone}>
+                    Actualizar teléfono
+                  </button>
+                  {profile.tipo_miembro === 'adherente' ? (
+                    <button className="secondary" type="button" disabled={loading} onClick={handleSolicitarAfiliacion}>
+                      Solicitar afiliación
+                    </button>
+                  ) : null}
+                  <button className="secondary" type="button" disabled={loading} onClick={handleSolicitarDesafiliacion}>
+                    Solicitar desafiliación
+                  </button>
+                </div>
               ) : null}
             </>
+          ) : profileLoadError ? (
+            <p className="muted">No se pudo cargar el perfil operativo. Cierra sesión e intenta nuevamente.</p>
           ) : (
             <p className="muted">Cargando perfil...</p>
           )}
@@ -1488,7 +1710,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
               <h2>Votaciones</h2>
               <span>{votingLoading ? 'Cargando...' : `${topics.length} tema(s)`}</span>
             </div>
-            {profile?.tipo_miembro !== 'afiliado' || profile.estado !== 'activo' ? (
+            {!canSuggestTopics(profile) ? (
               <p className="hint">Puedes ver las votaciones y sus resultados, pero solo afiliados activos pueden votar.</p>
             ) : null}
             <div className="topic-list">
@@ -1496,7 +1718,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
                 topics.map((topic) => {
                   const vote = ownVotes.find((currentVote) => currentVote.tema_id === topic.id);
                   const summary = voteSummaries[topic.id] ?? [];
-                  const canVote = canProfileVoteTopic(profile, topic, vote);
+                  const eligible = canVote(profile, topic, vote);
 
                   return (
                     <article className="topic-item" key={topic.id}>
@@ -1506,29 +1728,43 @@ Ingresa con tu DNI y esta contraseña temporal.`
                           <span className={`state-pill state-${topic.estado}`}>{formatTopicState(topic.estado)}</span>
                         </div>
                         {topic.descripcion ? <p className="muted">{topic.descripcion}</p> : null}
-                        <p className="hint">Dirigida a: {formatTopicAudience(topic.publico_objetivo)}</p>
+                        <p className="hint">Dirigida a: {formatTopicAudience(topic.publico_objetivo)} — {formatTopicType(topic.tipo_votacion)}</p>
+                        {topic.tipo_votacion === 'opciones' && topic.opciones.length > 0 ? (
+                          <p className="hint">Opciones: {topic.opciones.join(' / ')}</p>
+                        ) : null}
                         <p className="hint">{topicStateDetail(topic)}</p>
                         {vote ? (
                           <p className="hint">Tu voto: {formatVoteOption(vote.opcion)} - {new Date(vote.creado_en).toLocaleString('es-PE')}</p>
                         ) : null}
                       </div>
 
-                      {canVote ? (
+                      {eligible ? (
                         <div className="vote-actions">
-                          <button type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'si')}>
-                            Sí
-                          </button>
-                          <button className="secondary" type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'no')}>
-                            No
-                          </button>
-                          <button
-                            className="secondary"
-                            type="button"
-                            disabled={votingLoading}
-                            onClick={() => handleVote(topic.id, 'abstencion')}
-                          >
-                            Abstención
-                          </button>
+                          {topic.tipo_votacion === 'opciones' ? (
+                            topic.opciones.map((opcion) => (
+                              <button
+                                key={opcion}
+                                className="secondary"
+                                type="button"
+                                disabled={votingLoading}
+                                onClick={() => handleVote(topic.id, opcion)}
+                              >
+                                {opcion}
+                              </button>
+                            ))
+                          ) : (
+                            <>
+                              <button type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'si')}>
+                                Sí
+                              </button>
+                              <button className="secondary" type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'no')}>
+                                No
+                              </button>
+                              <button className="secondary" type="button" disabled={votingLoading} onClick={() => handleVote(topic.id, 'abstencion')}>
+                                Abstención
+                              </button>
+                            </>
+                          )}
                         </div>
                       ) : null}
 
@@ -1547,6 +1783,127 @@ Ingresa con tu DNI y esta contraseña temporal.`
                 })
               ) : (
                 <p className="muted">No hay temas de votación disponibles.</p>
+              )}
+            </div>
+          </section>
+
+          <section className="panel suggestion-panel">
+            <div className="panel-heading">
+              <h2>Sugerir tema</h2>
+              <span>{suggestionLoading ? 'Guardando...' : `${topicSuggestions.length} sugerencia(s)`}</span>
+            </div>
+            {canSuggestTopics(profile) ? (
+              <form className="form" onSubmit={handleCreateTopicSuggestion}>
+                <label>
+                  Título
+                  <input
+                    value={suggestionForm.titulo}
+                    onChange={(event) => setSuggestionForm((current) => ({ ...current, titulo: event.target.value }))}
+                    minLength={4}
+                    required
+                  />
+                </label>
+                <label>
+                  Descripción
+                  <textarea
+                    value={suggestionForm.descripcion}
+                    onChange={(event) => setSuggestionForm((current) => ({ ...current, descripcion: event.target.value }))}
+                    rows={3}
+                  />
+                </label>
+                <fieldset className="radio-group">
+                  <legend>Tipo de votación</legend>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="tipo_votacion"
+                      value="binaria"
+                      checked={suggestionForm.tipo === 'binaria'}
+                      onChange={() => setSuggestionForm((current) => ({ ...current, tipo: 'binaria', opciones: ['', ''] }))}
+                    />
+                    Binaria
+                    <span className="radio-hint">el órgano decide las opciones al aprobarla</span>
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="tipo_votacion"
+                      value="opciones"
+                      checked={suggestionForm.tipo === 'opciones'}
+                      onChange={() => setSuggestionForm((current) => ({ ...current, tipo: 'opciones', opciones: ['', ''] }))}
+                    />
+                    Opciones libres
+                    <span className="radio-hint">especificás las alternativas vos mismo</span>
+                  </label>
+                </fieldset>
+                {suggestionForm.tipo === 'opciones' ? (
+                  <div className="suggestion-options">
+                    <p className="hint">Escribí cada opción que el afiliado podrá elegir al votar.</p>
+                    {suggestionForm.opciones.map((option, index) => (
+                      <label key={`suggestion-option-${index}`}>
+                        Opción {index + 1}
+                        <input
+                          value={option}
+                          onChange={(event) => updateSuggestionOption(index, event.target.value)}
+                          placeholder={`Opción ${index + 1}`}
+                        />
+                      </label>
+                    ))}
+                    <button
+                      className="secondary"
+                      type="button"
+                      onClick={() => setSuggestionForm((current) => ({ ...current, opciones: [...current.opciones, ''] }))}
+                    >
+                      Agregar opción
+                    </button>
+                  </div>
+                ) : null}
+                <button type="submit" disabled={suggestionLoading}>
+                  Enviar sugerencia
+                </button>
+              </form>
+            ) : (
+              <p className="hint">Solo afiliados activos pueden sugerir temas. Las sugerencias no se convierten automáticamente en votaciones.</p>
+            )}
+
+            <div className="request-list">
+              {topicSuggestions.length > 0 ? (
+                topicSuggestions.map((suggestion) => {
+                  const convertedTopic = suggestion.tema_id_generado
+                    ? topics.find((t) => t.id === suggestion.tema_id_generado)
+                    : null;
+                  return (
+                    <div className="request-item" key={suggestion.id}>
+                      <div>
+                        <strong>{suggestion.titulo}</strong>
+                        <p className="muted">
+                          <span className={`state-pill state-${suggestion.estado}`}>{formatSuggestionState(suggestion.estado)}</span>
+                          {' '}{formatSuggestionType(suggestion.tipo_votacion_sugerido)} — {new Date(suggestion.created_at).toLocaleString('es-PE')}
+                        </p>
+                        {suggestion.opciones_sugeridas.length > 0 ? (
+                          <p className="hint">Opciones sugeridas: {suggestion.opciones_sugeridas.join(' / ')}</p>
+                        ) : null}
+                        {suggestion.estado === 'pendiente' ? (
+                          <p className="hint">En revisión por el equipo operativo.</p>
+                        ) : suggestion.estado === 'aprobado' ? (
+                          <p className="hint">Aprobada. Puede convertirse en tema oficial de votación.</p>
+                        ) : suggestion.estado === 'rechazado' ? (
+                          <p className="hint">Rechazada por el equipo operativo.</p>
+                        ) : null}
+                        {suggestion.revision_comentario ? (
+                          <p className="hint">Comentario: {suggestion.revision_comentario}</p>
+                        ) : null}
+                        {convertedTopic ? (
+                          <p className="hint">Convertida en tema oficial: <strong>{convertedTopic.titulo}</strong></p>
+                        ) : suggestion.tema_id_generado ? (
+                          <p className="hint">Convertida en tema oficial.</p>
+                        ) : null}
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <p className="muted">No hay sugerencias registradas.</p>
               )}
             </div>
           </section>
@@ -1654,8 +2011,12 @@ Ingresa con tu DNI y esta contraseña temporal.`
                       <div>
                         <strong>{topic.titulo}</strong>
                         <p className="muted">
-                          {formatTopicState(topic.estado)} - {formatTopicAudience(topic.publico_objetivo)} - {new Date(topic.creado_en).toLocaleString('es-PE')}
+                          <span className={`state-pill state-${topic.estado}`}>{formatTopicState(topic.estado)}</span>
+                          {' '}{formatTopicAudience(topic.publico_objetivo)} — {formatTopicType(topic.tipo_votacion)} — {new Date(topic.creado_en).toLocaleString('es-PE')}
                         </p>
+                        {topic.tipo_votacion === 'opciones' && topic.opciones.length > 0 ? (
+                          <p className="hint">Opciones: {topic.opciones.join(' / ')}</p>
+                        ) : null}
                       </div>
                       <div className="row-actions">
                         {topic.estado === 'borrador' ? (
@@ -1678,6 +2039,95 @@ Ingresa con tu DNI y esta contraseña temporal.`
                   ))
                 ) : (
                   <p className="muted">No hay temas creados.</p>
+                )}
+              </div>
+            </section>
+
+            <section className={adminSection === 'sugerencias' ? 'admin-section active' : 'admin-section'} aria-label="Sugerencias de temas">
+              <div className="panel-heading">
+                <h2>Sugerencias de temas</h2>
+                <span>{pendingTopicSuggestions} por revisar</span>
+              </div>
+              <label>
+                Filtrar por estado
+                <select
+                  value={adminSuggestionFilter}
+                  onChange={(event) => setAdminSuggestionFilter(event.target.value as 'todos' | EstadoTemaSugerencia)}
+                >
+                  <option value="todos">Todos</option>
+                  <option value="pendiente">Pendiente</option>
+                  <option value="aprobado">Aprobada</option>
+                  <option value="rechazado">Rechazada</option>
+                  <option value="convertido">Convertida</option>
+                </select>
+              </label>
+              <div className="request-list">
+                {adminFilteredSuggestions.length > 0 ? (
+                  adminFilteredSuggestions.map((suggestion) => {
+                    const submitter = suggestionProfiles[suggestion.created_by];
+                    return (
+                      <div className="request-item" key={`admin-suggestion-${suggestion.id}`}>
+                        <div>
+                          <strong>{suggestion.titulo}</strong>
+                          <p className="muted">
+                            <span className={`state-pill state-${suggestion.estado}`}>{formatSuggestionState(suggestion.estado)}</span>
+                            {' '}{formatSuggestionType(suggestion.tipo_votacion_sugerido)} — {new Date(suggestion.created_at).toLocaleString('es-PE')}
+                          </p>
+                          {submitter ? (
+                            <p className="hint">Enviada por: {submitter.nombres} ({maskDni(submitter.dni)})</p>
+                          ) : null}
+                          {suggestion.descripcion ? <p className="hint">{suggestion.descripcion}</p> : null}
+                          {suggestion.opciones_sugeridas.length > 0 ? (
+                            <p className="hint">Opciones sugeridas: {suggestion.opciones_sugeridas.join(' / ')}</p>
+                          ) : null}
+                          {suggestion.revision_comentario ? <p className="hint">Comentario: {suggestion.revision_comentario}</p> : null}
+                          {suggestion.tema_id_generado ? (
+                            <p className="hint">
+                              Tema generado:{' '}
+                              {topics.find((t) => t.id === suggestion.tema_id_generado)?.titulo ?? suggestion.tema_id_generado}
+                            </p>
+                          ) : null}
+                        </div>
+                        <div className="row-actions">
+                          {suggestion.estado === 'pendiente' ? (
+                            <button
+                              type="button"
+                              disabled={suggestionLoading}
+                              onClick={() => handleReviewTopicSuggestion(suggestion, 'aprobar')}
+                            >
+                              Aprobar
+                            </button>
+                          ) : null}
+                          {suggestion.estado === 'pendiente' || suggestion.estado === 'aprobado' ? (
+                            <>
+                              <button
+                                className="secondary"
+                                type="button"
+                                disabled={suggestionLoading}
+                                onClick={() => handleReviewTopicSuggestion(suggestion, 'convertir')}
+                              >
+                                Convertir
+                              </button>
+                              <button
+                                className="danger"
+                                type="button"
+                                disabled={suggestionLoading}
+                                onClick={() => handleReviewTopicSuggestion(suggestion, 'rechazar')}
+                              >
+                                Rechazar
+                              </button>
+                            </>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p className="muted">
+                    {adminSuggestionFilter === 'todos'
+                      ? 'No hay sugerencias registradas.'
+                      : 'No hay sugerencias con ese estado.'}
+                  </p>
                 )}
               </div>
             </section>
@@ -1771,13 +2221,20 @@ Ingresa con tu DNI y esta contraseña temporal.`
                   </tr>
                 </thead>
                 <tbody>
+                  {adminUsers.length === 0 ? (
+                    <tr>
+                      <td colSpan={7} className="table-empty">
+                        {panelLoading ? 'Cargando usuarios...' : 'No se encontraron usuarios con los filtros actuales.'}
+                      </td>
+                    </tr>
+                  ) : null}
                   {adminUsers.map((user) => (
                     <tr key={user.id}>
                       <td>{user.dni}</td>
                       <td>{user.nombres}</td>
                       <td>{user.rol_sistema}</td>
                       <td>{user.tipo_miembro}</td>
-                      <td>{user.estado}</td>
+                      <td><span className={`state-pill state-${user.estado}`}>{user.estado}</span></td>
                       <td>{user.validado_manualmente ? 'validado' : 'pendiente'}</td>
                       <td className="row-actions">
                         <button
@@ -1899,7 +2356,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
                   </div>
                   <div>
                     <dt>Estado</dt>
-                    <dd>{selectedUser.estado}</dd>
+                    <dd><span className={`state-pill state-${selectedUser.estado}`}>{selectedUser.estado}</span></dd>
                   </div>
                   <div>
                     <dt>Validación</dt>
@@ -2103,6 +2560,13 @@ Ingresa con tu DNI y esta contraseña temporal.`
                   </tr>
                 </thead>
                 <tbody>
+                  {auditLogs.length === 0 ? (
+                    <tr>
+                      <td colSpan={4} className="table-empty">
+                        {panelLoading ? 'Cargando auditoría...' : 'Sin eventos registrados.'}
+                      </td>
+                    </tr>
+                  ) : null}
                   {auditLogs.map((log) => (
                     <tr key={log.id}>
                       <td>{new Date(log.creado_en).toLocaleString()}</td>

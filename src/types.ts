@@ -59,6 +59,8 @@ export interface AuditLog {
 export type EstadoTema = 'borrador' | 'abierto' | 'cerrado' | 'anulado';
 export type PublicoObjetivoTema = 'afiliados' | 'fundadores';
 export type OpcionVoto = 'si' | 'no' | 'abstencion';
+export type TipoVotacionSugerido = 'binaria' | 'opciones';
+export type EstadoTemaSugerencia = 'pendiente' | 'aprobado' | 'rechazado' | 'convertido';
 
 export interface Tema {
   id: string;
@@ -66,6 +68,8 @@ export interface Tema {
   descripcion: string | null;
   estado: EstadoTema;
   publico_objetivo: PublicoObjetivoTema;
+  tipo_votacion: 'binaria' | 'opciones';
+  opciones: string[];
   creado_por: string;
   creado_en: string;
   actualizado_en: string;
@@ -77,11 +81,26 @@ export interface Voto {
   id: string;
   tema_id: string;
   usuario_id: string;
-  opcion: OpcionVoto;
+  opcion: string;
   creado_en: string;
 }
 
 export interface VoteSummary {
-  opcion: OpcionVoto;
+  opcion: string;
   total: number;
+}
+
+export interface TemaSugerencia {
+  id: string;
+  titulo: string;
+  descripcion: string | null;
+  tipo_votacion_sugerido: TipoVotacionSugerido;
+  opciones_sugeridas: string[];
+  created_by: string;
+  estado: EstadoTemaSugerencia;
+  revision_comentario: string | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  tema_id_generado: string | null;
+  created_at: string;
 }

@@ -221,6 +221,7 @@ Esta fase es una compuerta completa. No avanzar a autenticacion, integracion DNI
 
 - [x] Definir recuperacion manual de acceso.
   - Verificacion: no existe flujo automatico por email, magic link o SMS.
+  - Estado vigente: la solicitud publica existe, pero el restablecimiento administrativo de contrasena queda pendiente de cierre funcional.
 
 ## Fase 5 — Integracion DNI
 
@@ -488,13 +489,22 @@ Esta fase prepara estructura futura. No habilita UI ni flujo de votacion en v1/v
   - Verificacion: `emitir_voto_controlado` resuelve el perfil desde `auth.uid()`, valida afiliado activo, valida tema abierto e inserta un solo voto.
 
 - [x] Implementar RPC controlada para resultados.
-  - Verificacion: `resumen_votos_tema` muestra resultados a administradores o a usuarios autenticados cuando el tema esta cerrado.
+  - Verificacion: `resumen_votos_tema` muestra resultados a usuarios autenticados para temas abiertos/cerrados y mantiene temas borrador/anulados restringidos a administradores.
 
 - [x] Implementar UI ciudadana de votacion.
-  - Verificacion: afiliados activos pueden votar `si`, `no` o `abstencion`; adherentes o usuarios no activos no pueden emitir voto.
+  - Verificacion: afiliados activos pueden votar `si`, `no` o `abstencion` en temas para afiliados; adherentes o usuarios no activos no pueden emitir voto.
 
 - [x] Implementar control administrativo minimo de temas.
   - Verificacion: administradores/fundador crean temas en borrador y pueden abrir, cerrar o anular segun RLS.
+
+- [x] Permitir multiples fundadores operativos.
+  - Verificacion: `cambiar_rol_sistema` permite promover nuevos fundadores activos y al hacerlo asegura `tipo_miembro = afiliado`.
+
+- [x] Implementar votaciones por grupo.
+  - Verificacion: cada tema define `publico_objetivo` como `afiliados` o `fundadores`; los temas para fundadores solo aceptan voto de fundadores afiliados activos.
+
+- [x] Permitir visibilidad sin voto para adherentes.
+  - Verificacion: adherentes autenticados pueden ver votaciones y resultados, pero `emitir_voto_controlado` y RLS bloquean su voto.
 
 - [x] Mantener inmutabilidad de votos.
   - Verificacion: el frontend no actualiza ni borra votos y la base revoca update/delete sobre `votos`.
@@ -506,3 +516,22 @@ Esta fase prepara estructura futura. No habilita UI ni flujo de votacion en v1/v
 
 - [x] Permitir reactivacion controlada de usuarios deshabilitados.
   - Verificacion: administrador/fundador ejecuta `reactivar_usuario` por RPC, exige motivo, solo cambia `anulado` o `desafiliado` a `activo` y registra auditoria.
+
+## Fase 13 - Pendientes criticos
+
+- [ ] Arreglar y validar recuperacion/restablecimiento administrativo de contrasenas.
+  - Verificacion pendiente: fundador/admin activo puede restablecer contrasena de un usuario, el usuario objetivo puede iniciar sesion con la clave temporal, `audit_log` registra el evento, y fallos de red/backend no dejan la UI bloqueada.
+
+## Fase 14 - Sugerencias de temas
+
+- [x] Crear sistema separado de sugerencias de temas.
+  - Verificacion: existe `tema_sugerencias`; las sugerencias no reutilizan `temas.estado` ni aparecen como votaciones oficiales.
+
+- [x] Permitir sugerencias solo a afiliados activos.
+  - Verificacion: `crear_sugerencia_tema` y RLS validan `estado = activo` y `tipo_miembro = afiliado`.
+
+- [x] Implementar revision administrativa.
+  - Verificacion: administradores/fundadores pueden aprobar, rechazar o convertir sugerencias mediante RPC auditadas.
+
+- [x] Convertir sugerencias en temas oficiales separados.
+  - Verificacion: `convertir_sugerencia_tema` crea un nuevo registro en `temas`, enlaza `tema_sugerencias.tema_id_generado` y marca la sugerencia como `convertido`.

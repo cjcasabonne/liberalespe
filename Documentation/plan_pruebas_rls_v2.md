@@ -51,7 +51,8 @@ Fundador:
 - puede leer datos sensibles autorizados;
 - puede ejecutar cambio de rol mediante RPC;
 - no puede cambiar su propio rol;
-- no puede crear un segundo fundador si la politica de fundador unico sigue vigente.
+- puede crear nuevos fundadores activos; la RPC debe dejar al nuevo fundador como `afiliado`.
+- los cambios a `fundador` deben quedar auditados.
 
 Anonimo:
 
