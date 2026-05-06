@@ -35,6 +35,10 @@ function isWeakPasswordError(error: { message?: string; status?: number } | null
   return error.status === 422 || message.includes('password') || message.includes('contrase');
 }
 
+function getBearerToken(authorization: string) {
+  return authorization.match(/^Bearer\s+(.+)$/i)?.[1]?.trim() ?? '';
+}
+
 export async function onRequestPost(context: PagesContext) {
   const { request, env } = context;
   const supabaseUrl = env.VITE_SUPABASE_URL;
@@ -53,7 +57,7 @@ export async function onRequestPost(context: PagesContext) {
     }
 
     const authorization = request.headers.get('authorization') ?? '';
-    const token = authorization.startsWith('Bearer ') ? authorization.slice('Bearer '.length) : '';
+    const token = getBearerToken(authorization);
 
     if (!token) {
       console.info('[restablecer-password] authorization_result', { authorized: false, reason: 'missing_token' });
@@ -124,8 +128,10 @@ export async function onRequestPost(context: PagesContext) {
       .single();
 
     if (targetError || !targetProfile) {
+      console.info('[restablecer-password] target_lookup_result', { found: false });
       return errorResponse('user_not_found', 404);
     }
+    console.info('[restablecer-password] target_lookup_result', { found: true });
 
     const { error: updateError } = await adminClient.auth.admin.updateUserById(userId, { password });
     if (updateError) {
@@ -137,7 +143,7 @@ export async function onRequestPost(context: PagesContext) {
 
     console.info('[restablecer-password] updateUserById_result', { success: true });
 
-    await adminClient.from('audit_log').insert({
+    const { error: auditError } = await adminClient.from('audit_log').insert({
       actor_id: actorId,
       sujeto_id: userId,
       accion: 'resetear_contrasena_manual',
@@ -147,9 +153,19 @@ export async function onRequestPost(context: PagesContext) {
       despues: { usuario_id: targetProfile.id },
     });
 
+    if (auditError) {
+      console.info('[restablecer-password] audit_result', { success: false });
+      return errorResponse('unknown', 500);
+    }
+
+    console.info('[restablecer-password] audit_result', { success: true });
     return jsonResponse({ success: true });
-  } catch {
-    console.info('[restablecer-password] request_result', { success: false, error: 'unknown' });
+  } catch (unexpectedError) {
+    console.info('[restablecer-password] request_result', {
+      success: false,
+      error: 'unknown',
+      errorType: unexpectedError instanceof Error ? unexpectedError.name : typeof unexpectedError,
+    });
     return errorResponse('unknown', 500);
   }
 }

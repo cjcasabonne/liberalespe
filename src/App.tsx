@@ -313,7 +313,7 @@ function topicStateDetail(topic: Tema) {
 
 function generateTemporaryPassword() {
   const suffix = Math.random().toString(36).slice(2, 8).toUpperCase();
-  return `Temporal${suffix}7`;
+  return `Temporal${suffix}7!`;
 }
 
 export default function App() {
@@ -1080,33 +1080,43 @@ Ingresa con tu DNI y esta contraseña temporal.`
       return;
     }
 
-    setPanelLoading(true);
-    const response = await fetch('/api/restablecer-password', {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${session.access_token}`,
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId: passwordResetUserId,
-        password: temporaryPassword,
-      }),
-    });
-    setPanelLoading(false);
+    try {
+      setPanelLoading(true);
+      const response = await fetch('/api/restablecer-password', {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${session.access_token}`,
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: passwordResetUserId,
+          password: temporaryPassword,
+        }),
+      });
+      const result = (await response.json().catch(() => null)) as { error?: string; success?: boolean } | null;
 
-    if (!response.ok) {
-      const result = (await response.json().catch(() => null)) as { error?: string } | null;
-      const errorMessages: Record<string, string> = {
-        not_authorized: 'Tu sesión no tiene permisos para esta acción',
-        weak_password: 'La contraseña generada no cumple la política',
-        user_not_found: 'Usuario no encontrado',
-      };
-      setError(errorMessages[result?.error ?? ''] ?? 'No se pudo restablecer la contraseña.');
-      return;
+      if (!response.ok) {
+        const errorMessages: Record<string, string> = {
+          not_authorized: 'Tu sesión no tiene permisos para esta acción',
+          weak_password: 'La contraseña generada no cumple la política',
+          user_not_found: 'Usuario no encontrado',
+        };
+        setError(errorMessages[result?.error ?? ''] ?? 'No se pudo restablecer la contraseña.');
+        return;
+      }
+
+      if (result?.success !== true) {
+        setError('No se pudo restablecer la contraseña.');
+        return;
+      }
+
+      setStatus('Contraseña temporal actualizada. Usa los botones de contacto del usuario seleccionado para comunicarla.');
+      await loadPanelData();
+    } catch {
+      setError('No se pudo restablecer la contraseña.');
+    } finally {
+      setPanelLoading(false);
     }
-
-    setStatus('Contraseña temporal actualizada. Usa los botones de contacto del usuario seleccionado para comunicarla.');
-    await loadPanelData();
   }
 
   async function runRoleRpc(usuarioId: string) {
