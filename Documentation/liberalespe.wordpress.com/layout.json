@@ -1,0 +1,230 @@
+{
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "scrollWidth": 1440,
+    "scrollHeight": 900
+  },
+  "elements": [
+    {
+      "id": 1,
+      "tag": "div",
+      "role": null,
+      "idAttr": "main",
+      "classes": [],
+      "text": "Checking your browserThis will only take a few seconds...",
+      "src": null,
+      "href": null,
+      "layout": {
+        "x": 556,
+        "y": 8,
+        "width": 327,
+        "height": 813,
+        "area": 266121
+      },
+      "styles": {
+        "display": "flex",
+        "position": "static",
+        "flexDirection": "column",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gap": "normal",
+        "zIndex": "auto",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "textAlign": "start"
+      }
+    },
+    {
+      "id": 2,
+      "tag": "h1",
+      "role": null,
+      "idAttr": "head",
+      "classes": [],
+      "text": "Checking your browser",
+      "src": null,
+      "href": null,
+      "layout": {
+        "x": 556,
+        "y": 327,
+        "width": 327,
+        "height": 53,
+        "area": 17344
+      },
+      "styles": {
+        "display": "block",
+        "position": "static",
+        "flexDirection": "row",
+        "justifyContent": "normal",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gap": "normal",
+        "zIndex": "auto",
+        "fontSize": "32px",
+        "fontWeight": "500",
+        "textAlign": "center"
+      }
+    },
+    {
+      "id": 3,
+      "tag": "div",
+      "role": null,
+      "idAttr": "body",
+      "classes": [],
+      "text": "This will only take a few seconds...",
+      "src": null,
+      "href": null,
+      "layout": {
+        "x": 597,
+        "y": 380,
+        "width": 245,
+        "height": 18,
+        "area": 4418
+      },
+      "styles": {
+        "display": "block",
+        "position": "static",
+        "flexDirection": "row",
+        "justifyContent": "normal",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gap": "normal",
+        "zIndex": "auto",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "textAlign": "center"
+      }
+    },
+    {
+      "id": 4,
+      "tag": "div",
+      "role": null,
+      "idAttr": "text",
+      "classes": [],
+      "text": "This will only take a few seconds...",
+      "src": null,
+      "href": null,
+      "layout": {
+        "x": 597,
+        "y": 380,
+        "width": 245,
+        "height": 18,
+        "area": 4418
+      },
+      "styles": {
+        "display": "block",
+        "position": "static",
+        "flexDirection": "row",
+        "justifyContent": "normal",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gap": "normal",
+        "zIndex": "auto",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "textAlign": "center"
+      }
+    },
+    {
+      "id": 7,
+      "tag": "div",
+      "role": null,
+      "idAttr": "brand",
+      "classes": [],
+      "text": "Secured by wp.com",
+      "src": null,
+      "href": null,
+      "layout": {
+        "x": 633,
+        "y": 831,
+        "width": 174,
+        "height": 21,
+        "area": 3609
+      },
+      "styles": {
+        "display": "block",
+        "position": "static",
+        "flexDirection": "row",
+        "justifyContent": "normal",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gap": "normal",
+        "zIndex": "auto",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "textAlign": "start"
+      }
+    },
+    {
+      "id": 6,
+      "tag": "div",
+      "role": null,
+      "idAttr": null,
+      "classes": [
+        "spinner",
+        "big"
+      ],
+      "text": "",
+      "src": null,
+      "href": null,
+      "layout": {
+        "x": 692,
+        "y": 422,
+        "width": 56,
+        "height": 56,
+        "area": 3176
+      },
+      "styles": {
+        "display": "block",
+        "position": "static",
+        "flexDirection": "row",
+        "justifyContent": "normal",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gap": "normal",
+        "zIndex": "auto",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "textAlign": "start"
+      }
+    },
+    {
+      "id": 8,
+      "tag": "a",
+      "role": null,
+      "idAttr": null,
+      "classes": [],
+      "text": "wp.com",
+      "src": null,
+      "href": "https://wordpress.com",
+      "layout": {
+        "x": 724,
+        "y": 834,
+        "width": 83,
+        "height": 17,
+        "area": 1408
+      },
+      "styles": {
+        "display": "inline",
+        "position": "static",
+        "flexDirection": "row",
+        "justifyContent": "normal",
+        "alignItems": "normal",
+        "gridTemplateColumns": "none",
+        "gridTemplateRows": "none",
+        "gap": "normal",
+        "zIndex": "auto",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "textAlign": "start"
+      }
+    }
+  ]
+}

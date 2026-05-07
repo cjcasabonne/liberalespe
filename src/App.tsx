@@ -469,7 +469,7 @@ export default function App() {
     passwordResetUser && temporaryPassword
       ? `Hola ${passwordResetUser.nombres},
 
-Se restableció manualmente tu contraseña de acceso a Liberales PE.
+Se restableció manualmente tu contraseña de acceso a Ciudadanos PE.
 
 Contraseña temporal: ${temporaryPassword}
 
@@ -1708,7 +1708,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
         <div className="topbar-brand">
           <img src="/logo_cs.svg" alt="Logo Cs" />
           <div>
-          <h1>Liberales PE</h1>
+          <h1>Ciudadanos PE</h1>
           <p>Padrón operativo</p>
           </div>
         </div>
@@ -2763,7 +2763,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
                     <ContactActions
                       email={passwordResetUser.correo_contacto}
                       phone={passwordResetUser.telefono}
-                      subject="Contraseña temporal Liberales PE"
+                      subject="Contraseña temporal Ciudadanos PE"
                       message={passwordResetMessage}
                     />
                   </div>

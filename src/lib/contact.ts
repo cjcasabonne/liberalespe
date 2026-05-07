@@ -1,13 +1,13 @@
 const contactMessage = `Hola,
 
-Te escribimos desde Liberales PE para darte la bienvenida y continuar tu proceso dentro del partido.
+Te escribimos desde Ciudadanos PE para darte la bienvenida y continuar tu proceso dentro del partido.
 
 Quedamos atentos a cualquier consulta.
 
 Saludos,
-Equipo Liberales PE`;
+Equipo Ciudadanos PE`;
 
-export function buildMailtoLink(email: string, subject = 'Bienvenida a Liberales PE', message = contactMessage): string {
+export function buildMailtoLink(email: string, subject = 'Bienvenida a Ciudadanos PE', message = contactMessage): string {
 
   return `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
 }

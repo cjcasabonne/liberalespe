@@ -1,0 +1,22 @@
+{
+  "url": "https://liberalespe.wordpress.com/",
+  "checkedAt": "2026-05-01T06:05:58.475Z",
+  "type": "static",
+  "strategy": "api",
+  "blockingRisk": "low",
+  "robots": {
+    "url": "https://liberalespe.wordpress.com/robots.txt",
+    "found": true,
+    "allowsScraping": true
+  },
+  "signals": {
+    "title": "Ciudadanos – Espacio digital de Ciudadanos",
+    "hasStructuredData": false,
+    "jsonCandidates": [
+      {
+        "type": "api-path",
+        "value": "/API/Document/cookie/Simple_document"
+      }
+    ]
+  }
+}

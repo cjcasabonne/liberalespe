@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python scripts/search.py \"political party civic registry government trust Peru formal institutional\" --design-system -p \"Liberales PE\" -f markdown)",
+      "Bash(python scripts/search.py \"government civic registry formal\" --domain color -n 3)",
+      "Bash(python scripts/search.py \"form registration multi-step validation feedback\" --domain ux -n 5)",
+      "Bash(python scripts/search.py \"admin dashboard data table civic\" --domain product -n 3)",
+      "mcp__claude_ai_Supabase__execute_sql",
+      "mcp__claude_ai_Supabase__get_project",
+      "mcp__claude_ai_Supabase__list_migrations",
+      "Bash(npx supabase *)",
+      "Bash(npm run *)",
+      "Bash(git add *)",
+      "Bash(curl *)",
+      "Bash(npx tsc *)",
+      "Bash(git push *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git rm *)",
+      "Bash(node -e \"const p = require\\('./node_modules/@supabase/supabase-js/package.json'\\); console.log\\(p.version\\)\")",
+      "Bash(grep -n \"SUPABASE_SERVICE_ROLE\\\\|service_role\\\\|restablecer\" .dev.vars)",
+      "Bash(ls functions/)",
+      "Bash(git commit *)",
+      "Bash(2>&1)",
+      "Bash(del _cleanup_votos.sql)"
+    ]
+  }
+}
