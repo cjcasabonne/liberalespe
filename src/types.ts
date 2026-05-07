@@ -56,7 +56,7 @@ export interface AuditLog {
   despues?: unknown;
 }
 
-export type EstadoTema = 'borrador' | 'abierto' | 'cerrado' | 'anulado';
+export type EstadoTema = 'borrador' | 'abierto' | 'cerrado' | 'anulado' | 'archivado';
 export type PublicoObjetivoTema = 'afiliados' | 'fundadores';
 export type OpcionVoto = 'si' | 'no' | 'abstencion';
 export type TipoVotacionSugerido = 'binaria' | 'opciones';

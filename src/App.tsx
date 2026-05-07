@@ -88,6 +88,7 @@ function formatAuditAction(action: string) {
     rechazar_desafiliacion: 'Rechazar desafiliación',
     resolver_recuperacion: 'Resolver recuperación',
     exportar_usuarios_filtrados: 'Exportar usuarios filtrados',
+    archivar_tema: 'Archivar tema',
     aprobar_sugerencia_tema: 'Aprobar sugerencia de tema',
     convertir_sugerencia_tema: 'Convertir sugerencia en tema',
     crear_sugerencia_tema: 'Crear sugerencia de tema',
@@ -311,6 +312,7 @@ function formatTopicState(state: EstadoTema) {
     abierto: 'Abierto',
     cerrado: 'Cerrado',
     anulado: 'Anulado',
+    archivado: 'Archivado',
   };
 
   return labels[state];
@@ -374,6 +376,10 @@ function topicStateDetail(topic: Tema) {
     return 'Resultados disponibles.';
   }
 
+  if (topic.estado === 'archivado') {
+    return 'Tema archivado.';
+  }
+
   return 'Tema anulado.';
 }
 
@@ -419,8 +425,10 @@ export default function App() {
   const [suggestionLoading, setSuggestionLoading] = useState(false);
   const [adminSuggestionFilter, setAdminSuggestionFilter] = useState<'todos' | EstadoTemaSugerencia>('todos');
   const [suggestionProfiles, setSuggestionProfiles] = useState<Record<string, Perfil>>({});
-  const [showAllClosed, setShowAllClosed] = useState(false);
-  const [showAllAnnulled, setShowAllAnnulled] = useState(false);
+  const [showPastVotings, setShowPastVotings] = useState(false);
+  const [archivedTopics, setArchivedTopics] = useState<Tema[]>([]);
+  const [archivedVoteSummaries, setArchivedVoteSummaries] = useState<Record<string, VoteSummary[]>>({});
+  const [pastVotingsLoading, setPastVotingsLoading] = useState(false);
   const [adminSection, setAdminSection] = useState<AdminSection>('resumen');
   const [adminMenuOpen, setAdminMenuOpen] = useState(false);
   const [passwordResetUserId, setPasswordResetUserId] = useState('');
@@ -438,10 +446,9 @@ export default function App() {
     : topicSuggestions.filter((s) => s.estado === adminSuggestionFilter);
   const pendingVoteTopics = topics.filter((t) => t.estado === 'abierto' && !ownVotes.some((v) => v.tema_id === t.id));
   const votedOpenTopics = topics.filter((t) => t.estado === 'abierto' && ownVotes.some((v) => v.tema_id === t.id));
-  const closedTopics = topics.filter((t) => t.estado === 'cerrado');
-  const annulledTopics = topics.filter((t) => t.estado === 'anulado');
-  const visibleClosed = showAllClosed ? closedTopics : closedTopics.slice(0, 3);
-  const visibleAnnulled = showAllAnnulled ? annulledTopics : annulledTopics.slice(0, 2);
+  const pastTopicsFromMain = topics.filter((t) => t.estado === 'cerrado' || t.estado === 'anulado');
+  const allPastTopics = [...pastTopicsFromMain, ...archivedTopics];
+  const pastVotingsCount = pastTopicsFromMain.length + archivedTopics.length;
   const myTopicSuggestions = isAdmin
     ? topicSuggestions.filter((s) => profile && s.created_by === profile.id)
     : topicSuggestions;
@@ -530,8 +537,10 @@ Ingresa con tu DNI y esta contraseña temporal.`
       setVoteSummaries({});
       setTopicSuggestions([]);
       setSuggestionProfiles({});
-      setShowAllClosed(false);
-      setShowAllAnnulled(false);
+      setShowPastVotings(false);
+      setArchivedTopics([]);
+      setArchivedVoteSummaries({});
+      setPastVotingsLoading(false);
       return;
     }
 
@@ -569,7 +578,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
     const client = supabase;
     setVotingLoading(true);
     const [topicsResult, ownVotesResult, suggestionsResult] = await Promise.all([
-      client.from('temas').select(temaSelectColumns).order('creado_en', { ascending: false }).limit(30),
+      client.from('temas').select(temaSelectColumns).neq('estado', 'archivado').order('creado_en', { ascending: false }).limit(30),
       client
         .from('votos')
         .select('id,tema_id,usuario_id,opcion,creado_en')
@@ -608,7 +617,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
 
     const summaries = await Promise.all(
       nextTopics
-        .filter((topic) => isAdmin || ['abierto', 'cerrado'].includes(topic.estado))
+        .filter((topic) => isAdmin || ['abierto', 'cerrado', 'anulado'].includes(topic.estado))
         .map(async (topic) => {
           const { data, error: summaryError } = await client.rpc('resumen_votos_tema', { p_tema_id: topic.id });
           return [topic.id, summaryError ? [] : ((data ?? []) as VoteSummary[])] as const;
@@ -621,6 +630,62 @@ Ingresa con tu DNI y esta contraseña temporal.`
         return nextSummaries;
       }, {}),
     );
+  }
+
+  async function loadArchivedTopics() {
+    if (!supabase || !profile) {
+      return;
+    }
+
+    setPastVotingsLoading(true);
+    const { data } = await supabase
+      .from('temas')
+      .select(temaSelectColumns)
+      .eq('estado', 'archivado')
+      .order('actualizado_en', { ascending: false })
+      .limit(20);
+    const nextArchived = (data ?? []) as Tema[];
+    setArchivedTopics(nextArchived);
+
+    const summaries = await Promise.all(
+      nextArchived.map(async (topic) => {
+        const { data: sumData } = await supabase!.rpc('resumen_votos_tema', { p_tema_id: topic.id });
+        return [topic.id, (sumData ?? []) as VoteSummary[]] as const;
+      }),
+    );
+    setArchivedVoteSummaries(
+      summaries.reduce<Record<string, VoteSummary[]>>((acc, [id, sum]) => {
+        acc[id] = sum;
+        return acc;
+      }, {}),
+    );
+    setPastVotingsLoading(false);
+  }
+
+  async function handleArchiveTopic(topic: Tema) {
+    if (!supabase || !isAdmin) {
+      return;
+    }
+
+    const confirmed = window.confirm(`¿Archivar "${topic.titulo}"? La votación pasará a "Votaciones pasadas" y no aparecerá en la vista principal.`);
+    if (!confirmed) {
+      return;
+    }
+
+    setError('');
+    setStatus('');
+    setVotingLoading(true);
+    const { error: archiveError } = await supabase.rpc('archivar_tema_controlado', { p_tema_id: topic.id });
+    setVotingLoading(false);
+
+    if (archiveError) {
+      setError('No se pudo archivar el tema.');
+      return;
+    }
+
+    setStatus('Tema archivado.');
+    await loadVotingData();
+    await loadPanelData();
   }
 
   async function loadPanelData() {
@@ -1733,8 +1798,8 @@ Ingresa con tu DNI y esta contraseña temporal.`
                 <span>pendiente{pendingVoteTopics.length !== 1 ? 's' : ''}</span>
               </div>
               <div>
-                <strong>{closedTopics.length}</strong>
-                <span>resultado{closedTopics.length !== 1 ? 's' : ''}</span>
+                <strong>{pastVotingsCount}</strong>
+                <span>pasada{pastVotingsCount !== 1 ? 's' : ''}</span>
               </div>
               <div>
                 <strong>{myActiveSuggestions.length}</strong>
@@ -1826,70 +1891,75 @@ Ingresa con tu DNI y esta contraseña temporal.`
               </div>
             ) : null}
 
-            {closedTopics.length > 0 ? (
-              <div className="vote-group">
-                <p className="vote-group-title">Resultados</p>
-                {visibleClosed.map((topic) => {
-                  const summary = voteSummaries[topic.id] ?? [];
-                  const total = summary.reduce((acc, item) => acc + item.total, 0);
-                  const vote = ownVotes.find((v) => v.tema_id === topic.id);
-                  return (
-                    <article className="topic-item" key={topic.id}>
-                      <div className="topic-main">
-                        <div className="topic-title-row">
-                          <h3>{topic.titulo}</h3>
-                          <span className={`state-pill state-${topic.estado}`}>{formatTopicState(topic.estado)}</span>
-                        </div>
-                        {vote ? <p className="hint">Tu voto: {formatVoteOption(vote.opcion)}</p> : null}
-                      </div>
-                      {summary.length > 0 ? (
-                        <div className="vote-results" aria-label={`Resultados de ${topic.titulo}`}>
-                          {summary.map((item) => {
-                            const pct = total > 0 ? Math.round((item.total / total) * 100) : 0;
-                            return (
-                              <div key={item.opcion} className="result-row">
-                                <div className="result-label">
-                                  <span>{formatVoteOption(item.opcion)}</span>
-                                  <span>{item.total} ({pct}%)</span>
-                                </div>
-                                <div className="result-bar-track">
-                                  <div className="result-bar-fill" style={{ width: `${pct}%` }} />
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ) : null}
-                    </article>
-                  );
-                })}
-                {!showAllClosed && closedTopics.length > 3 ? (
-                  <button className="secondary show-more" type="button" onClick={() => setShowAllClosed(true)}>
-                    Ver más ({closedTopics.length - 3} más)
-                  </button>
-                ) : null}
-              </div>
-            ) : null}
-
-            {annulledTopics.length > 0 ? (
-              <div className="vote-group">
-                <p className="vote-group-title">Anuladas</p>
-                {visibleAnnulled.map((topic) => (
-                  <div className="topic-item-compact" key={topic.id}>
-                    <strong>{topic.titulo}</strong>
-                    <span className={`state-pill state-${topic.estado}`}>{formatTopicState(topic.estado)}</span>
-                  </div>
-                ))}
-                {!showAllAnnulled && annulledTopics.length > 2 ? (
-                  <button className="secondary show-more" type="button" onClick={() => setShowAllAnnulled(true)}>
-                    Ver más ({annulledTopics.length - 2} más)
-                  </button>
-                ) : null}
-              </div>
-            ) : null}
-
             {topics.length === 0 && !votingLoading ? (
               <p className="muted">No hay temas de votación disponibles.</p>
+            ) : null}
+
+            {pastTopicsFromMain.length > 0 || archivedTopics.length > 0 || !showPastVotings ? (
+              <div className="past-votings-block">
+                <button
+                  className="past-votings-toggle"
+                  type="button"
+                  aria-expanded={showPastVotings}
+                  onClick={() => {
+                    const next = !showPastVotings;
+                    setShowPastVotings(next);
+                    if (next && archivedTopics.length === 0 && !pastVotingsLoading) {
+                      void loadArchivedTopics();
+                    }
+                  }}
+                >
+                  <span>Votaciones pasadas</span>
+                  {pastVotingsCount > 0 ? <strong>{pastVotingsCount}</strong> : null}
+                  <span className="toggle-chevron" aria-hidden="true">{showPastVotings ? '▲' : '▼'}</span>
+                </button>
+
+                {showPastVotings ? (
+                  <div className="past-votings-content">
+                    {pastVotingsLoading ? (
+                      <p className="muted">Cargando...</p>
+                    ) : allPastTopics.length === 0 ? (
+                      <p className="muted">No hay votaciones pasadas.</p>
+                    ) : (
+                      allPastTopics.map((topic) => {
+                        const summary = (voteSummaries[topic.id] ?? archivedVoteSummaries[topic.id]) ?? [];
+                        const total = summary.reduce((acc, item) => acc + item.total, 0);
+                        const vote = ownVotes.find((v) => v.tema_id === topic.id);
+                        const closeDate = topic.cierra_en ?? topic.actualizado_en;
+                        return (
+                          <div className="topic-item-compact past-topic-item" key={topic.id}>
+                            <div className="past-topic-main">
+                              <div className="topic-title-row">
+                                <strong>{topic.titulo}</strong>
+                                <span className={`state-pill state-${topic.estado}`}>{formatTopicState(topic.estado)}</span>
+                              </div>
+                              <p className="hint">{new Date(closeDate).toLocaleDateString('es-PE')}{vote ? ` — Tu voto: ${formatVoteOption(vote.opcion)}` : ''}</p>
+                              {summary.length > 0 ? (
+                                <div className="vote-results past-results" aria-label={`Resultados de ${topic.titulo}`}>
+                                  {summary.map((item) => {
+                                    const pct = total > 0 ? Math.round((item.total / total) * 100) : 0;
+                                    return (
+                                      <div key={item.opcion} className="result-row">
+                                        <div className="result-label">
+                                          <span>{formatVoteOption(item.opcion)}</span>
+                                          <span>{item.total} ({pct}%)</span>
+                                        </div>
+                                        <div className="result-bar-track">
+                                          <div className="result-bar-fill" style={{ width: `${pct}%` }} />
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              ) : null}
+                            </div>
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+                ) : null}
+              </div>
             ) : null}
           </section>
 
@@ -2183,6 +2253,11 @@ Ingresa con tu DNI y esta contraseña temporal.`
                         {topic.estado !== 'anulado' && topic.estado !== 'cerrado' ? (
                           <button className="danger" type="button" disabled={votingLoading} onClick={() => handleTopicState(topic, 'anulado')}>
                             Anular
+                          </button>
+                        ) : null}
+                        {(topic.estado === 'cerrado' || topic.estado === 'anulado') ? (
+                          <button className="secondary" type="button" disabled={votingLoading} onClick={() => handleArchiveTopic(topic)}>
+                            Archivar
                           </button>
                         ) : null}
                       </div>
