@@ -21,7 +21,8 @@
       "Bash(ls functions/)",
       "Bash(git commit *)",
       "Bash(2>&1)",
-      "Bash(del _cleanup_votos.sql)"
+      "Bash(del _cleanup_votos.sql)",
+      "Bash(dir *)"
     ]
   }
 }
