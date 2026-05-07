@@ -679,6 +679,7 @@ Ingresa con tu DNI y esta contraseña temporal.`
     setVotingLoading(false);
 
     if (archiveError) {
+      console.error('archiveError', archiveError);
       setError('No se pudo archivar el tema.');
       return;
     }
