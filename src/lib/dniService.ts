@@ -15,8 +15,7 @@ type InternalBuscarDniResult = BuscarDniResult & {
 
 const dniServiceUrl = import.meta.env.VITE_DNI_SERVICE_URL ?? 'https://busqueda-dni.onrender.com';
 const defaultTimeoutMs = 12000;
-const maxDniLookupAttempts = 2;
-const retryDelayMs = 350;
+const warmupDelayMs = 13000;
 
 function wait(ms: number) {
   return new Promise((resolve) => {
@@ -86,15 +85,13 @@ async function requestDni(dni: string, timeoutMs: number): Promise<InternalBusca
 }
 
 export async function buscarDni(dni: string, timeoutMs = defaultTimeoutMs): Promise<BuscarDniResult> {
-  for (let attempt = 1; attempt <= maxDniLookupAttempts; attempt += 1) {
-    const result = await requestDni(dni, timeoutMs);
+  const warmupResult = await requestDni(dni, timeoutMs);
 
-    if (result.ok || !result.retryable || attempt === maxDniLookupAttempts) {
-      return result;
-    }
-
-    await wait(retryDelayMs);
+  if (!warmupResult.ok && warmupResult.reason === 'rate_limit') {
+    return warmupResult;
   }
 
-  return { ok: false, reason: 'error' };
+  await wait(warmupDelayMs);
+
+  return requestDni(dni, timeoutMs);
 }

@@ -50,7 +50,6 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
   const [dniLoading, setDniLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [autoFilled, setAutoFilled] = useState(false);
-  const [manualFallback, setManualFallback] = useState(false);
   const [error, setError] = useState('');
   const [hint, setHint] = useState('');
 
@@ -76,24 +75,21 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
     if (result.ok) {
       setNombres(result.nombreCompleto.toUpperCase());
       setAutoFilled(true);
-      setManualFallback(false);
       setHint('Nombre autocompletado. Confirma los datos antes de registrar.');
       setStep(2);
       return;
     }
 
     setAutoFilled(false);
-    setManualFallback(true);
+    setNombres('');
 
     if (result.reason === 'rate_limit') {
-      setHint('Servicio ocupado por muchas solicitudes. Ingresa el nombre manualmente.');
+      setError('El servicio esta ocupado por muchas solicitudes. Intenta nuevamente en unos minutos.');
     } else if (result.reason === 'timeout') {
-      setHint('La consulta está tardando más de lo esperado. Ingresa el nombre manualmente.');
+      setError('No pudimos verificar el DNI en este momento. Intenta nuevamente en unos minutos.');
     } else {
-      setHint('No se pudo autocompletar. Ingresa el nombre manualmente.');
+      setError('No pudimos verificar el DNI en este momento. Intenta nuevamente en unos minutos.');
     }
-
-    setStep(2);
   }
 
   function handleNameSubmit(event: FormEvent<HTMLFormElement>) {
@@ -231,10 +227,9 @@ export function RegisterScreen({ onRegistered, onLogin }: RegisterScreenProps) {
           <form className="register-form" onSubmit={handleNameSubmit} noValidate>
             <h2>¿Cuáles son tus nombres completos?</h2>
             {autoFilled ? <p className="register-info">{hint}</p> : null}
-            {manualFallback ? <p className="register-warning">{hint}</p> : null}
             <label>
               Nombres completos
-              <input value={nombres} onChange={(event) => setNombres(event.target.value.toUpperCase())} autoComplete="name" />
+              <input value={nombres} readOnly autoComplete="name" />
             </label>
             {error ? <p className="register-error">{error}</p> : null}
             <div className="register-actions">
