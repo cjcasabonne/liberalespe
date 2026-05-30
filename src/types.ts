@@ -104,3 +104,70 @@ export interface TemaSugerencia {
   tema_id_generado: string | null;
   created_at: string;
 }
+
+export type GeneratedTopicBatchStatus =
+  | 'draft'
+  | 'loaded'
+  | 'under_review'
+  | 'partially_reviewed'
+  | 'approved'
+  | 'rejected'
+  | 'archived';
+
+export type GeneratedTopicCandidateStatus =
+  | 'pending_review'
+  | 'needs_changes'
+  | 'approved'
+  | 'rejected'
+  | 'converted_to_suggestion'
+  | 'converted_to_topic'
+  | 'archived';
+
+export type GeneratedCandidateReviewAction = 'approve' | 'reject' | 'needs_changes';
+
+export interface GeneratedTopicBatch {
+  id: string;
+  batch_code: string;
+  source: string;
+  ideological_profile: string;
+  status: GeneratedTopicBatchStatus;
+  expected_count: number | null;
+  inserted_count: number;
+  valid_count: number;
+  rejected_count: number;
+  notes: string | null;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface GeneratedTopicCandidate {
+  id: string;
+  batch_id: string;
+  titulo: string;
+  descripcion: string | null;
+  tipo_votacion: 'binaria' | 'opciones';
+  opciones: string[];
+  publico_objetivo: PublicoObjetivoTema;
+  taxonomy_draft: Record<string, unknown>;
+  ideological_axis: string | null;
+  deliberative_tension: string | null;
+  neutrality_notes: string | null;
+  quality_notes: string | null;
+  risk_flags: string[];
+  requires_source: boolean;
+  source_required_reason: string | null;
+  human_review_required: boolean;
+  quality_score: number | null;
+  neutrality_score: number | null;
+  status: GeneratedTopicCandidateStatus;
+  rejection_reason: string | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  converted_tema_sugerencia_id: string | null;
+  converted_tema_id: string | null;
+  duplicate_fingerprint: string;
+  raw_payload: Record<string, unknown> | null;
+  created_at: string;
+  updated_at: string;
+}

@@ -8,6 +8,10 @@ import type {
   AuditLog,
   EstadoTema,
   EstadoTemaSugerencia,
+  GeneratedCandidateReviewAction,
+  GeneratedTopicBatch,
+  GeneratedTopicCandidate,
+  GeneratedTopicCandidateStatus,
   PublicoObjetivoTema,
   Perfil,
   SolicitudAfiliacion,
@@ -26,7 +30,7 @@ type AdminEstadoFilter = 'todos' | 'activo' | 'anulado' | 'desafiliado';
 type AdminTipoFilter = 'todos' | 'adherente' | 'afiliado';
 type AdminRolFilter = 'todos' | 'usuario' | 'administrador' | 'fundador';
 type AdminValidationFilter = 'todos' | 'validado' | 'pendiente';
-type AdminSection = 'resumen' | 'usuarios' | 'votaciones' | 'sugerencias' | 'solicitudes' | 'password' | 'auditoria';
+type AdminSection = 'resumen' | 'usuarios' | 'votaciones' | 'sugerencias' | 'generador' | 'solicitudes' | 'password' | 'auditoria';
 
 type OperationalStats = {
   pendingValidation: number;
@@ -49,6 +53,10 @@ const perfilSelectColumnsWithCreated = `${perfilSelectColumns},creado_en`;
 const temaSelectColumns = 'id,titulo,descripcion,estado,publico_objetivo,tipo_votacion,opciones,creado_por,creado_en,actualizado_en,abre_en,cierra_en';
 const temaSugerenciaSelectColumns =
   'id,titulo,descripcion,tipo_votacion_sugerido,opciones_sugeridas,created_by,estado,revision_comentario,reviewed_by,reviewed_at,tema_id_generado,created_at';
+const generatedBatchSelectColumns =
+  'id,batch_code,source,ideological_profile,status,expected_count,inserted_count,valid_count,rejected_count,notes,created_by,created_at,updated_at';
+const generatedCandidateSelectColumns =
+  'id,batch_id,titulo,descripcion,tipo_votacion,opciones,publico_objetivo,taxonomy_draft,ideological_axis,deliberative_tension,neutrality_notes,quality_notes,risk_flags,requires_source,source_required_reason,human_review_required,quality_score,neutrality_score,status,rejection_reason,reviewed_by,reviewed_at,converted_tema_sugerencia_id,converted_tema_id,duplicate_fingerprint,raw_payload,created_at,updated_at';
 const emptyOperationalStats: OperationalStats = {
   pendingValidation: 0,
   pendingAffiliation: 0,
@@ -90,9 +98,13 @@ function formatAuditAction(action: string) {
     exportar_usuarios_filtrados: 'Exportar usuarios filtrados',
     archivar_tema: 'Archivar tema',
     aprobar_sugerencia_tema: 'Aprobar sugerencia de tema',
+    cargar_generated_topic_candidates: 'Cargar candidatos generados',
     convertir_sugerencia_tema: 'Convertir sugerencia en tema',
+    convertir_generated_candidate_a_sugerencia: 'Convertir candidato generado',
+    crear_generated_topic_batch: 'Crear lote generado',
     crear_sugerencia_tema: 'Crear sugerencia de tema',
     rechazar_sugerencia_tema: 'Rechazar sugerencia de tema',
+    revisar_generated_topic_candidate: 'Revisar candidato generado',
     validar_usuario: 'Validar usuario',
   };
 
@@ -102,6 +114,8 @@ function formatAuditAction(action: string) {
 function formatAuditTable(table: string) {
   const labels: Record<string, string> = {
     audit_log: 'Auditoría',
+    generated_topic_batches: 'Lotes generados',
+    generated_topic_candidates: 'Candidatos generados',
     perfiles: 'Perfiles',
     solicitudes_afiliacion: 'Solicitudes de afiliación',
     solicitudes_desafiliacion: 'Solicitudes de desafiliación',
@@ -344,6 +358,42 @@ function formatSuggestionState(state: TemaSugerencia['estado']) {
   return labels[state];
 }
 
+function formatGeneratedBatchStatus(status: GeneratedTopicBatch['status']) {
+  const labels: Record<GeneratedTopicBatch['status'], string> = {
+    draft: 'Borrador',
+    loaded: 'Cargado',
+    under_review: 'En revision',
+    partially_reviewed: 'Revision parcial',
+    approved: 'Aprobado',
+    rejected: 'Rechazado',
+    archived: 'Archivado',
+  };
+  return labels[status];
+}
+
+function formatGeneratedCandidateStatus(status: GeneratedTopicCandidateStatus) {
+  const labels: Record<GeneratedTopicCandidateStatus, string> = {
+    pending_review: 'Pendiente',
+    needs_changes: 'Requiere cambios',
+    approved: 'Aprobado',
+    rejected: 'Rechazado',
+    converted_to_suggestion: 'Convertido a sugerencia',
+    converted_to_topic: 'Convertido a tema',
+    archived: 'Archivado',
+  };
+  return labels[status];
+}
+
+function promptOptionalScore(label: string): number | null | undefined {
+  const value = window.prompt(`${label} (1 a 5, opcional)`)?.trim();
+  if (!value) {
+    return null;
+  }
+
+  const score = Number(value);
+  return Number.isInteger(score) && score >= 1 && score <= 5 ? score : undefined;
+}
+
 function canSuggestTopics(p: Perfil | null): boolean {
   return p !== null && p.estado === 'activo' && p.tipo_miembro === 'afiliado';
 }
@@ -424,6 +474,11 @@ export default function App() {
   const [suggestionForm, setSuggestionForm] = useState(emptyTopicSuggestionForm);
   const [suggestionLoading, setSuggestionLoading] = useState(false);
   const [adminSuggestionFilter, setAdminSuggestionFilter] = useState<'todos' | EstadoTemaSugerencia>('todos');
+  const [generatedBatches, setGeneratedBatches] = useState<GeneratedTopicBatch[]>([]);
+  const [generatedCandidates, setGeneratedCandidates] = useState<GeneratedTopicCandidate[]>([]);
+  const [generatedCandidateFilter, setGeneratedCandidateFilter] = useState<'todos' | GeneratedTopicCandidateStatus>('pending_review');
+  const [generatedLoading, setGeneratedLoading] = useState(false);
+  const [generatedLoadError, setGeneratedLoadError] = useState('');
   const [suggestionProfiles, setSuggestionProfiles] = useState<Record<string, Perfil>>({});
   const [showPastVotings, setShowPastVotings] = useState(false);
   const [archivedTopics, setArchivedTopics] = useState<Tema[]>([]);
@@ -455,12 +510,19 @@ export default function App() {
   const myActiveSuggestions = myTopicSuggestions.filter((s) => ['pendiente', 'aprobado'].includes(s.estado));
   const myConvertedSuggestions = myTopicSuggestions.filter((s) => s.estado === 'convertido');
   const myRejectedSuggestions = myTopicSuggestions.filter((s) => s.estado === 'rechazado');
+  const generatedActionCount = generatedCandidates.filter((candidate) =>
+    ['pending_review', 'needs_changes', 'approved'].includes(candidate.status),
+  ).length;
+  const generatedFilteredCandidates = generatedCandidateFilter === 'todos'
+    ? generatedCandidates
+    : generatedCandidates.filter((candidate) => candidate.status === generatedCandidateFilter);
   const isPasswordRecoveryPath = window.location.pathname === '/recuperar-password';
   const adminNavItems: Array<{ key: AdminSection; label: string; count?: number }> = [
     { key: 'resumen', label: 'Resumen' },
     { key: 'usuarios', label: 'Usuarios', count: adminUserCount },
     { key: 'votaciones', label: 'Votaciones', count: topics.length },
     { key: 'sugerencias', label: 'Sugerencias', count: pendingTopicSuggestions },
+    { key: 'generador', label: 'Generador', count: generatedActionCount },
     { key: 'solicitudes', label: 'Solicitudes', count: pendingRequestsTotal },
     { key: 'password', label: 'Contraseña' },
     { key: 'auditoria', label: 'Auditoría', count: auditLogs.length },
@@ -515,11 +577,22 @@ Ingresa con tu DNI y esta contraseña temporal.`
       setSelectedUserId('');
       setSelectedUserLogs([]);
       setOperationalStats(emptyOperationalStats);
+      setGeneratedBatches([]);
+      setGeneratedCandidates([]);
+      setGeneratedLoadError('');
       return;
     }
 
     void loadPanelData();
   }, [isAdmin, adminPage, adminDniFilter, adminEstadoFilter, adminTipoFilter, adminRolFilter, adminValidationFilter]);
+
+  useEffect(() => {
+    if (!isAdmin || adminSection !== 'generador') {
+      return;
+    }
+
+    void loadGeneratedStagingData();
+  }, [isAdmin, adminSection]);
 
   useEffect(() => {
     if (!isAdmin || !selectedUserId) {
@@ -775,7 +848,13 @@ Ingresa con tu DNI y esta contraseña temporal.`
 
     setPanelLoading(false);
 
-    if (usersResult.error || affiliationResult.error || disaffiliationResult.error || recoveryResult.error || auditResult.error) {
+    if (
+      usersResult.error ||
+      affiliationResult.error ||
+      disaffiliationResult.error ||
+      recoveryResult.error ||
+      auditResult.error
+    ) {
       setError('No se pudo cargar el panel operativo.');
       return;
     }
@@ -824,6 +903,41 @@ Ingresa con tu DNI y esta contraseña temporal.`
         return profilesById;
       }, {}),
     );
+  }
+
+  async function loadGeneratedStagingData() {
+    if (!supabase || !isAdmin) {
+      return;
+    }
+
+    setGeneratedLoading(true);
+    setGeneratedLoadError('');
+
+    const [batchesResult, candidatesResult] = await Promise.all([
+      supabase
+        .from('generated_topic_batches')
+        .select(generatedBatchSelectColumns)
+        .order('created_at', { ascending: false })
+        .limit(20),
+      supabase
+        .from('generated_topic_candidates')
+        .select(generatedCandidateSelectColumns)
+        .order('created_at', { ascending: false })
+        .limit(50),
+    ]);
+
+    setGeneratedLoading(false);
+
+    if (batchesResult.error || candidatesResult.error) {
+      console.error('generatedStagingLoadError', batchesResult.error ?? candidatesResult.error);
+      setGeneratedBatches([]);
+      setGeneratedCandidates([]);
+      setGeneratedLoadError('Ecosistema del generador no disponible. Aplica la migración 017 en Supabase.');
+      return;
+    }
+
+    setGeneratedBatches((batchesResult.data ?? []) as GeneratedTopicBatch[]);
+    setGeneratedCandidates((candidatesResult.data ?? []) as GeneratedTopicCandidate[]);
   }
 
   async function loadSelectedUserLogs(usuarioId: string) {
@@ -1594,6 +1708,94 @@ Ingresa con tu DNI y esta contraseña temporal.`
     await loadPanelData();
   }
 
+  async function handleReviewGeneratedCandidate(candidate: GeneratedTopicCandidate, action: GeneratedCandidateReviewAction) {
+    if (!supabase || !isAdmin) {
+      return;
+    }
+
+    const rejectionReason =
+      action === 'reject'
+        ? window.prompt('Motivo de rechazo (obligatorio)')?.trim()
+        : action === 'needs_changes'
+          ? window.prompt('Observacion para cambios (opcional)')?.trim() ?? null
+          : null;
+
+    if (action === 'reject' && !rejectionReason) {
+      setError('El rechazo requiere motivo.');
+      return;
+    }
+
+    const qualityScore = promptOptionalScore('Puntaje de calidad');
+    if (qualityScore === undefined) {
+      setError('El puntaje de calidad debe estar entre 1 y 5.');
+      return;
+    }
+
+    const neutralityScore = promptOptionalScore('Puntaje de neutralidad');
+    if (neutralityScore === undefined) {
+      setError('El puntaje de neutralidad debe estar entre 1 y 5.');
+      return;
+    }
+
+    const qualityNotes = window.prompt('Notas de calidad (opcional)')?.trim() || null;
+    const neutralityNotes = window.prompt('Notas de neutralidad (opcional)')?.trim() || null;
+
+    const confirmed = window.confirm(`Confirmar revision: ${formatGeneratedCandidateStatus(action === 'approve' ? 'approved' : action === 'reject' ? 'rejected' : 'needs_changes')}.`);
+    if (!confirmed) {
+      return;
+    }
+
+    setError('');
+    setStatus('');
+    setGeneratedLoading(true);
+    const { error: reviewError } = await supabase.rpc('revisar_generated_topic_candidate', {
+      p_candidate_id: candidate.id,
+      p_action: action,
+      p_rejection_reason: rejectionReason,
+      p_quality_score: qualityScore,
+      p_neutrality_score: neutralityScore,
+      p_quality_notes: qualityNotes,
+      p_neutrality_notes: neutralityNotes,
+    });
+    setGeneratedLoading(false);
+
+    if (reviewError) {
+      setError('No se pudo revisar el candidato generado.');
+      return;
+    }
+
+    setStatus('Candidato generado revisado.');
+    await loadGeneratedStagingData();
+  }
+
+  async function handleConvertGeneratedCandidate(candidate: GeneratedTopicCandidate) {
+    if (!supabase || !isAdmin) {
+      return;
+    }
+
+    const confirmed = window.confirm('Convertir este candidato aprobado en sugerencia pendiente. No se creara ni abrira una votacion.');
+    if (!confirmed) {
+      return;
+    }
+
+    setError('');
+    setStatus('');
+    setGeneratedLoading(true);
+    const { error: convertError } = await supabase.rpc('convertir_generated_candidate_a_sugerencia', {
+      p_candidate_id: candidate.id,
+    });
+    setGeneratedLoading(false);
+
+    if (convertError) {
+      setError('No se pudo convertir el candidato en sugerencia.');
+      return;
+    }
+
+    setStatus('Candidato convertido en sugerencia pendiente.');
+    await loadGeneratedStagingData();
+    await loadVotingData();
+  }
+
   async function handleCreateTopic() {
     if (!supabase || !isAdmin || !session?.user) {
       return;
@@ -2355,6 +2557,139 @@ Ingresa con tu DNI y esta contraseña temporal.`
                       ? 'No hay sugerencias registradas.'
                       : 'No hay sugerencias con ese estado.'}
                   </p>
+                )}
+              </div>
+            </section>
+
+            <section className={adminSection === 'generador' ? 'admin-section active' : 'admin-section'} aria-label="Candidatos generados">
+              <div className="panel-heading">
+                <h2>Staging generado</h2>
+                {generatedLoading ? <span>Procesando...</span> : <span>{generatedActionCount} por accion</span>}
+              </div>
+
+              {generatedLoadError ? <p className="hint">{generatedLoadError}</p> : null}
+
+              <div className="request-list">
+                {generatedBatches.length > 0 ? (
+                  generatedBatches.map((batch) => (
+                    <div className="request-item" key={`generated-batch-${batch.id}`}>
+                      <div>
+                        <strong>{batch.batch_code}</strong>
+                        <p className="muted">
+                          <span className={`state-pill state-${batch.status}`}>{formatGeneratedBatchStatus(batch.status)}</span>
+                          {' '}{batch.source} - {batch.ideological_profile} - {new Date(batch.created_at).toLocaleString('es-PE')}
+                        </p>
+                        <p className="hint">
+                          Insertados: {batch.inserted_count}
+                          {' '}Validos: {batch.valid_count}
+                          {' '}Rechazados: {batch.rejected_count}
+                          {typeof batch.expected_count === 'number' ? ` Esperados: ${batch.expected_count}` : ''}
+                        </p>
+                        {batch.notes ? <p className="hint">{batch.notes}</p> : null}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="muted">No hay lotes generados registrados.</p>
+                )}
+              </div>
+
+              <label>
+                Filtrar candidatos
+                <select
+                  value={generatedCandidateFilter}
+                  onChange={(event) => setGeneratedCandidateFilter(event.target.value as 'todos' | GeneratedTopicCandidateStatus)}
+                >
+                  <option value="pending_review">Pendientes</option>
+                  <option value="needs_changes">Requieren cambios</option>
+                  <option value="approved">Aprobados</option>
+                  <option value="rejected">Rechazados</option>
+                  <option value="converted_to_suggestion">Convertidos a sugerencia</option>
+                  <option value="archived">Archivados</option>
+                  <option value="todos">Todos</option>
+                </select>
+              </label>
+
+              <div className="request-list">
+                {generatedFilteredCandidates.length > 0 ? (
+                  generatedFilteredCandidates.map((candidate) => {
+                    const batch = generatedBatches.find((item) => item.id === candidate.batch_id);
+                    const canReviewGenerated = !['converted_to_suggestion', 'converted_to_topic', 'archived'].includes(candidate.status);
+                    return (
+                      <div className="request-item" key={`generated-candidate-${candidate.id}`}>
+                        <div>
+                          <strong>{candidate.titulo}</strong>
+                          <p className="muted">
+                            <span className={`state-pill state-${candidate.status}`}>{formatGeneratedCandidateStatus(candidate.status)}</span>
+                            {' '}{formatTopicAudience(candidate.publico_objetivo)} - {formatTopicType(candidate.tipo_votacion)} - {batch?.batch_code ?? candidate.batch_id}
+                          </p>
+                          {candidate.descripcion ? <p className="hint">{candidate.descripcion}</p> : null}
+                          {candidate.opciones.length > 0 ? <p className="hint">Opciones: {candidate.opciones.join(' / ')}</p> : null}
+                          {candidate.ideological_axis || candidate.deliberative_tension ? (
+                            <p className="hint">
+                              Eje: {candidate.ideological_axis ?? '-'} Tension: {candidate.deliberative_tension ?? '-'}
+                            </p>
+                          ) : null}
+                          {candidate.risk_flags.length > 0 ? <p className="hint">Riesgos: {candidate.risk_flags.join(', ')}</p> : null}
+                          {candidate.requires_source ? (
+                            <p className="hint">Requiere fuente: {candidate.source_required_reason ?? 'sin motivo registrado'}</p>
+                          ) : null}
+                          <p className="hint">
+                            Calidad: {candidate.quality_score ?? '-'} Neutralidad: {candidate.neutrality_score ?? '-'} Huella: {candidate.duplicate_fingerprint}
+                          </p>
+                          {candidate.quality_notes ? <p className="hint">Calidad: {candidate.quality_notes}</p> : null}
+                          {candidate.neutrality_notes ? <p className="hint">Neutralidad: {candidate.neutrality_notes}</p> : null}
+                          {candidate.rejection_reason ? <p className="hint">Motivo: {candidate.rejection_reason}</p> : null}
+                          {candidate.converted_tema_sugerencia_id ? (
+                            <p className="hint">Sugerencia generada: {candidate.converted_tema_sugerencia_id}</p>
+                          ) : null}
+                        </div>
+                        <div className="row-actions">
+                          {canReviewGenerated && candidate.status !== 'approved' ? (
+                            <button
+                              type="button"
+                              disabled={generatedLoading}
+                              onClick={() => handleReviewGeneratedCandidate(candidate, 'approve')}
+                            >
+                              Aprobar
+                            </button>
+                          ) : null}
+                          {canReviewGenerated && candidate.status !== 'needs_changes' ? (
+                            <button
+                              className="secondary"
+                              type="button"
+                              disabled={generatedLoading}
+                              onClick={() => handleReviewGeneratedCandidate(candidate, 'needs_changes')}
+                            >
+                              Cambios
+                            </button>
+                          ) : null}
+                          {canReviewGenerated && candidate.status !== 'rejected' ? (
+                            <button
+                              className="danger"
+                              type="button"
+                              disabled={generatedLoading}
+                              onClick={() => handleReviewGeneratedCandidate(candidate, 'reject')}
+                            >
+                              Rechazar
+                            </button>
+                          ) : null}
+                          {candidate.status === 'approved' && !candidate.converted_tema_sugerencia_id ? (
+                            <button
+                              className="secondary"
+                              type="button"
+                              disabled={generatedLoading}
+                              onClick={() => handleConvertGeneratedCandidate(candidate)}
+                            >
+                              Convertir
+                            </button>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p className="muted">No hay candidatos con ese filtro.</p>
                 )}
               </div>
             </section>

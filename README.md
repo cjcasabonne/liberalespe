@@ -19,10 +19,10 @@ La fuente de verdad de arquitectura es [`arquitectura.md`](./arquitectura.md). E
 
 ## Variables de entorno
 
-Crear `.env.local` para desarrollo:
+Crear `.env.local` para desarrollo. Para pruebas locales/dev, no usar la URL de produccion; reemplazar estos valores por el proyecto dev o por las URLs locales de Supabase:
 
 ```bash
-VITE_SUPABASE_URL=https://pqqkvmmenqencuretwyx.supabase.co
+VITE_SUPABASE_URL=https://<dev-project-ref>.supabase.co
 VITE_SUPABASE_ANON_KEY=<anon-public-key>
 VITE_DNI_SERVICE_URL=https://busqueda-dni.onrender.com
 ```
@@ -63,13 +63,15 @@ El resultado queda en `dist/`.
 
 ## Supabase
 
+Antes de aplicar migraciones, revisar [`docs/supabase-entornos-seguros.md`](./docs/supabase-entornos-seguros.md). No usar este workspace para pruebas de migracion si esta enlazado a produccion.
+
 Las migraciones viven en:
 
 ```text
 supabase/migrations/
 ```
 
-Aplicar cambios:
+Aplicar cambios solo contra un entorno local descartable o un proyecto dev remoto confirmado:
 
 ```bash
 npx supabase db push
