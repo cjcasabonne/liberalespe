@@ -22,7 +22,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "7a33f8d9c4eae0baec165d62",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 0
@@ -51,7 +51,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "5e84e9741725bb572987ccf0",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 1
@@ -80,7 +80,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "36aae7a765b35087121dd4ce",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 2
@@ -109,7 +109,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "ee94f25a41864c14cc93c5a3",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 3
@@ -141,7 +141,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "1ccca3966195b035df6b85bc",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 4
@@ -170,7 +170,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "dfaa8dc1adb253f6f40fd957",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 5
@@ -199,7 +199,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "825b6d8a7cf2a02a11e2c780",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 6
@@ -231,7 +231,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "b5257f39a8d5b1cb2df1b704",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 7
@@ -260,7 +260,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "a936a7f5567c83639469cf7a",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 8
@@ -289,7 +289,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "dd9b7340ba3ad1d3d2eb9b3d",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 9

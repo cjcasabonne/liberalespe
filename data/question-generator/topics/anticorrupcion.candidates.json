@@ -22,7 +22,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "bc5b48598d419992c39efb8f",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 0
@@ -51,7 +51,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "136c5b28feecdb1a06cd17ba",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 1
@@ -80,7 +80,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "f57b4f5f9b7b2eb6210a2a40",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 2
@@ -109,7 +109,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "2dd1fc4a672b10cdb8862340",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 3
@@ -141,7 +141,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "c5c0c58e0b32e5c8d5ee5bf4",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 4
@@ -170,7 +170,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "0259b99de9fcfc498e3c75dd",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 5
@@ -199,7 +199,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "a9ed935e3e9764868703e541",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 6
@@ -231,7 +231,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "3a3bc98daa7b9ed146610c6c",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 7
@@ -260,7 +260,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "9ebd7ea91df9ff479e094165",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 8
@@ -289,7 +289,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "b5fcfa63c01280a0fe0726ec",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 9

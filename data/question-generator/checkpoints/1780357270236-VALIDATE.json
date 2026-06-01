@@ -1,0 +1,26 @@
+{
+  "phase": "VALIDATE",
+  "status": "checkpoint",
+  "processed_count": 0,
+  "accumulated_count": 160,
+  "topic_progress": {
+    "libertad_individual": 10,
+    "igualdad_ante_la_ley": 10,
+    "estado_limitado": 10,
+    "instituciones_publicas": 10,
+    "mercado_libre": 10,
+    "emprendimiento": 10,
+    "propiedad_privada": 10,
+    "desregulacion": 10,
+    "responsabilidad_fiscal": 10,
+    "anticorrupcion": 10,
+    "anti_mercantilismo": 10,
+    "seguridad_ciudadana": 10,
+    "estado_de_derecho": 10,
+    "merito_y_talento": 10,
+    "ciudadania_y_control_del_poder": 10,
+    "innovacion_y_competitividad": 10
+  },
+  "next_action": "qgen:select",
+  "timestamp": "2026-06-01T23:41:10.236Z"
+}

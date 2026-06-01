@@ -22,7 +22,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "1ff5177b2f841e78fecb713c",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
       "template_index": 0
@@ -51,7 +51,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "dc539124a8f8f75a35b797d7",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
       "template_index": 1
@@ -80,7 +80,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "08183cf3ff2f25277ee54c14",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
       "template_index": 2
@@ -109,7 +109,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "a5356df076eb4dc3c9c39879",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
       "template_index": 3
@@ -141,7 +141,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "8c115a7c70f9d093e254d9fb",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
       "template_index": 4
@@ -170,7 +170,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "d8ed215663e86fdd9eee8337",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
       "template_index": 5
@@ -199,7 +199,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "4efa8365d01e750a135752d3",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
       "template_index": 6
@@ -231,7 +231,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "b9facec71c2304e4421f46e9",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
       "template_index": 7
@@ -260,7 +260,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "4e1323d5a4bec3a911035928",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
       "template_index": 8
@@ -289,7 +289,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "1abcf14216406685c16897fd",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
       "template_index": 9

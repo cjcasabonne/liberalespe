@@ -22,7 +22,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "7fa4e697f937a463f4adf52c",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
       "template_index": 0
@@ -51,7 +51,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "50382b45af8452c068810987",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
       "template_index": 1
@@ -80,7 +80,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "5fe006557807409e0a682a33",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
       "template_index": 2
@@ -109,7 +109,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "8469d295dc54d7b4e02c9ed0",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
       "template_index": 3
@@ -141,7 +141,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "407497c83b1aa272ffbd0a8f",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
       "template_index": 4
@@ -170,7 +170,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "b51a75787da2eebde0e78146",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
       "template_index": 5
@@ -199,7 +199,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "12ff5d6808d57d0092b7a223",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
       "template_index": 6
@@ -231,7 +231,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "f5410cfd5ba31b8c9ff27cc0",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
       "template_index": 7
@@ -260,7 +260,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "5e50d4a692d01cc76b7f3409",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
       "template_index": 8
@@ -289,7 +289,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "8b6ba4ae06f7e1e5d1b3c386",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
       "template_index": 9

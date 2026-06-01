@@ -1,4 +1,4 @@
-# Resultados de ortografía del generador
+# Resultados de ortografía del generador v2
 
 - Candidatos revisados: 80
 - Candidatos corregidos por la rutina: 80

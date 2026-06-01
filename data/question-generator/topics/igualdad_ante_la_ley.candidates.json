@@ -22,7 +22,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "420f894ccefae643ac3093ff",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
       "template_index": 0
@@ -51,7 +51,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "0f3b3b5a5f05c1a6966607e4",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
       "template_index": 1
@@ -80,7 +80,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "0145d3de1d84d22eefa755d5",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
       "template_index": 2
@@ -109,7 +109,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "dc44cb4a246fc5a6c9422082",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
       "template_index": 3
@@ -141,7 +141,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "4966648b5809460ac2f3836b",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
       "template_index": 4
@@ -170,7 +170,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "76d2ce27c16689f6ba4907cb",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
       "template_index": 5
@@ -199,7 +199,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "de0f7f0e95b88086a05cd4a7",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
       "template_index": 6
@@ -231,7 +231,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "d197c152514f305f83a46d81",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
       "template_index": 7
@@ -260,7 +260,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "d0b48be5b8d7d863eab61fb1",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
       "template_index": 8
@@ -289,7 +289,7 @@
     "human_review_required": true,
     "duplicate_fingerprint": "9aa433de1467b9c266d65893",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v2",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
       "template_index": 9

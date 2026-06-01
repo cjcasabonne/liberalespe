@@ -10,6 +10,7 @@ const DOCS_DIR = path.join(ROOT_DIR, 'docs');
 
 const FILES = {
   state: path.join(DATA_DIR, 'estado_actual.json'),
+  estadoMd: path.join(DATA_DIR, 'estado_actual.md'),
   existing: path.join(DATA_DIR, 'preguntas_existentes.jsonl'),
   candidates: path.join(DATA_DIR, 'preguntas_candidatas.json'),
   valid: path.join(DATA_DIR, 'preguntas_validas.json'),
@@ -21,10 +22,12 @@ const FILES = {
   routineDoc: path.join(DOCS_DIR, 'rutina_optima.md'),
 };
 
-const GENERATOR_VERSION = 'v1';
+const GENERATOR_VERSION = 'v2';
 const PER_TOPIC_TARGET = 5;
 const TOTAL_TARGET = 80;
 const PAGE_SIZE = 100;
+const GENERATE_BATCH_SIZE = 20;
+const VALIDATE_BATCH_SIZE = 20;
 const PROD_REF = 'pqqkvmmenqencuretwyx';
 
 function ensureDirs() {
@@ -72,6 +75,8 @@ module.exports = {
   PER_TOPIC_TARGET,
   TOTAL_TARGET,
   PAGE_SIZE,
+  GENERATE_BATCH_SIZE,
+  VALIDATE_BATCH_SIZE,
   PROD_REF,
   ensureDirs,
   readDotEnv,

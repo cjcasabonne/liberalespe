@@ -1,11 +1,13 @@
-# Resultados QA del generador v2
+# Estado actual del generador v2
 
-- Candidatos válidos: 160
-- Candidatos rechazados: 0
-- Candidatos finales: 80
-- Estado de dry-run: ok
+- Fase: DRY_RUN
+- Status: ok
+- Timestamp: 2026-06-01T23:41:10.415Z
+- Procesados en esta corrida: 80
+- Total acumulados: 80
+- Próxima acción: authorized_upload_or_human_review
 
-## Distribución por topic
+## Avance por topic
 
 - libertad_individual: 5
 - igualdad_ante_la_ley: 5

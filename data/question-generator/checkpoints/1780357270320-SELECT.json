@@ -1,6 +1,6 @@
 {
-  "phase": "DRY_RUN",
-  "status": "ok",
+  "phase": "SELECT",
+  "status": "checkpoint",
   "processed_count": 80,
   "accumulated_count": 80,
   "topic_progress": {
@@ -21,19 +21,6 @@
     "ciudadania_y_control_del_poder": 5,
     "innovacion_y_competitividad": 5
   },
-  "next_action": "authorized_upload_or_human_review",
-  "timestamp": "2026-06-01T23:41:10.414Z",
-  "expected_count": 80,
-  "would_insert": 80,
-  "dry_run_passed": true,
-  "rpc_sequence": [
-    "crear_generated_topic_batch",
-    "cargar_generated_topic_candidates"
-  ],
-  "forbidden_actions": [
-    "revisar_generated_topic_candidate",
-    "convertir_generated_candidate_a_sugerencia",
-    "insert_temas",
-    "insert_votos"
-  ]
+  "next_action": "qgen:dry-run",
+  "timestamp": "2026-06-01T23:41:10.320Z"
 }

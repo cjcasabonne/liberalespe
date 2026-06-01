@@ -13,11 +13,21 @@ function writeJson(filePath, value) {
   fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
-function appendJsonl(filePath, rows) {
+// Overwrites the JSONL file with all rows
+function writeJsonl(filePath, rows) {
   ensureDirs();
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   const content = rows.map((row) => JSON.stringify(row)).join('\n');
   fs.writeFileSync(filePath, content ? `${content}\n` : '', 'utf8');
+}
+
+// Appends rows to an existing JSONL file (creates if missing)
+function appendJsonl(filePath, rows) {
+  ensureDirs();
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  if (rows.length === 0) return;
+  const content = rows.map((row) => JSON.stringify(row)).join('\n') + '\n';
+  fs.appendFileSync(filePath, content, 'utf8');
 }
 
 function readJsonl(filePath) {
@@ -43,29 +53,70 @@ function validateExistingJsonFiles() {
     if (!fs.existsSync(filePath)) continue;
     try {
       JSON.parse(fs.readFileSync(filePath, 'utf8'));
-      result.push({ file: filePath, status: 'ok' });
+      result.push({ file: path.basename(filePath), status: 'ok' });
     } catch (error) {
-      result.push({ file: filePath, status: 'invalid', error: error.message });
+      result.push({ file: path.basename(filePath), status: 'invalid', error: error.message });
     }
   }
   return result;
 }
 
-function writeCheckpoint(phase, status, extra = {}) {
+function writeEstadoMd(phase, status, processed_count, accumulated_count, topic_progress, next_action) {
+  const topicLines = Object.entries(topic_progress || {})
+    .map(([topic, count]) => `- ${topic}: ${count}`)
+    .join('\n');
+
+  const content = [
+    '# Estado actual del generador v2',
+    '',
+    `- Fase: ${phase}`,
+    `- Status: ${status}`,
+    `- Timestamp: ${new Date().toISOString()}`,
+    `- Procesados en esta corrida: ${processed_count}`,
+    `- Total acumulados: ${accumulated_count}`,
+    `- Próxima acción: ${next_action || '(pendiente)'}`,
+    '',
+    '## Avance por topic',
+    '',
+    topicLines || '(sin datos)',
+    '',
+  ].join('\n');
+
+  fs.writeFileSync(FILES.estadoMd, content, 'utf8');
+}
+
+function writeCheckpoint(phase, status, options = {}) {
+  const {
+    processed_count = 0,
+    accumulated_count = 0,
+    topic_progress = {},
+    next_action = null,
+    ...rest
+  } = options;
+
   const checkpoint = {
     phase,
     status,
+    processed_count,
+    accumulated_count,
+    topic_progress,
+    next_action,
     timestamp: new Date().toISOString(),
-    ...extra,
+    ...rest,
   };
-  writeJson(path.join(CHECKPOINT_DIR, `${Date.now()}-${phase}.json`), checkpoint);
+
+  ensureDirs();
+  const fileName = `${Date.now()}-${phase}.json`;
+  writeJson(path.join(CHECKPOINT_DIR, fileName), checkpoint);
   writeJson(FILES.state, checkpoint);
+  writeEstadoMd(phase, status, processed_count, accumulated_count, topic_progress, next_action);
   return checkpoint;
 }
 
 module.exports = {
   readJson,
   writeJson,
+  writeJsonl,
   appendJsonl,
   readJsonl,
   validateExistingJsonFiles,

@@ -46,7 +46,7 @@ function dryRunUpload() {
     expected_count: TOTAL_TARGET,
     would_insert: payload.length,
     status: payload.length === TOTAL_TARGET ? 'ok' : 'invalid_count',
-    batch_code: `qgen-v1-${new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14)}`,
+    batch_code: `qgen-v2-${new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14)}`,
     rpc_sequence: ['crear_generated_topic_batch', 'cargar_generated_topic_candidates'],
     forbidden_actions: ['revisar_generated_topic_candidate', 'convertir_generated_candidate_a_sugerencia', 'insert_temas', 'insert_votos'],
   };
@@ -80,11 +80,11 @@ async function uploadReal() {
     global: { headers: { Authorization: `Bearer ${env.accessToken}` } },
   });
 
-  const batchCode = dryRun.batch_code || `qgen-v1-${Date.now()}`;
+  const batchCode = dryRun.batch_code || `qgen-v2-${Date.now()}`;
   const { data: batchData, error: batchError } = await client.rpc('crear_generated_topic_batch', {
     p_batch_code: batchCode,
     p_expected_count: TOTAL_TARGET,
-    p_source: 'question_generator_v1',
+    p_source: 'question_generator_v2',
     p_ideological_profile: 'liberal_democratic',
     p_notes: 'Carga controlada de candidatos generados. No publica ni convierte.',
   });

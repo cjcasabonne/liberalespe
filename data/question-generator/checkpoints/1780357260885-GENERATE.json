@@ -1,0 +1,14 @@
+{
+  "phase": "GENERATE",
+  "status": "checkpoint",
+  "processed_count": 20,
+  "accumulated_count": 40,
+  "topic_progress": {
+    "libertad_individual": 10,
+    "igualdad_ante_la_ley": 10,
+    "estado_limitado": 10,
+    "instituciones_publicas": 10
+  },
+  "next_action": "qgen:generate",
+  "timestamp": "2026-06-01T23:41:00.885Z"
+}

@@ -1,0 +1,10 @@
+{
+  "phase": "ERROR_precheck",
+  "status": "error",
+  "processed_count": 0,
+  "accumulated_count": 0,
+  "topic_progress": {},
+  "next_action": "fix_error_then_qgen:precheck",
+  "timestamp": "2026-06-01T23:40:24.469Z",
+  "error": "missing_VITE_SUPABASE_URL"
+}
