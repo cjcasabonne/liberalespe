@@ -526,7 +526,28 @@ function writeRoutineDoc(uploadExecuted, uploadResult = null) {
     `- hasta ${VALIDATE_BATCH_SIZE} candidatos validados, o\n` +
     `- selección final, o dry-run, o upload autorizado.\n\n` +
     `Después de emitir checkpoint, la ejecución termina.\n\n` +
-    `## 6. Reglas de seguridad\n\n` +
+    `## 6. Login para upload real\n\n` +
+    `Obtener access_token de un usuario admin/fundador sin usar service role:\n\n` +
+    `\`\`\`\n` +
+    `set QGEN_LOGIN_EMAIL=correo_admin\n` +
+    `set QGEN_LOGIN_PASSWORD=password_admin\n` +
+    `npm run qgen:login\n` +
+    `set QGEN_LOGIN_EMAIL=\n` +
+    `set QGEN_LOGIN_PASSWORD=\n` +
+    `\`\`\`\n\n` +
+    `La sesión queda en \`data/question-generator/.session.local.json\` (no trackeado por git).\n` +
+    `\`getSupabaseEnv()\` la lee automáticamente como fallback.\n\n` +
+    `Luego cargar:\n\n` +
+    `\`\`\`\n` +
+    `set QGEN_UPLOAD_CONFIRM=true\n` +
+    `npm run qgen:upload\n` +
+    `set QGEN_UPLOAD_CONFIRM=\n` +
+    `\`\`\`\n\n` +
+    `Alternativa: pasar token directo en lugar de usar qgen:login:\n\n` +
+    `\`\`\`\n` +
+    `set QGEN_SUPABASE_ACCESS_TOKEN=<token>\n` +
+    `\`\`\`\n\n` +
+    `## 7. Reglas de seguridad\n\n` +
     `- No publica.\n` +
     `- No convierte.\n` +
     `- No abre votaciones.\n` +

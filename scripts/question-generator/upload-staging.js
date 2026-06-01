@@ -66,8 +66,11 @@ async function uploadReal() {
   }
 
   const env = getSupabaseEnv();
-  if (!env.url || !env.anonKey || !env.accessToken) {
-    throw new Error('upload_requires_url_anon_key_and_QGEN_SUPABASE_ACCESS_TOKEN');
+  if (!env.url || !env.anonKey) {
+    throw new Error('upload_requires_VITE_SUPABASE_URL_and_VITE_SUPABASE_ANON_KEY');
+  }
+  if (!env.accessToken) {
+    throw new Error('upload_requires_access_token — ejecuta primero: npm run qgen:login');
   }
 
   const candidates = readJson(FILES.final, []);

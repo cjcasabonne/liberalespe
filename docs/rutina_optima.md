@@ -53,7 +53,36 @@ Una corrida ejecuta una sola unidad de trabajo:
 
 Después de emitir checkpoint, la ejecución termina.
 
-## 6. Reglas de seguridad
+## 6. Login para upload real
+
+Obtener access_token de un usuario admin/fundador sin usar service role:
+
+```
+set QGEN_LOGIN_EMAIL=correo_admin
+set QGEN_LOGIN_PASSWORD=password_admin
+npm run qgen:login
+set QGEN_LOGIN_EMAIL=
+set QGEN_LOGIN_PASSWORD=
+```
+
+La sesión queda en `data/question-generator/.session.local.json` (no trackeado por git).
+`getSupabaseEnv()` la lee automáticamente como fallback.
+
+Luego cargar:
+
+```
+set QGEN_UPLOAD_CONFIRM=true
+npm run qgen:upload
+set QGEN_UPLOAD_CONFIRM=
+```
+
+Alternativa: pasar token directo en lugar de usar qgen:login:
+
+```
+set QGEN_SUPABASE_ACCESS_TOKEN=<token>
+```
+
+## 7. Reglas de seguridad
 
 - No publica.
 - No convierte.
@@ -74,6 +103,6 @@ Después de emitir checkpoint, la ejecución termina.
   "dry_run_passed": true,
   "real_upload_executed": false,
   "next_action": "authorized_upload_to_staging_or_human_review",
-  "timestamp": "2026-06-01T23:41:10.414Z"
+  "timestamp": "2026-06-01T23:53:41.291Z"
 }
 ```

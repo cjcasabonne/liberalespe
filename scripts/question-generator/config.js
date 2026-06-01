@@ -8,6 +8,9 @@ const TOPIC_DATA_DIR = path.join(DATA_DIR, 'topics');
 const LOG_DIR = path.join(DATA_DIR, 'logs');
 const DOCS_DIR = path.join(ROOT_DIR, 'docs');
 
+// Session file is intentionally not tracked by git (.gitignore)
+const SESSION_FILE = path.join(DATA_DIR, '.session.local.json');
+
 const FILES = {
   state: path.join(DATA_DIR, 'estado_actual.json'),
   estadoMd: path.join(DATA_DIR, 'estado_actual.md'),
@@ -52,10 +55,22 @@ function readDotEnv(fileName = '.env.local') {
 
 function getSupabaseEnv() {
   const envFile = readDotEnv();
+  let accessToken = process.env.QGEN_SUPABASE_ACCESS_TOKEN || '';
+
+  // Fallback: read from local session file saved by qgen:login
+  if (!accessToken && fs.existsSync(SESSION_FILE)) {
+    try {
+      const session = JSON.parse(fs.readFileSync(SESSION_FILE, 'utf8'));
+      accessToken = session.access_token || '';
+    } catch {
+      // Ignore corrupt session file
+    }
+  }
+
   return {
     url: process.env.VITE_SUPABASE_URL || envFile.VITE_SUPABASE_URL || '',
     anonKey: process.env.VITE_SUPABASE_ANON_KEY || envFile.VITE_SUPABASE_ANON_KEY || '',
-    accessToken: process.env.QGEN_SUPABASE_ACCESS_TOKEN || '',
+    accessToken,
   };
 }
 
@@ -70,6 +85,7 @@ module.exports = {
   CHECKPOINT_DIR,
   TOPIC_DATA_DIR,
   LOG_DIR,
+  SESSION_FILE,
   FILES,
   GENERATOR_VERSION,
   PER_TOPIC_TARGET,

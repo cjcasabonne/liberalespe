@@ -2,7 +2,7 @@
 
 - Fase: DRY_RUN
 - Status: ok
-- Timestamp: 2026-06-01T23:41:10.415Z
+- Timestamp: 2026-06-01T23:53:41.292Z
 - Procesados en esta corrida: 80
 - Total acumulados: 80
 - Próxima acción: authorized_upload_or_human_review

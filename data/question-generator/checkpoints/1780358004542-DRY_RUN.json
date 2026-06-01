@@ -22,7 +22,7 @@
     "innovacion_y_competitividad": 5
   },
   "next_action": "authorized_upload_or_human_review",
-  "timestamp": "2026-06-01T23:53:41.291Z",
+  "timestamp": "2026-06-01T23:53:24.542Z",
   "expected_count": 80,
   "would_insert": 80,
   "dry_run_passed": true,
