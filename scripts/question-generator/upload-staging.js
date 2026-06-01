@@ -1,8 +1,55 @@
+const fs = require('fs');
 const { createClient } = require('@supabase/supabase-js');
 const { FILES, TOTAL_TARGET, getSupabaseEnv } = require('./config');
 const { readJson, writeJson } = require('./state');
 const { validateFinalSet } = require('./editorial-rules');
 const { validateSpanishOrthography } = require('./orthography');
+
+const FORBIDDEN_TABLES = ['questions', 'temas', 'tema_sugerencias', 'votos'];
+
+// Run every pre-upload validation required by the spec and throw on first failure.
+function assertUploadReady(candidates, dryRun) {
+  if (!fs.existsSync(FILES.final)) {
+    throw new Error('upload_blocked_preguntas_finales_not_found');
+  }
+
+  if (!Array.isArray(candidates) || candidates.length !== TOTAL_TARGET) {
+    throw new Error(`upload_blocked_expected_${TOTAL_TARGET}_candidates_got_${Array.isArray(candidates) ? candidates.length : 'non-array'}`);
+  }
+
+  // Count, distribution, textual + semantic duplicates.
+  const validation = validateFinalSet(candidates);
+  if (!validation.ok) {
+    throw new Error(`upload_blocked_final_invalid:${validation.errors.join(',')}`);
+  }
+
+  // Explicit orthography and title-format check for every candidate.
+  const orthographyErrors = candidates.flatMap((c) => {
+    const r = validateSpanishOrthography(c);
+    return r.ok ? [] : r.errors.map((e) => `${c.candidate_id}:${e}`);
+  });
+  if (orthographyErrors.length > 0) {
+    throw new Error(`upload_blocked_orthography_errors:${orthographyErrors.join(',')}`);
+  }
+
+  const badTitles = candidates.filter((c) => !c.titulo.startsWith('¿') || !c.titulo.endsWith('?'));
+  if (badTitles.length > 0) {
+    throw new Error(`upload_blocked_title_format_invalid:${badTitles.map((c) => c.candidate_id).join(',')}`);
+  }
+
+  // Dry-run must be approved with matching expected_count.
+  if (!dryRun || dryRun.mode !== 'dry_run' || dryRun.status !== 'ok') {
+    throw new Error('upload_blocked_dry_run_not_approved');
+  }
+  if (dryRun.expected_count !== TOTAL_TARGET || dryRun.would_insert !== TOTAL_TARGET) {
+    throw new Error(`upload_blocked_expected_count_mismatch:expected=${dryRun.expected_count},would_insert=${dryRun.would_insert}`);
+  }
+
+  // Operator authorization.
+  if (process.env.QGEN_UPLOAD_CONFIRM !== 'true') {
+    throw new Error('upload_blocked_requires_QGEN_UPLOAD_CONFIRM_true');
+  }
+}
 
 function buildPayload(candidates) {
   return candidates.map((candidate) => ({
@@ -56,24 +103,15 @@ function dryRunUpload() {
 }
 
 async function uploadReal() {
-  if (process.env.QGEN_UPLOAD_CONFIRM !== 'true') {
-    throw new Error('upload_blocked_requires_QGEN_UPLOAD_CONFIRM_true');
-  }
-
   const dryRun = readJson(FILES.upload, null);
-  if (!dryRun || dryRun.mode !== 'dry_run' || dryRun.status !== 'ok' || dryRun.would_insert !== TOTAL_TARGET) {
-    throw new Error('successful_dry_run_required_before_upload');
-  }
+  const candidates = readJson(FILES.final, []);
+
+  // All pre-upload validations in one place — throws with a descriptive error on failure.
+  assertUploadReady(candidates, dryRun);
 
   const env = getSupabaseEnv();
   if (!env.url || !env.anonKey || !env.accessToken) {
     throw new Error('upload_requires_url_anon_key_and_QGEN_SUPABASE_ACCESS_TOKEN');
-  }
-
-  const candidates = readJson(FILES.final, []);
-  const validation = validateFinalSet(candidates);
-  if (!validation.ok) {
-    throw new Error(`upload_final_invalid:${validation.errors.join(',')}`);
   }
 
   const client = createClient(env.url, env.anonKey, {

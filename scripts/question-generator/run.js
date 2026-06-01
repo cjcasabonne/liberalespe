@@ -12,12 +12,18 @@ const {
 } = require('./config');
 const { TOPICS } = require('./topics');
 const { readJson, writeJson, readJsonl, writeCheckpoint, validateExistingJsonFiles } = require('./state');
-const { readExistingCorpus, authHeaders, fetchJson } = require('./read-existing');
+const { readSinglePage, defaultReadProgress, authHeaders, fetchJson, TABLES } = require('./read-existing');
 const { generateTopicCandidates } = require('./generate-topic');
 const { validateCandidates } = require('./validate-candidates');
 const { selectFinal } = require('./select-final');
 const { dryRunUpload, uploadReal } = require('./upload-staging');
 const { validateSpanishOrthography } = require('./orthography');
+const { normalizeText } = require('./normalize');
+
+// Candidates generated per topic (= TEMPLATES.length in generate-topic.js).
+const TEMPLATES_PER_TOPIC = 10;
+// Maximum candidates generated or validated per single run.
+const UNITS_PER_RUN = 20;
 
 const EXPECTED_RPCS = [
   'crear_generated_topic_batch',
@@ -25,6 +31,17 @@ const EXPECTED_RPCS = [
   'revisar_generated_topic_candidate',
   'convertir_generated_candidate_a_sugerencia',
 ];
+
+// Phase name constants (v2).
+const PHASE = {
+  PRECHECK: 'PRECHECK',
+  READ: 'READ',
+  GENERATE: 'GENERATE',
+  VALIDATE: 'VALIDATE',
+  SELECT: 'SELECT',
+  DRY_RUN: 'DRY_RUN',
+  UPLOAD: 'UPLOAD',
+};
 
 function log(message) {
   console.log(`[qgen] ${message}`);
@@ -39,6 +56,51 @@ function mask(value) {
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
+
+// Read the current phase progress from estado_actual.json.
+function readProgress() {
+  const state = readJson(FILES.state, {});
+  return state.progress || {};
+}
+
+// ─── Phase ordering guards ────────────────────────────────────────────────────
+
+function assertReadComplete() {
+  const progress = readProgress();
+  const readProg = progress.read || defaultReadProgress();
+  assert(readProg.complete, 'read_phase_not_complete — run qgen:read first');
+}
+
+function assertGenerateComplete() {
+  const candidates = readJson(FILES.candidates, []);
+  const progress = readProgress();
+  const genProg = progress.generate || {};
+  assert(
+    genProg.complete || (Array.isArray(candidates) && candidates.length > 0),
+    'generate_phase_not_complete — run qgen:generate first',
+  );
+  assert(Array.isArray(candidates) && candidates.length > 0, 'preguntas_candidatas_missing_or_empty');
+}
+
+function assertValidateComplete() {
+  const valid = readJson(FILES.valid, []);
+  const progress = readProgress();
+  const valProg = progress.validate || {};
+  assert(
+    valProg.complete || (Array.isArray(valid) && valid.length > 0),
+    'validate_phase_not_complete — run qgen:validate first',
+  );
+}
+
+function assertDryRunPassed() {
+  const dryRun = readJson(FILES.upload, null);
+  assert(
+    dryRun && dryRun.mode === 'dry_run' && dryRun.status === 'ok' && dryRun.would_insert === TOTAL_TARGET,
+    'successful_dry_run_required_before_upload — run qgen:dry-run first',
+  );
+}
+
+// ─── API helpers ──────────────────────────────────────────────────────────────
 
 async function checkTableEndpoint(env, table) {
   const url = new URL(`${env.url}/rest/v1/${table}`);
@@ -64,10 +126,7 @@ async function checkOpenApi(env) {
 
   const paths = body.paths || {};
   const found = EXPECTED_RPCS.filter((rpc) => Boolean(paths[`/rpc/${rpc}`]));
-  return {
-    status: 'ok',
-    found_rpcs: found,
-  };
+  return { status: 'ok', found_rpcs: found };
 }
 
 async function checkRpcEndpoint(env, rpc) {
@@ -82,6 +141,59 @@ async function checkRpcEndpoint(env, rpc) {
   };
 }
 
+// ─── Phase ordering validator (used by precheck) ──────────────────────────────
+
+function validatePhaseOrdering() {
+  const errors = [];
+  const progress = readProgress();
+  const state = readJson(FILES.state, {});
+  const currentPhase = state.phase;
+
+  // preguntas_finales.json must not exist before SELECT has run.
+  if (fs.existsSync(FILES.final) && currentPhase !== PHASE.SELECT && currentPhase !== PHASE.DRY_RUN && currentPhase !== PHASE.UPLOAD) {
+    const finalData = readJson(FILES.final, []);
+    if (Array.isArray(finalData) && finalData.length > 0) {
+      errors.push('preguntas_finales_exists_before_select_phase');
+    }
+  }
+
+  // validate requires generate to have produced candidates.
+  if (currentPhase === PHASE.VALIDATE) {
+    const candidates = readJson(FILES.candidates, []);
+    if (!Array.isArray(candidates) || candidates.length === 0) {
+      errors.push('validate_phase_requires_generate_candidates');
+    }
+  }
+
+  // select requires validate to have produced valid candidates.
+  if (currentPhase === PHASE.SELECT) {
+    const valid = readJson(FILES.valid, []);
+    if (!Array.isArray(valid) || valid.length === 0) {
+      errors.push('select_phase_requires_validated_candidates');
+    }
+  }
+
+  // dry-run requires select to have produced final candidates.
+  if (currentPhase === PHASE.DRY_RUN) {
+    const final = readJson(FILES.final, []);
+    if (!Array.isArray(final) || final.length !== TOTAL_TARGET) {
+      errors.push('dry_run_phase_requires_80_final_candidates');
+    }
+  }
+
+  // upload requires approved dry-run.
+  if (currentPhase === PHASE.UPLOAD) {
+    const dryRun = readJson(FILES.upload, null);
+    if (!dryRun || dryRun.mode !== 'dry_run' || dryRun.status !== 'ok') {
+      errors.push('upload_phase_requires_approved_dry_run');
+    }
+  }
+
+  return errors;
+}
+
+// ─── PRECHECK ─────────────────────────────────────────────────────────────────
+
 async function precheck() {
   ensureDirs();
   const env = getSupabaseEnv();
@@ -93,12 +205,21 @@ async function precheck() {
   assert(env.anonKey, 'missing_VITE_SUPABASE_ANON_KEY');
   assert(process.env.QGEN_UPLOAD_CONFIRM !== 'true', 'precheck_refuses_upload_confirm_true');
 
+  // Validate migration contract.
   const migrationPath = path.join(ROOT_DIR, 'supabase', 'migrations', '017_generated_topic_staging.sql');
   const migrationSql = fs.readFileSync(migrationPath, 'utf8');
   for (const token of ['generated_topic_batches', 'generated_topic_candidates', ...EXPECTED_RPCS]) {
     assert(migrationSql.includes(token), `migration_contract_missing_${token}`);
   }
 
+  // Validate all 16 official topics are loaded.
+  assert(TOPICS.length === 16, `expected_16_topics_got_${TOPICS.length}`);
+
+  // Phase ordering validation.
+  const orderingErrors = validatePhaseOrdering();
+  assert(orderingErrors.length === 0, `phase_ordering_violation:${orderingErrors.join(',')}`);
+
+  // Remote table checks.
   const tableChecks = [];
   for (const table of ['generated_topic_batches', 'generated_topic_candidates']) {
     tableChecks.push(await checkTableEndpoint(env, table));
@@ -118,9 +239,11 @@ async function precheck() {
       ? 'rpc_options'
       : 'migration_sql';
 
+  const currentState = readJson(FILES.state, null);
   const result = {
     project_ref: projectRef,
     supabase_url: env.url.replace(projectRef || 'unknown', mask(projectRef || 'unknown')),
+    topics_loaded: TOPICS.length,
     migration_017_inferred_applied: true,
     staging_tables: tableChecks,
     rpc_contract_source: rpcContractSource,
@@ -128,76 +251,212 @@ async function precheck() {
     rpc_openapi_missing: missingOpenApiRpcs,
     rpc_endpoint_checks: rpcEndpointChecks,
     json_files_checked: jsonChecks,
+    phase_ordering_ok: true,
+    current_phase: currentState?.phase || 'none',
     dry_run_default: true,
     upload_confirm_enabled: false,
     forbidden_tables: ['temas', 'tema_sugerencias', 'votos'],
     automatic_conversion: false,
   };
 
-  writeCheckpoint('FASE_0_PRECHECK', 'ok', result);
+  writeCheckpoint(PHASE.PRECHECK, 'ok', {
+    next_action: currentState?.next_action || 'run qgen:read',
+    progress: currentState?.progress || {},
+    ...result,
+  });
   log(`precheck ok for project ${mask(projectRef || '')}`);
   return result;
 }
 
+// ─── FASE 1 — Lectura paginada (ONE page per run) ────────────────────────────
+
 async function readPhase() {
-  const result = await readExistingCorpus();
-  writeCheckpoint('FASE_1_LECTURA_PAGINADA', 'ok', {
-    processed_count: result.total_rows,
-    tables: result.tables,
+  ensureDirs();
+  const env = getSupabaseEnv();
+  assert(env.url && env.anonKey, 'missing_supabase_env');
+
+  const progress = readProgress();
+  const readProg = progress.read
+    ? { ...defaultReadProgress(), ...progress.read }
+    : defaultReadProgress();
+
+  if (readProg.complete) {
+    log('read phase already complete — nothing to do');
+    return { complete: true };
+  }
+
+  const currentTable = TABLES[readProg.table_index]?.name || 'done';
+  const currentOffset = readProg.offsets[readProg.table_index] || 0;
+  log(`read: table ${readProg.table_index} (${currentTable}) offset ${currentOffset}`);
+
+  const result = await readSinglePage(readProg);
+  const totalRows = result.progress.rows_per_table.reduce((a, b) => a + b, 0);
+
+  const nextAction = result.progress.complete
+    ? 'run qgen:generate'
+    : `run qgen:read for next page (table ${result.progress.table_index}, offset ${result.progress.offsets[result.progress.table_index] || 0})`;
+
+  writeCheckpoint(PHASE.READ, 'checkpoint', {
+    processed_count: result.rows_read,
+    accumulated_count: totalRows,
+    topic_progress: {},
+    next_action: nextAction,
+    progress: { ...progress, read: result.progress },
   });
-  log(`read ok: ${result.total_rows} existing rows written`);
+
+  log(`read: ${result.rows_read} rows (total: ${totalRows}${result.progress.complete ? ', READ COMPLETE' : ''})`);
   return result;
 }
 
+// ─── FASE 2 — Generación incremental (up to 20 candidates per run) ───────────
+
 function generatePhase() {
   ensureDirs();
-  const all = [];
-  const byTopic = {};
+  assertReadComplete();
 
-  for (const topic of TOPICS) {
-    const topicCandidates = generateTopicCandidates(topic);
-    byTopic[topic.id] = topicCandidates;
-    all.push(...topicCandidates);
-    writeJson(path.join(TOPIC_DATA_DIR, `${topic.id}.candidates.json`), topicCandidates);
+  const progress = readProgress();
+  const genProg = progress.generate || { topic_index: 0, total_generated: 0, complete: false };
+
+  if (genProg.complete) {
+    log('generate phase already complete — nothing to do');
+    return { complete: true };
   }
 
-  writeJson(FILES.candidates, all);
-  writeCheckpoint('FASE_2_GENERACION', 'ok', {
-    topics: TOPICS.length,
-    candidates: all.length,
-    per_topic_initial: Object.fromEntries(Object.entries(byTopic).map(([topic, rows]) => [topic, rows.length])),
+  // On the first generate run, start with a clean candidates file.
+  if (genProg.topic_index === 0) {
+    writeJson(FILES.candidates, []);
+  }
+
+  const existingCandidates = readJson(FILES.candidates, []);
+  const existingFingerprints = new Set(existingCandidates.map((c) => c.duplicate_fingerprint));
+  const newCandidates = [];
+  const topicProgress = {};
+  let topicIndex = genProg.topic_index;
+  let generated = 0;
+
+  // Process topics until we hit UNITS_PER_RUN or run out of topics.
+  while (generated < UNITS_PER_RUN && topicIndex < TOPICS.length) {
+    const topic = TOPICS[topicIndex];
+    const topicCandidates = generateTopicCandidates(topic).filter(
+      (c) => !existingFingerprints.has(c.duplicate_fingerprint),
+    );
+    newCandidates.push(...topicCandidates);
+    writeJson(path.join(TOPIC_DATA_DIR, `${topic.id}.candidates.json`), topicCandidates);
+    topicProgress[topic.id] = topicCandidates.length;
+    generated += topicCandidates.length;
+    topicIndex++;
+  }
+
+  const allCandidates = [...existingCandidates, ...newCandidates];
+  writeJson(FILES.candidates, allCandidates);
+
+  const complete = topicIndex >= TOPICS.length;
+
+  writeCheckpoint(PHASE.GENERATE, 'checkpoint', {
+    processed_count: generated,
+    accumulated_count: allCandidates.length,
+    topic_progress: topicProgress,
+    next_action: complete ? 'run qgen:validate' : 'run qgen:generate for next topics',
+    progress: {
+      ...progress,
+      generate: { topic_index: topicIndex, total_generated: allCandidates.length, complete },
+    },
   });
-  log(`generate ok: ${all.length} candidates`);
-  return { candidates: all.length };
+
+  const topicsRange = `topics ${genProg.topic_index}–${topicIndex - 1}`;
+  log(`generate: ${generated} new candidates (${topicsRange}, total: ${allCandidates.length}${complete ? ', GENERATE COMPLETE' : ''})`);
+  return { generated, total: allCandidates.length, complete };
 }
+
+// ─── FASE 3 — Validación incremental (up to 20 candidates per run) ───────────
 
 function validatePhase() {
+  assertGenerateComplete();
+
+  const progress = readProgress();
+  const valProg = progress.validate || { offset: 0, total_valid: 0, total_rejected: 0, complete: false };
+
+  if (valProg.complete) {
+    log('validate phase already complete — nothing to do');
+    return { complete: true };
+  }
+
   const candidates = readJson(FILES.candidates, []);
   assert(Array.isArray(candidates) && candidates.length > 0, 'preguntas_candidatas_missing_or_empty');
-  const existingRows = readJsonl(FILES.existing);
-  const { valid, rejected } = validateCandidates(candidates, existingRows);
 
-  writeJson(FILES.valid, valid);
-  writeJson(FILES.rejected, rejected);
-  writeQa({
-    valid_count: valid.length,
-    rejected_count: rejected.length,
-    final_count: 0,
-    dry_run_status: 'pending',
+  const offset = valProg.offset;
+  const batch = candidates.slice(offset, offset + UNITS_PER_RUN);
+
+  if (batch.length === 0) {
+    // All candidates processed.
+    const newOffset = offset;
+    const complete = true;
+    writeCheckpoint(PHASE.VALIDATE, 'checkpoint', {
+      processed_count: 0,
+      accumulated_count: valProg.total_valid,
+      next_action: 'run qgen:select',
+      progress: { ...progress, validate: { ...valProg, complete } },
+    });
+    log('validate: all candidates processed, VALIDATE COMPLETE');
+    return { complete: true };
+  }
+
+  // Build dedup context from all previously accepted candidates.
+  const existingRows = readJsonl(FILES.existing);
+  const existingValid = readJson(FILES.valid, []);
+  const existingRejected = readJson(FILES.rejected, []);
+
+  const existingRows2 = [
+    ...existingRows,
+    ...existingValid.map((c) => ({
+      titulo: c.titulo,
+      normalized_title: normalizeText(c.titulo),
+      duplicate_fingerprint: c.duplicate_fingerprint,
+    })),
+  ];
+
+  const { valid: newValid, rejected: newRejected } = validateCandidates(batch, existingRows2);
+
+  const allValid = [...existingValid, ...newValid];
+  const allRejected = [...existingRejected, ...newRejected];
+
+  writeJson(FILES.valid, allValid);
+  writeJson(FILES.rejected, allRejected);
+
+  const newOffset = offset + batch.length;
+  const complete = newOffset >= candidates.length;
+
+  writeQa({ valid_count: allValid.length, rejected_count: allRejected.length, final_count: 0, dry_run_status: 'pending' });
+
+  writeCheckpoint(PHASE.VALIDATE, 'checkpoint', {
+    processed_count: batch.length,
+    accumulated_count: allValid.length,
+    next_action: complete ? 'run qgen:select' : 'run qgen:validate for next batch',
+    progress: {
+      ...progress,
+      validate: { offset: newOffset, total_valid: allValid.length, total_rejected: allRejected.length, complete },
+    },
   });
-  writeCheckpoint('FASE_3_VALIDACION', 'ok', {
-    processed_count: candidates.length,
-    valid_count: valid.length,
-    rejected_count: rejected.length,
-  });
-  log(`validate ok: ${valid.length} valid, ${rejected.length} rejected`);
-  return { valid: valid.length, rejected: rejected.length };
+
+  log(`validate: ${batch.length} processed (${newValid.length} valid, ${newRejected.length} rejected), total valid: ${allValid.length}${complete ? ', VALIDATE COMPLETE' : ''}`);
+  return { processed: batch.length, valid: newValid.length, rejected: newRejected.length, complete };
 }
 
+// ─── FASE 4 — Selección final (one shot, aborts if < 5 per topic) ─────────────
+
 function selectPhase() {
+  assertValidateComplete();
+
+  // Guard: preguntas_finales.json must not already exist.
+  if (fs.existsSync(FILES.final)) {
+    const existing = readJson(FILES.final, []);
+    assert(!(Array.isArray(existing) && existing.length > 0), 'preguntas_finales_already_exists — delete it to re-run select');
+  }
+
   const valid = readJson(FILES.valid, []);
   const { selected, counts } = selectFinal(valid);
   writeJson(FILES.final, selected);
+
   writeQa({
     valid_count: valid.length,
     rejected_count: readJson(FILES.rejected, []).length,
@@ -205,46 +464,85 @@ function selectPhase() {
     dry_run_status: 'pending',
     counts,
   });
-  writeCheckpoint('FASE_4_SELECCION_FINAL', 'ok', {
-    final_count: selected.length,
-    counts,
+
+  writeCheckpoint(PHASE.SELECT, 'checkpoint', {
+    processed_count: selected.length,
+    accumulated_count: selected.length,
+    topic_progress: counts,
+    next_action: 'run qgen:dry-run',
+    progress: {
+      ...readProgress(),
+      select: { final_count: selected.length, counts, complete: true },
+    },
   });
-  log(`select ok: ${selected.length} final candidates`);
+
+  log(`select: ${selected.length} final candidates (5 per topic), SELECT COMPLETE`);
   return { final_count: selected.length, counts };
 }
 
+// ─── FASE 5 — Dry-run (one shot, no DB writes) ───────────────────────────────
+
 function dryRunPhase() {
+  const final = readJson(FILES.final, []);
+  assert(Array.isArray(final) && final.length === TOTAL_TARGET, `preguntas_finales_must_have_${TOTAL_TARGET}_candidates`);
+
   const result = dryRunUpload();
-  const finalCandidates = readJson(FILES.final, []);
   const counts = {};
-  for (const candidate of finalCandidates) {
+  for (const candidate of final) {
     const topic = candidate.raw_payload?.topic_target || 'unknown';
     counts[topic] = (counts[topic] || 0) + 1;
   }
+
   writeQa({
     valid_count: readJson(FILES.valid, []).length,
     rejected_count: readJson(FILES.rejected, []).length,
-    final_count: finalCandidates.length,
+    final_count: final.length,
     dry_run_status: result.status,
     counts,
   });
-  writeOrthographyReport(finalCandidates, result);
+  writeOrthographyReport(final, result);
   writeRoutineDoc(false);
-  writeCheckpoint('FASE_5_DRY_RUN_UPLOAD', result.status, result);
+
+  writeCheckpoint(PHASE.DRY_RUN, result.status === 'ok' ? 'checkpoint' : 'error', {
+    processed_count: final.length,
+    accumulated_count: final.length,
+    topic_progress: counts,
+    next_action: result.status === 'ok' ? 'human review then QGEN_UPLOAD_CONFIRM=true npm run qgen:upload' : 'fix dry-run errors and re-run',
+    progress: {
+      ...readProgress(),
+      dry_run: { passed: result.status === 'ok', would_insert: result.would_insert, complete: true },
+    },
+    ...result,
+  });
+
   log(`dry-run ${result.status}: would insert ${result.would_insert}`);
   return result;
 }
 
+// ─── FASE 6 — Upload real autorizado ─────────────────────────────────────────
+
 async function uploadPhase() {
+  assertDryRunPassed();
   const result = await uploadReal();
   writeRoutineDoc(true, result);
-  writeCheckpoint('FASE_6_UPLOAD_REAL', 'ok', {
+
+  writeCheckpoint(PHASE.UPLOAD, 'ok', {
+    processed_count: result.inserted_rows,
+    accumulated_count: result.inserted_rows,
+    next_action: 'human_review_in_generador_panel',
+    progress: {
+      ...readProgress(),
+      upload: { inserted_rows: result.inserted_rows, batch_id: result.batch_id, complete: true },
+    },
     inserted_rows: result.inserted_rows,
     batch_id: result.batch_id,
   });
+
   log(`upload ok: inserted ${result.inserted_rows}`);
   return result;
 }
+
+// ─── Reporting helpers ────────────────────────────────────────────────────────
 
 function writeQa(summary) {
   const counts = summary.counts
@@ -265,7 +563,9 @@ function writeOrthographyReport(candidates, dryRunResult) {
     const result = validateSpanishOrthography(candidate);
     return result.ok ? [] : result.errors.map((error) => `${candidate.candidate_id}: ${error}`);
   });
-  const titlesWithMarks = candidates.filter((candidate) => candidate.titulo.startsWith('¿') && candidate.titulo.endsWith('?')).length;
+  const titlesWithMarks = candidates.filter(
+    (c) => c.titulo.startsWith('¿') && c.titulo.endsWith('?'),
+  ).length;
   const counts = {};
   for (const candidate of candidates) {
     const topic = candidate.raw_payload?.topic_target || 'unknown';
@@ -307,6 +607,7 @@ function writeRoutineDoc(uploadExecuted, uploadResult = null) {
         real_upload_executed: true,
         inserted_rows: uploadResult.inserted_rows,
         next_action: 'human_review_in_generador_panel',
+        timestamp: new Date().toISOString(),
       }
     : {
         routine_status: 'functional_dry_run_ready',
@@ -316,17 +617,20 @@ function writeRoutineDoc(uploadExecuted, uploadResult = null) {
         dry_run_passed: true,
         real_upload_executed: false,
         next_action: 'human_review_or_authorized_upload',
+        timestamp: new Date().toISOString(),
       };
 
-  const content = `# Rutina óptima del generador político\n\n` +
+  const content = `# Rutina óptima v2 del generador político\n\n` +
     `## 1. Objetivo\n\n` +
     `La rutina genera, valida, selecciona y prepara candidatos para staging en Supabase. No publica temas, no convierte candidatos, no abre votaciones y no escribe en tablas oficiales durante el dry-run.\n\n` +
     `## 2. Arquitectura final\n\n` +
-    `lectura paginada -> generación por topic -> validación -> selección 5 por topic -> dry-run -> upload controlado a staging -> revisión humana posterior.\n\n` +
+    `precheck -> lectura paginada -> generación incremental por topic -> validación incremental -> selección 5 por topic -> dry-run -> upload controlado a staging -> revisión humana posterior.\n\n` +
     `## 3. Topics y distribución\n\n` +
     `${topics}\n\nCada topic debe terminar con ${PER_TOPIC_TARGET} candidatos. Total final: ${TOTAL_TARGET}.\n\n` +
     `## 4. Archivos usados\n\n` +
     `- scripts/question-generator/*.js\n` +
+    `- data/question-generator/estado_actual.json\n` +
+    `- data/question-generator/estado_actual.md\n` +
     `- data/question-generator/preguntas_existentes.jsonl\n` +
     `- data/question-generator/preguntas_candidatas.json\n` +
     `- data/question-generator/preguntas_validas.json\n` +
@@ -336,49 +640,34 @@ function writeRoutineDoc(uploadExecuted, uploadResult = null) {
     `- data/question-generator/checkpoints/\n` +
     `- data/question-generator/topics/\n` +
     `- data/question-generator/qa_resultados.md\n\n` +
-    `## 5. Comandos probados\n\n` +
+    `## 5. Principio operativo\n\n` +
+    `Cada corrida ejecuta UNA unidad de trabajo: un bloque de lectura paginada, hasta 20 candidatos generados, hasta 20 candidatos validados, selección final, dry-run, o upload. Después de emitir checkpoint, la ejecución termina.\n\n` +
+    `## 6. Comandos\n\n` +
     `- npm run qgen:precheck\n` +
-    `- npm run qgen:read\n` +
-    `- npm run qgen:generate\n` +
-    `- npm run qgen:validate\n` +
+    `- npm run qgen:read       (una página por corrida)\n` +
+    `- npm run qgen:generate   (hasta 20 candidatos por corrida)\n` +
+    `- npm run qgen:validate   (hasta 20 candidatos por corrida)\n` +
     `- npm run qgen:select\n` +
     `- npm run qgen:dry-run\n` +
+    `- QGEN_UPLOAD_CONFIRM=true npm run qgen:upload\n` +
     `- npm run build\n` +
     `- git diff --check\n\n` +
-    `## 6. Errores encontrados y correcciones útiles\n\n` +
-    `- La RPC de carga exige coincidencia exacta con expected_count cuando existe. Por eso v1 crea batch al final y carga los 80 candidatos en una sola llamada durante upload real autorizado.\n` +
-    `- Las tablas staging pueden estar bloqueadas para anon por RLS. La lectura paginada registra ese bloqueo como resultado esperado y no intenta elevar permisos ni usar service role.\n` +
-    `- Las fases son dependientes: validate debe terminar antes de select. Ejecutarlas en paralelo puede producir un fallo temporal por archivos aun no escritos.\n` +
-    `- El upload real queda bloqueado por defecto y exige QGEN_UPLOAD_CONFIRM=true mas un token de usuario autorizado.\n\n` +
-    `## Patch ortográfico permanente\n\n` +
-    `El problema detectado fue que las preguntas y notas se generaban sin ortografía española completa. La corrección no se aplica manualmente al JSON final: existe el módulo scripts/question-generator/orthography.js, integrado a generación, validación, selección y dry-run.\n\n` +
-    `El módulo corrige título, descripción, opciones visibles, neutrality_notes y quality_notes. No toca candidate_id, tipo_votacion, publico_objetivo, taxonomy_draft.eje_tematico, taxonomy_draft.enfoque, taxonomy_draft.intensidad_de_debate, ideological_axis, deliberative_tension, duplicate_fingerprint ni raw_payload técnico.\n\n` +
-    `Los títulos deben usar el formato ¿...?. Los fingerprints se calculan con normalizeText, que elimina tildes y puntuación antes de hashear, por lo que el agregado de acentos y signo inicial no cambia la identidad normalizada del candidato.\n\n` +
-    `Comandos probados después del patch: npm run qgen:generate, npm run qgen:validate, npm run qgen:select, npm run qgen:dry-run, npm run build y git diff --check.\n\n` +
-    `## 7. Flujo final recomendado\n\n` +
-    `1. npm run qgen:precheck\n` +
-    `2. npm run qgen:read\n` +
-    `3. npm run qgen:generate\n` +
-    `4. npm run qgen:validate\n` +
-    `5. npm run qgen:select\n` +
-    `6. npm run qgen:dry-run\n` +
-    `7. revisar data/question-generator/preguntas_finales.json\n` +
-    `8. si se autoriza carga real: QGEN_UPLOAD_CONFIRM=true npm run qgen:upload\n\n` +
-    `## 8. Reglas de seguridad\n\n` +
+    `## 7. Reglas de seguridad\n\n` +
     `- No publica.\n` +
     `- No convierte.\n` +
     `- No abre votaciones.\n` +
     `- No toca temas.\n` +
     `- No toca votos.\n` +
     `- No toca tema_sugerencias.\n` +
-    `- Upload real requiere confirmacion explicita.\n` +
+    `- Upload real requiere QGEN_UPLOAD_CONFIRM=true y token de usuario autorizado.\n` +
     `- Revisión humana posterior obligatoria.\n\n` +
-    `Criterios adicionales del patch ortográfico: 80 candidatos finales con ortografía española correcta, 80 títulos con ¿ inicial y ? final, cero ocurrencias visibles de palabras críticas sin tilde y dry-run aprobado después del patch.\n\n` +
-    `## 9. Estado final\n\n` +
+    `## 8. Estado final\n\n` +
     `\`\`\`json\n${JSON.stringify(status, null, 2)}\n\`\`\`\n`;
 
   fs.writeFileSync(FILES.routineDoc, content, 'utf8');
 }
+
+// ─── Entrypoint ───────────────────────────────────────────────────────────────
 
 async function main() {
   const command = process.argv[2];
@@ -392,7 +681,11 @@ async function main() {
     else if (command === 'upload') await uploadPhase();
     else throw new Error(`unknown_command:${command || '(missing)'}`);
   } catch (error) {
-    writeCheckpoint(`ERROR_${command || 'unknown'}`, 'error', { error: error.message });
+    writeCheckpoint(`ERROR_${command || 'unknown'}`, 'error', {
+      next_action: `fix error and retry: ${error.message}`,
+      progress: readProgress(),
+      error: error.message,
+    });
     console.error(`[qgen] error: ${error.message}`);
     process.exitCode = 1;
   }

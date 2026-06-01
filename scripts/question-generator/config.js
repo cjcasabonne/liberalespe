@@ -10,6 +10,7 @@ const DOCS_DIR = path.join(ROOT_DIR, 'docs');
 
 const FILES = {
   state: path.join(DATA_DIR, 'estado_actual.json'),
+  statemd: path.join(DATA_DIR, 'estado_actual.md'),
   existing: path.join(DATA_DIR, 'preguntas_existentes.jsonl'),
   candidates: path.join(DATA_DIR, 'preguntas_candidatas.json'),
   valid: path.join(DATA_DIR, 'preguntas_validas.json'),
