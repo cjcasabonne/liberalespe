@@ -1,0 +1,153 @@
+el archivo. Ya contiene una buena **rutina óptima v2 del generador político** y sí integra varias mejoras clave: ejecución incremental, checkpoints, lectura paginada, dry-run seguro, upload bloqueado y patch ortográfico. 
+
+Pero para que quede alineado al **prompt integrado completo**, le faltan algunos puntos importantes:
+
+1. Falta una sección explícita de **Anti-duplicado**.
+2. Falta una sección explícita de **Fallos obligatorios**.
+3. Falta el formato estándar de checkpoint con:
+
+   ```json
+   {
+     "phase": "READ|GENERATE|VALIDATE|SELECT|DRY_RUN|UPLOAD",
+     "status": "checkpoint",
+     "processed_count": 0,
+     "accumulated_count": 0,
+     "topic_progress": {},
+     "next_action": "string",
+     "timestamp": "ISO-8601"
+   }
+   ```
+4. La salida final esperada debería incluir `timestamp`.
+5. Falta una sección de **riesgos y errores típicos**.
+6. El flujo recomendado debería terminar con los comandos reales:
+
+   ```bash
+   npm run qgen:precheck
+   npm run qgen:read
+   npm run qgen:generate
+   npm run qgen:validate
+   npm run qgen:select
+   npm run qgen:dry-run
+   npm run build
+   git diff --check
+   ```
+
+Puedes pedirle al agente este ajuste puntual:
+
+````md
+Mejora el archivo D:\Documentos\New project 2\docs\rutina_optimav2.md sin tocar rutina_optima.md.
+
+El documento ya está creado, pero debe completarse para cumplir exactamente la especificación operativa.
+
+Agrega o corrige estas secciones:
+
+1. Agregar una sección explícita:
+
+## Anti-duplicado
+
+Debe documentar:
+- normalizeText elimina tildes, puntuación, mayúsculas/minúsculas y espacios redundantes.
+- Comparar contra existentes, candidatas, válidas y finales.
+- Usar duplicate_fingerprint.
+- Rechazar duplicado textual.
+- Rechazar duplicado semántico.
+- La ortografía no debe alterar identidad normalizada.
+
+2. Agregar una sección explícita:
+
+## Fallos obligatorios
+
+Abortar si ocurre cualquiera de estos casos:
+- error de conexión;
+- lectura no paginada;
+- intento de SELECT masivo;
+- estado inconsistente;
+- archivos JSON inválidos;
+- archivo JSONL corrupto;
+- topics no cargados;
+- topic inválido;
+- menos de 5 válidas por topic;
+- menos de 80 finales;
+- más de 80 finales;
+- distribución distinta de 5 por topic;
+- duplicado textual detectado;
+- duplicado semántico detectado;
+- dry-run fallido;
+- upload sin confirmación explícita;
+- upload sin token autorizado;
+- expected_count distinto de 80;
+- cualquier validación crítica fallida.
+
+3. Agregar una sección:
+
+## Formato de salida por checkpoint
+
+Debe incluir exactamente:
+
+```json
+{
+  "phase": "READ|GENERATE|VALIDATE|SELECT|DRY_RUN|UPLOAD",
+  "status": "checkpoint",
+  "processed_count": 0,
+  "accumulated_count": 0,
+  "topic_progress": {},
+  "next_action": "string",
+  "timestamp": "ISO-8601"
+}
+````
+
+4. Corregir la salida final esperada para incluir timestamp:
+
+```json
+{
+  "routine_status": "functional_dry_run_ready",
+  "topics": 16,
+  "per_topic": 5,
+  "final_candidates": 80,
+  "dry_run_passed": true,
+  "real_upload_executed": false,
+  "next_action": "human_review_or_authorized_upload",
+  "timestamp": "ISO-8601"
+}
+```
+
+5. Agregar una sección:
+
+## Riesgos y errores típicos
+
+Debe incluir:
+
+* ejecutar pipeline completo en una sola corrida;
+* ejecutar validate antes de terminar generate;
+* ejecutar select con válidas insuficientes;
+* leer toda la DB en una sola query;
+* romper identidad de candidatos al modificar campos técnicos;
+* corregir ortografía manualmente solo al final;
+* usar service role para saltarse RLS;
+* hacer upload sin confirmación explícita;
+* tratar dry-run como publicación;
+* permitir conteos distintos a 80.
+
+6. Mantener todo lo que ya existe.
+7. No modificar rutina_optima.md.
+8. No ejecutar scripts.
+9. No tocar Supabase.
+10. Responder al final solo con:
+
+```json
+{
+  "file_updated": "D:\\Documentos\\New project 2\\docs\\rutina_optimav2.md",
+  "status": "done",
+  "changes": [
+    "added_antiduplicate_section",
+    "added_strict_failure_conditions",
+    "added_standard_checkpoint_output",
+    "added_final_output_timestamp",
+    "added_risks_and_common_errors",
+    "original_file_not_modified"
+  ]
+}
+```
+
+```
+```

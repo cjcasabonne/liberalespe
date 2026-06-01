@@ -1,0 +1,41 @@
+{
+  "phase": "FASE_0_PRECHECK",
+  "status": "ok",
+  "timestamp": "2026-06-01T21:45:15.606Z",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "supabase_url": "https://pqqkvm...twyx.supabase.co",
+  "migration_017_inferred_applied": true,
+  "staging_tables": [
+    {
+      "table": "generated_topic_batches",
+      "http_status": 401,
+      "exists": true,
+      "anon_read_allowed": false,
+      "message": "permission denied for table generated_topic_batches"
+    },
+    {
+      "table": "generated_topic_candidates",
+      "http_status": 401,
+      "exists": true,
+      "anon_read_allowed": false,
+      "message": "permission denied for table generated_topic_candidates"
+    }
+  ],
+  "rpc_contract_source": "migration_sql",
+  "rpc_openapi_found": [],
+  "rpc_openapi_missing": [
+    "crear_generated_topic_batch",
+    "cargar_generated_topic_candidates",
+    "revisar_generated_topic_candidate",
+    "convertir_generated_candidate_a_sugerencia"
+  ],
+  "json_files_checked": [],
+  "dry_run_default": true,
+  "upload_confirm_enabled": false,
+  "forbidden_tables": [
+    "temas",
+    "tema_sugerencias",
+    "votos"
+  ],
+  "automatic_conversion": false
+}

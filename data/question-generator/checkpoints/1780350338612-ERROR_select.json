@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_select",
+  "status": "error",
+  "timestamp": "2026-06-01T21:45:38.612Z",
+  "error": "topic_libertad_individual_has_only_0_valid_candidates"
+}

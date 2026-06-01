@@ -4,7 +4,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const PROD_REF = 'pqqkvmmenqencuretwyx';
@@ -44,13 +43,20 @@ function extractRef(url) {
 }
 
 function gitBranch() {
-  try {
-    return execSync('git branch --show-current', { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] })
-      .toString()
-      .trim();
-  } catch {
-    return '(no disponible)';
+  let gitDir = path.join(ROOT, '.git');
+  const gitEntry = readFile(gitDir);
+
+  if (gitEntry && gitEntry.startsWith('gitdir:')) {
+    const relativeOrAbsoluteGitDir = gitEntry.replace('gitdir:', '').trim();
+    gitDir = path.isAbsolute(relativeOrAbsoluteGitDir)
+      ? relativeOrAbsoluteGitDir
+      : path.resolve(ROOT, relativeOrAbsoluteGitDir);
   }
+
+  const head = readFile(path.join(gitDir, 'HEAD'))?.trim();
+  if (!head) return '(no disponible)';
+  if (head.startsWith('ref: refs/heads/')) return head.replace('ref: refs/heads/', '');
+  return '(detached)';
 }
 
 console.log('\n=== check-supabase-env ===\n');
@@ -58,7 +64,7 @@ console.log('\n=== check-supabase-env ===\n');
 // --- Git branch ---
 const branch = gitBranch();
 const isMain = branch === 'main';
-console.log(`Rama actual:         ${branch}${isMain ? '  ⚠  RAMA MAIN' : ''}`);
+console.log(`Rama actual:         ${branch}${isMain ? '  [RAMA MAIN]' : ''}`);
 
 // --- .env.local ---
 const envLocal = parseEnv(readFile(path.join(ROOT, '.env.local')));
@@ -84,23 +90,23 @@ const isUrlProd = refFromUrl === PROD_REF;
 const isTempProd = tempRef === PROD_REF;
 
 console.log('\n--- Clasificacion de entorno ---');
-console.log(`Project ref desde URL:   ${refFromUrl || '(no detectado)'}  ${isUrlProd ? '⛔ PRODUCCION' : '✓'}`);
-console.log(`Project ref enlazado:    ${tempRef || '(no detectado)'}  ${isTempProd ? '⛔ PRODUCCION' : '✓'}`);
-console.log(`Rama main detectada:     ${isMain ? '⚠  SI' : 'no'}`);
+console.log(`Project ref desde URL:   ${refFromUrl || '(no detectado)'}  ${isUrlProd ? '[PRODUCCION]' : '[OK]'}`);
+console.log(`Project ref enlazado:    ${tempRef || '(no detectado)'}  ${isTempProd ? '[PRODUCCION]' : '[OK]'}`);
+console.log(`Rama main detectada:     ${isMain ? '[SI]' : 'no'}`);
 
 // --- Veredicto ---
 const isProduction = isUrlProd || isTempProd;
 console.log('\n=== VEREDICTO ===');
 if (isProduction) {
-  console.log('⛔  PRODUCCION DETECTADA');
+  console.log('[BLOQUEADO] PRODUCCION DETECTADA');
   console.log('   Este workspace NO debe usarse para probar migraciones.');
   console.log('   No ejecutar: supabase db push, supabase db reset, supabase migration repair.');
   console.log('   Opciones seguras: Supabase local con Docker, o proyecto dev remoto distinto.');
 } else if (!envUrl) {
-  console.log('⚠  No se encontro VITE_SUPABASE_URL en .env.local.');
+  console.log('[ATENCION] No se encontro VITE_SUPABASE_URL en .env.local.');
   console.log('   Crear .env.local con valores dev/local antes de continuar.');
 } else {
-  console.log('✓  Entorno parece ser dev/local. Verificar igualmente antes de ejecutar migraciones.');
+  console.log('[OK] Entorno parece ser dev/local. Verificar igualmente antes de ejecutar migraciones.');
   console.log('   Confirmar con: npx supabase status');
 }
 

@@ -3,7 +3,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "check:supabase-env": "node scripts/check-supabase-env.js"
+    "check:supabase-env": "node scripts/check-supabase-env.js",
+    "qgen:precheck": "node scripts/question-generator/run.js precheck",
+    "qgen:read": "node scripts/question-generator/run.js read",
+    "qgen:generate": "node scripts/question-generator/run.js generate",
+    "qgen:validate": "node scripts/question-generator/run.js validate",
+    "qgen:select": "node scripts/question-generator/run.js select",
+    "qgen:dry-run": "node scripts/question-generator/run.js dry-run",
+    "qgen:upload": "node scripts/question-generator/run.js upload"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.1",

@@ -1,0 +1,679 @@
+Aquí tienes **1 prompt integrado completo**:
+
+````md
+Actúa como arquitecto de software senior y mantenedor de rutinas operativas.
+
+Objetivo:
+Crear un nuevo archivo Markdown llamado:
+
+D:\Documentos\New project 2\docs\rutina_optimav2.md
+
+Este archivo debe ser una versión mejorada de la rutina política original ubicada en:
+
+D:\Documentos\New project 2\docs\rutina_optima.md
+
+La mejora debe integrar las prácticas operativas de la rutina diaria del juego: ejecución incremental, recuperación por estado, checkpoints, anti-timeout, lectura paginada obligatoria, validación por fases y fallos estrictos.
+
+No sobrescribas ni modifiques:
+
+D:\Documentos\New project 2\docs\rutina_optima.md
+
+Solo debes crear:
+
+D:\Documentos\New project 2\docs\rutina_optimav2.md
+
+No ejecutes scripts.
+No hagas upload.
+No toques Supabase.
+No modifiques código fuente.
+No modifiques otros archivos.
+
+---
+
+# Contexto de la rutina política actual
+
+La rutina genera, valida, selecciona y prepara candidatos para staging en Supabase.
+
+No publica temas.
+No convierte candidatos.
+No abre votaciones.
+No escribe en tablas oficiales durante el dry-run.
+
+Arquitectura actual:
+
+lectura paginada -> generación por topic -> validación -> selección 5 por topic -> dry-run -> upload controlado a staging -> revisión humana posterior.
+
+Topics oficiales:
+
+- libertad_individual
+- igualdad_ante_la_ley
+- estado_limitado
+- instituciones_publicas
+- mercado_libre
+- emprendimiento
+- propiedad_privada
+- desregulacion
+- responsabilidad_fiscal
+- anticorrupcion
+- anti_mercantilismo
+- seguridad_ciudadana
+- estado_de_derecho
+- merito_y_talento
+- ciudadania_y_control_del_poder
+- innovacion_y_competitividad
+
+Cada topic debe terminar con 5 candidatos.
+Total final obligatorio: 80 candidatos.
+
+Archivos usados por la rutina:
+
+- scripts/question-generator/*.js
+- data/question-generator/preguntas_existentes.jsonl
+- data/question-generator/preguntas_candidatas.json
+- data/question-generator/preguntas_validas.json
+- data/question-generator/preguntas_rechazadas.json
+- data/question-generator/preguntas_finales.json
+- data/question-generator/upload_result.json
+- data/question-generator/checkpoints/
+- data/question-generator/topics/
+- data/question-generator/qa_resultados.md
+
+Comandos existentes:
+
+- npm run qgen:precheck
+- npm run qgen:read
+- npm run qgen:generate
+- npm run qgen:validate
+- npm run qgen:select
+- npm run qgen:dry-run
+- npm run build
+- git diff --check
+
+Upload real autorizado:
+
+- QGEN_UPLOAD_CONFIRM=true npm run qgen:upload
+
+Pero qgen:upload debe quedar bloqueado por defecto y solo debe ejecutarse con autorización explícita.
+
+---
+
+# Mejoras que deben integrarse desde la rutina del juego
+
+La nueva rutina v2 debe incorporar:
+
+1. Rutina incremental y recuperable.
+2. Una corrida ejecuta solo una unidad de trabajo.
+3. Pre-check obligatorio antes de continuar.
+4. Detección de fase desde estado_actual.md y archivos existentes.
+5. Checkpoints explícitos por fase.
+6. Lectura paginada obligatoria.
+7. Prohibición absoluta de lectura masiva.
+8. Control anti-timeout.
+9. Validación de integridad de archivos antes de avanzar.
+10. Validación incremental contra existentes, candidatas, válidas y finales.
+11. Abortos obligatorios ante estado inconsistente.
+12. Selección final balanceada.
+13. Confirmaciones exactas de conteo.
+14. Separación estricta entre dry-run y upload real.
+15. Salida JSON por checkpoint.
+16. Salida JSON final.
+
+---
+
+# Reglas específicas del generador político que deben conservarse
+
+La rutina v2 debe conservar obligatoriamente estas reglas:
+
+- No publica temas.
+- No convierte candidatos.
+- No abre votaciones.
+- No toca tablas oficiales durante dry-run.
+- No toca votos.
+- No toca tema_sugerencias.
+- No eleva permisos.
+- No usa service role para saltar RLS.
+- Upload real bloqueado por defecto.
+- Upload real requiere QGEN_UPLOAD_CONFIRM=true y token de usuario autorizado.
+- Revisión humana posterior obligatoria.
+- La RPC de carga exige coincidencia exacta con expected_count cuando existe.
+- En upload real autorizado, el batch debe cargarse completo en una sola llamada.
+- Si staging está bloqueado por RLS para anon, registrar el bloqueo como resultado esperado y no intentar evadirlo.
+- Las fases son dependientes: validate debe terminar antes de select.
+- No ejecutar fases dependientes en paralelo.
+
+---
+
+# Patch ortográfico permanente
+
+Existe el módulo:
+
+scripts/question-generator/orthography.js
+
+Debe quedar documentado como parte obligatoria de la rutina.
+
+Está integrado a:
+
+- generación
+- validación
+- selección
+- dry-run
+
+Debe corregir:
+
+- título
+- descripción
+- opciones visibles
+- neutrality_notes
+- quality_notes
+
+No debe tocar:
+
+- candidate_id
+- tipo_votacion
+- publico_objetivo
+- taxonomy_draft.eje_tematico
+- taxonomy_draft.enfoque
+- taxonomy_draft.intensidad_de_debate
+- ideological_axis
+- deliberative_tension
+- duplicate_fingerprint
+- raw_payload técnico
+
+Los títulos deben usar formato:
+
+¿...?
+
+Los fingerprints se calculan con normalizeText, eliminando tildes y puntuación antes de hashear. Por eso agregar acentos o signo inicial no debe cambiar la identidad normalizada del candidato.
+
+---
+
+# Contenido obligatorio de rutina_optimav2.md
+
+Crea el archivo con esta estructura:
+
+# Rutina óptima v2 del generador político
+
+## 1. Objetivo
+
+Explicar que la rutina genera, valida, selecciona y prepara 80 candidatos políticos para staging, con dry-run seguro y upload real bloqueado por defecto.
+
+Debe dejar claro que no publica temas, no convierte candidatos, no abre votaciones y no escribe en tablas oficiales durante dry-run.
+
+## 2. Principio operativo
+
+Explicar que la rutina es incremental, recuperable y anti-timeout.
+
+Una corrida solo puede ejecutar una unidad de trabajo:
+
+- 1 bloque de lectura paginada; o
+- hasta 20 candidatos generados; o
+- hasta 20 candidatos validados; o
+- selección final; o
+- dry-run final; o
+- upload real autorizado.
+
+Después de emitir checkpoint, la ejecución debe terminar.
+
+Nunca ejecutar el pipeline completo en una sola corrida.
+
+## 3. Arquitectura final
+
+Documentar el flujo:
+
+precheck -> lectura paginada -> generación incremental por topic -> validación incremental -> selección 5 por topic -> dry-run -> upload controlado a staging -> revisión humana posterior.
+
+## 4. Topics oficiales y distribución
+
+Listar los 16 topics oficiales:
+
+- libertad_individual
+- igualdad_ante_la_ley
+- estado_limitado
+- instituciones_publicas
+- mercado_libre
+- emprendimiento
+- propiedad_privada
+- desregulacion
+- responsabilidad_fiscal
+- anticorrupcion
+- anti_mercantilismo
+- seguridad_ciudadana
+- estado_de_derecho
+- merito_y_talento
+- ciudadania_y_control_del_poder
+- innovacion_y_competitividad
+
+Indicar:
+
+- 5 candidatos finales por topic.
+- Total final exacto: 80.
+- Si algún topic tiene menos de 5 válidas, abortar antes de selección final.
+
+## 5. Archivos operativos
+
+Documentar:
+
+- data/question-generator/estado_actual.md
+- data/question-generator/preguntas_existentes.jsonl
+- data/question-generator/preguntas_candidatas.json
+- data/question-generator/preguntas_validas.json
+- data/question-generator/preguntas_rechazadas.json
+- data/question-generator/preguntas_finales.json
+- data/question-generator/upload_result.json
+- data/question-generator/qa_resultados.md
+- data/question-generator/checkpoints/
+- data/question-generator/topics/
+
+Indicar que:
+
+- Los JSON deben mantenerse válidos.
+- JSONL es preferible para corpus incremental grande.
+- Los checkpoints deben permitir reanudar sin repetir trabajo ni corromper estado.
+
+## 6. Comandos oficiales
+
+Listar:
+
+- npm run qgen:precheck
+- npm run qgen:read
+- npm run qgen:generate
+- npm run qgen:validate
+- npm run qgen:select
+- npm run qgen:dry-run
+- QGEN_UPLOAD_CONFIRM=true npm run qgen:upload
+- npm run build
+- git diff --check
+
+Aclarar que qgen:upload no debe ejecutarse salvo autorización explícita.
+
+## 7. PRE-CHECK obligatorio
+
+Antes de cada unidad de trabajo se debe:
+
+- Detectar fase desde estado_actual.md.
+- Detectar avance desde archivos existentes.
+- Validar existencia e integridad de archivos.
+- Validar que los topics oficiales estén cargados.
+- Validar que no haya conteos imposibles.
+- Validar que no haya finales antes de selección.
+- Validar que validate no se ejecute antes de generate.
+- Validar que select no se ejecute antes de validate.
+- Validar que dry-run no se ejecute antes de select.
+- Validar que upload no se ejecute sin dry-run aprobado.
+- Si no hay estado válido, iniciar FASE 1.
+- Si hay estado válido, continuar desde la siguiente unidad pendiente.
+- Abortar ante estado inconsistente.
+
+## 8. FASE 1 — Lectura paginada
+
+Debe indicar:
+
+- Lectura obligatoria con LIMIT/OFFSET o paginación equivalente.
+- Prohibido leer todo en una sola query.
+- Procesar solo un bloque por corrida.
+- Guardar avance después de cada bloque.
+- Normalizar textos para anti-duplicado.
+- Escribir preguntas_existentes.jsonl incrementalmente.
+- Emitir CHECKPOINT LECTURA.
+- Terminar ejecución inmediatamente después del checkpoint.
+
+Debe incluir pseudocódigo:
+
+```sql
+LOOP:
+  SELECT ...
+  FROM fuente_existente
+  ORDER BY created_at, id
+  LIMIT 100 OFFSET n
+````
+
+Si se intenta SELECT masivo sin LIMIT/OFFSET, abortar.
+
+## 9. FASE 2 — Generación incremental
+
+Debe indicar:
+
+* Generar máximo 20 candidatos por corrida.
+* Generar por topic respetando distribución objetivo.
+* No inventar topics.
+* No generar fuera de la taxonomía política oficial.
+* Validar en línea:
+
+  * schema;
+  * topic oficial;
+  * estructura del candidato;
+  * ortografía visible;
+  * duplicado textual;
+  * duplicado semántico;
+  * fingerprint normalizado.
+
+Comparar contra:
+
+* preguntas existentes;
+* candidatas;
+* válidas;
+* finales.
+
+Guardar candidatos aceptados temporalmente en:
+
+* data/question-generator/preguntas_candidatas.json
+
+Guardar rechazadas en:
+
+* data/question-generator/preguntas_rechazadas.json
+
+Cada rechazo debe incluir razón.
+
+Emitir CHECKPOINT GENERACIÓN.
+Terminar ejecución.
+
+Repetir hasta tener pool suficiente por topic, idealmente más de 5 válidas potenciales por topic.
+
+## 10. FASE 3 — Validación incremental
+
+Debe indicar:
+
+* Procesar máximo 20 candidatos por corrida.
+* Validar:
+
+  * schema;
+  * topic oficial;
+  * claridad;
+  * neutralidad;
+  * calidad deliberativa;
+  * ortografía española;
+  * título con ¿ inicial y ? final;
+  * no duplicado textual;
+  * no duplicado semántico;
+  * coherencia de taxonomy_draft;
+  * coherencia de ideological_axis;
+  * coherencia de deliberative_tension.
+
+Guardar aceptadas en:
+
+* data/question-generator/preguntas_validas.json
+
+Guardar rechazadas en:
+
+* data/question-generator/preguntas_rechazadas.json
+
+Actualizar:
+
+* data/question-generator/qa_resultados.md
+
+Emitir CHECKPOINT VALIDACIÓN.
+Terminar ejecución.
+
+Repetir hasta tener al menos 5 válidas por cada topic.
+
+## 11. FASE 4 — Selección final
+
+Debe indicar:
+
+* Seleccionar exactamente 80 candidatos.
+* Seleccionar exactamente 5 por topic.
+* Balancear cuando el pool lo permita por:
+
+  * enfoque;
+  * intensidad_de_debate;
+  * tensión deliberativa;
+  * eje ideológico;
+  * variedad semántica.
+
+Ordenar de forma estable.
+
+Guardar en:
+
+* data/question-generator/preguntas_finales.json
+
+Abortar si:
+
+* el total no es 80;
+* algún topic no tiene exactamente 5;
+* hay duplicados textuales;
+* hay duplicados semánticos;
+* hay errores ortográficos visibles críticos.
+
+Emitir CHECKPOINT SELECCIÓN.
+Terminar ejecución.
+
+## 12. FASE 5 — Dry-run
+
+Debe indicar:
+
+* Leer preguntas_finales.json.
+* Validar conteo exacto 80.
+* Validar 5 candidatos por topic.
+* Validar ortografía visible final.
+* Validar fingerprints.
+* Validar que no se escriba en tablas oficiales.
+* Validar que no publique temas.
+* Validar que no convierta candidatos.
+* Validar que no abra votaciones.
+* Validar compatibilidad con RPC/staging.
+* Si staging está bloqueado por RLS para anon, registrar como resultado esperado.
+* No intentar elevar permisos.
+* No usar service role.
+
+Guardar resultado en:
+
+* data/question-generator/upload_result.json
+
+o actualizar:
+
+* data/question-generator/qa_resultados.md
+
+Emitir CHECKPOINT DRY_RUN.
+Terminar ejecución.
+
+## 13. FASE 6 — Upload real autorizado
+
+Debe indicar:
+
+* Bloqueado por defecto.
+* Requiere QGEN_UPLOAD_CONFIRM=true.
+* Requiere token de usuario autorizado.
+* Requiere dry-run aprobado.
+* Requiere preguntas_finales.json con 80 exactas.
+* Requiere 5 candidatos exactos por topic.
+* Requiere expected_count == 80 si la RPC lo exige.
+* Cargar batch único completo.
+* Validar resultado exacto.
+* Guardar upload_result.json.
+* Emitir CHECKPOINT UPLOAD.
+* No publicar temas después del upload.
+* No convertir candidatos después del upload.
+* No abrir votaciones después del upload.
+* Revisión humana posterior obligatoria.
+
+## 14. Anti-duplicado
+
+Debe documentar:
+
+* normalizeText elimina tildes, puntuación, mayúsculas/minúsculas y espacios redundantes.
+* Comparar contra existentes, candidatas, válidas y finales.
+* Usar duplicate_fingerprint.
+* Rechazar duplicado textual.
+* Rechazar duplicado semántico.
+* La ortografía no debe alterar identidad normalizada.
+
+## 15. Patch ortográfico permanente
+
+Debe explicar el módulo:
+
+scripts/question-generator/orthography.js
+
+Debe indicar que corrige:
+
+* título;
+* descripción;
+* opciones visibles;
+* neutrality_notes;
+* quality_notes.
+
+Debe indicar que no toca:
+
+* candidate_id;
+* tipo_votacion;
+* publico_objetivo;
+* taxonomy_draft.eje_tematico;
+* taxonomy_draft.enfoque;
+* taxonomy_draft.intensidad_de_debate;
+* ideological_axis;
+* deliberative_tension;
+* duplicate_fingerprint;
+* raw_payload técnico.
+
+Debe incluir criterios finales:
+
+* 80 candidatos finales con ortografía española correcta.
+* 80 títulos con ¿ inicial y ? final.
+* Cero ocurrencias visibles de palabras críticas sin tilde.
+* Dry-run aprobado después del patch.
+
+## 16. Fallos obligatorios
+
+Abortar si ocurre cualquiera de estos casos:
+
+* error de conexión;
+* lectura no paginada;
+* intento de SELECT masivo;
+* estado inconsistente;
+* archivos JSON inválidos;
+* archivo JSONL corrupto;
+* topics no cargados;
+* topic inválido;
+* menos de 5 válidas por topic;
+* menos de 80 finales;
+* más de 80 finales;
+* distribución distinta de 5 por topic;
+* duplicado textual detectado;
+* duplicado semántico detectado;
+* dry-run fallido;
+* upload sin confirmación explícita;
+* upload sin token autorizado;
+* expected_count distinto de 80;
+* cualquier validación crítica fallida.
+
+## 17. Formato de salida por checkpoint
+
+Debe incluir este JSON:
+
+```json
+{
+  "phase": "READ|GENERATE|VALIDATE|SELECT|DRY_RUN|UPLOAD",
+  "status": "checkpoint",
+  "processed_count": 0,
+  "accumulated_count": 0,
+  "topic_progress": {},
+  "next_action": "string",
+  "timestamp": "ISO-8601"
+}
+```
+
+## 18. Salida final esperada
+
+Debe incluir este JSON:
+
+```json
+{
+  "routine_status": "functional_dry_run_ready",
+  "topics": 16,
+  "per_topic": 5,
+  "final_candidates": 80,
+  "dry_run_passed": true,
+  "real_upload_executed": false,
+  "next_action": "human_review_or_authorized_upload",
+  "timestamp": "ISO-8601"
+}
+```
+
+## 19. Riesgos y errores típicos
+
+Debe incluir:
+
+* ejecutar pipeline completo en una sola corrida;
+* ejecutar validate antes de terminar generate;
+* ejecutar select con válidas insuficientes;
+* leer toda la DB en una sola query;
+* romper identidad de candidatos al modificar campos técnicos;
+* corregir ortografía manualmente solo al final;
+* usar service role para saltarse RLS;
+* hacer upload sin confirmación explícita;
+* tratar dry-run como publicación;
+* permitir conteos distintos a 80;
+* modificar la rutina original;
+* tocar Supabase durante la creación de este documento.
+
+## 20. Flujo recomendado
+
+Debe terminar con el flujo operativo:
+
+1. npm run qgen:precheck
+2. npm run qgen:read
+3. repetir qgen:read hasta completar corpus
+4. npm run qgen:generate
+5. repetir qgen:generate hasta pool suficiente
+6. npm run qgen:validate
+7. repetir qgen:validate hasta mínimo 5 válidas por topic
+8. npm run qgen:select
+9. npm run qgen:dry-run
+10. revisar data/question-generator/preguntas_finales.json
+11. si se autoriza carga real: QGEN_UPLOAD_CONFIRM=true npm run qgen:upload
+12. npm run build
+13. git diff --check
+
+---
+
+# Condiciones de calidad del archivo
+
+El documento debe ser operativo, no solo descriptivo.
+
+Debe:
+
+* Mantener el dominio político.
+* Integrar la lógica incremental y recuperable de la rutina del juego.
+* No proponer backend nuevo.
+* No proponer tablas nuevas.
+* No debilitar seguridad.
+* No eliminar el dry-run.
+* No permitir upload real por defecto.
+* No modificar el archivo original.
+* Quedar listo para que otro agente ejecute la rutina por fases sin ambigüedad.
+
+---
+
+# Acción final obligatoria
+
+Crear únicamente:
+
+D:\Documentos\New project 2\docs\rutina_optimav2.md
+
+No modificar:
+
+D:\Documentos\New project 2\docs\rutina_optima.md
+
+Después de crearlo, responder únicamente con este JSON:
+
+```json
+{
+  "file_created": "D:\\Documentos\\New project 2\\docs\\rutina_optimav2.md",
+  "source_file": "D:\\Documentos\\New project 2\\docs\\rutina_optima.md",
+  "status": "done",
+  "changes": [
+    "integrated_incremental_execution",
+    "added_precheck_and_state_recovery",
+    "added_checkpoint_outputs",
+    "added_anti_timeout_units",
+    "added_paginated_read_requirement",
+    "added_strict_failure_conditions",
+    "preserved_political_generator_security_rules",
+    "preserved_orthography_patch",
+    "preserved_dry_run_before_upload",
+    "original_file_not_modified"
+  ]
+}
+```
+
+```
+```

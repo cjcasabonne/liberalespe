@@ -11,8 +11,10 @@ Este documento existe para evitar aplicar migraciones, pruebas RPC/RLS o datos d
 - Ese proyecto aparece en `.env.local`, `README.md` y `supabase/.temp/project-ref`.
 - El `README.md` documenta esa URL como variable de produccion.
 - Supabase local no esta disponible actualmente porque Docker/Supabase local no pudo iniciar.
-- La validacion real de RPC/RLS de la migracion 017 esta bloqueada por seguridad.
-- La migracion 017 esta pendiente de aplicar en un entorno local descartable o en un proyecto dev remoto.
+- Auditoria remota de solo lectura del 2026-06-01: `npx supabase migration list` mostro `017 | 017`.
+- La migracion 017 figura aplicada en el proyecto remoto enlazado.
+- No se ejecutaron pruebas con datos, batches, candidatos ni RPCs de escritura en produccion.
+- La prueba REST anonima de solo lectura contra `generated_topic_batches` y `generated_topic_candidates` devolvio `401 permission denied`.
 
 Este workspace no debe usarse para probar migraciones mientras siga combinando rama `main`, `.env.local` productivo y proyecto Supabase enlazado a produccion.
 
@@ -100,7 +102,7 @@ supabase db remote commit
 
 Tambien esta prohibido:
 
-- Aplicar manualmente `017_generated_topic_staging.sql` desde el SQL editor productivo.
+- Reaplicar manualmente `017_generated_topic_staging.sql` desde el SQL editor productivo.
 - Ejecutar pruebas SQL que creen batches, candidatos o sugerencias en produccion.
 - Usar `service_role` desde el frontend.
 - Crear seeds o datos permanentes para validar el generador.
@@ -160,7 +162,7 @@ Ademas del checklist general, confirmar:
 1. Confirmar entorno local descartable o proyecto dev remoto.
 2. Confirmar project ref y variables activas (ejecutar `node scripts/check-supabase-env.js`).
 3. Ejecutar `npx supabase migration list` para ver estado de migraciones.
-4. Aplicar migracion 017 solo en local/dev confirmado.
+4. Aplicar cualquier migracion pendiente solo en local/dev confirmado.
 5. Probar RLS: ejecutar checklist de `docs/generador-preguntas-politicas-pruebas.md`.
 6. Probar RPCs con usuarios admin/comun de prueba.
 7. Probar UI admin contra local/dev.
@@ -179,4 +181,4 @@ Ademas del checklist general, confirmar:
 
 ## Decision actual
 
-No se valida la migracion 017 en este workspace mientras apunte a produccion. El siguiente paso seguro es habilitar Supabase local con Docker o enlazar un proyecto Supabase dev remoto distinto de `pqqkvmmenqencuretwyx`.
+La migracion 017 ya figura aplicada en el remoto enlazado. No ejecutar pruebas con datos ni RPCs de escritura en produccion. Para cambios futuros o nuevas migraciones, el siguiente paso seguro sigue siendo habilitar Supabase local con Docker o enlazar un proyecto Supabase dev remoto distinto de `pqqkvmmenqencuretwyx`.

@@ -138,6 +138,8 @@ Migraciones aplicadas en produccion:
 - `001`–`012`: esquema base, RLS, solicitudes, auditoria, votaciones V3.
 - `013`: sistema de sugerencias de temas (`tema_sugerencias`) con RPC completa.
 - `014`: votaciones por opciones multiples (`tipo_votacion`, `opciones[]` en `temas`).
+- `015`-`016`: archivado controlado de temas.
+- `017`: staging de candidatos generados, revision humana y conversion controlada a `tema_sugerencias`.
 
 Validado manualmente:
 

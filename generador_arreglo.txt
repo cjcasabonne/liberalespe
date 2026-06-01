@@ -1,0 +1,204 @@
+Actúa como arquitecto senior de Supabase, RLS, RPCs y despliegue remoto seguro.
+
+Estoy cambiando de IA, así que este prompt es autosuficiente. No asumas memoria previa. Primero inspecciona el repositorio y verifica cada afirmación antes de actuar.
+
+OBJETIVO PRINCIPAL
+
+Quiero llevar el ecosistema previo del generador a Supabase REMOTO para que una rutina futura pueda alimentar Supabase de forma segura.
+
+IMPORTANTE:
+La rutina generadora todavía NO se implementa en esta tarea.
+Esta tarea debe dejar Supabase remoto preparado para recibir candidatos generados en staging, revisarlos y convertirlos controladamente a `tema_sugerencias`.
+
+NO crear generador.
+NO generar preguntas reales.
+NO crear seeds permanentes.
+NO abrir votaciones.
+NO crear temas oficiales directamente.
+NO insertar en `temas`.
+NO desactivar RLS.
+NO usar service role en frontend.
+NO modificar datos existentes salvo la aplicación controlada de la migración.
+NO desplegar frontend antes de aplicar la migración remota.
+
+CONTEXTO DEL PROYECTO
+
+La app es política y está hecha con:
+
+- React + Vite + TypeScript
+- Supabase Auth
+- PostgreSQL
+- RLS
+- RPCs
+
+La unidad votable actual se llama `tema`, no `pregunta`.
+
+Existen flujos con:
+
+- `temas`
+- `votos`
+- `tema_sugerencias`
+
+La arquitectura correcta es:
+
+rutina futura
+→ carga candidatos a staging en Supabase
+→ revisión humana
+→ aprobación / rechazo
+→ conversión controlada a `tema_sugerencias`
+→ estado `pendiente`
+→ flujo humano existente
+→ eventual conversión posterior a `temas`
+→ tema en `borrador`
+→ apertura manual
+
+Subir a Supabase NO significa abrir votación.
+
+CONTEXTO IDEOLÓGICO
+
+El proyecto tiene una sensibilidad liberal democrática:
+
+- libertad individual
+- igualdad ante la ley
+- mérito
+- responsabilidad individual
+- propiedad privada
+- emprendimiento
+- competencia
+- mercado libre
+- Estado limitado
+- desregulación
+- responsabilidad fiscal
+- instituciones fuertes
+- seguridad jurídica
+- lucha contra corrupción
+- anti-mercantilismo
+- control ciudadano del poder
+
+Ese marco NO debe convertirse en propaganda. Solo servirá después para evaluar candidatos futuros.
+
+ESTADO ACTUAL REPORTADO
+
+Ya se implementó un ecosistema previo al generador, pero aún no está validado/aplicado contra Supabase remoto seguro.
+
+Archivos relevantes:
+
+- `supabase/migrations/017_generated_topic_staging.sql`
+- `src/types.ts`
+- `src/App.tsx`
+- `docs/generador-preguntas-politicas.md`
+- `docs/generador-preguntas-politicas-pruebas.md`
+- `docs/supabase-entornos-seguros.md`
+- `scripts/check-supabase-env.js`
+- `package.json`
+
+La migración 017 debería crear:
+
+- `generated_topic_batches`
+- `generated_topic_candidates`
+
+También debería incluir RLS y RPCs:
+
+- `crear_generated_topic_batch`
+- `cargar_generated_topic_candidates`
+- `revisar_generated_topic_candidate`
+- `convertir_generated_candidate_a_sugerencia`
+
+Se reportó que:
+
+- no existe todavía rutina generadora;
+- no se generaron preguntas reales;
+- no se crearon seeds;
+- no se aplicó la migración;
+- no se ejecutó `supabase db push`;
+- el frontend fue endurecido para no romper si la migración no existe;
+- `loadPanelData()` ya no carga staging directamente;
+- existe `loadGeneratedStagingData()` o equivalente;
+- si falta la migración, la UI muestra:
+  “Ecosistema del generador no disponible. Aplica la migración 017 en Supabase.”
+- se agregó script:
+  `npm run check:supabase-env`
+
+BLOQUEO ANTERIOR
+
+El workspace apuntaba a producción:
+
+- rama: `main`
+- project ref productivo reportado: `pqqkvmmenqencuretwyx`
+- `.env.local` apuntaba a ese proyecto
+- Supabase local no estaba disponible
+- no se aplicó nada por seguridad
+
+OBJETIVO DE ESTA TAREA
+
+Preparar y aplicar la migración 017 en Supabase REMOTO de forma segura.
+
+Hay dos escenarios posibles:
+
+ESCENARIO A — Remoto DEV/STAGING
+
+Preferido para validar primero.
+
+Aplicar la migración 017 en un proyecto Supabase remoto que NO sea producción.
+
+ESCENARIO B — Remoto PRODUCCIÓN
+
+Solo permitido si se confirma explícitamente que el objetivo ahora es producción.
+
+En producción:
+- aplicar primero migración;
+- no crear datos de prueba;
+- no correr payloads ficticios;
+- no ejecutar pruebas que inserten registros;
+- desplegar frontend solo después de confirmar que la migración aplicó;
+- la rutina futura alimentará staging, no `temas`.
+
+REGLA DE CONFIRMACIÓN
+
+Antes de aplicar cualquier migración remota, debes confirmar y mostrar:
+
+- target environment: `dev`, `staging` o `production`
+- target project ref
+- project ref actual de `supabase/.temp/project-ref`
+- si coincide o no con producción conocida `pqqkvmmenqencuretwyx`
+- archivo env activo
+- rama actual
+- comando exacto que se va a ejecutar
+
+Si el objetivo es producción, exige confirmación explícita dentro del prompt o variables de entorno/documentación del usuario.
+
+Si no existe confirmación clara, ABORTAR antes de `db push`.
+
+TAREA 0 — INSPECCIÓN INICIAL
+
+Antes de modificar o aplicar nada, revisar:
+
+- `supabase/config.toml`
+- `supabase/.temp/project-ref` si existe
+- `supabase/.temp/linked-project.json` si existe
+- `.env.local`
+- `.env.dev.local` si existe
+- `.env.example` si existe
+- `README.md`
+- `package.json`
+- `src/lib/supabase.ts`
+- `supabase/migrations/017_generated_topic_staging.sql`
+- `docs/supabase-entornos-seguros.md`
+- `docs/generador-preguntas-politicas-pruebas.md`
+- `src/App.tsx`
+- `src/types.ts`
+
+No imprimir secretos completos.
+Enmascarar keys.
+
+Ejemplo:
+
+SUPABASE_URL=https://pqqk...supabase.co
+SUPABASE_ANON_KEY=eyJ...abcd
+
+TAREA 1 — EJECUTAR CHECK DE ENTORNO
+
+Ejecutar:
+
+```bash
+npm run check:supabase-env

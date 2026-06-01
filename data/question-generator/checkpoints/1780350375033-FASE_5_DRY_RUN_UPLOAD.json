@@ -1,0 +1,20 @@
+{
+  "phase": "FASE_5_DRY_RUN_UPLOAD",
+  "status": "ok",
+  "timestamp": "2026-06-01T21:46:15.033Z",
+  "mode": "dry_run",
+  "target": "generated_topic_candidates",
+  "expected_count": 80,
+  "would_insert": 80,
+  "batch_code": "qgen-v1-20260601214615",
+  "rpc_sequence": [
+    "crear_generated_topic_batch",
+    "cargar_generated_topic_candidates"
+  ],
+  "forbidden_actions": [
+    "revisar_generated_topic_candidate",
+    "convertir_generated_candidate_a_sugerencia",
+    "insert_temas",
+    "insert_votos"
+  ]
+}
