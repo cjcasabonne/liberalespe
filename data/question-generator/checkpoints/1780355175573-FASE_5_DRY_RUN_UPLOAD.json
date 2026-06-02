@@ -1,10 +1,12 @@
 {
+  "phase": "FASE_5_DRY_RUN_UPLOAD",
+  "status": "ok",
+  "timestamp": "2026-06-01T23:06:15.573Z",
   "mode": "dry_run",
   "target": "generated_topic_candidates",
   "expected_count": 80,
   "would_insert": 80,
-  "status": "ok",
-  "batch_code": "qgen-v1-20260601234713",
+  "batch_code": "qgen-v1-20260601230615",
   "rpc_sequence": [
     "crear_generated_topic_batch",
     "cargar_generated_topic_candidates"

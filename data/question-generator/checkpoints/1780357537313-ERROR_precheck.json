@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_precheck",
+  "status": "error",
+  "timestamp": "2026-06-01T23:45:37.313Z",
+  "error": "precheck_refuses_upload_confirm_true"
+}

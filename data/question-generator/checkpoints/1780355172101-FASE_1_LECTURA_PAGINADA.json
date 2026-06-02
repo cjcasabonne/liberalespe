@@ -1,6 +1,8 @@
 {
-  "generated_at": "2026-06-01T23:06:12.099Z",
-  "page_size": 100,
+  "phase": "FASE_1_LECTURA_PAGINADA",
+  "status": "ok",
+  "timestamp": "2026-06-01T23:06:12.101Z",
+  "processed_count": 0,
   "tables": [
     {
       "table": "temas",
@@ -23,6 +25,5 @@
       "row_count": 0,
       "message": "permission denied for table generated_topic_candidates"
     }
-  ],
-  "total_rows": 0
+  ]
 }
