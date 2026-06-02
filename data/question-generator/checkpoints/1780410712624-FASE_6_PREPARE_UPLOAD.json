@@ -1,0 +1,14 @@
+{
+  "phase": "PREPARE_UPLOAD",
+  "status": "checkpoint",
+  "timestamp": "2026-06-02T14:31:52.624Z",
+  "processed_count": 80,
+  "accumulated_count": 80,
+  "topic_progress": 16,
+  "batch_code": "qgen_20260602_143152_29c29745",
+  "artifacts": [
+    "data/question-generator/upload_staging_payload.json",
+    "data/question-generator/upload_staging.sql"
+  ],
+  "next_action": "apply_staging_sql_with_explicit_authorization_or_review_payload"
+}
