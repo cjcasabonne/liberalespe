@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_apply-upload",
+  "status": "error",
+  "timestamp": "2026-06-02T22:48:33.533Z",
+  "error": "apply_upload_blocked_requires_QGEN_APPLY_UPLOAD_CONFIRM_true"
+}

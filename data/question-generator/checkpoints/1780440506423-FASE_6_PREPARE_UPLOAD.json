@@ -1,0 +1,10 @@
+{
+  "phase": "FASE_6_PREPARE_UPLOAD",
+  "status": "ok",
+  "timestamp": "2026-06-02T22:48:26.423Z",
+  "batch_code": "qgen_20260602224826_56719fa7",
+  "expected_count": 80,
+  "topics": 16,
+  "per_topic": 5,
+  "next_action": "set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload"
+}

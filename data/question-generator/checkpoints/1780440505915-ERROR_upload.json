@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_upload",
+  "status": "error",
+  "timestamp": "2026-06-02T22:48:25.915Z",
+  "error": "qgen:upload_deprecated — usar: npm run qgen:prepare-upload && set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload"
+}
