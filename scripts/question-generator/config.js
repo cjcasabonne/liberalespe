@@ -10,6 +10,7 @@ const DOCS_DIR = path.join(ROOT_DIR, 'docs');
 
 const FILES = {
   state: path.join(DATA_DIR, 'estado_actual.json'),
+  stateDoc: path.join(DATA_DIR, 'estado_actual.md'),
   existing: path.join(DATA_DIR, 'preguntas_existentes.jsonl'),
   candidates: path.join(DATA_DIR, 'preguntas_candidatas.json'),
   valid: path.join(DATA_DIR, 'preguntas_validas.json'),
@@ -18,6 +19,8 @@ const FILES = {
   qa: path.join(DATA_DIR, 'qa_resultados.md'),
   orthography: path.join(DATA_DIR, 'ortografia_resultados.md'),
   upload: path.join(DATA_DIR, 'upload_result.json'),
+  uploadStagingPayload: path.join(DATA_DIR, 'upload_staging_payload.json'),
+  uploadStagingSql: path.join(DATA_DIR, 'upload_staging.sql'),
   routineDoc: path.join(DOCS_DIR, 'rutina_optima.md'),
 };
 

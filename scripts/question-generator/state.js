@@ -36,6 +36,7 @@ function validateExistingJsonFiles() {
     FILES.rejected,
     FILES.final,
     FILES.upload,
+    FILES.uploadStagingPayload,
   ];
 
   const result = [];
@@ -60,6 +61,16 @@ function writeCheckpoint(phase, status, extra = {}) {
   };
   writeJson(path.join(CHECKPOINT_DIR, `${Date.now()}-${phase}.json`), checkpoint);
   writeJson(FILES.state, checkpoint);
+
+  const mdContent =
+    `# Estado actual del generador\n\n` +
+    `- **Fase**: ${phase}\n` +
+    `- **Status**: ${status}\n` +
+    `- **Timestamp**: ${checkpoint.timestamp}\n\n` +
+    `## Datos del checkpoint\n\n` +
+    `\`\`\`json\n${JSON.stringify(extra, null, 2)}\n\`\`\`\n`;
+  fs.writeFileSync(FILES.stateDoc, mdContent, 'utf8');
+
   return checkpoint;
 }
 
