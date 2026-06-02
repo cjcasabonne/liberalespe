@@ -17,6 +17,8 @@ const { generateTopicCandidates } = require('./generate-topic');
 const { validateCandidates } = require('./validate-candidates');
 const { selectFinal } = require('./select-final');
 const { dryRunUpload, uploadReal } = require('./upload-staging');
+const { prepareUpload } = require('./prepare-upload');
+const { applyUpload } = require('./apply-upload');
 const { validateSpanishOrthography } = require('./orthography');
 
 const EXPECTED_RPCS = [
@@ -236,13 +238,35 @@ function dryRunPhase() {
 }
 
 async function uploadPhase() {
-  const result = await uploadReal();
-  writeRoutineDoc(true, result);
-  writeCheckpoint('FASE_6_UPLOAD_REAL', 'ok', {
-    inserted_rows: result.inserted_rows,
-    batch_id: result.batch_id,
+  throw new Error(
+    'qgen:upload_deprecated — usar: npm run qgen:prepare-upload && set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload'
+  );
+}
+
+function prepareUploadPhase() {
+  const result = prepareUpload();
+  writeCheckpoint('FASE_6_PREPARE_UPLOAD', 'ok', {
+    batch_code: result.batch_code,
+    expected_count: result.expected_count,
+    topics: result.topics,
+    per_topic: result.per_topic,
+    next_action: 'set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload',
   });
-  log(`upload ok: inserted ${result.inserted_rows}`);
+  log(`prepare-upload ok: batch ${result.batch_code}, ${result.expected_count} candidatos`);
+  return result;
+}
+
+async function applyUploadPhase() {
+  const result = applyUpload();
+  writeCheckpoint('FASE_7_APPLY_UPLOAD', 'ok', {
+    routine_status: result.routine_status,
+    batch_code: result.batch_code,
+    inserted_candidates: result.inserted_candidates,
+    topics: result.topics,
+    per_topic: result.per_topic,
+    next_action: result.next_action,
+  });
+  log(`apply-upload ok: ${result.inserted_candidates} candidatos subidos — batch ${result.batch_code}`);
   return result;
 }
 
@@ -390,6 +414,8 @@ async function main() {
     else if (command === 'select') selectPhase();
     else if (command === 'dry-run') dryRunPhase();
     else if (command === 'upload') await uploadPhase();
+    else if (command === 'prepare-upload') prepareUploadPhase();
+    else if (command === 'apply-upload') await applyUploadPhase();
     else throw new Error(`unknown_command:${command || '(missing)'}`);
   } catch (error) {
     writeCheckpoint(`ERROR_${command || 'unknown'}`, 'error', { error: error.message });

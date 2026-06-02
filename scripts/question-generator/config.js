@@ -18,6 +18,10 @@ const FILES = {
   qa: path.join(DATA_DIR, 'qa_resultados.md'),
   orthography: path.join(DATA_DIR, 'ortografia_resultados.md'),
   upload: path.join(DATA_DIR, 'upload_result.json'),
+  stagingPayload: path.join(DATA_DIR, 'upload_staging_payload.json'),
+  stagingSql: path.join(DATA_DIR, 'upload_staging.sql'),
+  applyResult: path.join(DATA_DIR, 'apply_upload_result.json'),
+  postAudit: path.join(DATA_DIR, 'post_upload_audit.md'),
   routineDoc: path.join(DOCS_DIR, 'rutina_optima.md'),
 };
 
