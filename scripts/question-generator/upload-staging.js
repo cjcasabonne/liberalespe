@@ -1,5 +1,7 @@
-const { createClient } = require('@supabase/supabase-js');
-const { FILES, TOTAL_TARGET, getSupabaseEnv } = require('./config');
+const fs = require('fs');
+const crypto = require('crypto');
+const { FILES, TOTAL_TARGET, PER_TOPIC_TARGET, getSupabaseEnv } = require('./config');
+const { TOPICS } = require('./topics');
 const { readJson, writeJson } = require('./state');
 const { validateFinalSet } = require('./editorial-rules');
 const { validateSpanishOrthography } = require('./orthography');
@@ -55,68 +57,210 @@ function dryRunUpload() {
   return result;
 }
 
-async function uploadReal() {
-  if (process.env.QGEN_UPLOAD_CONFIRM !== 'true') {
-    throw new Error('upload_blocked_requires_QGEN_UPLOAD_CONFIRM_true');
-  }
-
-  const dryRun = readJson(FILES.upload, null);
-  if (!dryRun || dryRun.mode !== 'dry_run' || dryRun.status !== 'ok' || dryRun.would_insert !== TOTAL_TARGET) {
-    throw new Error('successful_dry_run_required_before_upload');
-  }
-
-  const env = getSupabaseEnv();
-  if (!env.url || !env.anonKey || !env.accessToken) {
-    throw new Error('upload_requires_url_anon_key_and_QGEN_SUPABASE_ACCESS_TOKEN');
-  }
-
-  const candidates = readJson(FILES.final, []);
-  const validation = validateFinalSet(candidates);
-  if (!validation.ok) {
-    throw new Error(`upload_final_invalid:${validation.errors.join(',')}`);
-  }
-
-  const client = createClient(env.url, env.anonKey, {
-    global: { headers: { Authorization: `Bearer ${env.accessToken}` } },
-  });
-
-  const batchCode = dryRun.batch_code || `qgen-v1-${Date.now()}`;
-  const { data: batchData, error: batchError } = await client.rpc('crear_generated_topic_batch', {
-    p_batch_code: batchCode,
-    p_expected_count: TOTAL_TARGET,
-    p_source: 'question_generator_v1',
-    p_ideological_profile: 'liberal_democratic',
-    p_notes: 'Carga controlada de candidatos generados. No publica ni convierte.',
-  });
-
-  if (batchError) throw new Error(`crear_generated_topic_batch_failed:${batchError.message}`);
-  const batchId = Array.isArray(batchData) ? batchData[0]?.batch_id : batchData?.batch_id;
-  if (!batchId) throw new Error('batch_id_missing');
-
-  const payload = buildPayload(candidates);
-  const { data: loadData, error: loadError } = await client.rpc('cargar_generated_topic_candidates', {
-    p_batch_id: batchId,
-    p_candidates: payload,
-  });
-
-  if (loadError) throw new Error(`cargar_generated_topic_candidates_failed:${loadError.message}`);
-  const loadResult = Array.isArray(loadData) ? loadData[0] : loadData;
-  if (!loadResult || loadResult.inserted_rows !== TOTAL_TARGET || loadResult.candidate_ids?.length !== TOTAL_TARGET) {
-    throw new Error('upload_inserted_rows_mismatch');
-  }
-
-  const result = {
-    mode: 'real_upload',
-    target: 'generated_topic_candidates',
-    batch_id: batchId,
-    batch_code: batchCode,
-    expected_count: TOTAL_TARGET,
-    inserted_rows: loadResult.inserted_rows,
-    candidate_ids: loadResult.candidate_ids,
-    status: 'ok',
-  };
-  writeJson(FILES.upload, result);
-  return result;
+function buildStagingSql(batchCode, candidatesJson) {
+  const dollarTag = '$qgen_candidates_v1$';
+  return `BEGIN;\n\n` +
+    `-- Artefacto generado por qgen:prepare-upload.\n` +
+    `-- NO ejecutar sin autorización explícita del operador.\n` +
+    `-- NO toca temas. NO toca votos. NO toca tema_sugerencias.\n` +
+    `-- Solo inserta en generated_topic_batches y generated_topic_candidates.\n` +
+    `-- La revisión humana ocurre después en el panel Generador.\n\n` +
+    `DO $$\n` +
+    `DECLARE\n` +
+    `  v_batch_id uuid;\n` +
+    `  v_batch_code text := '${batchCode}';\n` +
+    `  v_expected_count integer := ${TOTAL_TARGET};\n` +
+    `  v_inserted_count integer;\n` +
+    `  v_duplicate_count integer;\n` +
+    `BEGIN\n` +
+    `  IF EXISTS (\n` +
+    `    SELECT 1 FROM generated_topic_batches WHERE batch_code = v_batch_code\n` +
+    `  ) THEN\n` +
+    `    RAISE EXCEPTION 'Batch code ya cargado: %', v_batch_code;\n` +
+    `  END IF;\n\n` +
+    `  INSERT INTO generated_topic_batches (\n` +
+    `    batch_code, status, expected_count, source, metadata, created_at\n` +
+    `  )\n` +
+    `  VALUES (\n` +
+    `    v_batch_code,\n` +
+    `    'pending_review',\n` +
+    `    v_expected_count,\n` +
+    `    'question-generator',\n` +
+    `    jsonb_build_object(\n` +
+    `      'prepared_by', 'qgen:prepare-upload',\n` +
+    `      'review_flow', 'panel_generador',\n` +
+    `      'does_not_touch', ARRAY['temas', 'votos', 'tema_sugerencias']\n` +
+    `    ),\n` +
+    `    now()\n` +
+    `  )\n` +
+    `  RETURNING id INTO v_batch_id;\n\n` +
+    `  WITH candidates_data(candidate) AS (\n` +
+    `    SELECT jsonb_array_elements(${dollarTag}\n` +
+    `${candidatesJson}\n` +
+    `${dollarTag}::jsonb)\n` +
+    `  )\n` +
+    `  INSERT INTO generated_topic_candidates (\n` +
+    `    batch_id, topic, title, description, options,\n` +
+    `    duplicate_fingerprint, status, raw_payload, created_at\n` +
+    `  )\n` +
+    `  SELECT\n` +
+    `    v_batch_id,\n` +
+    `    COALESCE(candidate->'raw_payload'->>'topic_target', candidate->'taxonomy_draft'->>'eje_tematico'),\n` +
+    `    candidate->>'titulo',\n` +
+    `    candidate->>'descripcion',\n` +
+    `    candidate->'opciones',\n` +
+    `    candidate->>'duplicate_fingerprint',\n` +
+    `    'pending_review',\n` +
+    `    candidate,\n` +
+    `    now()\n` +
+    `  FROM candidates_data;\n\n` +
+    `  GET DIAGNOSTICS v_inserted_count = ROW_COUNT;\n\n` +
+    `  IF v_inserted_count <> v_expected_count THEN\n` +
+    `    RAISE EXCEPTION 'Conteo inválido. Insertados %, esperados %', v_inserted_count, v_expected_count;\n` +
+    `  END IF;\n\n` +
+    `  SELECT COUNT(*) INTO v_duplicate_count\n` +
+    `  FROM (\n` +
+    `    SELECT duplicate_fingerprint\n` +
+    `    FROM generated_topic_candidates\n` +
+    `    WHERE batch_id = v_batch_id\n` +
+    `    GROUP BY duplicate_fingerprint\n` +
+    `    HAVING COUNT(*) > 1\n` +
+    `  ) d;\n\n` +
+    `  IF v_duplicate_count > 0 THEN\n` +
+    `    RAISE EXCEPTION 'Duplicados detectados por batch/fingerprint: %', v_duplicate_count;\n` +
+    `  END IF;\n\n` +
+    `  UPDATE generated_topic_batches\n` +
+    `  SET status = 'pending_review', inserted_count = v_inserted_count, updated_at = now()\n` +
+    `  WHERE id = v_batch_id;\n` +
+    `END $$;\n\n` +
+    `COMMIT;\n`;
 }
 
-module.exports = { dryRunUpload, uploadReal, buildPayload };
+function prepareUpload() {
+  if (process.env.QGEN_SUPABASE_ACCESS_TOKEN) {
+    throw new Error('prepare_upload_aborted:QGEN_SUPABASE_ACCESS_TOKEN_not_allowed_in_prepare-upload');
+  }
+
+  const dryRunResult = readJson(FILES.upload, null);
+  if (!dryRunResult || dryRunResult.mode !== 'dry_run' || dryRunResult.status !== 'ok') {
+    throw new Error('prepare_upload_requires_approved_dry_run:run_qgen_dry-run_first');
+  }
+  const dryRunCount = dryRunResult.would_insert ?? dryRunResult.expected_count;
+  if (dryRunCount !== TOTAL_TARGET) {
+    throw new Error(`prepare_upload_dry_run_count_mismatch:expected_${TOTAL_TARGET}_got_${dryRunCount}`);
+  }
+
+  const candidates = readJson(FILES.final, null);
+  if (!candidates) {
+    throw new Error('prepare_upload_preguntas_finales_missing');
+  }
+  if (!Array.isArray(candidates) || candidates.length !== TOTAL_TARGET) {
+    const got = Array.isArray(candidates) ? candidates.length : 'non-array';
+    throw new Error(`prepare_upload_invalid_count:expected_${TOTAL_TARGET}_got_${got}`);
+  }
+
+  const officialTopicIds = TOPICS.map((t) => t.id);
+  const byTopic = {};
+  for (const candidate of candidates) {
+    const topic = candidate.raw_payload?.topic_target || candidate.taxonomy_draft?.eje_tematico;
+    if (!topic || !officialTopicIds.includes(topic)) {
+      throw new Error(`prepare_upload_invalid_topic:${topic}:candidate_${candidate.candidate_id}`);
+    }
+    byTopic[topic] = (byTopic[topic] || 0) + 1;
+  }
+  for (const topicId of officialTopicIds) {
+    const count = byTopic[topicId] || 0;
+    if (count !== PER_TOPIC_TARGET) {
+      throw new Error(`prepare_upload_topic_count_invalid:${topicId}=${count}_expected_${PER_TOPIC_TARGET}`);
+    }
+  }
+
+  const fingerprints = new Set();
+  for (const candidate of candidates) {
+    if (!candidate.duplicate_fingerprint) {
+      throw new Error(`prepare_upload_missing_fingerprint:${candidate.candidate_id}`);
+    }
+    if (fingerprints.has(candidate.duplicate_fingerprint)) {
+      throw new Error(`prepare_upload_duplicate_fingerprint:${candidate.duplicate_fingerprint}`);
+    }
+    fingerprints.add(candidate.duplicate_fingerprint);
+  }
+
+  for (const candidate of candidates) {
+    if (!candidate.titulo || !candidate.titulo.startsWith('¿') || !candidate.titulo.endsWith('?')) {
+      throw new Error(`prepare_upload_invalid_title_format:${candidate.candidate_id}`);
+    }
+  }
+
+  const orthographyErrors = candidates.flatMap((candidate) => {
+    const result = validateSpanishOrthography(candidate);
+    return result.ok ? [] : result.errors.map((e) => `${candidate.candidate_id}:${e}`);
+  });
+  if (orthographyErrors.length > 0) {
+    throw new Error(`prepare_upload_orthography_invalid:${orthographyErrors.slice(0, 3).join(';')}`);
+  }
+
+  const now = new Date();
+  const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+  const timeStr = now.toISOString().slice(11, 19).replace(/:/g, '');
+  const hashInput = candidates.map((c) => c.duplicate_fingerprint).sort().join(':');
+  const shortHash = crypto.createHash('sha256').update(hashInput).digest('hex').slice(0, 8);
+  const batchCode = `qgen_${dateStr}_${timeStr}_${shortHash}`;
+
+  const topicCounts = {};
+  for (const topicId of officialTopicIds) {
+    topicCounts[topicId] = byTopic[topicId];
+  }
+
+  const stagingPayload = {
+    batch_code: batchCode,
+    expected_count: TOTAL_TARGET,
+    source_file: 'data/question-generator/preguntas_finales.json',
+    created_at: now.toISOString(),
+    status: 'prepared',
+    topics: topicCounts,
+    candidates: candidates.map((c) => ({
+      topic: c.raw_payload?.topic_target || c.taxonomy_draft?.eje_tematico,
+      title: c.titulo,
+      description: c.descripcion,
+      options: c.opciones,
+      duplicate_fingerprint: c.duplicate_fingerprint,
+      status: 'pending_review',
+      raw_payload: c,
+    })),
+  };
+  writeJson(FILES.uploadStagingPayload, stagingPayload);
+
+  const candidatesJson = JSON.stringify(candidates, null, 2);
+  const sql = buildStagingSql(batchCode, candidatesJson);
+  fs.writeFileSync(FILES.uploadStagingSql, sql, 'utf8');
+
+  return {
+    batch_code: batchCode,
+    expected_count: TOTAL_TARGET,
+    candidates_count: candidates.length,
+    topics_count: officialTopicIds.length,
+    artifacts: [
+      'data/question-generator/upload_staging_payload.json',
+      'data/question-generator/upload_staging.sql',
+    ],
+    dry_run_passed: true,
+    prepare_upload_passed: true,
+    manual_token_required: false,
+    qgen_login_required: false,
+    session_file_required: false,
+    real_upload_executed: false,
+    next_action: 'apply_staging_sql_with_explicit_authorization_or_review_payload',
+    status: 'prepared',
+  };
+}
+
+// uploadReal is deprecated. The new flow uses qgen:prepare-upload.
+// Claude Code / Supabase CLI applies upload_staging.sql with explicit authorization.
+async function uploadReal() {
+  throw new Error(
+    'uploadReal_deprecated:use_qgen:prepare-upload_then_apply_upload_staging.sql_with_explicit_authorization'
+  );
+}
+
+module.exports = { dryRunUpload, uploadReal, buildPayload, prepareUpload };

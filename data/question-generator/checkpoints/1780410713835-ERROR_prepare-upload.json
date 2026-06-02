@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_prepare-upload",
+  "status": "error",
+  "timestamp": "2026-06-02T14:31:53.835Z",
+  "error": "prepare_upload_aborted:QGEN_SUPABASE_ACCESS_TOKEN_not_allowed_in_prepare-upload"
+}

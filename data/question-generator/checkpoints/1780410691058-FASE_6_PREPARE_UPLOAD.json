@@ -1,11 +1,11 @@
 {
   "phase": "PREPARE_UPLOAD",
   "status": "checkpoint",
-  "timestamp": "2026-06-02T14:31:58.121Z",
+  "timestamp": "2026-06-02T14:31:31.058Z",
   "processed_count": 80,
   "accumulated_count": 80,
   "topic_progress": 16,
-  "batch_code": "qgen_20260602_143158_29c29745",
+  "batch_code": "qgen_20260602_143131_29c29745",
   "artifacts": [
     "data/question-generator/upload_staging_payload.json",
     "data/question-generator/upload_staging.sql"

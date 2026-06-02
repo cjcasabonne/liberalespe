@@ -1,12 +1,12 @@
-# Rutina óptima del generador político
+# Rutina óptima del generador político v3
 
 ## 1. Objetivo
 
-La rutina genera, valida, selecciona y prepara candidatos para staging en Supabase. No publica temas, no convierte candidatos, no abre votaciones y no escribe en tablas oficiales durante el dry-run.
+La rutina genera, valida, selecciona y prepara candidatos para staging en Supabase. No publica temas, no convierte candidatos, no abre votaciones y no escribe en tablas oficiales. La carga real la aplica Claude Code/Supabase CLI con autorización explícita.
 
 ## 2. Arquitectura final
 
-lectura paginada -> generación por topic -> validación -> selección 5 por topic -> dry-run -> upload controlado a staging -> revisión humana posterior.
+lectura paginada -> generación incremental por topic -> validación incremental -> selección 5 por topic -> dry-run -> prepare-upload -> Claude Code/Supabase CLI aplica upload_staging.sql -> revisión humana posterior.
 
 ## 3. Topics y distribución
 
@@ -27,22 +27,22 @@ lectura paginada -> generación por topic -> validación -> selección 5 por top
 - ciudadania_y_control_del_poder
 - innovacion_y_competitividad
 
-Cada topic debe terminar con 5 candidatos. Total final: 80.
+Cada topic: 5 candidatos. Total final exacto: 80.
 
 ## 4. Archivos usados
 
-- scripts/question-generator/*.js
 - data/question-generator/preguntas_existentes.jsonl
 - data/question-generator/preguntas_candidatas.json
 - data/question-generator/preguntas_validas.json
 - data/question-generator/preguntas_rechazadas.json
 - data/question-generator/preguntas_finales.json
-- data/question-generator/upload_result.json
+- data/question-generator/upload_staging_payload.json
+- data/question-generator/upload_staging.sql
 - data/question-generator/checkpoints/
 - data/question-generator/topics/
 - data/question-generator/qa_resultados.md
 
-## 5. Comandos probados
+## 5. Comandos
 
 - npm run qgen:precheck
 - npm run qgen:read
@@ -50,60 +50,52 @@ Cada topic debe terminar con 5 candidatos. Total final: 80.
 - npm run qgen:validate
 - npm run qgen:select
 - npm run qgen:dry-run
+- npm run qgen:prepare-upload
 - npm run build
 - git diff --check
 
-## 6. Errores encontrados y correcciones útiles
+## 6. Carga real (fuera de la rutina local)
 
-- La RPC de carga exige coincidencia exacta con expected_count cuando existe. Por eso v1 crea batch al final y carga los 80 candidatos en una sola llamada durante upload real autorizado.
-- Las tablas staging pueden estar bloqueadas para anon por RLS. La lectura paginada registra ese bloqueo como resultado esperado y no intenta elevar permisos ni usar service role.
-- Las fases son dependientes: validate debe terminar antes de select. Ejecutarlas en paralelo puede producir un fallo temporal por archivos aun no escritos.
-- El upload real queda bloqueado por defecto y exige QGEN_UPLOAD_CONFIRM=true mas un token de usuario autorizado.
+Con autorización explícita del operador:
 
-## Patch ortográfico permanente
+```bash
+supabase db query < data/question-generator/upload_staging.sql
+```
 
-El problema detectado fue que las preguntas y notas se generaban sin ortografía española completa. La corrección no se aplica manualmente al JSON final: existe el módulo scripts/question-generator/orthography.js, integrado a generación, validación, selección y dry-run.
+O via RPCs con contexto auth válido:
 
-El módulo corrige título, descripción, opciones visibles, neutrality_notes y quality_notes. No toca candidate_id, tipo_votacion, publico_objetivo, taxonomy_draft.eje_tematico, taxonomy_draft.enfoque, taxonomy_draft.intensidad_de_debate, ideological_axis, deliberative_tension, duplicate_fingerprint ni raw_payload técnico.
+```sql
+select crear_generated_topic_batch(...);
+select cargar_generated_topic_candidates(...);
+```
 
-Los títulos deben usar el formato ¿...?. Los fingerprints se calculan con normalizeText, que elimina tildes y puntuación antes de hashear, por lo que el agregado de acentos y signo inicial no cambia la identidad normalizada del candidato.
+## 7. Reglas de seguridad
 
-Comandos probados después del patch: npm run qgen:generate, npm run qgen:validate, npm run qgen:select, npm run qgen:dry-run, npm run build y git diff --check.
-
-## 7. Flujo final recomendado
-
-1. npm run qgen:precheck
-2. npm run qgen:read
-3. npm run qgen:generate
-4. npm run qgen:validate
-5. npm run qgen:select
-6. npm run qgen:dry-run
-7. revisar data/question-generator/preguntas_finales.json
-8. si se autoriza carga real: QGEN_UPLOAD_CONFIRM=true npm run qgen:upload
-
-## 8. Reglas de seguridad
-
-- No publica.
-- No convierte.
-- No abre votaciones.
-- No toca temas.
-- No toca votos.
-- No toca tema_sugerencias.
-- Upload real requiere confirmacion explicita.
+- No publica. No convierte. No abre votaciones.
+- No toca temas, votos, ni tema_sugerencias.
+- prepare-upload no conecta a red, no pide token, no usa qgen:login.
 - Revisión humana posterior obligatoria.
+- La carga real solo crea registros en generated_topic_batches y generated_topic_candidates.
 
-Criterios adicionales del patch ortográfico: 80 candidatos finales con ortografía española correcta, 80 títulos con ¿ inicial y ? final, cero ocurrencias visibles de palabras críticas sin tilde y dry-run aprobado después del patch.
-
-## 9. Estado final
+## 8. Estado final
 
 ```json
 {
-  "routine_status": "functional_dry_run_ready",
+  "routine_status": "upload_prepared_for_claude_supabase_cli",
   "topics": 16,
   "per_topic": 5,
   "final_candidates": 80,
   "dry_run_passed": true,
+  "prepare_upload_passed": true,
+  "artifacts": [
+    "data/question-generator/upload_staging_payload.json",
+    "data/question-generator/upload_staging.sql"
+  ],
+  "manual_token_required": false,
+  "qgen_login_required": false,
+  "session_file_required": false,
   "real_upload_executed": false,
-  "next_action": "human_review_or_authorized_upload"
+  "next_action": "apply_staging_sql_with_explicit_authorization_or_review_payload",
+  "timestamp": "2026-06-02T14:31:58.121Z"
 }
 ```
