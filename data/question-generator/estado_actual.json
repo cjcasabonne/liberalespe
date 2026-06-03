@@ -1,6 +1,11 @@
 {
-  "phase": "ERROR_upload",
-  "status": "error",
-  "timestamp": "2026-06-01T23:49:39.456Z",
-  "error": "upload_requires_url_anon_key_and_QGEN_SUPABASE_ACCESS_TOKEN"
+  "phase": "PREPARE_UPLOAD",
+  "status": "blocked",
+  "reason": "supabase_mcp_no_accede_al_proyecto_pqqkvmmenqencuretwyx",
+  "batch_code": "qgen_20260603180450_9ecfea4d",
+  "expected_count": 80,
+  "sql_file": "data/question-generator/upload_staging.sql",
+  "payload_file": "data/question-generator/upload_staging_payload.json",
+  "next_action": "ejecutar_upload_staging_sql_manualmente_contra_proyecto_pqqkvmmenqencuretwyx",
+  "timestamp": "2026-06-03T18:06:31.406Z"
 }

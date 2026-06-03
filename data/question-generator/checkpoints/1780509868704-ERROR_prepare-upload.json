@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_prepare-upload",
+  "status": "error",
+  "timestamp": "2026-06-03T18:04:28.704Z",
+  "error": "prepare_upload_sql_contains_forbidden_pattern:ALTER"
+}
