@@ -1,0 +1,18 @@
+{
+  "phase": "APPLY_UPLOAD",
+  "status": "ok",
+  "batch_mode": "resume",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "batch_code": "qgen_20260603211531_1436b730",
+  "batch_id": "a2b8c6be-5451-4d8f-8832-428040edf4a2",
+  "target": "generated_topic_candidates",
+  "db_before": 80,
+  "db_after": 160,
+  "delta": 80,
+  "total_inserted": 80,
+  "batch_status": "loaded",
+  "published": false,
+  "converted": false,
+  "timestamp": "2026-06-03T21:30:00.000Z",
+  "next_action": "post_upload_audit"
+}
