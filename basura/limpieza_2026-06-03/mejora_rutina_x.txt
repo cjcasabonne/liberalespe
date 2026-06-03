@@ -1,0 +1,31 @@
+La rutina en "rutina_optima2" v4 cumple el diseño, pero no cumple operativamente porque `qgen:apply-upload` usa `npx supabase db query`, comando que no debe asumirse disponible.
+
+Corrige `apply-upload` para usar un mecanismo real:
+
+Opción preferida:
+- usar `psql` con variable `SUPABASE_DB_URL`
+- ejecutar `data/question-generator/upload_staging.sql`
+- exigir `QGEN_APPLY_UPLOAD_CONFIRM=true`
+- exigir que el SQL pase validación de seguridad
+- generar `apply_upload_result.json`
+- generar `post_upload_audit.md`
+
+No usar:
+- qgen:login
+- QGEN_SUPABASE_ACCESS_TOKEN
+- service role frontend
+- insert directo a temas
+- insert directo a votos
+- insert directo a tema_sugerencias
+
+Si no existe `SUPABASE_DB_URL`, abortar con:
+apply_upload_requires_SUPABASE_DB_URL_or_manual_sql_execution
+
+Actualizar `docs/rutina_optima.md` para decir que `prepare-upload` prepara y `apply-upload` ejecuta vía `psql` o, si no hay DB URL, se debe ejecutar el SQL con la integración Supabase de Claude/SQL Editor.
+
+Luego probar:
+npm run qgen:prepare-upload
+npm run build
+git diff --check
+
+No ejecutar apply-upload sin confirmación explícita.

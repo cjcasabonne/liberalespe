@@ -40,6 +40,7 @@ Cada topic debe terminar con 5 candidatos. Total final: 80.
 - data/question-generator/upload_result.json
 - data/question-generator/checkpoints/
 - data/question-generator/topics/
+- data/question-generator/batches/<batch_code>/  (archivo histórico por lote)
 - data/question-generator/qa_resultados.md
 
 ## 5. Comandos probados
@@ -50,6 +51,7 @@ Cada topic debe terminar con 5 candidatos. Total final: 80.
 - npm run qgen:validate
 - npm run qgen:select
 - npm run qgen:dry-run
+- npm run qgen:new-batch
 - npm run build
 - git diff --check
 
@@ -59,6 +61,30 @@ Cada topic debe terminar con 5 candidatos. Total final: 80.
 - Las tablas staging pueden estar bloqueadas para anon por RLS. La lectura paginada registra ese bloqueo como resultado esperado y no intenta elevar permisos ni usar service role.
 - Las fases son dependientes: validate debe terminar antes de select. Ejecutarlas en paralelo puede producir un fallo temporal por archivos aun no escritos.
 - El upload real queda bloqueado por defecto y exige QGEN_UPLOAD_CONFIRM=true mas un token de usuario autorizado.
+- Si el mismo batch_code ya está en Supabase, apply-upload emite CHECKPOINT IDEMPOTENCIA y no duplica.
+
+## Modo recurrente: new-batch
+
+Por qué existe: la rutina es idempotente para el mismo lote. Si se necesitan otros 80 candidatos distintos, el modo new-batch archiva el lote anterior y reinicia el estado vivo para un ciclo completo nuevo.
+
+Cómo archiva lotes anteriores: mueve todos los archivos vivos del lote (candidatas, válidas, rechazadas, finales, payload, SQL, resultado, auditoría, QA, ortografía) a data/question-generator/batches/<batch_code>/. Nunca borra sin archivar.
+
+Cómo evita duplicados: borra preguntas_existentes.jsonl para forzar relectura de Supabase. En la siguiente ejecución de qgen:read, todos los candidatos ya cargados (incluyendo el lote anterior) entran al corpus anti-duplicado, por lo que ningún fingerprint ya usado puede repetirse.
+
+Cómo genera otros 80: después de archivar y releer Supabase, el flujo normal genera 80 candidatos con fingerprints no usados. Si antes había 80, Supabase pasa a 160. La siguiente ejecución de new-batch pasa de 160 a 240.
+
+Diferencia entre resume y new-batch:
+- resume (comandos normales sin new-batch): retoma el lote actual. Si los 80 ya están cargados, detecta idempotencia y emite CHECKPOINT IDEMPOTENCIA.
+- new-batch: archiva el lote actual, reinicia estado, relee Supabase, genera lote completamente nuevo.
+
+Salida esperada de new-batch:
+[qgen] new-batch ok: lote anterior archivado en batches/<batch_code>
+[qgen]   archivos archivados: N
+[qgen]   corpus limpiado: re-leer Supabase con qgen:read antes de generar
+[qgen]   próxima acción: npm run qgen:read
+
+Salida esperada de apply-upload cuando el lote ya existe (idempotencia):
+CHECKPOINT IDEMPOTENCIA ✅  Batch ya existente confirmado.
 
 ## Patch ortográfico permanente
 
@@ -72,14 +98,28 @@ Comandos probados después del patch: npm run qgen:generate, npm run qgen:valida
 
 ## 7. Flujo final recomendado
 
+Primera ejecución (0 candidatos en Supabase):
 1. npm run qgen:precheck
 2. npm run qgen:read
 3. npm run qgen:generate
 4. npm run qgen:validate
 5. npm run qgen:select
 6. npm run qgen:dry-run
-7. revisar data/question-generator/preguntas_finales.json
-8. si se autoriza carga real: QGEN_UPLOAD_CONFIRM=true npm run qgen:upload
+7. npm run qgen:prepare-upload
+8. (aplicar upload_staging.sql en Supabase)
+
+Segundo lote (80 ya en Supabase, generar 80 más):
+1. npm run qgen:new-batch
+2. npm run qgen:read  (relee corpus incluyendo los 80 anteriores)
+3. npm run qgen:generate
+4. npm run qgen:validate
+5. npm run qgen:select
+6. npm run qgen:dry-run
+7. npm run qgen:prepare-upload
+8. revisar data/question-generator/upload_staging.sql y upload_staging_payload.json
+9. Opcion A (canonico): pedirle a Claude Code que ejecute upload_staging.sql via Supabase MCP/integracion.
+   Opcion B (fallback psql): set SUPABASE_DB_URL=<connection_string> && set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload
+   Si no hay SUPABASE_DB_URL: ejecutar upload_staging.sql manualmente en el SQL Editor de Supabase.
 
 ## 8. Reglas de seguridad
 
@@ -90,6 +130,7 @@ Comandos probados después del patch: npm run qgen:generate, npm run qgen:valida
 - No toca votos.
 - No toca tema_sugerencias.
 - Upload real requiere confirmacion explicita.
+- new-batch archiva antes de borrar. Nunca destruye sin respaldar.
 - Revisión humana posterior obligatoria.
 
 Criterios adicionales del patch ortográfico: 80 candidatos finales con ortografía española correcta, 80 títulos con ¿ inicial y ? final, cero ocurrencias visibles de palabras críticas sin tilde y dry-run aprobado después del patch.
@@ -98,12 +139,13 @@ Criterios adicionales del patch ortográfico: 80 candidatos finales con ortograf
 
 ```json
 {
-  "routine_status": "functional_dry_run_ready",
+  "routine_status": "upload_prepared_for_apply",
   "topics": 16,
   "per_topic": 5,
   "final_candidates": 80,
   "dry_run_passed": true,
-  "real_upload_executed": false,
-  "next_action": "human_review_or_authorized_upload"
+  "prepare_upload_passed": true,
+  "apply_upload_executed": false,
+  "next_action": "set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload"
 }
 ```

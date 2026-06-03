@@ -1,8 +1,8 @@
 {
   "phase": "FASE_6_PREPARE_UPLOAD",
   "status": "ok",
-  "timestamp": "2026-06-03T21:15:31.875Z",
-  "batch_code": "qgen_20260603211531_1436b730",
+  "timestamp": "2026-06-02T22:14:51.215Z",
+  "batch_code": "qgen_20260602221450_1436b730",
   "candidates": 80,
   "topics": {
     "libertad_individual": 5,

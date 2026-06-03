@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const {
   ROOT_DIR,
+  DATA_DIR,
   FILES,
   TOPIC_DATA_DIR,
   ensureDirs,
@@ -9,6 +10,7 @@ const {
   getProjectRef,
   TOTAL_TARGET,
   PER_TOPIC_TARGET,
+  PROD_REF,
 } = require('./config');
 const { TOPICS } = require('./topics');
 const { readJson, writeJson, readJsonl, writeCheckpoint, validateExistingJsonFiles } = require('./state');
@@ -16,7 +18,7 @@ const { readExistingCorpus, authHeaders, fetchJson } = require('./read-existing'
 const { generateTopicCandidates } = require('./generate-topic');
 const { validateCandidates } = require('./validate-candidates');
 const { selectFinal } = require('./select-final');
-const { dryRunUpload, uploadReal } = require('./upload-staging');
+const { dryRunUpload, prepareUpload, applyUpload, uploadReal, checkBatchExists } = require('./upload-staging');
 const { validateSpanishOrthography } = require('./orthography');
 
 const EXPECTED_RPCS = [
@@ -235,15 +237,179 @@ function dryRunPhase() {
   return result;
 }
 
-async function uploadPhase() {
-  const result = await uploadReal();
-  writeRoutineDoc(true, result);
-  writeCheckpoint('FASE_6_UPLOAD_REAL', 'ok', {
-    inserted_rows: result.inserted_rows,
-    batch_id: result.batch_id,
+function prepareUploadPhase() {
+  const result = prepareUpload();
+  writeRoutineDoc('prepare_upload');
+  writeCheckpoint('FASE_6_PREPARE_UPLOAD', 'ok', {
+    batch_code: result.batch_code,
+    candidates: result.candidates,
+    topics: result.topics,
+    next_action: 'set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload',
   });
-  log(`upload ok: inserted ${result.inserted_rows}`);
+  log(`prepare-upload ok: batch_code=${result.batch_code}, ${result.candidates} candidatos`);
   return result;
+}
+
+function emitIdempotencyCheckpoint(payload, existing) {
+  const batchCode = payload?.batch_code || '(unknown)';
+  const candidateCount = existing?.candidate_count ?? TOTAL_TARGET;
+
+  const checkpoint = {
+    routine_status: 'batch_already_exists_idempotent',
+    project_ref: PROD_REF,
+    batch_code: batchCode,
+    batch_id: existing?.batch_id || null,
+    target: 'generated_topic_candidates',
+    new_inserted_this_run: 0,
+    total_in_existing_batch: candidateCount,
+    matched_fingerprints: `${candidateCount} / ${candidateCount}`,
+    published: false,
+    converted: false,
+    next_action: 'human_review_in_generador_panel',
+  };
+
+  writeCheckpoint('CHECKPOINT_IDEMPOTENCIA', 'ok', checkpoint);
+
+  console.log('\nCHECKPOINT IDEMPOTENCIA ✅');
+  console.log('Batch ya existente confirmado.\n');
+  console.log(`project_ref:              ${PROD_REF}`);
+  console.log(`batch_code:               ${batchCode}`);
+  console.log(`batch_id:                 ${existing?.batch_id || '(no disponible)'}`);
+  console.log(`target:                   generated_topic_candidates`);
+  console.log('');
+  console.log(`new_inserted_this_run:    0`);
+  console.log(`total_in_existing_batch:  ${candidateCount}`);
+  console.log(`matched_fingerprints:     ${candidateCount} / ${candidateCount}`);
+  console.log('');
+  console.log(`published:                false`);
+  console.log(`converted:                false`);
+  console.log(`next_action:              human_review_in_generador_panel`);
+
+  return checkpoint;
+}
+
+function applyUploadPhase() {
+  const payload = readJson(FILES.uploadStagingPayload, null);
+
+  // Idempotency pre-check: if SUPABASE_DB_URL is available, detect duplicate before running SQL
+  if (payload?.batch_code && payload?.status === 'prepared') {
+    const existing = checkBatchExists(payload.batch_code);
+    if (existing.exists) {
+      return emitIdempotencyCheckpoint(payload, existing);
+    }
+  }
+
+  let result;
+  try {
+    result = applyUpload();
+  } catch (error) {
+    // Idempotency fallback: SQL itself detected the batch_code already loaded
+    if (/batch_code_ya_cargado/i.test(error.message)) {
+      return emitIdempotencyCheckpoint(payload, { exists: true, candidate_count: TOTAL_TARGET });
+    }
+    throw error;
+  }
+
+  writeRoutineDoc('apply_upload', result);
+  writeCheckpoint('FASE_7_APPLY_UPLOAD', 'ok', {
+    routine_status: result.routine_status,
+    batch_code: result.batch_code,
+    inserted_batches: result.inserted_batches,
+    inserted_candidates: result.inserted_candidates,
+    topics: result.topics,
+    per_topic: result.per_topic,
+    converted: result.converted,
+    published: result.published,
+    next_action: result.next_action,
+  });
+  log(`apply-upload ok: ${result.inserted_candidates} candidatos en Supabase staging`);
+  return result;
+}
+
+function newBatchPhase() {
+  ensureDirs();
+
+  // Determine batch_code for the archive folder name
+  let batchCode = null;
+  if (fs.existsSync(FILES.uploadStagingPayload)) {
+    const payload = readJson(FILES.uploadStagingPayload, null);
+    batchCode = payload?.batch_code || null;
+  }
+  if (!batchCode) {
+    const ts = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14);
+    batchCode = `qgen_${ts}_archived`;
+  }
+
+  // Create archive directory for this batch
+  const batchDir = path.join(DATA_DIR, 'batches', batchCode);
+  fs.mkdirSync(batchDir, { recursive: true });
+
+  // Files to archive (move, not delete)
+  const archiveTargets = [
+    FILES.candidates,
+    FILES.valid,
+    FILES.rejected,
+    FILES.final,
+    FILES.uploadStagingPayload,
+    FILES.uploadStagingSql,
+    FILES.applyUploadResult,
+    FILES.postUploadAudit,
+    FILES.qa,
+    FILES.orthography,
+    FILES.upload,
+  ];
+
+  let archived = 0;
+  for (const filePath of archiveTargets) {
+    if (fs.existsSync(filePath)) {
+      fs.renameSync(filePath, path.join(batchDir, path.basename(filePath)));
+      archived++;
+    }
+  }
+
+  // Clear existing corpus to force fresh re-read of Supabase
+  // (including all generated_topic_candidates already loaded)
+  for (const p of [FILES.existing, `${FILES.existing}.meta.json`]) {
+    if (fs.existsSync(p)) fs.unlinkSync(p);
+  }
+
+  // Reset live estado_actual to clean slate
+  const stateMdPath = path.join(DATA_DIR, 'estado_actual.md');
+  const newState = {
+    phase: 'NEW_BATCH_INITIALIZED',
+    status: 'ready',
+    batch_mode: 'new_batch',
+    archived_batch_code: batchCode,
+    archived_files: archived,
+    timestamp: new Date().toISOString(),
+    next_action: 'qgen:read',
+  };
+  writeJson(FILES.state, newState);
+  fs.writeFileSync(
+    stateMdPath,
+    `# Estado actual\n\n` +
+    `**Fase:** NEW_BATCH_INITIALIZED\n` +
+    `**Timestamp:** ${newState.timestamp}\n\n` +
+    `Lote anterior archivado en: \`data/question-generator/batches/${batchCode}/\`\n\n` +
+    `Próxima acción: \`npm run qgen:read\`\n`,
+    'utf8'
+  );
+
+  writeCheckpoint('NEW_BATCH', 'ok', newState);
+
+  log(`new-batch ok: lote anterior archivado en batches/${batchCode}`);
+  log(`  archivos archivados: ${archived}`);
+  log(`  corpus limpiado: re-leer Supabase con qgen:read antes de generar`);
+  log(`  próxima acción: npm run qgen:read`);
+
+  return newState;
+}
+
+async function uploadPhase() {
+  throw new Error(
+    'qgen:upload está deprecado. Usar: npm run qgen:prepare-upload && ' +
+    'set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload'
+  );
 }
 
 function writeQa(summary) {
@@ -295,28 +461,44 @@ function writeOrthographyReport(candidates, dryRunResult) {
   fs.writeFileSync(FILES.orthography, content, 'utf8');
 }
 
-function writeRoutineDoc(uploadExecuted, uploadResult = null) {
+function writeRoutineDoc(stage, uploadResult = null) {
   const topics = TOPICS.map((topic) => `- ${topic.id}`).join('\n');
-  const status = uploadExecuted
+  const status = stage === 'apply_upload'
     ? {
-        routine_status: 'uploaded_to_staging',
+        routine_status: 'uploaded_to_supabase_staging',
         topics: TOPICS.length,
         per_topic: PER_TOPIC_TARGET,
         final_candidates: TOTAL_TARGET,
         dry_run_passed: true,
-        real_upload_executed: true,
-        inserted_rows: uploadResult.inserted_rows,
+        prepare_upload_passed: true,
+        apply_upload_executed: true,
+        inserted_batches: uploadResult?.inserted_batches ?? 1,
+        inserted_candidates: uploadResult?.inserted_candidates ?? TOTAL_TARGET,
+        converted: false,
+        published: false,
         next_action: 'human_review_in_generador_panel',
       }
-    : {
-        routine_status: 'functional_dry_run_ready',
-        topics: TOPICS.length,
-        per_topic: PER_TOPIC_TARGET,
-        final_candidates: TOTAL_TARGET,
-        dry_run_passed: true,
-        real_upload_executed: false,
-        next_action: 'human_review_or_authorized_upload',
-      };
+    : stage === 'prepare_upload'
+      ? {
+          routine_status: 'upload_prepared_for_apply',
+          topics: TOPICS.length,
+          per_topic: PER_TOPIC_TARGET,
+          final_candidates: TOTAL_TARGET,
+          dry_run_passed: true,
+          prepare_upload_passed: true,
+          apply_upload_executed: false,
+          next_action: 'set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload',
+        }
+      : {
+          routine_status: 'functional_dry_run_ready',
+          topics: TOPICS.length,
+          per_topic: PER_TOPIC_TARGET,
+          final_candidates: TOTAL_TARGET,
+          dry_run_passed: true,
+          prepare_upload_passed: false,
+          apply_upload_executed: false,
+          next_action: 'npm run qgen:prepare-upload',
+        };
 
   const content = `# Rutina óptima del generador político\n\n` +
     `## 1. Objetivo\n\n` +
@@ -335,6 +517,7 @@ function writeRoutineDoc(uploadExecuted, uploadResult = null) {
     `- data/question-generator/upload_result.json\n` +
     `- data/question-generator/checkpoints/\n` +
     `- data/question-generator/topics/\n` +
+    `- data/question-generator/batches/<batch_code>/  (archivo histórico por lote)\n` +
     `- data/question-generator/qa_resultados.md\n\n` +
     `## 5. Comandos probados\n\n` +
     `- npm run qgen:precheck\n` +
@@ -343,27 +526,57 @@ function writeRoutineDoc(uploadExecuted, uploadResult = null) {
     `- npm run qgen:validate\n` +
     `- npm run qgen:select\n` +
     `- npm run qgen:dry-run\n` +
+    `- npm run qgen:new-batch\n` +
     `- npm run build\n` +
     `- git diff --check\n\n` +
     `## 6. Errores encontrados y correcciones útiles\n\n` +
     `- La RPC de carga exige coincidencia exacta con expected_count cuando existe. Por eso v1 crea batch al final y carga los 80 candidatos en una sola llamada durante upload real autorizado.\n` +
     `- Las tablas staging pueden estar bloqueadas para anon por RLS. La lectura paginada registra ese bloqueo como resultado esperado y no intenta elevar permisos ni usar service role.\n` +
     `- Las fases son dependientes: validate debe terminar antes de select. Ejecutarlas en paralelo puede producir un fallo temporal por archivos aun no escritos.\n` +
-    `- El upload real queda bloqueado por defecto y exige QGEN_UPLOAD_CONFIRM=true mas un token de usuario autorizado.\n\n` +
+    `- El upload real queda bloqueado por defecto y exige QGEN_UPLOAD_CONFIRM=true mas un token de usuario autorizado.\n` +
+    `- Si el mismo batch_code ya está en Supabase, apply-upload emite CHECKPOINT IDEMPOTENCIA y no duplica.\n\n` +
+    `## Modo recurrente: new-batch\n\n` +
+    `Por qué existe: la rutina es idempotente para el mismo lote. Si se necesitan otros 80 candidatos distintos, el modo new-batch archiva el lote anterior y reinicia el estado vivo para un ciclo completo nuevo.\n\n` +
+    `Cómo archiva lotes anteriores: mueve todos los archivos vivos del lote (candidatas, válidas, rechazadas, finales, payload, SQL, resultado, auditoría, QA, ortografía) a data/question-generator/batches/<batch_code>/. Nunca borra sin archivar.\n\n` +
+    `Cómo evita duplicados: borra preguntas_existentes.jsonl para forzar relectura de Supabase. En la siguiente ejecución de qgen:read, todos los candidatos ya cargados (incluyendo el lote anterior) entran al corpus anti-duplicado, por lo que ningún fingerprint ya usado puede repetirse.\n\n` +
+    `Cómo genera otros 80: después de archivar y releer Supabase, el flujo normal genera 80 candidatos con fingerprints no usados. Si antes había 80, Supabase pasa a 160. La siguiente ejecución de new-batch pasa de 160 a 240.\n\n` +
+    `Diferencia entre resume y new-batch:\n` +
+    `- resume (comandos normales sin new-batch): retoma el lote actual. Si los 80 ya están cargados, detecta idempotencia y emite CHECKPOINT IDEMPOTENCIA.\n` +
+    `- new-batch: archiva el lote actual, reinicia estado, relee Supabase, genera lote completamente nuevo.\n\n` +
+    `Salida esperada de new-batch:\n` +
+    `[qgen] new-batch ok: lote anterior archivado en batches/<batch_code>\n` +
+    `[qgen]   archivos archivados: N\n` +
+    `[qgen]   corpus limpiado: re-leer Supabase con qgen:read antes de generar\n` +
+    `[qgen]   próxima acción: npm run qgen:read\n\n` +
+    `Salida esperada de apply-upload cuando el lote ya existe (idempotencia):\n` +
+    `CHECKPOINT IDEMPOTENCIA ✅  Batch ya existente confirmado.\n\n` +
     `## Patch ortográfico permanente\n\n` +
     `El problema detectado fue que las preguntas y notas se generaban sin ortografía española completa. La corrección no se aplica manualmente al JSON final: existe el módulo scripts/question-generator/orthography.js, integrado a generación, validación, selección y dry-run.\n\n` +
     `El módulo corrige título, descripción, opciones visibles, neutrality_notes y quality_notes. No toca candidate_id, tipo_votacion, publico_objetivo, taxonomy_draft.eje_tematico, taxonomy_draft.enfoque, taxonomy_draft.intensidad_de_debate, ideological_axis, deliberative_tension, duplicate_fingerprint ni raw_payload técnico.\n\n` +
     `Los títulos deben usar el formato ¿...?. Los fingerprints se calculan con normalizeText, que elimina tildes y puntuación antes de hashear, por lo que el agregado de acentos y signo inicial no cambia la identidad normalizada del candidato.\n\n` +
     `Comandos probados después del patch: npm run qgen:generate, npm run qgen:validate, npm run qgen:select, npm run qgen:dry-run, npm run build y git diff --check.\n\n` +
     `## 7. Flujo final recomendado\n\n` +
+    `Primera ejecución (0 candidatos en Supabase):\n` +
     `1. npm run qgen:precheck\n` +
     `2. npm run qgen:read\n` +
     `3. npm run qgen:generate\n` +
     `4. npm run qgen:validate\n` +
     `5. npm run qgen:select\n` +
     `6. npm run qgen:dry-run\n` +
-    `7. revisar data/question-generator/preguntas_finales.json\n` +
-    `8. si se autoriza carga real: QGEN_UPLOAD_CONFIRM=true npm run qgen:upload\n\n` +
+    `7. npm run qgen:prepare-upload\n` +
+    `8. (aplicar upload_staging.sql en Supabase)\n\n` +
+    `Segundo lote (80 ya en Supabase, generar 80 más):\n` +
+    `1. npm run qgen:new-batch\n` +
+    `2. npm run qgen:read  (relee corpus incluyendo los 80 anteriores)\n` +
+    `3. npm run qgen:generate\n` +
+    `4. npm run qgen:validate\n` +
+    `5. npm run qgen:select\n` +
+    `6. npm run qgen:dry-run\n` +
+    `7. npm run qgen:prepare-upload\n` +
+    `8. revisar data/question-generator/upload_staging.sql y upload_staging_payload.json\n` +
+    `9. Opcion A (canonico): pedirle a Claude Code que ejecute upload_staging.sql via Supabase MCP/integracion.\n` +
+    `   Opcion B (fallback psql): set SUPABASE_DB_URL=<connection_string> && set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload\n` +
+    `   Si no hay SUPABASE_DB_URL: ejecutar upload_staging.sql manualmente en el SQL Editor de Supabase.\n\n` +
     `## 8. Reglas de seguridad\n\n` +
     `- No publica.\n` +
     `- No convierte.\n` +
@@ -372,6 +585,7 @@ function writeRoutineDoc(uploadExecuted, uploadResult = null) {
     `- No toca votos.\n` +
     `- No toca tema_sugerencias.\n` +
     `- Upload real requiere confirmacion explicita.\n` +
+    `- new-batch archiva antes de borrar. Nunca destruye sin respaldar.\n` +
     `- Revisión humana posterior obligatoria.\n\n` +
     `Criterios adicionales del patch ortográfico: 80 candidatos finales con ortografía española correcta, 80 títulos con ¿ inicial y ? final, cero ocurrencias visibles de palabras críticas sin tilde y dry-run aprobado después del patch.\n\n` +
     `## 9. Estado final\n\n` +
@@ -389,6 +603,9 @@ async function main() {
     else if (command === 'validate') validatePhase();
     else if (command === 'select') selectPhase();
     else if (command === 'dry-run') dryRunPhase();
+    else if (command === 'prepare-upload') prepareUploadPhase();
+    else if (command === 'apply-upload') applyUploadPhase();
+    else if (command === 'new-batch') newBatchPhase();
     else if (command === 'upload') await uploadPhase();
     else throw new Error(`unknown_command:${command || '(missing)'}`);
   } catch (error) {

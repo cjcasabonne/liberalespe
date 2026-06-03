@@ -1,0 +1,259 @@
+````text
+Actúa como arquitecto senior de rutinas operativas, Supabase y generación incremental.
+
+Objetivo:
+Corregir la rutina del generador para que soporte generación recurrente de nuevos lotes.
+
+Problema actual:
+La rutina es idempotente sobre el mismo lote. Si ya existe `preguntas_finales.json` con 80 candidatos y esos fingerprints ya están en Supabase, la rutina solo audita el batch existente y mantiene 80. Eso evita duplicados, pero impide generar nuevos lotes.
+
+Lo que necesito:
+Mantener la idempotencia para el mismo lote, pero agregar un modo explícito `new-batch` que genere otros 80 candidatos nuevos, distintos a los ya cargados en Supabase.
+
+Regla correcta:
+- Mismo lote → no duplicar, emitir CHECKPOINT IDEMPOTENCIA.
+- Nuevo lote → generar 80 nuevos, subirlos, Supabase pasa de 80 a 160, luego 240, etc.
+
+Implementar:
+
+1. Agregar comando npm:
+
+```json
+"qgen:new-batch": "node scripts/question-generator/run.js new-batch"
+````
+
+2. Agregar fase/comando `new-batch` en `run.js`.
+
+Debe:
+
+* detectar el batch local actual;
+* mover los archivos vivos del lote anterior a una carpeta histórica;
+* crear un nuevo estado limpio;
+* conservar el corpus histórico;
+* forzar nueva lectura de Supabase;
+* tratar todos los candidatos ya cargados en `generated_topic_candidates` como existentes;
+* generar 80 candidatos nuevos con fingerprints no usados;
+* mantener 16 topics × 5 candidatos;
+* ejecutar flujo normal hasta prepare/apply/audit según la rutina.
+
+3. Crear carpeta histórica por batch:
+
+```text
+data/question-generator/batches/<batch_code>/
+```
+
+Mover ahí, si existen:
+
+```text
+preguntas_candidatas.json
+preguntas_validas.json
+preguntas_rechazadas.json
+preguntas_finales.json
+upload_staging_payload.json
+upload_staging.sql
+apply_upload_result.json
+post_upload_audit.md
+qa_resultados.md
+ortografia_resultados.md
+upload_result.json
+```
+
+No borrar sin archivar.
+
+4. Limpiar archivos vivos para nuevo lote:
+
+Después de archivar, resetear o recrear:
+
+```text
+estado_actual.json
+estado_actual.md
+preguntas_candidatas.json
+preguntas_validas.json
+preguntas_rechazadas.json
+preguntas_finales.json
+upload_staging_payload.json
+upload_staging.sql
+apply_upload_result.json
+post_upload_audit.md
+qa_resultados.md
+```
+
+5. Mantener o regenerar corpus:
+
+La rutina debe volver a leer Supabase, incluyendo:
+
+* `temas`
+* `tema_sugerencias`
+* `generated_topic_candidates`
+
+Muy importante:
+Los 80 candidatos anteriores ya cargados en Supabase deben entrar al corpus anti-duplicado.
+
+6. Anti-duplicado para nuevo lote:
+
+Al generar nuevo batch, comparar fingerprints contra:
+
+* preguntas existentes;
+* sugerencias existentes;
+* todos los `generated_topic_candidates` anteriores;
+* candidatas del batch actual;
+* válidas del batch actual;
+* finales del batch actual.
+
+Si fingerprint ya existe, rechazar y generar reemplazo.
+
+7. Agregar dos modos explícitos:
+
+## Modo resume
+
+Comando existente:
+
+```bash
+npm run qgen:precheck
+npm run qgen:generate
+...
+```
+
+Comportamiento:
+
+* retoma el lote actual;
+* si los 80 ya están cargados, NO duplica;
+* emite:
+
+```text
+CHECKPOINT IDEMPOTENCIA ✅
+```
+
+## Modo new-batch
+
+Nuevo comando:
+
+```bash
+npm run qgen:new-batch
+```
+
+Comportamiento:
+
+* archiva lote anterior;
+* reinicia estado vivo;
+* relee corpus remoto;
+* genera un lote nuevo;
+* permite subir otros 80 candidatos nuevos.
+
+8. Formato obligatorio si el lote ya existe:
+
+```text
+CHECKPOINT IDEMPOTENCIA ✅
+Batch ya existente confirmado.
+
+project_ref:              pqqkvmmenqencuretwyx
+batch_code:               <batch_code>
+batch_id:                 <batch_id>
+target:                   generated_topic_candidates
+
+new_inserted_this_run:    0
+total_in_existing_batch:  80
+matched_fingerprints:     80 / 80
+
+published:                false
+converted:                false
+next_action:              human_review_in_generador_panel
+```
+
+9. Formato obligatorio para nuevo lote exitoso:
+
+```text
+CHECKPOINT INSERCIÓN ✅
+Pipeline completado exitosamente.
+
+batch_mode:        new_batch
+project_ref:       pqqkvmmenqencuretwyx
+batch_code:        <nuevo_batch_code>
+batch_id:          <nuevo_batch_id>
+target:            generated_topic_candidates
+
+total_inserted:    80 (exacto)
+validación DB:     <before_count> → <after_count> (delta = 80) ✓
+
+published:         false
+converted:         false
+next_action:       human_review_in_generador_panel
+```
+
+Ejemplo:
+Si antes había 80, después debe decir:
+
+```text
+validación DB:     80 → 160 (delta = 80) ✓
+```
+
+10. Actualizar `docs/rutina_optima.md`.
+
+Agregar sección:
+
+```md
+## Modo recurrente: new-batch
+```
+
+Debe explicar:
+
+* por qué existe;
+* cómo evita duplicados;
+* cómo archiva lotes anteriores;
+* cómo genera otros 80;
+* diferencia entre `resume` e `new-batch`;
+* qué salida esperar.
+
+11. Validaciones obligatorias:
+
+Ejecutar:
+
+```bash
+npm run qgen:new-batch
+npm run qgen:generate
+npm run qgen:validate
+npm run qgen:select
+npm run qgen:dry-run
+npm run qgen:prepare-upload
+npm run build
+git diff --check
+```
+
+No ejecutar carga real salvo que ya exista autorización explícita y la rutina tenga acceso Supabase.
+
+12. No romper:
+
+* idempotencia del mismo lote;
+* anti-duplicado;
+* patch ortográfico;
+* 16 topics;
+* 5 por topic;
+* total 80;
+* staging solamente;
+* no temas;
+* no votos;
+* no tema_sugerencias;
+* no conversiones;
+* no publicación.
+
+Resultado esperado:
+La rutina queda preparada para uso recurrente:
+
+* primera ejecución: 0 → 80;
+* segunda ejecución con mismo lote: idempotencia, 80 → 80;
+* ejecución con `qgen:new-batch`: 80 → 160;
+* siguiente `qgen:new-batch`: 160 → 240.
+
+Reporte final:
+Indicar:
+
+* archivos modificados;
+* comando agregado;
+* cómo usar `new-batch`;
+* cómo se archiva el lote anterior;
+* cómo se garantiza que los nuevos candidatos no duplican Supabase;
+* comandos probados;
+* si hubo o no carga real.
+
+```
+```

@@ -5,6 +5,7 @@ const ROOT_DIR = path.resolve(__dirname, '..', '..');
 const DATA_DIR = path.join(ROOT_DIR, 'data', 'question-generator');
 const CHECKPOINT_DIR = path.join(DATA_DIR, 'checkpoints');
 const TOPIC_DATA_DIR = path.join(DATA_DIR, 'topics');
+const BATCHES_DIR = path.join(DATA_DIR, 'batches');
 const LOG_DIR = path.join(DATA_DIR, 'logs');
 const DOCS_DIR = path.join(ROOT_DIR, 'docs');
 
@@ -18,6 +19,10 @@ const FILES = {
   qa: path.join(DATA_DIR, 'qa_resultados.md'),
   orthography: path.join(DATA_DIR, 'ortografia_resultados.md'),
   upload: path.join(DATA_DIR, 'upload_result.json'),
+  uploadStagingPayload: path.join(DATA_DIR, 'upload_staging_payload.json'),
+  uploadStagingSql: path.join(DATA_DIR, 'upload_staging.sql'),
+  applyUploadResult: path.join(DATA_DIR, 'apply_upload_result.json'),
+  postUploadAudit: path.join(DATA_DIR, 'post_upload_audit.md'),
   routineDoc: path.join(DOCS_DIR, 'rutina_optima.md'),
 };
 
@@ -28,7 +33,7 @@ const PAGE_SIZE = 100;
 const PROD_REF = 'pqqkvmmenqencuretwyx';
 
 function ensureDirs() {
-  for (const dir of [DATA_DIR, CHECKPOINT_DIR, TOPIC_DATA_DIR, LOG_DIR, DOCS_DIR]) {
+  for (const dir of [DATA_DIR, CHECKPOINT_DIR, TOPIC_DATA_DIR, BATCHES_DIR, LOG_DIR, DOCS_DIR]) {
     fs.mkdirSync(dir, { recursive: true });
   }
 }
@@ -53,6 +58,7 @@ function getSupabaseEnv() {
     url: process.env.VITE_SUPABASE_URL || envFile.VITE_SUPABASE_URL || '',
     anonKey: process.env.VITE_SUPABASE_ANON_KEY || envFile.VITE_SUPABASE_ANON_KEY || '',
     accessToken: process.env.QGEN_SUPABASE_ACCESS_TOKEN || '',
+    dbUrl: process.env.SUPABASE_DB_URL || envFile.SUPABASE_DB_URL || '',
   };
 }
 
@@ -66,6 +72,7 @@ module.exports = {
   DATA_DIR,
   CHECKPOINT_DIR,
   TOPIC_DATA_DIR,
+  BATCHES_DIR,
   LOG_DIR,
   FILES,
   GENERATOR_VERSION,
