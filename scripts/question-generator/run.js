@@ -16,7 +16,7 @@ const { readExistingCorpus, authHeaders, fetchJson } = require('./read-existing'
 const { generateTopicCandidates } = require('./generate-topic');
 const { validateCandidates } = require('./validate-candidates');
 const { selectFinal } = require('./select-final');
-const { dryRunUpload, uploadReal } = require('./upload-staging');
+const { dryRunUpload, uploadReal, prepareUpload, applyUpload, FILES_STAGING } = require('./upload-staging');
 const { validateSpanishOrthography } = require('./orthography');
 
 const EXPECTED_RPCS = [
@@ -246,6 +246,30 @@ async function uploadPhase() {
   return result;
 }
 
+function prepareUploadPhase() {
+  const result = prepareUpload();
+  writeCheckpoint('FASE_6_PREPARE_UPLOAD', 'ok', {
+    batch_code: result.batch_code,
+    expected_count: result.expected_count,
+    sql_file: result.sql_file,
+    payload_file: result.payload_file,
+    topics: result.topics,
+  });
+  log(`prepare-upload ok: batch_code=${result.batch_code}, sql=${result.sql_file}`);
+  return result;
+}
+
+async function applyUploadPhase() {
+  const result = await applyUpload();
+  writeCheckpoint('FASE_7_APPLY_UPLOAD', 'ok', {
+    batch_code: result.batch_code,
+    expected_count: result.expected_count,
+    method: result.method,
+  });
+  log(`apply-upload ok: batch_code=${result.batch_code}`);
+  return result;
+}
+
 function writeQa(summary) {
   const counts = summary.counts
     ? Object.entries(summary.counts).map(([topic, count]) => `- ${topic}: ${count}`).join('\n')
@@ -389,7 +413,9 @@ async function main() {
     else if (command === 'validate') validatePhase();
     else if (command === 'select') selectPhase();
     else if (command === 'dry-run') dryRunPhase();
-    else if (command === 'upload') await uploadPhase();
+    else if (command === 'upload') throw new Error('qgen:upload_deprecated_use_prepare-upload_and_apply-upload');
+    else if (command === 'prepare-upload') prepareUploadPhase();
+    else if (command === 'apply-upload') await applyUploadPhase();
     else throw new Error(`unknown_command:${command || '(missing)'}`);
   } catch (error) {
     writeCheckpoint(`ERROR_${command || 'unknown'}`, 'error', { error: error.message });
