@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const {
   ROOT_DIR,
+  DATA_DIR,
   FILES,
   TOPIC_DATA_DIR,
   ensureDirs,
@@ -16,7 +17,7 @@ const { readExistingCorpus, authHeaders, fetchJson } = require('./read-existing'
 const { generateTopicCandidates } = require('./generate-topic');
 const { validateCandidates } = require('./validate-candidates');
 const { selectFinal } = require('./select-final');
-const { dryRunUpload, uploadReal } = require('./upload-staging');
+const { dryRunUpload, uploadReal, prepareUpload, applyUpload } = require('./upload-staging');
 const { validateSpanishOrthography } = require('./orthography');
 
 const EXPECTED_RPCS = [
@@ -92,6 +93,8 @@ async function precheck() {
   assert(env.url, 'missing_VITE_SUPABASE_URL');
   assert(env.anonKey, 'missing_VITE_SUPABASE_ANON_KEY');
   assert(process.env.QGEN_UPLOAD_CONFIRM !== 'true', 'precheck_refuses_upload_confirm_true');
+  assert(!process.env.QGEN_SUPABASE_ACCESS_TOKEN, 'precheck_refuses_QGEN_SUPABASE_ACCESS_TOKEN');
+  assert(!fs.existsSync(path.join(DATA_DIR, '.session.local.json')), 'precheck_refuses_session_local_json');
 
   const migrationPath = path.join(ROOT_DIR, 'supabase', 'migrations', '017_generated_topic_staging.sql');
   const migrationSql = fs.readFileSync(migrationPath, 'utf8');
@@ -236,13 +239,29 @@ function dryRunPhase() {
 }
 
 async function uploadPhase() {
-  const result = await uploadReal();
-  writeRoutineDoc(true, result);
-  writeCheckpoint('FASE_6_UPLOAD_REAL', 'ok', {
-    inserted_rows: result.inserted_rows,
-    batch_id: result.batch_id,
+  throw new Error('qgen_upload_deprecated:use_qgen:prepare-upload_then_qgen:apply-upload');
+}
+
+function prepareUploadPhase() {
+  const result = prepareUpload();
+  writeCheckpoint('FASE_6_PREPARE_UPLOAD', 'ok', {
+    batch_code: result.batch_code,
+    candidates_count: result.candidates_count,
+    topics: result.topics,
+    status: result.status,
   });
-  log(`upload ok: inserted ${result.inserted_rows}`);
+  log(`prepare-upload ok: batch_code=${result.batch_code}, ${result.candidates_count} candidates preparados`);
+  return result;
+}
+
+async function applyUploadPhase() {
+  const result = await applyUpload();
+  writeCheckpoint('FASE_7_APPLY_UPLOAD', 'ok', {
+    batch_code: result.batch_code,
+    inserted_candidates: result.inserted_candidates,
+    post_validation: result.post_validation,
+  });
+  log(`apply-upload ok: ${result.inserted_candidates} candidatos insertados para batch ${result.batch_code}`);
   return result;
 }
 
@@ -389,6 +408,8 @@ async function main() {
     else if (command === 'validate') validatePhase();
     else if (command === 'select') selectPhase();
     else if (command === 'dry-run') dryRunPhase();
+    else if (command === 'prepare-upload') prepareUploadPhase();
+    else if (command === 'apply-upload') await applyUploadPhase();
     else if (command === 'upload') await uploadPhase();
     else throw new Error(`unknown_command:${command || '(missing)'}`);
   } catch (error) {

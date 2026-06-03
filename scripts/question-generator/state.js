@@ -36,6 +36,8 @@ function validateExistingJsonFiles() {
     FILES.rejected,
     FILES.final,
     FILES.upload,
+    FILES.uploadStagingPayload,
+    FILES.applyUploadResult,
   ];
 
   const result = [];

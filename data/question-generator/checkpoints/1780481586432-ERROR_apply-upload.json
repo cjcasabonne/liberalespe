@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_apply-upload",
+  "status": "error",
+  "timestamp": "2026-06-03T10:13:06.432Z",
+  "error": "apply_upload_requires_SUPABASE_DB_URL_or_manual_sql_execution"
+}

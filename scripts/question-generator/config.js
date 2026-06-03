@@ -18,6 +18,10 @@ const FILES = {
   qa: path.join(DATA_DIR, 'qa_resultados.md'),
   orthography: path.join(DATA_DIR, 'ortografia_resultados.md'),
   upload: path.join(DATA_DIR, 'upload_result.json'),
+  uploadStagingPayload: path.join(DATA_DIR, 'upload_staging_payload.json'),
+  uploadStagingSql: path.join(DATA_DIR, 'upload_staging.sql'),
+  applyUploadResult: path.join(DATA_DIR, 'apply_upload_result.json'),
+  postUploadAudit: path.join(DATA_DIR, 'post_upload_audit.md'),
   routineDoc: path.join(DOCS_DIR, 'rutina_optima.md'),
 };
 
@@ -68,6 +72,7 @@ module.exports = {
   TOPIC_DATA_DIR,
   LOG_DIR,
   FILES,
+  DOCS_DIR,
   GENERATOR_VERSION,
   PER_TOPIC_TARGET,
   TOTAL_TARGET,
