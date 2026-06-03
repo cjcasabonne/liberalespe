@@ -1,14 +1,17 @@
 {
-  "phase": "CHECKPOINT_INSERCION",
+  "phase": "APPLY_UPLOAD",
   "status": "ok",
   "project_ref": "pqqkvmmenqencuretwyx",
   "batch_code": "qgen_20260602221450_1436b730",
   "batch_id": "df12b30e-3ad7-426b-b6e1-14d10963f6b2",
+  "target": "generated_topic_candidates",
   "total_inserted": 80,
+  "expected_count": 80,
   "topics": 16,
   "per_topic": 5,
   "published": false,
   "converted": false,
-  "next_action": "human_review_in_generador_panel",
-  "timestamp": "2026-06-03T00:00:00.000Z"
+  "applied_at": "2026-06-02T23:15:24.654Z",
+  "next_action": "post_upload_audit",
+  "timestamp": "2026-06-02T23:15:24.654Z"
 }
