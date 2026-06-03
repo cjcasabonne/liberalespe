@@ -8,6 +8,8 @@ const TOPIC_DATA_DIR = path.join(DATA_DIR, 'topics');
 const LOG_DIR = path.join(DATA_DIR, 'logs');
 const DOCS_DIR = path.join(ROOT_DIR, 'docs');
 
+const BATCHES_DIR = path.join(DATA_DIR, 'batches');
+
 const FILES = {
   state: path.join(DATA_DIR, 'estado_actual.json'),
   existing: path.join(DATA_DIR, 'preguntas_existentes.jsonl'),
@@ -19,6 +21,10 @@ const FILES = {
   orthography: path.join(DATA_DIR, 'ortografia_resultados.md'),
   upload: path.join(DATA_DIR, 'upload_result.json'),
   routineDoc: path.join(DOCS_DIR, 'rutina_optima.md'),
+  stagingPayload: path.join(DATA_DIR, 'upload_staging_payload.json'),
+  stagingSQL: path.join(DATA_DIR, 'upload_staging.sql'),
+  applyResult: path.join(DATA_DIR, 'apply_upload_result.json'),
+  postUploadAudit: path.join(DATA_DIR, 'post_upload_audit.md'),
 };
 
 const GENERATOR_VERSION = 'v1';
@@ -28,7 +34,7 @@ const PAGE_SIZE = 100;
 const PROD_REF = 'pqqkvmmenqencuretwyx';
 
 function ensureDirs() {
-  for (const dir of [DATA_DIR, CHECKPOINT_DIR, TOPIC_DATA_DIR, LOG_DIR, DOCS_DIR]) {
+  for (const dir of [DATA_DIR, CHECKPOINT_DIR, TOPIC_DATA_DIR, LOG_DIR, DOCS_DIR, BATCHES_DIR]) {
     fs.mkdirSync(dir, { recursive: true });
   }
 }
@@ -67,6 +73,7 @@ module.exports = {
   CHECKPOINT_DIR,
   TOPIC_DATA_DIR,
   LOG_DIR,
+  BATCHES_DIR,
   FILES,
   GENERATOR_VERSION,
   PER_TOPIC_TARGET,

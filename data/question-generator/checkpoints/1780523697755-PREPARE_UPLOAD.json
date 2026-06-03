@@ -1,0 +1,13 @@
+{
+  "phase": "PREPARE_UPLOAD",
+  "status": "checkpoint",
+  "timestamp": "2026-06-03T21:54:57.755Z",
+  "processed_count": 80,
+  "accumulated_count": 80,
+  "topic_progress": {
+    "topics": 16,
+    "per_topic": 5
+  },
+  "batch_code": "qgen_20260603215457_536f2011",
+  "next_action": "qgen:apply-upload"
+}

@@ -1,0 +1,10 @@
+{
+  "phase": "APPLY_UPLOAD",
+  "status": "blocked",
+  "timestamp": "2026-06-03T21:55:06.742Z",
+  "processed_count": 80,
+  "accumulated_count": 0,
+  "topic_progress": {},
+  "batch_code": "qgen_20260603215457_536f2011",
+  "next_action": "execute_upload_staging_sql_via_mcp_or_cli"
+}

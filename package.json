@@ -10,7 +10,11 @@
     "qgen:validate": "node scripts/question-generator/run.js validate",
     "qgen:select": "node scripts/question-generator/run.js select",
     "qgen:dry-run": "node scripts/question-generator/run.js dry-run",
-    "qgen:upload": "node scripts/question-generator/run.js upload"
+    "qgen:upload": "node scripts/question-generator/run.js upload",
+    "qgen:prepare-upload": "node scripts/question-generator/run.js prepare-upload",
+    "qgen:apply-upload": "QGEN_APPLY_UPLOAD_CONFIRM=true node scripts/question-generator/run.js apply-upload",
+    "qgen:new-batch": "node scripts/question-generator/run.js new-batch",
+    "qgen:post-upload-audit": "node scripts/question-generator/run.js post-upload-audit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.1",

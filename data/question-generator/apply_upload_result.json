@@ -1,0 +1,37 @@
+{
+  "phase": "APPLY_UPLOAD",
+  "status": "idempotence",
+  "checkpoint": "CHECKPOINT_IDEMPOTENCIA",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "batch_code": "qgen_20260602221450_1436b730",
+  "batch_id": "df12b30e-3ad7-426b-b6e1-14d10963f6b2",
+  "target": "generated_topic_candidates",
+  "new_inserted_this_run": 0,
+  "total_in_existing_batch": 80,
+  "matched_fingerprints": 80,
+  "total_fingerprints_checked": 80,
+  "db_verified": true,
+  "db_counts": {
+    "expected_count": 80,
+    "inserted_count": 80,
+    "candidate_count": 80,
+    "topic_count": 16,
+    "per_topic_ok": true,
+    "status_breakdown": {
+      "pending_review": 77,
+      "approved": 1,
+      "converted_to_suggestion": 1,
+      "needs_changes": 1
+    },
+    "binaria_count": 64,
+    "opciones_count": 16,
+    "all_human_review_required": true,
+    "converted_to_tema": 0,
+    "converted_to_sugerencia_by_qgen": 0
+  },
+  "published": false,
+  "converted": false,
+  "next_action": "human_review_in_generador_panel",
+  "note": "Batch cargado en sesion anterior (2026-06-02T23:15:24Z). Los 80 fingerprints coinciden con preguntas_finales.json. Verificado via Supabase MCP. Revision humana en curso.",
+  "timestamp": "2026-06-03T21:57:00.000Z"
+}

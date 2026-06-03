@@ -1,109 +1,179 @@
-# Rutina óptima del generador político
+# Rutina óptima v5 del generador político
+
+Documento operativo definitivo para la rutina de generación, validación, selección, carga y auditoría de candidatos políticos en Supabase staging.
+
+Esta versión reemplaza v2/v3/v4 y elimina ambigüedades operativas. La rutina no termina cuando genera SQL. Termina únicamente cuando Supabase fue nutrido, auditado y se emitió `CHECKPOINT INSERCIÓN`.
+
+---
 
 ## 1. Objetivo
 
-La rutina genera, valida, selecciona y prepara candidatos para staging en Supabase. No publica temas, no convierte candidatos, no abre votaciones y no escribe en tablas oficiales durante el dry-run.
+Genera, valida, selecciona, prepara, sube y audita 80 candidatos políticos en staging de Supabase.
 
-## 2. Arquitectura final
+Alimenta exclusivamente:
+- `generated_topic_batches`
+- `generated_topic_candidates`
 
-lectura paginada -> generación por topic -> validación -> selección 5 por topic -> dry-run -> upload controlado a staging -> revisión humana posterior.
+Nunca alimenta directamente:
+- `temas`
+- `votos`
+- `tema_sugerencias`
 
-## 3. Topics y distribución
+---
 
-- libertad_individual
-- igualdad_ante_la_ley
-- estado_limitado
-- instituciones_publicas
-- mercado_libre
-- emprendimiento
-- propiedad_privada
-- desregulacion
-- responsabilidad_fiscal
-- anticorrupcion
-- anti_mercantilismo
-- seguridad_ciudadana
-- estado_de_derecho
-- merito_y_talento
-- ciudadania_y_control_del_poder
-- innovacion_y_competitividad
+## 2. Project ref oficial
 
-Cada topic debe terminar con 5 candidatos. Total final: 80.
+```text
+pqqkvmmenqencuretwyx
+```
 
-## 4. Archivos usados
+Si `project_ref != pqqkvmmenqencuretwyx` → ABORTAR.
 
-- scripts/question-generator/*.js
-- data/question-generator/preguntas_existentes.jsonl
-- data/question-generator/preguntas_candidatas.json
-- data/question-generator/preguntas_validas.json
-- data/question-generator/preguntas_rechazadas.json
-- data/question-generator/preguntas_finales.json
-- data/question-generator/upload_result.json
-- data/question-generator/checkpoints/
-- data/question-generator/topics/
-- data/question-generator/qa_resultados.md
+---
 
-## 5. Comandos probados
+## 3. Arquitectura final
 
-- npm run qgen:precheck
-- npm run qgen:read
-- npm run qgen:generate
-- npm run qgen:validate
-- npm run qgen:select
-- npm run qgen:dry-run
-- npm run build
-- git diff --check
+```text
+precheck
+  → lectura paginada
+  → generación incremental por topic
+  → validación incremental
+  → selección final 5 por topic
+  → dry-run
+  → prepare-upload
+  → apply-upload
+  → post-upload audit
+  → CHECKPOINT INSERCIÓN
+  → revisión humana en panel Generador
+```
 
-## 6. Errores encontrados y correcciones útiles
+- `prepare-upload` genera artefactos.
+- `apply-upload` nutre Supabase staging.
+- `post-upload audit` confirma conteos y seguridad.
+- La rutina no publica, no convierte, no abre votaciones.
 
-- La RPC de carga exige coincidencia exacta con expected_count cuando existe. Por eso v1 crea batch al final y carga los 80 candidatos en una sola llamada durante upload real autorizado.
-- Las tablas staging pueden estar bloqueadas para anon por RLS. La lectura paginada registra ese bloqueo como resultado esperado y no intenta elevar permisos ni usar service role.
-- Las fases son dependientes: validate debe terminar antes de select. Ejecutarlas en paralelo puede producir un fallo temporal por archivos aun no escritos.
-- El upload real queda bloqueado por defecto y exige QGEN_UPLOAD_CONFIRM=true mas un token de usuario autorizado.
+---
 
-## Patch ortográfico permanente
+## 4. Topics oficiales
 
-El problema detectado fue que las preguntas y notas se generaban sin ortografía española completa. La corrección no se aplica manualmente al JSON final: existe el módulo scripts/question-generator/orthography.js, integrado a generación, validación, selección y dry-run.
+16 topics × 5 candidatos = 80 candidatos
 
-El módulo corrige título, descripción, opciones visibles, neutrality_notes y quality_notes. No toca candidate_id, tipo_votacion, publico_objetivo, taxonomy_draft.eje_tematico, taxonomy_draft.enfoque, taxonomy_draft.intensidad_de_debate, ideological_axis, deliberative_tension, duplicate_fingerprint ni raw_payload técnico.
+1. `libertad_individual`
+2. `igualdad_ante_la_ley`
+3. `estado_limitado`
+4. `instituciones_publicas`
+5. `mercado_libre`
+6. `emprendimiento`
+7. `propiedad_privada`
+8. `desregulacion`
+9. `responsabilidad_fiscal`
+10. `anticorrupcion`
+11. `anti_mercantilismo`
+12. `seguridad_ciudadana`
+13. `estado_de_derecho`
+14. `merito_y_talento`
+15. `ciudadania_y_control_del_poder`
+16. `innovacion_y_competitividad`
 
-Los títulos deben usar el formato ¿...?. Los fingerprints se calculan con normalizeText, que elimina tildes y puntuación antes de hashear, por lo que el agregado de acentos y signo inicial no cambia la identidad normalizada del candidato.
+---
 
-Comandos probados después del patch: npm run qgen:generate, npm run qgen:validate, npm run qgen:select, npm run qgen:dry-run, npm run build y git diff --check.
+## 5. Comandos oficiales
 
-## 7. Flujo final recomendado
+```bash
+npm run qgen:precheck
+npm run qgen:read
+npm run qgen:generate
+npm run qgen:validate
+npm run qgen:select
+npm run qgen:dry-run
+npm run qgen:prepare-upload
+npm run qgen:apply-upload
+npm run qgen:new-batch
+npm run qgen:post-upload-audit
+npm run build
+git diff --check
+```
 
-1. npm run qgen:precheck
-2. npm run qgen:read
-3. npm run qgen:generate
-4. npm run qgen:validate
-5. npm run qgen:select
-6. npm run qgen:dry-run
-7. revisar data/question-generator/preguntas_finales.json
-8. si se autoriza carga real: QGEN_UPLOAD_CONFIRM=true npm run qgen:upload
+`qgen:upload` está deprecated. `qgen:login` no forma parte del flujo.
+
+Prohibido: `QGEN_SUPABASE_ACCESS_TOKEN`, `npm run qgen:login`.
+
+`QGEN_APPLY_UPLOAD_CONFIRM=true` ya está incluido en el script `qgen:apply-upload`.
+
+---
+
+## 6. Archivos operativos
+
+| Archivo | Propósito |
+|---|---|
+| `data/question-generator/estado_actual.json` | Estado estructurado de la fase actual |
+| `data/question-generator/preguntas_existentes.jsonl` | Corpus existente leído con paginación |
+| `data/question-generator/preguntas_candidatas.json` | Candidatos generados |
+| `data/question-generator/preguntas_validas.json` | Candidatos válidos |
+| `data/question-generator/preguntas_rechazadas.json` | Candidatos rechazados |
+| `data/question-generator/preguntas_finales.json` | Lote final de 80 |
+| `data/question-generator/qa_resultados.md` | QA editorial/técnico |
+| `data/question-generator/ortografia_resultados.md` | Auditoría ortográfica |
+| `data/question-generator/upload_staging_payload.json` | Payload generado por prepare-upload |
+| `data/question-generator/upload_staging.sql` | SQL transaccional generado por prepare-upload |
+| `data/question-generator/apply_upload_result.json` | Resultado estructurado de apply-upload |
+| `data/question-generator/post_upload_audit.md` | Auditoría post-upload |
+| `data/question-generator/checkpoints/` | Checkpoints por fase |
+| `data/question-generator/batches/` | Lotes archivados por new-batch |
+
+---
+
+## 7. Modo recurrente: new-batch
+
+Al ejecutar `npm run qgen:new-batch`, el script archiva el lote actual en `data/question-generator/batches/<batch_code>/` y borra `preguntas_existentes.jsonl` para forzar relectura completa.
+
+```bash
+npm run qgen:new-batch
+npm run qgen:read
+npm run qgen:generate
+npm run qgen:validate
+npm run qgen:select
+npm run qgen:dry-run
+npm run qgen:prepare-upload
+npm run qgen:apply-upload
+npm run qgen:post-upload-audit
+```
+
+Progresión:
+```text
+Primera ejecución:     0 → 80
+Idempotencia:         80 → 80 (CHECKPOINT IDEMPOTENCIA)
+new-batch + pipeline: 80 → 160
+```
+
+---
 
 ## 8. Reglas de seguridad
 
 - No publica.
 - No convierte.
 - No abre votaciones.
-- No toca temas.
-- No toca votos.
-- No toca tema_sugerencias.
-- Upload real requiere confirmacion explicita.
+- No toca temas, votos ni tema_sugerencias.
+- Upload real requiere QGEN_APPLY_UPLOAD_CONFIRM=true.
 - Revisión humana posterior obligatoria.
+- project_ref incorrecto → ABORTAR.
 
-Criterios adicionales del patch ortográfico: 80 candidatos finales con ortografía española correcta, 80 títulos con ¿ inicial y ? final, cero ocurrencias visibles de palabras críticas sin tilde y dry-run aprobado después del patch.
+---
 
-## 9. Estado final
+## 9. Estado actual del lote activo
 
 ```json
 {
-  "routine_status": "functional_dry_run_ready",
+  "phase": "CHECKPOINT_IDEMPOTENCIA",
+  "status": "ok",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "batch_code": "qgen_20260602221450_1436b730",
+  "batch_id": "df12b30e-3ad7-426b-b6e1-14d10963f6b2",
+  "total_inserted": 80,
   "topics": 16,
   "per_topic": 5,
-  "final_candidates": 80,
-  "dry_run_passed": true,
-  "real_upload_executed": false,
-  "next_action": "human_review_or_authorized_upload"
+  "published": false,
+  "converted": false,
+  "next_action": "human_review_in_generador_panel"
 }
 ```

@@ -17,6 +17,10 @@ const { generateTopicCandidates } = require('./generate-topic');
 const { validateCandidates } = require('./validate-candidates');
 const { selectFinal } = require('./select-final');
 const { dryRunUpload, uploadReal } = require('./upload-staging');
+const { prepareUpload } = require('./prepare-upload');
+const { applyUpload } = require('./apply-upload');
+const { newBatch } = require('./new-batch');
+const { postUploadAudit } = require('./post-upload-audit');
 const { validateSpanishOrthography } = require('./orthography');
 
 const EXPECTED_RPCS = [
@@ -246,6 +250,39 @@ async function uploadPhase() {
   return result;
 }
 
+function prepareUploadPhase() {
+  const result = prepareUpload();
+  log(`prepare-upload ok: batch_code=${result.batch_code}, candidates=${result.candidates_count}`);
+  return result;
+}
+
+async function applyUploadPhase() {
+  const result = await applyUpload();
+  if (result.status === 'blocked') {
+    log(`apply-upload blocked: ${result.error}`);
+    log(`  SQL ready at: ${result.sql_path}`);
+  } else if (result.status === 'idempotence') {
+    log(`apply-upload idempotence: batch already exists (${result.batch_code})`);
+  } else {
+    log(`apply-upload ok: inserted ${result.new_inserted_this_run}`);
+  }
+  return result;
+}
+
+function newBatchPhase() {
+  const result = newBatch();
+  log(`new-batch ok: archived ${result.archived_files} files to batches/${result.archived_batch_code}`);
+  log(`  corpus limpiado: re-leer Supabase con qgen:read antes de generar`);
+  log(`  próxima acción: npm run qgen:read`);
+  return result;
+}
+
+function postUploadAuditPhase() {
+  const result = postUploadAudit();
+  log(`post-upload-audit ok: batch_code=${result.batch_code}, local=${result.total_local}, db_verified=${result.db_verified}`);
+  return result;
+}
+
 function writeQa(summary) {
   const counts = summary.counts
     ? Object.entries(summary.counts).map(([topic, count]) => `- ${topic}: ${count}`).join('\n')
@@ -390,6 +427,10 @@ async function main() {
     else if (command === 'select') selectPhase();
     else if (command === 'dry-run') dryRunPhase();
     else if (command === 'upload') await uploadPhase();
+    else if (command === 'prepare-upload') prepareUploadPhase();
+    else if (command === 'apply-upload') await applyUploadPhase();
+    else if (command === 'new-batch') newBatchPhase();
+    else if (command === 'post-upload-audit') postUploadAuditPhase();
     else throw new Error(`unknown_command:${command || '(missing)'}`);
   } catch (error) {
     writeCheckpoint(`ERROR_${command || 'unknown'}`, 'error', { error: error.message });
