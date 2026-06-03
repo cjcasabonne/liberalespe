@@ -1,0 +1,42 @@
+{
+  "phase": "APPLY_UPLOAD",
+  "status": "ok",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "batch_id": "df12b30e-3ad7-426b-b6e1-14d10963f6b2",
+  "batch_code": "qgen_20260602221450_1436b730",
+  "target": "generated_topic_candidates",
+  "expected_count": 80,
+  "inserted_count": 80,
+  "batch_status": "partially_reviewed",
+  "applied_at": "2026-06-02T23:15:24.654237+00:00",
+  "published": false,
+  "converted": false,
+  "forbidden_tables_touched": {
+    "temas": 0,
+    "votos": 0,
+    "tema_sugerencias": 0
+  },
+  "topic_distribution": {
+    "anti_mercantilismo": 5,
+    "anticorrupcion": 5,
+    "ciudadania_y_control_del_poder": 5,
+    "desregulacion": 5,
+    "emprendimiento": 5,
+    "estado_de_derecho": 5,
+    "estado_limitado": 5,
+    "igualdad_ante_la_ley": 5,
+    "innovacion_y_competitividad": 5,
+    "instituciones_publicas": 5,
+    "libertad_individual": 5,
+    "mercado_libre": 5,
+    "merito_y_talento": 5,
+    "propiedad_privada": 5,
+    "responsabilidad_fiscal": 5,
+    "seguridad_ciudadana": 5
+  },
+  "tipo_votacion_distribution": {
+    "binaria": 64,
+    "opciones": 16
+  },
+  "next_action": "post_upload_audit"
+}
