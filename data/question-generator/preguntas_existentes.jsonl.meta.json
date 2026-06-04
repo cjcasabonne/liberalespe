@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-06-04T13:58:40.509Z",
+  "page_size": 100,
+  "tables": [
+    {
+      "table": "temas",
+      "status": "blocked_by_rls_or_privilege",
+      "pages": [],
+      "row_count": 0,
+      "message": "HTTP 403"
+    },
+    {
+      "table": "tema_sugerencias",
+      "status": "blocked_by_rls_or_privilege",
+      "pages": [],
+      "row_count": 0,
+      "message": "HTTP 403"
+    },
+    {
+      "table": "generated_topic_candidates",
+      "status": "blocked_by_rls_or_privilege",
+      "pages": [],
+      "row_count": 0,
+      "message": "HTTP 403"
+    }
+  ],
+  "total_rows": 0
+}
