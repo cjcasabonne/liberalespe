@@ -1,0 +1,15 @@
+{
+  "phase": "POST_UPLOAD_AUDIT",
+  "status": "error",
+  "error": "ERROR_GLOBAL_DUPLICATES_DETECTED",
+  "batch_code": "qgen_20260603211531_1436b730",
+  "batch_id": "683b12f6-54d2-4450-ad48-d2772716e0de",
+  "duplicate_normalized_titles_count": 80,
+  "db_before": 80,
+  "db_after_rollback": 80,
+  "delta": 0,
+  "rollback_executed": true,
+  "next_action": "investigar_y_eliminar_duplicados",
+  "root_cause": "preguntas_finales.json contiene candidatos generados con los mismos templates que el batch anterior (df12b30e-3ad7-426b-b6e1-14d10963f6b2). Los 80 títulos son idénticos a los 80 ya existentes en la BD. Se requiere qgen:new-batch + qgen:read + qgen:generate con templates o variaciones distintas.",
+  "timestamp": "2026-06-04T00:00:00.000Z"
+}
