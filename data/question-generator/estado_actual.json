@@ -1,26 +1,11 @@
 {
-  "phase": "FASE_6_PREPARE_UPLOAD",
-  "status": "ok",
-  "timestamp": "2026-06-03T21:15:31.875Z",
+  "phase": "POST_UPLOAD_AUDIT",
+  "status": "error",
+  "error": "ERROR_GLOBAL_DUPLICATES_DETECTED",
+  "timestamp": "2026-06-04T00:00:00.000Z",
   "batch_code": "qgen_20260603211531_1436b730",
-  "candidates": 80,
-  "topics": {
-    "libertad_individual": 5,
-    "igualdad_ante_la_ley": 5,
-    "estado_limitado": 5,
-    "instituciones_publicas": 5,
-    "mercado_libre": 5,
-    "emprendimiento": 5,
-    "propiedad_privada": 5,
-    "desregulacion": 5,
-    "responsabilidad_fiscal": 5,
-    "anticorrupcion": 5,
-    "anti_mercantilismo": 5,
-    "seguridad_ciudadana": 5,
-    "estado_de_derecho": 5,
-    "merito_y_talento": 5,
-    "ciudadania_y_control_del_poder": 5,
-    "innovacion_y_competitividad": 5
-  },
-  "next_action": "set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload"
+  "batch_id": "a2b8c6be-5451-4d8f-8832-428040edf4a2",
+  "duplicate_fingerprints_cross_batch": 80,
+  "root_cause": "global_corpus.json ausente — generacion ejecutada sin corpus anti-duplicado global",
+  "next_action": "eliminar batch duplicado de Supabase, luego: npm run qgen:new-batch && npm run qgen:read && verificar global_corpus.json && npm run qgen:generate"
 }

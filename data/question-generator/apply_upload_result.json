@@ -1,0 +1,24 @@
+{
+  "phase": "POST_UPLOAD_AUDIT",
+  "status": "error",
+  "error": "ERROR_GLOBAL_DUPLICATES_DETECTED",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "batch_code": "qgen_20260603211531_1436b730",
+  "batch_id": "a2b8c6be-5451-4d8f-8832-428040edf4a2",
+  "batch_status_in_db": "loaded",
+  "inserted_count_in_db": 80,
+  "candidate_count_in_db": 80,
+  "db_total_candidates": 160,
+  "duplicate_fingerprints_cross_batch": 80,
+  "global_corpus_present": false,
+  "preguntas_existentes_present": false,
+  "root_cause": "global_corpus.json_ausente_antes_de_generacion",
+  "tablas_productivas": {
+    "temas": 3,
+    "votos": 3,
+    "tema_sugerencias": 2
+  },
+  "checkpoint_insercion_emitido": false,
+  "next_action": "eliminar_batch_duplicado_y_regenerar_con_global_corpus",
+  "timestamp": "2026-06-04T00:00:00.000Z"
+}
