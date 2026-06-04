@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "innovacion_y_competitividad-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con innovación y competitividad?",
+    "candidate_id": "innovacion_y_competitividad-01-deben-los-funcionarios-responsables-de-imp",
+    "titulo": "¿Deben los funcionarios responsables de implementar políticas sobre innovación y competitividad rendir cuentas publicamente con datos de resultados medibles?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "innovacion_y_competitividad",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa responsabilidad del funcionario y transparencia sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "5c86feeca72fa6ebb06b6b20",
+    "duplicate_fingerprint": "3864a221b839a453aae83572",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "innovacion_y_competitividad",

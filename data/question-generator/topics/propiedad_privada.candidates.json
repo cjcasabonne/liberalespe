@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "propiedad_privada-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con propiedad privada?",
+    "candidate_id": "propiedad_privada-01-deben-los-funcionarios-responsables-de-imp",
+    "titulo": "¿Deben los funcionarios responsables de implementar políticas sobre propiedad privada rendir cuentas publicamente con datos de resultados medibles?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa responsabilidad del funcionario y transparencia sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "6872c85c1b2fbd25437f0462",
+    "duplicate_fingerprint": "560dcab17c0b2e1b8764ec88",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "propiedad_privada",

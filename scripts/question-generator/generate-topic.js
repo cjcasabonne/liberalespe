@@ -7,8 +7,8 @@ const TEMPLATES = [
     type: 'binaria',
     focus: 'institucional',
     intensity: 'moderada',
-    title: (topic) => `Debe el Estado justificar con evidencia publica cualquier nueva restriccion relacionada con ${topic.subject}?`,
-    notes: 'Evalua limites al poder publico sin inducir una respuesta.',
+    title: (topic) => `Deben los funcionarios responsables de implementar politicas sobre ${topic.subject} rendir cuentas publicamente con datos de resultados medibles?`,
+    notes: 'Evalua responsabilidad del funcionario y transparencia sin inducir una respuesta.',
   },
   {
     type: 'binaria',

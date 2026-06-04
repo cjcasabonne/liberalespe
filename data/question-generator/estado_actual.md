@@ -1,8 +1,8 @@
 # Estado actual
 
 **Fase:** NEW_BATCH_INITIALIZED
-**Timestamp:** 2026-06-03T21:14:53.326Z
+**Timestamp:** 2026-06-04T13:58:33.581Z
 
-Lote anterior archivado en: `data/question-generator/batches/qgen_20260602221450_1436b730/`
+Lote anterior archivado en: `data/question-generator/batches/qgen_20260603211531_1436b730/`
 
 Próxima acción: `npm run qgen:read`

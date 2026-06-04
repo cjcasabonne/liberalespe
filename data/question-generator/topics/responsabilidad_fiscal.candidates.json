@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "responsabilidad_fiscal-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con responsabilidad fiscal?",
+    "candidate_id": "responsabilidad_fiscal-01-deben-los-funcionarios-responsables-de-imp",
+    "titulo": "¿Deben los funcionarios responsables de implementar políticas sobre responsabilidad fiscal rendir cuentas publicamente con datos de resultados medibles?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa responsabilidad del funcionario y transparencia sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "7fa4e697f937a463f4adf52c",
+    "duplicate_fingerprint": "ccb243525d5de35848cc1c28",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",

@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "estado_de_derecho-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con Estado de derecho?",
+    "candidate_id": "estado_de_derecho-01-deben-los-funcionarios-responsables-de-imp",
+    "titulo": "¿Deben los funcionarios responsables de implementar políticas sobre Estado de derecho rendir cuentas publicamente con datos de resultados medibles?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "estado_de_derecho",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa responsabilidad del funcionario y transparencia sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "56ce9f406f9658a970d158a0",
+    "duplicate_fingerprint": "af561b3b3dbfc5fa51dac599",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",

@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "igualdad_ante_la_ley-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con igualdad ante la ley?",
+    "candidate_id": "igualdad_ante_la_ley-01-deben-los-funcionarios-responsables-de-imp",
+    "titulo": "¿Deben los funcionarios responsables de implementar políticas sobre igualdad ante la ley rendir cuentas publicamente con datos de resultados medibles?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa responsabilidad del funcionario y transparencia sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "420f894ccefae643ac3093ff",
+    "duplicate_fingerprint": "b612cdea7372963ec2d71284",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "igualdad_ante_la_ley",

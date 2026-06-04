@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "mercado_libre-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con competencia y mercado?",
+    "candidate_id": "mercado_libre-01-deben-los-funcionarios-responsables-de-imp",
+    "titulo": "¿Deben los funcionarios responsables de implementar políticas sobre competencia y mercado rendir cuentas publicamente con datos de resultados medibles?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa responsabilidad del funcionario y transparencia sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "b18ed99f78ea2b157bbac36d",
+    "duplicate_fingerprint": "cede18d7881283815002d102",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",

@@ -4,7 +4,7 @@
   "expected_count": 80,
   "would_insert": 80,
   "status": "ok",
-  "batch_code": "qgen-v1-20260604140350",
+  "batch_code": "qgen-v1-20260603211525",
   "rpc_sequence": [
     "crear_generated_topic_batch",
     "cargar_generated_topic_candidates"

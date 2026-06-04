@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "anti_mercantilismo-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con privilegios económicos otorgados por el Estado?",
+    "candidate_id": "anti_mercantilismo-01-deben-los-funcionarios-responsables-de-imp",
+    "titulo": "¿Deben los funcionarios responsables de implementar políticas sobre privilegios económicos otorgados por el Estado rendir cuentas publicamente con datos de resultados medibles?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa responsabilidad del funcionario y transparencia sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "566eeefa226a8ee7a4172d74",
+    "duplicate_fingerprint": "a68fad8c876b4367fe74a522",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",

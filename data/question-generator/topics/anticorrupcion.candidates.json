@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "anticorrupcion-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con lucha contra la corrupción?",
+    "candidate_id": "anticorrupcion-01-deben-los-funcionarios-responsables-de-imp",
+    "titulo": "¿Deben los funcionarios responsables de implementar políticas sobre lucha contra la corrupción rendir cuentas publicamente con datos de resultados medibles?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa responsabilidad del funcionario y transparencia sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "bc5b48598d419992c39efb8f",
+    "duplicate_fingerprint": "559c80e96b9dd72365f6a225",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anticorrupcion",

@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "ciudadania_y_control_del_poder-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con control ciudadano del poder?",
+    "candidate_id": "ciudadania_y_control_del_poder-01-deben-los-funcionarios-responsables-de-imp",
+    "titulo": "¿Deben los funcionarios responsables de implementar políticas sobre control ciudadano del poder rendir cuentas publicamente con datos de resultados medibles?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa responsabilidad del funcionario y transparencia sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "7a33f8d9c4eae0baec165d62",
+    "duplicate_fingerprint": "719f3146ac0fc3fc863dc356",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "ciudadania_y_control_del_poder",
