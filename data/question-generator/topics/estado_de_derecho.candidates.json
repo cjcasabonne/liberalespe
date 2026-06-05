@@ -1,35 +1,6 @@
 [
   {
-    "candidate_id": "estado_de_derecho-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con Estado de derecho?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "estado_de_derecho",
-      "subtema": "debido proceso",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "estado_de_derecho",
-    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "56ce9f406f9658a970d158a0",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "estado_de_derecho",
-      "per_topic_target": 5,
-      "template_index": 0
-    }
-  },
-  {
-    "candidate_id": "estado_de_derecho-02-debe-una-reforma-sobre-estado-de-derecho-p",
+    "candidate_id": "estado_de_derecho-01-debe-una-reforma-sobre-estado-de-derecho-p",
     "titulo": "¿Debe una reforma sobre Estado de derecho priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -37,7 +8,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
-      "subtema": "cumplimiento de normas",
+      "subtema": "debido proceso",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
@@ -54,11 +25,11 @@
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 1
+      "template_index": 0
     }
   },
   {
-    "candidate_id": "estado_de_derecho-03-debe-la-ciudadania-contar-con-reportes-sim",
+    "candidate_id": "estado_de_derecho-02-debe-la-ciudadania-contar-con-reportes-sim",
     "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -66,7 +37,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
-      "subtema": "independencia institucional",
+      "subtema": "cumplimiento de normas",
       "enfoque": "ciudadano",
       "intensidad_de_debate": "baja"
     },
@@ -83,11 +54,11 @@
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 2
+      "template_index": 1
     }
   },
   {
-    "candidate_id": "estado_de_derecho-04-debe-evaluarse-el-costo-fiscal-y-regulator",
+    "candidate_id": "estado_de_derecho-03-debe-evaluarse-el-costo-fiscal-y-regulator",
     "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -95,7 +66,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
-      "subtema": "debido proceso",
+      "subtema": "independencia institucional",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
@@ -112,11 +83,11 @@
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 3
+      "template_index": 2
     }
   },
   {
-    "candidate_id": "estado_de_derecho-05-que-criterio-deberia-priorizar-una-reforma",
+    "candidate_id": "estado_de_derecho-04-que-criterio-deberia-priorizar-una-reforma",
     "titulo": "¿Qué criterio debería priorizar una reforma sobre Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "opciones",
@@ -127,7 +98,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
-      "subtema": "cumplimiento de normas",
+      "subtema": "debido proceso",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
@@ -144,11 +115,11 @@
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 4
+      "template_index": 3
     }
   },
   {
-    "candidate_id": "estado_de_derecho-06-debe-toda-politica-vinculada-a-estado-de-d",
+    "candidate_id": "estado_de_derecho-05-debe-toda-politica-vinculada-a-estado-de-d",
     "titulo": "¿Debe toda política vinculada a Estado de derecho tener metas públicas medibles antes de recibir más presupuesto?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -156,7 +127,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
-      "subtema": "independencia institucional",
+      "subtema": "cumplimiento de normas",
       "enfoque": "institucional",
       "intensidad_de_debate": "moderada"
     },
@@ -173,11 +144,11 @@
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 5
+      "template_index": 4
     }
   },
   {
-    "candidate_id": "estado_de_derecho-07-debe-el-congreso-exigir-evaluaciones-indep",
+    "candidate_id": "estado_de_derecho-06-debe-el-congreso-exigir-evaluaciones-indep",
     "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -185,7 +156,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
-      "subtema": "debido proceso",
+      "subtema": "independencia institucional",
       "enfoque": "institucional",
       "intensidad_de_debate": "alta"
     },
@@ -202,11 +173,11 @@
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 6
+      "template_index": 5
     }
   },
   {
-    "candidate_id": "estado_de_derecho-08-que-mecanismo-seria-mas-util-para-mejorar-",
+    "candidate_id": "estado_de_derecho-07-que-mecanismo-seria-mas-util-para-mejorar-",
     "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "opciones",
@@ -217,7 +188,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
-      "subtema": "cumplimiento de normas",
+      "subtema": "debido proceso",
       "enfoque": "ciudadano",
       "intensidad_de_debate": "moderada"
     },
@@ -234,11 +205,11 @@
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 7
+      "template_index": 6
     }
   },
   {
-    "candidate_id": "estado_de_derecho-09-debe-publicarse-informacion-comparable-par",
+    "candidate_id": "estado_de_derecho-08-debe-publicarse-informacion-comparable-par",
     "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -246,7 +217,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
-      "subtema": "independencia institucional",
+      "subtema": "cumplimiento de normas",
       "enfoque": "ciudadano",
       "intensidad_de_debate": "baja"
     },
@@ -263,11 +234,11 @@
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 7
     }
   },
   {
-    "candidate_id": "estado_de_derecho-10-debe-revisarse-periodicamente-si-las-regla",
+    "candidate_id": "estado_de_derecho-09-debe-revisarse-periodicamente-si-las-regla",
     "titulo": "¿Debe revisarse periódicamente si las reglas sobre Estado de derecho cumplen su objetivo sin crear privilegios?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -275,7 +246,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
-      "subtema": "debido proceso",
+      "subtema": "independencia institucional",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
@@ -292,7 +263,451 @@
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
+      "template_index": 8
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-10-debe-el-gasto-publico-en-estado-de-derecho",
+    "titulo": "¿Debe el gasto público en Estado de derecho estar condicionado a resultados verificables y auditables?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "debido proceso",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "a72e08e5a66ab53964ca8003",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
       "template_index": 9
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-11-deben-reducirse-las-barreras-que-limitan-l",
+    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en Estado de derecho?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "cumplimiento de normas",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "a5963cdd428a39e8a6c8b02c",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 10
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-12-debe-la-administracion-de-estado-de-derech",
+    "titulo": "¿Debe la administración de Estado de derecho transferirse prioritariamente a los gobiernos locales?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "independencia institucional",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "e3d1900eac53fb1bba14504b",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 11
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-13-debe-garantizarse-un-marco-legal-estable-e",
+    "titulo": "¿Debe garantizarse un marco legal estable en materia de Estado de derecho para dar certeza a los ciudadanos?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "debido proceso",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "712cdacfbb7bf7efcfb15ee3",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 12
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-14-deben-los-funcionarios-responsables-de-pol",
+    "titulo": "¿Deben los funcionarios responsables de políticas sobre Estado de derecho rendir cuentas formalmente por sus resultados?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "cumplimiento de normas",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea la responsabilidad individual en la gestion pública sin populismo.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "d9e38c547a39020fc680c730",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 13
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-15-que-modelo-seria-mas-util-para-organizar-e",
+    "titulo": "¿Qué modelo sería más útil para organizar Estado de derecho?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Competencia abierta entre actores con reglas claras",
+      "Mayor regulación pública con metas medibles"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "independencia institucional",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Compara modelos de organizacion sectorial sin jerarquizar ninguno.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "a39a8354a569ff23a35b3f42",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 14
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-16-como-deberia-ejercerse-el-control-ciudadan",
+    "titulo": "¿Cómo debería ejercerse el control ciudadano sobre las decisiones en Estado de derecho?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Consultas públicas previas a las reformas",
+      "Comites de supervisión ciudadana con informes anuales"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "debido proceso",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Ofrece mecanismos de control sin indicar cual es más efectivo.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "9a90600ccbcb4b492bcbc139",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 15
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-17-debe-el-estado-publicar-proactivamente-los",
+    "titulo": "¿Debe el Estado publicar proactivamente los resultados de sus políticas en Estado de derecho?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "cumplimiento de normas",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Refuerza transparencia activa sin implicar que el Estado fracasa.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "6fc4c3015d092e4759eb964d",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 16
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-18-debe-limitarse-la-cantidad-de-normas-vigen",
+    "titulo": "¿Debe limitarse la cantidad de normas vigentes sobre Estado de derecho para reducir contradicciones y costos?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "independencia institucional",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Introduce la racionalidad normativa como criterio de buen gobierno.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "4f64e1260783e1c516512305",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 17
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-19-debe-derogarse-una-norma-obsoleta-sobre-es",
+    "titulo": "¿Debe derogarse una norma obsoleta sobre Estado de derecho por cada nueva regulación aprobada?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "debido proceso",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Propone un principio de equilibrio regulatorio para evitar la acumulacion normativa.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "7f5e427edea129ff529a85c0",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 18
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-20-debe-realizarse-una-evaluacion-de-impacto-",
+    "titulo": "¿Debe realizarse una evaluación de impacto antes de implementar cualquier nueva política sobre Estado de derecho?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "cumplimiento de normas",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea el analisis previo como requisito sin implicar que la política es mala.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "e2b7697b2889af058226a4bb",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 19
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-21-que-nivel-de-gobierno-debe-ser-el-principa",
+    "titulo": "¿Qué nivel de gobierno debe ser el principal responsable de rendir cuentas sobre Estado de derecho?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "El gobierno nacional con supervisión parlamentaria",
+      "Los gobiernos regionales con control ciudadano"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "independencia institucional",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea la distribucion de responsabilidades entre niveles sin orientacion previa.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "1d75839e563a983633168015",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 20
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-22-deberian-crearse-incentivos-para-que-el-se",
+    "titulo": "¿Deberían crearse incentivos para que el sector privado invierta en Estado de derecho?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "debido proceso",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Evalúa los incentivos como herramienta sin imponer una conclusion.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "eef246c60f6a568c39eff959",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 21
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-23-deben-eliminarse-las-restricciones-sobre-e",
+    "titulo": "¿Deben eliminarse las restricciones sobre Estado de derecho que no demuestren un beneficio neto para la ciudadanía?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "cumplimiento de normas",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Propone un criterio de eliminacion normativa basado en evidencia de beneficios.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "e15da913e8490575b86bf001",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 22
+    }
+  },
+  {
+    "candidate_id": "estado_de_derecho-24-deben-las-normas-sobre-estado-de-derecho-a",
+    "titulo": "¿Deben las normas sobre Estado de derecho aplicarse por igual a todos los actores sin excepciones?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "independencia institucional",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea la igualdad en la aplicacion de normas como criterio de equidad regulatoria.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "20c1591116c3286f846d2c6b",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_de_derecho",
+      "per_topic_target": 5,
+      "template_index": 23
     }
   }
 ]

@@ -1,0 +1,8 @@
+{
+  "phase": "FASE_3_VALIDACION",
+  "status": "ok",
+  "timestamp": "2026-06-05T10:31:36.075Z",
+  "processed_count": 384,
+  "valid_count": 256,
+  "rejected_count": 128
+}

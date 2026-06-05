@@ -4,51 +4,19 @@ BEGIN;
 -- Solo toca: generated_topic_batches, generated_topic_candidates
 -- NO toca: temas, votos, tema_sugerencias
 -- Ejecutar solo via: set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload
--- batch_code: qgen_20260605103206_08f43b21
+-- batch_code: qgen_20260603211531_1436b730
 
 DO $qgen$
 DECLARE
   v_batch_id uuid;
-  v_batch_code text := 'qgen_20260605103206_08f43b21';
+  v_batch_code text := 'qgen_20260603211531_1436b730';
   v_expected_count integer := 80;
   v_inserted_count integer;
   v_dup_count integer;
   v_candidates jsonb := $json_payload$[
   {
     "topic": "libertad_individual",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre libertad individual cumplen su objetivo sin crear privilegios?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "libertad_individual",
-      "subtema": "garantias legales",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "libertad_individual",
-    "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "quality_score": null,
-    "neutrality_score": null,
-    "duplicate_fingerprint": "1abcf14216406685c16897fd",
-    "status": "pending_review",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "libertad_individual",
-      "per_topic_target": 5,
-      "template_index": 8
-    }
-  },
-  {
-    "topic": "libertad_individual",
-    "titulo": "¿Debe el gasto público en libertad individual estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con libertad individual?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -62,25 +30,25 @@ DECLARE
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "e4925dd893d4dc497e3a13b8",
+    "duplicate_fingerprint": "1ff5177b2f841e78fecb713c",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "libertad_individual",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en libertad individual?",
+    "titulo": "¿Debe una reforma sobre libertad individual priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -94,25 +62,25 @@ DECLARE
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "7ce20cccea8ea56c02ea6431",
+    "duplicate_fingerprint": "dc539124a8f8f75a35b797d7",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "libertad_individual",
-    "titulo": "¿Debe la administración de libertad individual transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre libertad individual?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -120,31 +88,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "libertad_individual",
       "subtema": "garantias legales",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "bda050938a066a162836f6ae",
+    "duplicate_fingerprint": "08183cf3ff2f25277ee54c14",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "libertad_individual",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de libertad individual para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre libertad individual?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -152,63 +120,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "libertad_individual",
       "subtema": "limites del poder publico",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "8bbad07667b4898fc9b57c99",
+    "duplicate_fingerprint": "a5356df076eb4dc3c9c39879",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "igualdad_ante_la_ley",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre igualdad ante la ley cumplen su objetivo sin crear privilegios?",
+    "topic": "libertad_individual",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre libertad individual?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "igualdad_ante_la_ley",
-      "subtema": "trato institucional",
+      "eje_tematico": "libertad_individual",
+      "subtema": "autonomia ciudadana",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "igualdad_ante_la_ley",
-    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
+    "ideological_axis": "libertad_individual",
+    "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "9aa433de1467b9c266d65893",
+    "duplicate_fingerprint": "8c115a7c70f9d093e254d9fb",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "igualdad_ante_la_ley",
+      "topic_target": "libertad_individual",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "igualdad_ante_la_ley",
-    "titulo": "¿Debe el gasto público en igualdad ante la ley estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -222,25 +193,25 @@ DECLARE
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "3bda7175ae329d2837d4ba70",
+    "duplicate_fingerprint": "420f894ccefae643ac3093ff",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "igualdad_ante_la_ley",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en igualdad ante la ley?",
+    "titulo": "¿Debe una reforma sobre igualdad ante la ley priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -254,25 +225,25 @@ DECLARE
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "6134b673e1c8d0c6e0fa9408",
+    "duplicate_fingerprint": "0f3b3b5a5f05c1a6966607e4",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "igualdad_ante_la_ley",
-    "titulo": "¿Debe la administración de igualdad ante la ley transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -280,31 +251,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "igualdad_ante_la_ley",
       "subtema": "trato institucional",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "b94fa1368176b3e4f5afe025",
+    "duplicate_fingerprint": "0145d3de1d84d22eefa755d5",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "igualdad_ante_la_ley",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de igualdad ante la ley para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -312,63 +283,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "igualdad_ante_la_ley",
       "subtema": "reglas generales",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "ca4a7f3af68814ed5f2fbc37",
+    "duplicate_fingerprint": "dc44cb4a246fc5a6c9422082",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "estado_limitado",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre límites y funciones del Estado cumplen su objetivo sin crear privilegios?",
+    "topic": "igualdad_ante_la_ley",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre igualdad ante la ley?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "estado_limitado",
-      "subtema": "eficacia publica",
+      "eje_tematico": "igualdad_ante_la_ley",
+      "subtema": "privilegios legales",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "estado_limitado",
-    "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
+    "ideological_axis": "igualdad_ante_la_ley",
+    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "34bc6aabeaceefa4f4cdb929",
+    "duplicate_fingerprint": "4966648b5809460ac2f3836b",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "estado_limitado",
+      "topic_target": "igualdad_ante_la_ley",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "estado_limitado",
-    "titulo": "¿Debe el gasto público en límites y funciones del Estado estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con límites y funciones del Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -382,25 +356,25 @@ DECLARE
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "4309ad93ae432c71a7b003a7",
+    "duplicate_fingerprint": "a3b18b9ab0724106b9932cf6",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "estado_limitado",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en límites y funciones del Estado?",
+    "titulo": "¿Debe una reforma sobre límites y funciones del Estado priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -414,25 +388,25 @@ DECLARE
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "5151a0e7e532a4bfa4d30d38",
+    "duplicate_fingerprint": "24b98d4df020255ecd862c27",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "estado_limitado",
-    "titulo": "¿Debe la administración de límites y funciones del Estado transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre límites y funciones del Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -440,31 +414,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "estado_limitado",
       "subtema": "eficacia publica",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "c0513b9bf85d0042c2714a44",
+    "duplicate_fingerprint": "ca780e492187273969bd47e9",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "estado_limitado",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de límites y funciones del Estado para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre límites y funciones del Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -472,63 +446,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "estado_limitado",
       "subtema": "alcance estatal",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "71f6e40db35a6510a264178b",
+    "duplicate_fingerprint": "7c4dde4005e715e5e9445193",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "instituciones_publicas",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre instituciones públicas cumplen su objetivo sin crear privilegios?",
+    "topic": "estado_limitado",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre límites y funciones del Estado?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "instituciones_publicas",
-      "subtema": "reglas de decision",
+      "eje_tematico": "estado_limitado",
+      "subtema": "controles institucionales",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "instituciones_publicas",
-    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "ideological_axis": "estado_limitado",
+    "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "7fc4cdfcea24c62a2cf7a3ae",
+    "duplicate_fingerprint": "982f3bd7ff6aaf0512908e75",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "instituciones_publicas",
+      "topic_target": "estado_limitado",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "instituciones_publicas",
-    "titulo": "¿Debe el gasto público en instituciones públicas estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con instituciones públicas?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -542,25 +519,25 @@ DECLARE
     "ideological_axis": "instituciones_publicas",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "f65665d139ac976aed391727",
+    "duplicate_fingerprint": "58768eec07faa063c09f1a8b",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "instituciones_publicas",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "instituciones_publicas",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en instituciones públicas?",
+    "titulo": "¿Debe una reforma sobre instituciones públicas priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -574,25 +551,25 @@ DECLARE
     "ideological_axis": "instituciones_publicas",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "11fafd4ef7b91a342b4ba89a",
+    "duplicate_fingerprint": "bb42cf56d27eb4f598db9738",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "instituciones_publicas",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "instituciones_publicas",
-    "titulo": "¿Debe la administración de instituciones públicas transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre instituciones públicas?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -600,31 +577,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "instituciones_publicas",
       "subtema": "reglas de decision",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "instituciones_publicas",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "ddc9e1a14b3ea765d09d1d08",
+    "duplicate_fingerprint": "aebc721ccc92981374a4c607",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "instituciones_publicas",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "instituciones_publicas",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de instituciones públicas para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre instituciones públicas?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -632,63 +609,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "instituciones_publicas",
       "subtema": "rendicion de cuentas",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "instituciones_publicas",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "64ebaf03ec74b17ddd722099",
+    "duplicate_fingerprint": "ffe9fad017a37d85959c4e5a",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "instituciones_publicas",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "mercado_libre",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre competencia y mercado cumplen su objetivo sin crear privilegios?",
+    "topic": "instituciones_publicas",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre instituciones públicas?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "mercado_libre",
-      "subtema": "consumidores",
+      "eje_tematico": "instituciones_publicas",
+      "subtema": "confianza institucional",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "mercado_libre",
-    "deliberative_tension": "competencia_vs_mercantilismo",
+    "ideological_axis": "instituciones_publicas",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "957fae5bc3e39117ab006969",
+    "duplicate_fingerprint": "6a2252bea1668bf677985b22",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "mercado_libre",
+      "topic_target": "instituciones_publicas",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "mercado_libre",
-    "titulo": "¿Debe el gasto público en competencia y mercado estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con competencia y mercado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -702,25 +682,25 @@ DECLARE
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "aeb08c321ab1e6b1a92c9080",
+    "duplicate_fingerprint": "b18ed99f78ea2b157bbac36d",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "mercado_libre",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en competencia y mercado?",
+    "titulo": "¿Debe una reforma sobre competencia y mercado priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -734,25 +714,25 @@ DECLARE
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "206aed6c58fb924535f0a31d",
+    "duplicate_fingerprint": "d63a1a53164f1dfa35b475a9",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "mercado_libre",
-    "titulo": "¿Debe la administración de competencia y mercado transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre competencia y mercado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -760,31 +740,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "mercado_libre",
       "subtema": "consumidores",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "3da7b998d4ff36bb0e374bc9",
+    "duplicate_fingerprint": "c05f055b7ab371aaeedd002f",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "mercado_libre",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de competencia y mercado para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre competencia y mercado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -792,63 +772,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "mercado_libre",
       "subtema": "competencia abierta",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "e1b9ba543da9b7fa96cf684a",
+    "duplicate_fingerprint": "3dc015aea74347e3cead39c8",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "emprendimiento",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre emprendimiento cumplen su objetivo sin crear privilegios?",
+    "topic": "mercado_libre",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre competencia y mercado?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "emprendimiento",
-      "subtema": "nuevos negocios",
+      "eje_tematico": "mercado_libre",
+      "subtema": "barreras de entrada",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "emprendimiento",
-    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "ideological_axis": "mercado_libre",
+    "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "9da5753d7bef5da4c4d87ff9",
+    "duplicate_fingerprint": "bfa0587091d75b6e34318c58",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "emprendimiento",
+      "topic_target": "mercado_libre",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "emprendimiento",
-    "titulo": "¿Debe el gasto público en emprendimiento estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con emprendimiento?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -862,25 +845,25 @@ DECLARE
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "60def6b4a3dffaf7da77a9fe",
+    "duplicate_fingerprint": "48fb2aafecf99083cc7651d8",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "emprendimiento",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en emprendimiento?",
+    "titulo": "¿Debe una reforma sobre emprendimiento priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -894,25 +877,25 @@ DECLARE
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "5f027e842cca7bb3c709c240",
+    "duplicate_fingerprint": "e80ff3e081068d34701cd90c",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "emprendimiento",
-    "titulo": "¿Debe la administración de emprendimiento transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre emprendimiento?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -920,31 +903,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "emprendimiento",
       "subtema": "nuevos negocios",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "70cfd68638575ec7371bc4fc",
+    "duplicate_fingerprint": "a02b07300dec86cbcf7b1353",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "emprendimiento",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de emprendimiento para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre emprendimiento?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -952,63 +935,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "emprendimiento",
       "subtema": "formalizacion",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "857502351691d08aaa6297c2",
+    "duplicate_fingerprint": "21c475523a9f313d87a31ba5",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "propiedad_privada",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre propiedad privada cumplen su objetivo sin crear privilegios?",
+    "topic": "emprendimiento",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre emprendimiento?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "propiedad_privada",
-      "subtema": "garantias patrimoniales",
+      "eje_tematico": "emprendimiento",
+      "subtema": "burocracia",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "propiedad_privada",
-    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
+    "ideological_axis": "emprendimiento",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "578324a8fc4f8299344fc317",
+    "duplicate_fingerprint": "6095efdcca89fabeff04a6c6",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "propiedad_privada",
+      "topic_target": "emprendimiento",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "propiedad_privada",
-    "titulo": "¿Debe el gasto público en propiedad privada estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1022,25 +1008,25 @@ DECLARE
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "7ae3cfd43359c4618bfd638f",
+    "duplicate_fingerprint": "6872c85c1b2fbd25437f0462",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "propiedad_privada",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "propiedad_privada",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en propiedad privada?",
+    "titulo": "¿Debe una reforma sobre propiedad privada priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1054,25 +1040,25 @@ DECLARE
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "de5d2db508115865bde5f413",
+    "duplicate_fingerprint": "9af04f3b77030aa3ff3e0fb2",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "propiedad_privada",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "propiedad_privada",
-    "titulo": "¿Debe la administración de propiedad privada transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1080,31 +1066,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "propiedad_privada",
       "subtema": "garantias patrimoniales",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "b0f7c623fc6e112f00d117ff",
+    "duplicate_fingerprint": "88eca51ec2bed51d6f28541f",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "propiedad_privada",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "propiedad_privada",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de propiedad privada para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1112,63 +1098,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "propiedad_privada",
       "subtema": "seguridad juridica",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "63119c4b2fd7d1727ba28685",
+    "duplicate_fingerprint": "ba939dedcbab067c64495778",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "propiedad_privada",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "desregulacion",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre simplificación regulatoria cumplen su objetivo sin crear privilegios?",
+    "topic": "propiedad_privada",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre propiedad privada?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "desregulacion",
-      "subtema": "evaluacion normativa",
+      "eje_tematico": "propiedad_privada",
+      "subtema": "uso de bienes",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "desregulacion",
-    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "ideological_axis": "propiedad_privada",
+    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "842d226b4b2256128e2ae945",
+    "duplicate_fingerprint": "317979a9131e2308877b6f60",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "desregulacion",
+      "topic_target": "propiedad_privada",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "desregulacion",
-    "titulo": "¿Debe el gasto público en simplificación regulatoria estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1182,25 +1171,25 @@ DECLARE
     "ideological_axis": "desregulacion",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "10bfbc11de847c3434582506",
+    "duplicate_fingerprint": "0de125ab9e3d5f9a8070e7e3",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "desregulacion",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en simplificación regulatoria?",
+    "titulo": "¿Debe una reforma sobre simplificación regulatoria priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1214,25 +1203,25 @@ DECLARE
     "ideological_axis": "desregulacion",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "74323d704bf543e9186a8b00",
+    "duplicate_fingerprint": "faeeceb35095e2faa0d6aab7",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "desregulacion",
-    "titulo": "¿Debe la administración de simplificación regulatoria transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1240,31 +1229,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
       "subtema": "evaluacion normativa",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "desregulacion",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "20dc020bd54592133f18fc87",
+    "duplicate_fingerprint": "75e19864d4e44108427b937b",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "desregulacion",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de simplificación regulatoria para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1272,63 +1261,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
       "subtema": "tramites",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "desregulacion",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "ff00f981dae7d4fd894442b5",
+    "duplicate_fingerprint": "5075625d03b389842d8af97b",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "responsabilidad_fiscal",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre responsabilidad fiscal cumplen su objetivo sin crear privilegios?",
+    "topic": "desregulacion",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre simplificación regulatoria?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "responsabilidad_fiscal",
-      "subtema": "prioridades presupuestales",
+      "eje_tematico": "desregulacion",
+      "subtema": "costos regulatorios",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "responsabilidad_fiscal",
-    "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
+    "ideological_axis": "desregulacion",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "8b6ba4ae06f7e1e5d1b3c386",
+    "duplicate_fingerprint": "79b98c54f62547112f381725",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "responsabilidad_fiscal",
+      "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "responsabilidad_fiscal",
-    "titulo": "¿Debe el gasto público en responsabilidad fiscal estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con responsabilidad fiscal?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1342,25 +1334,25 @@ DECLARE
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "030b1c01ade03a2ede28dc9b",
+    "duplicate_fingerprint": "7fa4e697f937a463f4adf52c",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "responsabilidad_fiscal",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en responsabilidad fiscal?",
+    "titulo": "¿Debe una reforma sobre responsabilidad fiscal priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1374,25 +1366,25 @@ DECLARE
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "e11c0d975c33f19666258b65",
+    "duplicate_fingerprint": "50382b45af8452c068810987",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "responsabilidad_fiscal",
-    "titulo": "¿Debe la administración de responsabilidad fiscal transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre responsabilidad fiscal?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1400,31 +1392,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "responsabilidad_fiscal",
       "subtema": "prioridades presupuestales",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "b33b32e3a328ab8392947ada",
+    "duplicate_fingerprint": "5fe006557807409e0a682a33",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "responsabilidad_fiscal",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de responsabilidad fiscal para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre responsabilidad fiscal?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1432,63 +1424,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "responsabilidad_fiscal",
       "subtema": "gasto publico",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "1ff87bc368ac1a8dd20acd57",
+    "duplicate_fingerprint": "8469d295dc54d7b4e02c9ed0",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "anticorrupcion",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre lucha contra la corrupción cumplen su objetivo sin crear privilegios?",
+    "topic": "responsabilidad_fiscal",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre responsabilidad fiscal?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "anticorrupcion",
-      "subtema": "sanciones",
+      "eje_tematico": "responsabilidad_fiscal",
+      "subtema": "deuda",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "anticorrupcion",
-    "deliberative_tension": "ciudadano_vs_poder_politico",
+    "ideological_axis": "responsabilidad_fiscal",
+    "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "b5fcfa63c01280a0fe0726ec",
+    "duplicate_fingerprint": "407497c83b1aa272ffbd0a8f",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "anticorrupcion",
+      "topic_target": "responsabilidad_fiscal",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "anticorrupcion",
-    "titulo": "¿Debe el gasto público en lucha contra la corrupción estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1502,25 +1497,25 @@ DECLARE
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "e092ee9ee87040ad5d613524",
+    "duplicate_fingerprint": "bc5b48598d419992c39efb8f",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "anticorrupcion",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en lucha contra la corrupción?",
+    "titulo": "¿Debe una reforma sobre lucha contra la corrupción priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1534,25 +1529,25 @@ DECLARE
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "fba4f74062f506489e69cd62",
+    "duplicate_fingerprint": "136c5b28feecdb1a06cd17ba",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "anticorrupcion",
-    "titulo": "¿Debe la administración de lucha contra la corrupción transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1560,31 +1555,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "anticorrupcion",
       "subtema": "sanciones",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "b167d78dea33e06d59b9761b",
+    "duplicate_fingerprint": "f57b4f5f9b7b2eb6210a2a40",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "anticorrupcion",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de lucha contra la corrupción para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1592,63 +1587,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "anticorrupcion",
       "subtema": "transparencia",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "96b11764a5e9235bea3737d6",
+    "duplicate_fingerprint": "2dd1fc4a672b10cdb8862340",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "anti_mercantilismo",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre privilegios económicos otorgados por el Estado cumplen su objetivo sin crear privilegios?",
+    "topic": "anticorrupcion",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre lucha contra la corrupción?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "anti_mercantilismo",
-      "subtema": "captura regulatoria",
+      "eje_tematico": "anticorrupcion",
+      "subtema": "compras publicas",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "anti_mercantilismo",
-    "deliberative_tension": "competencia_vs_mercantilismo",
+    "ideological_axis": "anticorrupcion",
+    "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "f5eabaa445db4d1f9502416d",
+    "duplicate_fingerprint": "c5c0c58e0b32e5c8d5ee5bf4",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "anti_mercantilismo",
+      "topic_target": "anticorrupcion",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "anti_mercantilismo",
-    "titulo": "¿Debe el gasto público en privilegios económicos otorgados por el Estado estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1662,25 +1660,25 @@ DECLARE
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "f3bd4863e2db06af95b547a0",
+    "duplicate_fingerprint": "566eeefa226a8ee7a4172d74",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "anti_mercantilismo",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en privilegios económicos otorgados por el Estado?",
+    "titulo": "¿Debe una reforma sobre privilegios económicos otorgados por el Estado priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1694,25 +1692,25 @@ DECLARE
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "2198178b6f99821da0fc2b63",
+    "duplicate_fingerprint": "6adc73d34e4eea0e648f66ec",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "anti_mercantilismo",
-    "titulo": "¿Debe la administración de privilegios económicos otorgados por el Estado transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1720,31 +1718,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "anti_mercantilismo",
       "subtema": "captura regulatoria",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "5beb87e71f690c01e39f6f1f",
+    "duplicate_fingerprint": "82b14a1d0cc6bdab95e0bcb8",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "anti_mercantilismo",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de privilegios económicos otorgados por el Estado para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1752,63 +1750,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "anti_mercantilismo",
       "subtema": "competencia",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "1ad1d14ff984376179037a04",
+    "duplicate_fingerprint": "8cc5262647d0fdda695aa47e",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "seguridad_ciudadana",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre seguridad ciudadana cumplen su objetivo sin crear privilegios?",
+    "topic": "anti_mercantilismo",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre privilegios económicos otorgados por el Estado?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "seguridad_ciudadana",
-      "subtema": "garantias ciudadanas",
+      "eje_tematico": "anti_mercantilismo",
+      "subtema": "subsidios selectivos",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "seguridad_ciudadana",
-    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "ideological_axis": "anti_mercantilismo",
+    "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "ec1cdf704d1d69cae386d768",
+    "duplicate_fingerprint": "f2bf7a6de1c50e34d41a4e0d",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "seguridad_ciudadana",
+      "topic_target": "anti_mercantilismo",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "seguridad_ciudadana",
-    "titulo": "¿Debe el gasto público en seguridad ciudadana estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1822,25 +1823,25 @@ DECLARE
     "ideological_axis": "seguridad_ciudadana",
     "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "acc794621f468bc94bcbc962",
+    "duplicate_fingerprint": "40190c1ab53f7986da95efa3",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "seguridad_ciudadana",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en seguridad ciudadana?",
+    "titulo": "¿Debe una reforma sobre seguridad ciudadana priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1854,25 +1855,25 @@ DECLARE
     "ideological_axis": "seguridad_ciudadana",
     "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "fd091bad7b06ad2ada1f9261",
+    "duplicate_fingerprint": "9cbebf6c52a0b747ac391691",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "seguridad_ciudadana",
-    "titulo": "¿Debe la administración de seguridad ciudadana transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1880,31 +1881,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
       "subtema": "garantias ciudadanas",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "seguridad_ciudadana",
     "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "d252567aa1a6d2eb827edcc1",
+    "duplicate_fingerprint": "0775db84f6a96821a7a4371e",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "seguridad_ciudadana",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de seguridad ciudadana para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1912,63 +1913,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
       "subtema": "prevencion",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "seguridad_ciudadana",
     "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "042547e5486962e62ba3d226",
+    "duplicate_fingerprint": "baa86865478f4316c3fb6884",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "estado_de_derecho",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre Estado de derecho cumplen su objetivo sin crear privilegios?",
+    "topic": "seguridad_ciudadana",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre seguridad ciudadana?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "estado_de_derecho",
-      "subtema": "independencia institucional",
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "control del delito",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "estado_de_derecho",
-    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "9b58c26b8be7d66f389f742e",
+    "duplicate_fingerprint": "4bbe772036bea98760ed66e5",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "estado_de_derecho",
+      "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "estado_de_derecho",
-    "titulo": "¿Debe el gasto público en Estado de derecho estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1982,25 +1986,25 @@ DECLARE
     "ideological_axis": "estado_de_derecho",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "a72e08e5a66ab53964ca8003",
+    "duplicate_fingerprint": "56ce9f406f9658a970d158a0",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "estado_de_derecho",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en Estado de derecho?",
+    "titulo": "¿Debe una reforma sobre Estado de derecho priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2014,25 +2018,25 @@ DECLARE
     "ideological_axis": "estado_de_derecho",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "a5963cdd428a39e8a6c8b02c",
+    "duplicate_fingerprint": "d58963eb281609b18495c414",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "estado_de_derecho",
-    "titulo": "¿Debe la administración de Estado de derecho transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2040,31 +2044,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
       "subtema": "independencia institucional",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "estado_de_derecho",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "e3d1900eac53fb1bba14504b",
+    "duplicate_fingerprint": "f1c1dc7bee0919291f0bc8b1",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "estado_de_derecho",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de Estado de derecho para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2072,63 +2076,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
       "subtema": "debido proceso",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "estado_de_derecho",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "712cdacfbb7bf7efcfb15ee3",
+    "duplicate_fingerprint": "470bd9f31227f2bd05b779ef",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "merito_y_talento",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre mérito en el sector público cumplen su objetivo sin crear privilegios?",
+    "topic": "estado_de_derecho",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre Estado de derecho?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "merito_y_talento",
-      "subtema": "nombramientos",
+      "eje_tematico": "estado_de_derecho",
+      "subtema": "cumplimiento de normas",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "merito_y_talento",
-    "deliberative_tension": "merito_vs_clientelismo",
+    "ideological_axis": "estado_de_derecho",
+    "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "3e5d23bba9f66f92596fe092",
+    "duplicate_fingerprint": "7c7508851ffd32d627c42f49",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "merito_y_talento",
+      "topic_target": "estado_de_derecho",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "merito_y_talento",
-    "titulo": "¿Debe el gasto público en mérito en el sector público estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con mérito en el sector público?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2142,25 +2149,25 @@ DECLARE
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "cc8dc08863f8fcab2b18914f",
+    "duplicate_fingerprint": "59a7289bf8dc5cc6ecc7d862",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "merito_y_talento",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en mérito en el sector público?",
+    "titulo": "¿Debe una reforma sobre mérito en el sector público priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2174,25 +2181,25 @@ DECLARE
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "ac82947a6524f75809d6b362",
+    "duplicate_fingerprint": "041fdeb05602eab249a337b6",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "merito_y_talento",
-    "titulo": "¿Debe la administración de mérito en el sector público transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre mérito en el sector público?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2200,31 +2207,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "merito_y_talento",
       "subtema": "nombramientos",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "ebefec14fa8be55e27168988",
+    "duplicate_fingerprint": "fda02a0343044e2a5f9ae7fd",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "merito_y_talento",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de mérito en el sector público para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre mérito en el sector público?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2232,63 +2239,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "merito_y_talento",
       "subtema": "servicio civil",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "c4a32d6ff6d44ef61775deca",
+    "duplicate_fingerprint": "016f2f8e8ccf5058f0e220dc",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "ciudadania_y_control_del_poder",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre control ciudadano del poder cumplen su objetivo sin crear privilegios?",
+    "topic": "merito_y_talento",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre mérito en el sector público?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "ciudadania_y_control_del_poder",
-      "subtema": "responsabilidad politica",
+      "eje_tematico": "merito_y_talento",
+      "subtema": "evaluacion de desempeno",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "ciudadania_y_control_del_poder",
-    "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
+    "ideological_axis": "merito_y_talento",
+    "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "dd9b7340ba3ad1d3d2eb9b3d",
+    "duplicate_fingerprint": "96186a2418b02512a8442f6e",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "ciudadania_y_control_del_poder",
+      "topic_target": "merito_y_talento",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "ciudadania_y_control_del_poder",
-    "titulo": "¿Debe el gasto público en control ciudadano del poder estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2302,25 +2312,25 @@ DECLARE
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "d9af1d8298402ca5720e2fe1",
+    "duplicate_fingerprint": "7a33f8d9c4eae0baec165d62",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "ciudadania_y_control_del_poder",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en control ciudadano del poder?",
+    "titulo": "¿Debe una reforma sobre control ciudadano del poder priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2334,25 +2344,25 @@ DECLARE
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "d2e57e88d15e01320bb29390",
+    "duplicate_fingerprint": "5e84e9741725bb572987ccf0",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "ciudadania_y_control_del_poder",
-    "titulo": "¿Debe la administración de control ciudadano del poder transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2360,31 +2370,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "ciudadania_y_control_del_poder",
       "subtema": "responsabilidad politica",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "76361d22868473b3833c450e",
+    "duplicate_fingerprint": "36aae7a765b35087121dd4ce",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "ciudadania_y_control_del_poder",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de control ciudadano del poder para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2392,63 +2402,66 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "ciudadania_y_control_del_poder",
       "subtema": "fiscalizacion ciudadana",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "4aa72ec295da0f06cdb7277c",
+    "duplicate_fingerprint": "ee94f25a41864c14cc93c5a3",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
     }
   },
   {
-    "topic": "innovacion_y_competitividad",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre innovación y competitividad cumplen su objetivo sin crear privilegios?",
+    "topic": "ciudadania_y_control_del_poder",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre control ciudadano del poder?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
-      "eje_tematico": "innovacion_y_competitividad",
-      "subtema": "productividad",
+      "eje_tematico": "ciudadania_y_control_del_poder",
+      "subtema": "acceso a informacion",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
-    "ideological_axis": "innovacion_y_competitividad",
-    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "ideological_axis": "ciudadania_y_control_del_poder",
+    "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "74dcb5ff306a4f6ead400ce4",
+    "duplicate_fingerprint": "1ccca3966195b035df6b85bc",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
-      "topic_target": "innovacion_y_competitividad",
+      "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 4
     }
   },
   {
     "topic": "innovacion_y_competitividad",
-    "titulo": "¿Debe el gasto público en innovación y competitividad estar condicionado a resultados verificables y auditables?",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con innovación y competitividad?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2462,25 +2475,25 @@ DECLARE
     "ideological_axis": "innovacion_y_competitividad",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "1ad6766331de3a622a3b70cd",
+    "duplicate_fingerprint": "5c86feeca72fa6ebb06b6b20",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "innovacion_y_competitividad",
       "per_topic_target": 5,
-      "template_index": 9
+      "template_index": 0
     }
   },
   {
     "topic": "innovacion_y_competitividad",
-    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en innovación y competitividad?",
+    "titulo": "¿Debe una reforma sobre innovación y competitividad priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2494,25 +2507,25 @@ DECLARE
     "ideological_axis": "innovacion_y_competitividad",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "837879611af32fb3529d4533",
+    "duplicate_fingerprint": "7f0542dee7dd16cfb6bd29a6",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "innovacion_y_competitividad",
       "per_topic_target": 5,
-      "template_index": 10
+      "template_index": 1
     }
   },
   {
     "topic": "innovacion_y_competitividad",
-    "titulo": "¿Debe la administración de innovación y competitividad transferirse prioritariamente a los gobiernos locales?",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre innovación y competitividad?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2520,31 +2533,31 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "innovacion_y_competitividad",
       "subtema": "productividad",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "innovacion_y_competitividad",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "9a1feb5be7f03d7ba67835fd",
+    "duplicate_fingerprint": "6398f1520f6662feab331386",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "innovacion_y_competitividad",
       "per_topic_target": 5,
-      "template_index": 11
+      "template_index": 2
     }
   },
   {
     "topic": "innovacion_y_competitividad",
-    "titulo": "¿Debe garantizarse un marco legal estable en materia de innovación y competitividad para dar certeza a los ciudadanos?",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre innovación y competitividad?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2552,26 +2565,61 @@ DECLARE
     "taxonomy_draft": {
       "eje_tematico": "innovacion_y_competitividad",
       "subtema": "competitividad",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "baja"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "innovacion_y_competitividad",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
     "quality_score": null,
     "neutrality_score": null,
-    "duplicate_fingerprint": "1ffc0a4a2cbfc22c5fe04b60",
+    "duplicate_fingerprint": "a2cb07e00633ae0b88ebf356",
     "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "innovacion_y_competitividad",
       "per_topic_target": 5,
-      "template_index": 12
+      "template_index": 3
+    }
+  },
+  {
+    "topic": "innovacion_y_competitividad",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre innovación y competitividad?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "innovacion_y_competitividad",
+      "subtema": "reglas para innovar",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "innovacion_y_competitividad",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "3943a57a3ea21bcc32555cc6",
+    "status": "pending_review",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "innovacion_y_competitividad",
+      "per_topic_target": 5,
+      "template_index": 4
     }
   }
 ]$json_payload$::jsonb;

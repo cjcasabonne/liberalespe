@@ -1,0 +1,14 @@
+{
+  "batch_code": "qgen_20260605103206_08f43b21",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "db_before": 160,
+  "db_after": 240,
+  "delta": 80,
+  "status": "success",
+  "inserted_count": 80,
+  "expected_count": 80,
+  "global_dup_fingerprints": 0,
+  "batch_status": "loaded",
+  "applied_at": "2026-06-05T10:34:31Z",
+  "method": "mcp_execute_sql_chunked_8x10"
+}

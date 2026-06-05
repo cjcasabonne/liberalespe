@@ -1,35 +1,6 @@
 [
   {
-    "candidate_id": "seguridad_ciudadana-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con seguridad ciudadana?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "seguridad_ciudadana",
-      "subtema": "prevencion",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "seguridad_ciudadana",
-    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "40190c1ab53f7986da95efa3",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "seguridad_ciudadana",
-      "per_topic_target": 5,
-      "template_index": 0
-    }
-  },
-  {
-    "candidate_id": "seguridad_ciudadana-02-debe-una-reforma-sobre-seguridad-ciudadana",
+    "candidate_id": "seguridad_ciudadana-01-debe-una-reforma-sobre-seguridad-ciudadana",
     "titulo": "¿Debe una reforma sobre seguridad ciudadana priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -37,7 +8,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
-      "subtema": "control del delito",
+      "subtema": "prevencion",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
@@ -54,11 +25,11 @@
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 1
+      "template_index": 0
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-03-debe-la-ciudadania-contar-con-reportes-sim",
+    "candidate_id": "seguridad_ciudadana-02-debe-la-ciudadania-contar-con-reportes-sim",
     "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -66,7 +37,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
-      "subtema": "garantias ciudadanas",
+      "subtema": "control del delito",
       "enfoque": "ciudadano",
       "intensidad_de_debate": "baja"
     },
@@ -83,11 +54,11 @@
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 2
+      "template_index": 1
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-04-debe-evaluarse-el-costo-fiscal-y-regulator",
+    "candidate_id": "seguridad_ciudadana-03-debe-evaluarse-el-costo-fiscal-y-regulator",
     "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -95,7 +66,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
-      "subtema": "prevencion",
+      "subtema": "garantias ciudadanas",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
@@ -112,11 +83,11 @@
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 3
+      "template_index": 2
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-05-que-criterio-deberia-priorizar-una-reforma",
+    "candidate_id": "seguridad_ciudadana-04-que-criterio-deberia-priorizar-una-reforma",
     "titulo": "¿Qué criterio debería priorizar una reforma sobre seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "opciones",
@@ -127,7 +98,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
-      "subtema": "control del delito",
+      "subtema": "prevencion",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
@@ -144,11 +115,11 @@
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 4
+      "template_index": 3
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-06-debe-toda-politica-vinculada-a-seguridad-c",
+    "candidate_id": "seguridad_ciudadana-05-debe-toda-politica-vinculada-a-seguridad-c",
     "titulo": "¿Debe toda política vinculada a seguridad ciudadana tener metas públicas medibles antes de recibir más presupuesto?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -156,7 +127,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
-      "subtema": "garantias ciudadanas",
+      "subtema": "control del delito",
       "enfoque": "institucional",
       "intensidad_de_debate": "moderada"
     },
@@ -173,11 +144,11 @@
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 5
+      "template_index": 4
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-07-debe-el-congreso-exigir-evaluaciones-indep",
+    "candidate_id": "seguridad_ciudadana-06-debe-el-congreso-exigir-evaluaciones-indep",
     "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -185,7 +156,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
-      "subtema": "prevencion",
+      "subtema": "garantias ciudadanas",
       "enfoque": "institucional",
       "intensidad_de_debate": "alta"
     },
@@ -202,11 +173,11 @@
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 6
+      "template_index": 5
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-08-que-mecanismo-seria-mas-util-para-mejorar-",
+    "candidate_id": "seguridad_ciudadana-07-que-mecanismo-seria-mas-util-para-mejorar-",
     "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "opciones",
@@ -217,7 +188,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
-      "subtema": "control del delito",
+      "subtema": "prevencion",
       "enfoque": "ciudadano",
       "intensidad_de_debate": "moderada"
     },
@@ -234,11 +205,11 @@
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 7
+      "template_index": 6
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-09-debe-publicarse-informacion-comparable-par",
+    "candidate_id": "seguridad_ciudadana-08-debe-publicarse-informacion-comparable-par",
     "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -246,7 +217,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
-      "subtema": "garantias ciudadanas",
+      "subtema": "control del delito",
       "enfoque": "ciudadano",
       "intensidad_de_debate": "baja"
     },
@@ -263,11 +234,11 @@
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 7
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-10-debe-revisarse-periodicamente-si-las-regla",
+    "candidate_id": "seguridad_ciudadana-09-debe-revisarse-periodicamente-si-las-regla",
     "titulo": "¿Debe revisarse periódicamente si las reglas sobre seguridad ciudadana cumplen su objetivo sin crear privilegios?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -275,7 +246,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
-      "subtema": "prevencion",
+      "subtema": "garantias ciudadanas",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
@@ -292,7 +263,451 @@
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
       "per_topic_target": 5,
+      "template_index": 8
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-10-debe-el-gasto-publico-en-seguridad-ciudada",
+    "titulo": "¿Debe el gasto público en seguridad ciudadana estar condicionado a resultados verificables y auditables?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "prevencion",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Evalúa si el presupuesto debe vincularse a resultados medibles y comprobables.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "acc794621f468bc94bcbc962",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
       "template_index": 9
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-11-deben-reducirse-las-barreras-que-limitan-l",
+    "titulo": "¿Deben reducirse las barreras que limitan la participación de nuevos actores en seguridad ciudadana?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "control del delito",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea si las barreras de entrada generan costos sin beneficios verificables.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "fd091bad7b06ad2ada1f9261",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 10
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-12-debe-la-administracion-de-seguridad-ciudad",
+    "titulo": "¿Debe la administración de seguridad ciudadana transferirse prioritariamente a los gobiernos locales?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "garantias ciudadanas",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Contrasta administración central y local sin emitir juicio de valor previo.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "d252567aa1a6d2eb827edcc1",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 11
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-13-debe-garantizarse-un-marco-legal-estable-e",
+    "titulo": "¿Debe garantizarse un marco legal estable en materia de seguridad ciudadana para dar certeza a los ciudadanos?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "prevencion",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Evalúa la certeza jurídica como base para la planificacion a largo plazo.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "042547e5486962e62ba3d226",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 12
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-14-deben-los-funcionarios-responsables-de-pol",
+    "titulo": "¿Deben los funcionarios responsables de políticas sobre seguridad ciudadana rendir cuentas formalmente por sus resultados?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "control del delito",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea la responsabilidad individual en la gestion pública sin populismo.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "19713fb94ab6a878126bc095",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 13
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-15-que-modelo-seria-mas-util-para-organizar-s",
+    "titulo": "¿Qué modelo sería más útil para organizar seguridad ciudadana?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Competencia abierta entre actores con reglas claras",
+      "Mayor regulación pública con metas medibles"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "garantias ciudadanas",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Compara modelos de organizacion sectorial sin jerarquizar ninguno.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "4a38a2baa20945b34d0d4dcf",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 14
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-16-como-deberia-ejercerse-el-control-ciudadan",
+    "titulo": "¿Cómo debería ejercerse el control ciudadano sobre las decisiones en seguridad ciudadana?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Consultas públicas previas a las reformas",
+      "Comites de supervisión ciudadana con informes anuales"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "prevencion",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Ofrece mecanismos de control sin indicar cual es más efectivo.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "f9f65f9a0e1e6e5b2d1c926c",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 15
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-17-debe-el-estado-publicar-proactivamente-los",
+    "titulo": "¿Debe el Estado publicar proactivamente los resultados de sus políticas en seguridad ciudadana?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "control del delito",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Refuerza transparencia activa sin implicar que el Estado fracasa.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "6b68c0742de2b8ea736ce580",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 16
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-18-debe-limitarse-la-cantidad-de-normas-vigen",
+    "titulo": "¿Debe limitarse la cantidad de normas vigentes sobre seguridad ciudadana para reducir contradicciones y costos?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "garantias ciudadanas",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Introduce la racionalidad normativa como criterio de buen gobierno.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "52eddd8c976679324943a412",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 17
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-19-debe-derogarse-una-norma-obsoleta-sobre-se",
+    "titulo": "¿Debe derogarse una norma obsoleta sobre seguridad ciudadana por cada nueva regulación aprobada?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "prevencion",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Propone un principio de equilibrio regulatorio para evitar la acumulacion normativa.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "d97c6533f611f23f8e2f69d8",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 18
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-20-debe-realizarse-una-evaluacion-de-impacto-",
+    "titulo": "¿Debe realizarse una evaluación de impacto antes de implementar cualquier nueva política sobre seguridad ciudadana?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "control del delito",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea el analisis previo como requisito sin implicar que la política es mala.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "9e5851ad3f1c4beac9cb0616",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 19
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-21-que-nivel-de-gobierno-debe-ser-el-principa",
+    "titulo": "¿Qué nivel de gobierno debe ser el principal responsable de rendir cuentas sobre seguridad ciudadana?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "El gobierno nacional con supervisión parlamentaria",
+      "Los gobiernos regionales con control ciudadano"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "garantias ciudadanas",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea la distribucion de responsabilidades entre niveles sin orientacion previa.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "63dd1572cc6398d2ebb74a82",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 20
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-22-deberian-crearse-incentivos-para-que-el-se",
+    "titulo": "¿Deberían crearse incentivos para que el sector privado invierta en seguridad ciudadana?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "prevencion",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Evalúa los incentivos como herramienta sin imponer una conclusion.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "2a5d9ce7abfcbeaefd06ded0",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 21
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-23-deben-eliminarse-las-restricciones-sobre-s",
+    "titulo": "¿Deben eliminarse las restricciones sobre seguridad ciudadana que no demuestren un beneficio neto para la ciudadanía?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "control del delito",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Propone un criterio de eliminacion normativa basado en evidencia de beneficios.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "a645f99968808199dcb135ff",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 22
+    }
+  },
+  {
+    "candidate_id": "seguridad_ciudadana-24-deben-las-normas-sobre-seguridad-ciudadana",
+    "titulo": "¿Deben las normas sobre seguridad ciudadana aplicarse por igual a todos los actores sin excepciones?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "seguridad_ciudadana",
+      "subtema": "garantias ciudadanas",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "seguridad_ciudadana",
+    "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea la igualdad en la aplicacion de normas como criterio de equidad regulatoria.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "36c26f305fe6cda9652df2e7",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "seguridad_ciudadana",
+      "per_topic_target": 5,
+      "template_index": 23
     }
   }
 ]

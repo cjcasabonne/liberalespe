@@ -1,7 +1,7 @@
 # Resultados QA del generador
 
-- Candidatos válidos: 256
-- Candidatos rechazados: 128
+- Candidatos válidos: 160
+- Candidatos rechazados: 0
 - Candidatos finales: 80
 - Estado de dry-run: ok
 
