@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "ciudadania_y_control_del_poder-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con control ciudadano del poder?",
+    "candidate_id": "ciudadania_y_control_del_poder-01-debe-el-estado-reducir-barreras-burocratic",
+    "titulo": "¿Debe el Estado reducir barreras burocraticas para facilitar el acceso a beneficios vinculados con control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -9,28 +9,33 @@
     "taxonomy_draft": {
       "eje_tematico": "ciudadania_y_control_del_poder",
       "subtema": "fiscalizacion ciudadana",
-      "enfoque": "institucional",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa barreras administrativas sin lenguaje de propaganda.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "7a33f8d9c4eae0baec165d62",
+    "quality_score": 76,
+    "neutrality_score": 77,
+    "duplicate_fingerprint": "737bf56e6eebc18bc9853401",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "simplificacion_administrativa",
+      "generation_variant": "barreras_burocraticas",
+      "batch_nonce": "0f1d0581e277",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 0
     }
   },
   {
-    "candidate_id": "ciudadania_y_control_del_poder-02-debe-una-reforma-sobre-control-ciudadano-d",
-    "titulo": "¿Debe una reforma sobre control ciudadano del poder priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "ciudadania_y_control_del_poder-02-debe-existir-responsabilidad-personal-para",
+    "titulo": "¿Debe existir responsabilidad personal para funcionarios que tomen decisiones con efectos negativos sobre control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -38,28 +43,33 @@
     "taxonomy_draft": {
       "eje_tematico": "ciudadania_y_control_del_poder",
       "subtema": "acceso a informacion",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "moderada"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Plantea responsabilidad individual sin lenguaje sancionatorio extremo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "5e84e9741725bb572987ccf0",
+    "quality_score": 76,
+    "neutrality_score": 75,
+    "duplicate_fingerprint": "caf3a0b35e06911c3ad51706",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "responsabilidad_del_funcionario",
+      "generation_variant": "rendicion_personal",
+      "batch_nonce": "0f1d0581e277",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 1
     }
   },
   {
-    "candidate_id": "ciudadania_y_control_del_poder-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre control ciudadano del poder?",
+    "candidate_id": "ciudadania_y_control_del_poder-03-deberian-los-gobiernos-locales-tener-mayor",
+    "titulo": "¿Deberían los gobiernos locales tener mayor autonomía para definir políticas sobre control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -67,28 +77,33 @@
     "taxonomy_draft": {
       "eje_tematico": "ciudadania_y_control_del_poder",
       "subtema": "responsabilidad politica",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Debate descentralización sin presuponer que el nivel local es mejor.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "36aae7a765b35087121dd4ce",
+    "quality_score": 74,
+    "neutrality_score": 76,
+    "duplicate_fingerprint": "9d433a05661478f07c963b6b",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "descentralizacion",
+      "generation_variant": "autonomia_local",
+      "batch_nonce": "0f1d0581e277",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 2
     }
   },
   {
-    "candidate_id": "ciudadania_y_control_del_poder-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre control ciudadano del poder?",
+    "candidate_id": "ciudadania_y_control_del_poder-04-debe-el-marco-legal-sobre-control-ciudadan",
+    "titulo": "¿Debe el marco legal sobre control ciudadano del poder garantizar reglas estables para que los agentes puedan planificar a largo plazo?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -102,27 +117,32 @@
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Introduce predictibilidad y seguridad jurídica como valor deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "ee94f25a41864c14cc93c5a3",
+    "quality_score": 77,
+    "neutrality_score": 78,
+    "duplicate_fingerprint": "da99082c9dd95292beb186a3",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "seguridad_juridica",
+      "generation_variant": "predictibilidad_largo_plazo",
+      "batch_nonce": "0f1d0581e277",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 3
     }
   },
   {
-    "candidate_id": "ciudadania_y_control_del_poder-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre control ciudadano del poder?",
+    "candidate_id": "ciudadania_y_control_del_poder-05-que-condicion-es-mas-importante-para-logra",
+    "titulo": "¿Qué condicion es más importante para lograr buenos resultados en control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
+      "Mayor competencia entre proveedores",
+      "Mayor regulación y supervisión estatal"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -134,165 +154,22 @@
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
+    "quality_notes": "Contrasta dos enfoques sin descartar ninguno a priori.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "1ccca3966195b035df6b85bc",
+    "quality_score": 75,
+    "neutrality_score": 75,
+    "duplicate_fingerprint": "4a49ff28f16491bd898a2a0f",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "competencia",
+      "generation_variant": "apertura_vs_regulacion",
+      "batch_nonce": "0f1d0581e277",
       "topic_target": "ciudadania_y_control_del_poder",
       "per_topic_target": 5,
       "template_index": 4
-    }
-  },
-  {
-    "candidate_id": "ciudadania_y_control_del_poder-06-debe-toda-politica-vinculada-a-control-ciu",
-    "titulo": "¿Debe toda política vinculada a control ciudadano del poder tener metas públicas medibles antes de recibir más presupuesto?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "ciudadania_y_control_del_poder",
-      "subtema": "responsabilidad politica",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "ciudadania_y_control_del_poder",
-    "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "dfaa8dc1adb253f6f40fd957",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "ciudadania_y_control_del_poder",
-      "per_topic_target": 5,
-      "template_index": 5
-    }
-  },
-  {
-    "candidate_id": "ciudadania_y_control_del_poder-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con control ciudadano del poder?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "ciudadania_y_control_del_poder",
-      "subtema": "fiscalizacion ciudadana",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "ciudadania_y_control_del_poder",
-    "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "825b6d8a7cf2a02a11e2c780",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "ciudadania_y_control_del_poder",
-      "per_topic_target": 5,
-      "template_index": 6
-    }
-  },
-  {
-    "candidate_id": "ciudadania_y_control_del_poder-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de control ciudadano del poder?",
-    "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "ciudadania_y_control_del_poder",
-      "subtema": "acceso a informacion",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "ciudadania_y_control_del_poder",
-    "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "b5257f39a8d5b1cb2df1b704",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "ciudadania_y_control_del_poder",
-      "per_topic_target": 5,
-      "template_index": 7
-    }
-  },
-  {
-    "candidate_id": "ciudadania_y_control_del_poder-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre control ciudadano del poder?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "ciudadania_y_control_del_poder",
-      "subtema": "responsabilidad politica",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
-    },
-    "ideological_axis": "ciudadania_y_control_del_poder",
-    "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "a936a7f5567c83639469cf7a",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "ciudadania_y_control_del_poder",
-      "per_topic_target": 5,
-      "template_index": 8
-    }
-  },
-  {
-    "candidate_id": "ciudadania_y_control_del_poder-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre control ciudadano del poder cumplen su objetivo sin crear privilegios?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "ciudadania_y_control_del_poder",
-      "subtema": "fiscalizacion ciudadana",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "ciudadania_y_control_del_poder",
-    "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "dd9b7340ba3ad1d3d2eb9b3d",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "ciudadania_y_control_del_poder",
-      "per_topic_target": 5,
-      "template_index": 9
     }
   }
 ]

@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_precheck",
+  "status": "error",
+  "timestamp": "2026-06-06T10:24:20.523Z",
+  "error": "missing_VITE_SUPABASE_URL"
+}

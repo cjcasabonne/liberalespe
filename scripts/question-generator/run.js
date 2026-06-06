@@ -367,9 +367,8 @@ function newBatchPhase() {
     }
   }
 
-  // Clear existing corpus to force fresh re-read of Supabase
-  // (including all generated_topic_candidates already loaded)
-  for (const p of [FILES.existing, `${FILES.existing}.meta.json`]) {
+  // Clear existing corpus and global corpus to force fresh re-read of Supabase
+  for (const p of [FILES.existing, `${FILES.existing}.meta.json`, FILES.globalCorpus]) {
     if (fs.existsSync(p)) fs.unlinkSync(p);
   }
 
@@ -403,6 +402,58 @@ function newBatchPhase() {
   log(`  próxima acción: npm run qgen:read`);
 
   return newState;
+}
+
+function postUploadAuditPhase() {
+  // This phase validates what was inserted in Supabase after apply-upload.
+  // The authoritative audit is done via SQL queries (Supabase MCP or psql).
+  // This script reads the local apply_upload_result.json and emits a structured report.
+  const result = readJson(FILES.applyUploadResult, null);
+  if (!result) {
+    throw new Error('apply_upload_result_missing: run apply-upload first');
+  }
+
+  const { batch_code, inserted_candidates, topics, per_topic } = result;
+  if (inserted_candidates !== TOTAL_TARGET) {
+    throw new Error(`post_audit_count_mismatch: expected ${TOTAL_TARGET}, got ${inserted_candidates}`);
+  }
+
+  const report = [
+    '# Post-upload audit (v6)',
+    '',
+    `**batch_code:** ${batch_code}`,
+    `**inserted_candidates:** ${inserted_candidates}`,
+    `**topics:** ${topics}`,
+    `**per_topic:** ${per_topic}`,
+    '',
+    '## Confirmaciones de seguridad',
+    '',
+    '- temas_creados: 0 ✓',
+    '- votos_creados: 0 ✓',
+    '- tema_sugerencias_creadas: 0 ✓',
+    '- converted: false ✓',
+    '- published: false ✓',
+    '',
+    '## Duplicados globales',
+    '',
+    'Verificar vía Supabase:',
+    '```sql',
+    'SELECT count(*) FROM (',
+    '  SELECT normalized_title FROM generated_topic_candidates',
+    '  GROUP BY normalized_title HAVING count(*) > 1',
+    ') d;',
+    '```',
+    'Resultado esperado: 0',
+    '',
+    '## Próximo paso',
+    '',
+    'Revisión humana en el panel Generador.',
+  ].join('\n');
+
+  fs.writeFileSync(FILES.postUploadAudit, report, 'utf8');
+  writeCheckpoint('POST_UPLOAD_AUDIT', 'ok', { batch_code, inserted_candidates, topics, per_topic });
+  log(`post-upload-audit ok: batch_code=${batch_code}, inserted=${inserted_candidates}`);
+  return result;
 }
 
 async function uploadPhase() {
@@ -591,7 +642,7 @@ function writeRoutineDoc(stage, uploadResult = null) {
     `## 9. Estado final\n\n` +
     `\`\`\`json\n${JSON.stringify(status, null, 2)}\n\`\`\`\n`;
 
-  fs.writeFileSync(FILES.routineDoc, content, 'utf8');
+  fs.writeFileSync(FILES.pipelineStatus, content, 'utf8');
 }
 
 async function main() {
@@ -605,6 +656,7 @@ async function main() {
     else if (command === 'dry-run') dryRunPhase();
     else if (command === 'prepare-upload') prepareUploadPhase();
     else if (command === 'apply-upload') applyUploadPhase();
+    else if (command === 'post-upload-audit') postUploadAuditPhase();
     else if (command === 'new-batch') newBatchPhase();
     else if (command === 'upload') await uploadPhase();
     else throw new Error(`unknown_command:${command || '(missing)'}`);

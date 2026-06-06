@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_post-upload-audit",
+  "status": "error",
+  "timestamp": "2026-06-06T10:41:50.255Z",
+  "error": "post_audit_count_mismatch: expected 80, got undefined"
+}

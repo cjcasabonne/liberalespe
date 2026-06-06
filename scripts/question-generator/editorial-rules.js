@@ -24,6 +24,13 @@ const BANNED_PATTERNS = [
   'violencia',
 ];
 
+// Template quemado (v6): prohibido en todos los lotes nuevos.
+const BURNED_TEMPLATE_PATTERN =
+  'debe el estado justificar con evidencia publica cualquier nueva restriccion';
+
+const MIN_QUALITY_SCORE = 70;
+const MIN_NEUTRALITY_SCORE = 70;
+
 function isPlainTextArray(value) {
   return Array.isArray(value) && value.every((item) => typeof item === 'string' && item.trim().length > 0);
 }
@@ -66,6 +73,27 @@ function validateCandidate(candidate, context = {}) {
   if (!orthography.ok) errors.push(...orthography.errors);
 
   if (!normalizedTitle.includes('debe') && !normalizedTitle.includes('que criterio') && !normalizedTitle.includes('que mecanismo')) warnings.push('weak_deliberative_form');
+
+  // Burned template check (v6)
+  if (normalizedTitle.includes(BURNED_TEMPLATE_PATTERN)) {
+    errors.push('burned_template_prohibited');
+  }
+
+  // Minimum score validation (v6)
+  if (candidate.quality_score != null && candidate.quality_score < MIN_QUALITY_SCORE) {
+    errors.push(`quality_score_below_minimum:${candidate.quality_score}`);
+  }
+  if (candidate.neutrality_score != null && candidate.neutrality_score < MIN_NEUTRALITY_SCORE) {
+    errors.push(`neutrality_score_below_minimum:${candidate.neutrality_score}`);
+  }
+
+  // Global historical corpus checks (v6)
+  if (context.historicalFingerprints?.has(candidate.duplicate_fingerprint)) {
+    errors.push('duplicate_historical_fingerprint');
+  }
+  if (context.historicalTitles?.has(normalizedTitle)) {
+    errors.push('duplicate_historical_title');
+  }
 
   if (context.existingTitles?.has(normalizedTitle)) errors.push('duplicate_existing_title');
   if (context.seenTitles?.has(normalizedTitle)) errors.push('duplicate_title_in_run');

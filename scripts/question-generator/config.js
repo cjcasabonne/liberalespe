@@ -23,14 +23,17 @@ const FILES = {
   uploadStagingSql: path.join(DATA_DIR, 'upload_staging.sql'),
   applyUploadResult: path.join(DATA_DIR, 'apply_upload_result.json'),
   postUploadAudit: path.join(DATA_DIR, 'post_upload_audit.md'),
+  globalCorpus: path.join(DATA_DIR, 'global_corpus.json'),
+  pipelineStatus: path.join(DATA_DIR, 'pipeline_status.md'),
   routineDoc: path.join(DOCS_DIR, 'rutina_optima.md'),
 };
 
-const GENERATOR_VERSION = 'v1';
+const GENERATOR_VERSION = 'v6';
 const PER_TOPIC_TARGET = 5;
 const TOTAL_TARGET = 80;
 const PAGE_SIZE = 100;
 const PROD_REF = 'pqqkvmmenqencuretwyx';
+const MAX_ATTEMPTS_PER_TOPIC = 100;
 
 function ensureDirs() {
   for (const dir of [DATA_DIR, CHECKPOINT_DIR, TOPIC_DATA_DIR, BATCHES_DIR, LOG_DIR, DOCS_DIR]) {
@@ -80,6 +83,7 @@ module.exports = {
   TOTAL_TARGET,
   PAGE_SIZE,
   PROD_REF,
+  MAX_ATTEMPTS_PER_TOPIC,
   ensureDirs,
   readDotEnv,
   getSupabaseEnv,

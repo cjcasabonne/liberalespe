@@ -1,6 +1,7 @@
 const { PAGE_SIZE, FILES, getSupabaseEnv } = require('./config');
 const { appendJsonl, writeJson } = require('./state');
 const { normalizeText, fingerprint } = require('./normalize');
+const fs = require('fs');
 
 const TABLES = [
   {
@@ -125,9 +126,38 @@ async function readExistingCorpus() {
     total_rows: allRows.length,
   });
 
+  // Build global_corpus.json from generated_topic_candidates rows read in this run.
+  // If RLS blocks generated_topic_candidates, we merge with any existing corpus so prior
+  // MCP-seeded data is preserved.
+  const candidateRows = allRows.filter((row) => row.source === 'generated_topic_candidates');
+  const newFingerprints = candidateRows.map((row) => row.duplicate_fingerprint).filter(Boolean);
+  const newTitles = candidateRows.map((row) => row.normalized_title || normalizeText(row.titulo)).filter(Boolean);
+
+  let existingCorpus = { historical_fingerprint_set: [], historical_normalized_title_set: [] };
+  if (fs.existsSync(FILES.globalCorpus)) {
+    try {
+      existingCorpus = JSON.parse(fs.readFileSync(FILES.globalCorpus, 'utf8'));
+    } catch {
+      existingCorpus = { historical_fingerprint_set: [], historical_normalized_title_set: [] };
+    }
+  }
+
+  const mergedFingerprints = [...new Set([...existingCorpus.historical_fingerprint_set, ...newFingerprints])];
+  const mergedTitles = [...new Set([...existingCorpus.historical_normalized_title_set, ...newTitles])];
+
+  const globalCorpus = {
+    historical_fingerprint_set: mergedFingerprints,
+    historical_normalized_title_set: mergedTitles,
+    total_historical: mergedFingerprints.length,
+    built_at: new Date().toISOString(),
+    source: candidateRows.length > 0 ? 'supabase_rest' : 'merged_from_prior_corpus',
+  };
+  writeJson(FILES.globalCorpus, globalCorpus);
+
   return {
     total_rows: allRows.length,
     tables: tableResults,
+    global_corpus_size: mergedFingerprints.length,
   };
 }
 

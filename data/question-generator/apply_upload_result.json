@@ -1,0 +1,26 @@
+{
+  "phase": "apply_upload",
+  "status": "ok",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "batch_id": "fd6af77a-841b-40d1-a533-faf0dcf9c073",
+  "batch_code": "qgen_20260606102503_952931db",
+  "batch_status": "loaded",
+  "inserted_count": 80,
+  "inserted_candidates": 80,
+  "db_before": 240,
+  "db_after": 320,
+  "delta": 80,
+  "topics": 16,
+  "per_topic": 5,
+  "duplicate_fingerprints_global": 0,
+  "published": false,
+  "converted": false,
+  "executed_at": "2026-06-06T10:45:00.000Z",
+  "method": "supabase_mcp_execute_sql",
+  "chunks": [
+    {"chunk": 0, "rows": 20, "topics": ["libertad_individual","igualdad_ante_la_ley","estado_limitado","instituciones_publicas"]},
+    {"chunk": 1, "rows": 20, "topics": ["mercado_libre","emprendimiento","propiedad_privada","desregulacion"]},
+    {"chunk": 2, "rows": 20, "topics": ["responsabilidad_fiscal","anticorrupcion","anti_mercantilismo","seguridad_ciudadana"]},
+    {"chunk": 3, "rows": 20, "topics": ["estado_de_derecho","merito_y_talento","ciudadania_y_control_del_poder","innovacion_y_competitividad"]}
+  ]
+}

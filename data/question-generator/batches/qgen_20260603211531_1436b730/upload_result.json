@@ -1,0 +1,18 @@
+{
+  "mode": "dry_run",
+  "target": "generated_topic_candidates",
+  "expected_count": 80,
+  "would_insert": 80,
+  "status": "ok",
+  "batch_code": "qgen-v1-20260603211525",
+  "rpc_sequence": [
+    "crear_generated_topic_batch",
+    "cargar_generated_topic_candidates"
+  ],
+  "forbidden_actions": [
+    "revisar_generated_topic_candidate",
+    "convertir_generated_candidate_a_sugerencia",
+    "insert_temas",
+    "insert_votos"
+  ]
+}

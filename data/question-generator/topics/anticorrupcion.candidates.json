@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "anticorrupcion-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con lucha contra la corrupción?",
+    "candidate_id": "anticorrupcion-01-debe-el-estado-reducir-barreras-burocratic",
+    "titulo": "¿Debe el Estado reducir barreras burocraticas para facilitar el acceso a beneficios vinculados con lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -9,28 +9,33 @@
     "taxonomy_draft": {
       "eje_tematico": "anticorrupcion",
       "subtema": "transparencia",
-      "enfoque": "institucional",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Evalúa barreras administrativas sin lenguaje de propaganda.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "bc5b48598d419992c39efb8f",
+    "quality_score": 76,
+    "neutrality_score": 77,
+    "duplicate_fingerprint": "9e63e37c5273d9d3eaf22b98",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "simplificacion_administrativa",
+      "generation_variant": "barreras_burocraticas",
+      "batch_nonce": "0f1d0581e277",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 0
     }
   },
   {
-    "candidate_id": "anticorrupcion-02-debe-una-reforma-sobre-lucha-contra-la-cor",
-    "titulo": "¿Debe una reforma sobre lucha contra la corrupción priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "anticorrupcion-02-debe-existir-responsabilidad-personal-para",
+    "titulo": "¿Debe existir responsabilidad personal para funcionarios que tomen decisiones con efectos negativos sobre lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -38,28 +43,33 @@
     "taxonomy_draft": {
       "eje_tematico": "anticorrupcion",
       "subtema": "compras publicas",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "moderada"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Plantea responsabilidad individual sin lenguaje sancionatorio extremo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "136c5b28feecdb1a06cd17ba",
+    "quality_score": 76,
+    "neutrality_score": 75,
+    "duplicate_fingerprint": "3c19207385a0471d7435d29d",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "responsabilidad_del_funcionario",
+      "generation_variant": "rendicion_personal",
+      "batch_nonce": "0f1d0581e277",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 1
     }
   },
   {
-    "candidate_id": "anticorrupcion-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre lucha contra la corrupción?",
+    "candidate_id": "anticorrupcion-03-deberian-los-gobiernos-locales-tener-mayor",
+    "titulo": "¿Deberían los gobiernos locales tener mayor autonomía para definir políticas sobre lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -67,28 +77,33 @@
     "taxonomy_draft": {
       "eje_tematico": "anticorrupcion",
       "subtema": "sanciones",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Debate descentralización sin presuponer que el nivel local es mejor.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "f57b4f5f9b7b2eb6210a2a40",
+    "quality_score": 74,
+    "neutrality_score": 76,
+    "duplicate_fingerprint": "9322ea5a02d78adeeb0638b3",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "descentralizacion",
+      "generation_variant": "autonomia_local",
+      "batch_nonce": "0f1d0581e277",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 2
     }
   },
   {
-    "candidate_id": "anticorrupcion-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre lucha contra la corrupción?",
+    "candidate_id": "anticorrupcion-04-debe-el-marco-legal-sobre-lucha-contra-la-",
+    "titulo": "¿Debe el marco legal sobre lucha contra la corrupción garantizar reglas estables para que los agentes puedan planificar a largo plazo?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -102,27 +117,32 @@
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Introduce predictibilidad y seguridad jurídica como valor deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "2dd1fc4a672b10cdb8862340",
+    "quality_score": 77,
+    "neutrality_score": 78,
+    "duplicate_fingerprint": "4968bdee6f3c1c321d743aa1",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "seguridad_juridica",
+      "generation_variant": "predictibilidad_largo_plazo",
+      "batch_nonce": "0f1d0581e277",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 3
     }
   },
   {
-    "candidate_id": "anticorrupcion-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre lucha contra la corrupción?",
+    "candidate_id": "anticorrupcion-05-que-condicion-es-mas-importante-para-logra",
+    "titulo": "¿Qué condicion es más importante para lograr buenos resultados en lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
+      "Mayor competencia entre proveedores",
+      "Mayor regulación y supervisión estatal"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -134,165 +154,22 @@
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
+    "quality_notes": "Contrasta dos enfoques sin descartar ninguno a priori.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "c5c0c58e0b32e5c8d5ee5bf4",
+    "quality_score": 75,
+    "neutrality_score": 75,
+    "duplicate_fingerprint": "34f0dea2523a8c33dd37bdd4",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "competencia",
+      "generation_variant": "apertura_vs_regulacion",
+      "batch_nonce": "0f1d0581e277",
       "topic_target": "anticorrupcion",
       "per_topic_target": 5,
       "template_index": 4
-    }
-  },
-  {
-    "candidate_id": "anticorrupcion-06-debe-toda-politica-vinculada-a-lucha-contr",
-    "titulo": "¿Debe toda política vinculada a lucha contra la corrupción tener metas públicas medibles antes de recibir más presupuesto?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "anticorrupcion",
-      "subtema": "sanciones",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "anticorrupcion",
-    "deliberative_tension": "ciudadano_vs_poder_politico",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "0259b99de9fcfc498e3c75dd",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "anticorrupcion",
-      "per_topic_target": 5,
-      "template_index": 5
-    }
-  },
-  {
-    "candidate_id": "anticorrupcion-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con lucha contra la corrupción?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "anticorrupcion",
-      "subtema": "transparencia",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "anticorrupcion",
-    "deliberative_tension": "ciudadano_vs_poder_politico",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "a9ed935e3e9764868703e541",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "anticorrupcion",
-      "per_topic_target": 5,
-      "template_index": 6
-    }
-  },
-  {
-    "candidate_id": "anticorrupcion-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de lucha contra la corrupción?",
-    "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "anticorrupcion",
-      "subtema": "compras publicas",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "anticorrupcion",
-    "deliberative_tension": "ciudadano_vs_poder_politico",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "3a3bc98daa7b9ed146610c6c",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "anticorrupcion",
-      "per_topic_target": 5,
-      "template_index": 7
-    }
-  },
-  {
-    "candidate_id": "anticorrupcion-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre lucha contra la corrupción?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "anticorrupcion",
-      "subtema": "sanciones",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
-    },
-    "ideological_axis": "anticorrupcion",
-    "deliberative_tension": "ciudadano_vs_poder_politico",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "9ebd7ea91df9ff479e094165",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "anticorrupcion",
-      "per_topic_target": 5,
-      "template_index": 8
-    }
-  },
-  {
-    "candidate_id": "anticorrupcion-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre lucha contra la corrupción cumplen su objetivo sin crear privilegios?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "anticorrupcion",
-      "subtema": "transparencia",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "anticorrupcion",
-    "deliberative_tension": "ciudadano_vs_poder_politico",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "b5fcfa63c01280a0fe0726ec",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "anticorrupcion",
-      "per_topic_target": 5,
-      "template_index": 9
     }
   }
 ]
