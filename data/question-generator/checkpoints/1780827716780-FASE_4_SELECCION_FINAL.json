@@ -1,10 +1,9 @@
 {
-  "phase": "FASE_6_PREPARE_UPLOAD",
+  "phase": "FASE_4_SELECCION_FINAL",
   "status": "ok",
-  "timestamp": "2026-06-07T10:22:00.253Z",
-  "batch_code": "qgen_20260607102200_7d122193",
-  "candidates": 80,
-  "topics": {
+  "timestamp": "2026-06-07T10:21:56.780Z",
+  "final_count": 80,
+  "counts": {
     "libertad_individual": 5,
     "igualdad_ante_la_ley": 5,
     "estado_limitado": 5,
@@ -21,6 +20,5 @@
     "merito_y_talento": 5,
     "ciudadania_y_control_del_poder": 5,
     "innovacion_y_competitividad": 5
-  },
-  "next_action": "set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload"
+  }
 }

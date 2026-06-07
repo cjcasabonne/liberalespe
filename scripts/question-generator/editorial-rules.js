@@ -24,6 +24,9 @@ const BANNED_PATTERNS = [
   'violencia',
 ];
 
+// v6: template quemado — prohibido en nuevos batches
+const BURNED_TEMPLATE_FRAGMENT = 'debe el estado justificar con evidencia publica cualquier nueva restriccion relacionada';
+
 function isPlainTextArray(value) {
   return Array.isArray(value) && value.every((item) => typeof item === 'string' && item.trim().length > 0);
 }
@@ -59,6 +62,10 @@ function validateCandidate(candidate, context = {}) {
 
   for (const pattern of BANNED_PATTERNS) {
     if (normalizedTitle.includes(pattern)) errors.push(`banned_language:${pattern}`);
+  }
+
+  if (normalizedTitle.includes(BURNED_TEMPLATE_FRAGMENT)) {
+    errors.push('burned_template_detected');
   }
 
   if (normalizedTitle.split(' ').length < 7) warnings.push('title_may_be_too_short');

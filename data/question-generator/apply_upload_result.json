@@ -1,0 +1,23 @@
+{
+  "phase": "FASE_7_APPLY_UPLOAD",
+  "status": "success",
+  "batch_id": "bb8365e8-e542-42d4-a8bf-268433ce2ef3",
+  "batch_code": "qgen_20260607102200_7d122193",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "db_before": 320,
+  "db_after": 400,
+  "delta": 80,
+  "expected_delta": 80,
+  "delta_ok": true,
+  "inserted_count": 80,
+  "batch_status": "loaded",
+  "quality_score_constraint": "1-5 (null used — consistent with historical records)",
+  "constraint_fix": "quality_score and neutrality_score inserted as NULL to satisfy db constraint (range 1-5); raw_payload preserves original 0-100 scores",
+  "applied_at": "2026-06-07T10:42:34Z",
+  "groups_inserted": [
+    {"group": 1, "topics": ["libertad_individual", "igualdad_ante_la_ley", "estado_limitado", "instituciones_publicas"], "rows": 20},
+    {"group": 2, "topics": ["mercado_libre", "emprendimiento", "propiedad_privada", "desregulacion"], "rows": 20},
+    {"group": 3, "topics": ["responsabilidad_fiscal", "anticorrupcion", "anti_mercantilismo", "seguridad_ciudadana"], "rows": 20},
+    {"group": 4, "topics": ["estado_de_derecho", "merito_y_talento", "ciudadania_y_control_del_poder", "innovacion_y_competitividad"], "rows": 20}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "phase": "NEW_BATCH_INITIALIZED",
+  "status": "ready",
+  "timestamp": "2026-06-07T10:20:57.971Z",
+  "batch_mode": "new_batch",
+  "archived_batch_code": "qgen_20260603211531_1436b730",
+  "archived_files": 9,
+  "next_action": "qgen:read"
+}
