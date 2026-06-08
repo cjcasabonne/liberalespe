@@ -1,16 +1,10 @@
 {
-  "phase": "CHECKPOINT_INSERCION",
+  "phase": "FASE_2_GENERACION",
   "status": "ok",
-  "timestamp": "2026-06-08T10:29:31.064947Z",
-  "batch_code": "qgen_20260608102125_5dca67c6",
-  "batch_id": "94f90055-4787-44f1-9201-5cec72167ec1",
-  "project_ref": "pqqkvmmenqencuretwyx",
-  "db_before": 400,
-  "db_after": 480,
-  "delta": 80,
+  "timestamp": "2026-06-08T10:21:15.475Z",
+  "topics": 16,
   "candidates": 80,
-  "generator_version": "v2",
-  "topics": {
+  "per_topic_initial": {
     "libertad_individual": 5,
     "igualdad_ante_la_ley": 5,
     "estado_limitado": 5,
@@ -27,11 +21,5 @@
     "merito_y_talento": 5,
     "ciudadania_y_control_del_poder": 5,
     "innovacion_y_competitividad": 5
-  },
-  "audit": {
-    "duplicates_in_batch": 0,
-    "burned_template_count": 0,
-    "topics_covered": 16,
-    "batch_status": "loaded"
   }
 }

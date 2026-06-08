@@ -26,7 +26,7 @@ const FILES = {
   routineDoc: path.join(DOCS_DIR, 'rutina_optima.md'),
 };
 
-const GENERATOR_VERSION = 'v1';
+const GENERATOR_VERSION = 'v2';
 const PER_TOPIC_TARGET = 5;
 const TOTAL_TARGET = 80;
 const PAGE_SIZE = 100;
