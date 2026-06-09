@@ -24,6 +24,7 @@ const FILES = {
   applyUploadResult: path.join(DATA_DIR, 'apply_upload_result.json'),
   postUploadAudit: path.join(DATA_DIR, 'post_upload_audit.md'),
   routineDoc: path.join(DOCS_DIR, 'rutina_optima.md'),
+  globalCorpus: path.join(DATA_DIR, 'global_corpus.json'),
 };
 
 const GENERATOR_VERSION = 'v1';

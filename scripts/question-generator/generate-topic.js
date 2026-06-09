@@ -5,13 +5,6 @@ const { fixSpanishOrthography, fixVisibleCandidateText } = require('./orthograph
 const TEMPLATES = [
   {
     type: 'binaria',
-    focus: 'institucional',
-    intensity: 'moderada',
-    title: (topic) => `Debe el Estado justificar con evidencia publica cualquier nueva restriccion relacionada con ${topic.subject}?`,
-    notes: 'Evalua limites al poder publico sin inducir una respuesta.',
-  },
-  {
-    type: 'binaria',
     focus: 'politica_publica',
     intensity: 'moderada',
     title: (topic) => `Debe una reforma sobre ${topic.subject} priorizar reglas generales antes que beneficios para grupos especificos?`,
@@ -74,6 +67,42 @@ const TEMPLATES = [
     intensity: 'alta',
     title: (topic) => `Debe revisarse periodicamente si las reglas sobre ${topic.subject} cumplen su objetivo sin crear privilegios?`,
     notes: 'Combina evaluacion regulatoria y neutralidad ante privilegios.',
+  },
+  {
+    type: 'binaria',
+    focus: 'politica_publica',
+    intensity: 'moderada',
+    title: (topic) => `Deben las politicas de ${topic.subject} evaluarse comparativamente frente a estandares internacionales para identificar mejores practicas aplicables?`,
+    notes: 'Orienta la discusion hacia benchmarking sin prescribir resultado.',
+  },
+  {
+    type: 'binaria',
+    focus: 'institucional',
+    intensity: 'moderada',
+    title: (topic) => `Debe condicionarse el incremento del presupuesto en ${topic.subject} a una evaluacion independiente que certifique el uso eficiente de los recursos previos?`,
+    notes: 'Introduce eficiencia presupuestal como requisito sin sesgo ideologico.',
+  },
+  {
+    type: 'binaria',
+    focus: 'ciudadano',
+    intensity: 'moderada',
+    title: (topic) => `Deben eliminarse los requisitos diferenciados que generan ventajas injustificadas para ciertos grupos en el acceso a ${topic.subject}?`,
+    notes: 'Centra el debate en igualdad ante las normas sin atacar colectivos.',
+  },
+  {
+    type: 'binaria',
+    focus: 'institucional',
+    intensity: 'alta',
+    title: (topic) => `Debe el Estado limitar su intervencion en ${topic.subject} a los casos donde exista evidencia de falla de mercado o dano verificable a terceros?`,
+    notes: 'Debate el alcance del Estado con criterio empirico y sin retórica.',
+  },
+  {
+    type: 'opciones',
+    focus: 'politica_publica',
+    intensity: 'moderada',
+    title: (topic) => `Que enfoque deberia guiar la reforma de las normas sobre ${topic.subject}?`,
+    options: ['Simplificar unificando normas dispersas en un solo marco legal', 'Mantener regulaciones especializadas con mejor coordinacion'],
+    notes: 'Ofrece dos rutas de reforma comparables sin opcion evidentemente correcta.',
   },
 ];
 

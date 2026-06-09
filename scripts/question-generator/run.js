@@ -177,7 +177,16 @@ function validatePhase() {
   const candidates = readJson(FILES.candidates, []);
   assert(Array.isArray(candidates) && candidates.length > 0, 'preguntas_candidatas_missing_or_empty');
   const existingRows = readJsonl(FILES.existing);
-  const { valid, rejected } = validateCandidates(candidates, existingRows);
+
+  const globalCorpus = readJson(FILES.globalCorpus, null);
+  const mergedRows = [...existingRows];
+  if (globalCorpus?.historical_normalized_title_set) {
+    for (const title of globalCorpus.historical_normalized_title_set) {
+      mergedRows.push({ normalized_title: title, titulo: title });
+    }
+  }
+
+  const { valid, rejected } = validateCandidates(candidates, mergedRows);
 
   writeJson(FILES.valid, valid);
   writeJson(FILES.rejected, rejected);

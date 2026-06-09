@@ -1,35 +1,6 @@
 [
   {
-    "candidate_id": "desregulacion-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con simplificación regulatoria?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "desregulacion",
-      "subtema": "tramites",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "desregulacion",
-    "deliberative_tension": "emprendimiento_vs_burocracia",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "0de125ab9e3d5f9a8070e7e3",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "desregulacion",
-      "per_topic_target": 5,
-      "template_index": 0
-    }
-  },
-  {
-    "candidate_id": "desregulacion-02-debe-una-reforma-sobre-simplificacion-regu",
+    "candidate_id": "desregulacion-01-debe-una-reforma-sobre-simplificacion-regu",
     "titulo": "¿Debe una reforma sobre simplificación regulatoria priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -37,7 +8,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
-      "subtema": "costos regulatorios",
+      "subtema": "tramites",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
@@ -54,11 +25,11 @@
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 1
+      "template_index": 0
     }
   },
   {
-    "candidate_id": "desregulacion-03-debe-la-ciudadania-contar-con-reportes-sim",
+    "candidate_id": "desregulacion-02-debe-la-ciudadania-contar-con-reportes-sim",
     "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -66,7 +37,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
-      "subtema": "evaluacion normativa",
+      "subtema": "costos regulatorios",
       "enfoque": "ciudadano",
       "intensidad_de_debate": "baja"
     },
@@ -83,11 +54,11 @@
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 2
+      "template_index": 1
     }
   },
   {
-    "candidate_id": "desregulacion-04-debe-evaluarse-el-costo-fiscal-y-regulator",
+    "candidate_id": "desregulacion-03-debe-evaluarse-el-costo-fiscal-y-regulator",
     "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -95,7 +66,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
-      "subtema": "tramites",
+      "subtema": "evaluacion normativa",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
@@ -112,11 +83,11 @@
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 3
+      "template_index": 2
     }
   },
   {
-    "candidate_id": "desregulacion-05-que-criterio-deberia-priorizar-una-reforma",
+    "candidate_id": "desregulacion-04-que-criterio-deberia-priorizar-una-reforma",
     "titulo": "¿Qué criterio debería priorizar una reforma sobre simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "opciones",
@@ -127,7 +98,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
-      "subtema": "costos regulatorios",
+      "subtema": "tramites",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
@@ -144,11 +115,11 @@
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 4
+      "template_index": 3
     }
   },
   {
-    "candidate_id": "desregulacion-06-debe-toda-politica-vinculada-a-simplificac",
+    "candidate_id": "desregulacion-05-debe-toda-politica-vinculada-a-simplificac",
     "titulo": "¿Debe toda política vinculada a simplificación regulatoria tener metas públicas medibles antes de recibir más presupuesto?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -156,7 +127,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
-      "subtema": "evaluacion normativa",
+      "subtema": "costos regulatorios",
       "enfoque": "institucional",
       "intensidad_de_debate": "moderada"
     },
@@ -173,11 +144,11 @@
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 5
+      "template_index": 4
     }
   },
   {
-    "candidate_id": "desregulacion-07-debe-el-congreso-exigir-evaluaciones-indep",
+    "candidate_id": "desregulacion-06-debe-el-congreso-exigir-evaluaciones-indep",
     "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -185,7 +156,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
-      "subtema": "tramites",
+      "subtema": "evaluacion normativa",
       "enfoque": "institucional",
       "intensidad_de_debate": "alta"
     },
@@ -202,11 +173,11 @@
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 6
+      "template_index": 5
     }
   },
   {
-    "candidate_id": "desregulacion-08-que-mecanismo-seria-mas-util-para-mejorar-",
+    "candidate_id": "desregulacion-07-que-mecanismo-seria-mas-util-para-mejorar-",
     "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "opciones",
@@ -217,7 +188,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
-      "subtema": "costos regulatorios",
+      "subtema": "tramites",
       "enfoque": "ciudadano",
       "intensidad_de_debate": "moderada"
     },
@@ -234,11 +205,11 @@
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 7
+      "template_index": 6
     }
   },
   {
-    "candidate_id": "desregulacion-09-debe-publicarse-informacion-comparable-par",
+    "candidate_id": "desregulacion-08-debe-publicarse-informacion-comparable-par",
     "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -246,7 +217,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
-      "subtema": "evaluacion normativa",
+      "subtema": "costos regulatorios",
       "enfoque": "ciudadano",
       "intensidad_de_debate": "baja"
     },
@@ -263,11 +234,11 @@
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
-      "template_index": 8
+      "template_index": 7
     }
   },
   {
-    "candidate_id": "desregulacion-10-debe-revisarse-periodicamente-si-las-regla",
+    "candidate_id": "desregulacion-09-debe-revisarse-periodicamente-si-las-regla",
     "titulo": "¿Debe revisarse periódicamente si las reglas sobre simplificación regulatoria cumplen su objetivo sin crear privilegios?",
     "descripcion": null,
     "tipo_votacion": "binaria",
@@ -275,7 +246,7 @@
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
-      "subtema": "tramites",
+      "subtema": "evaluacion normativa",
       "enfoque": "politica_publica",
       "intensidad_de_debate": "alta"
     },
@@ -292,7 +263,155 @@
       "generator_version": "v1",
       "topic_target": "desregulacion",
       "per_topic_target": 5,
+      "template_index": 8
+    }
+  },
+  {
+    "candidate_id": "desregulacion-10-deben-las-politicas-de-simplificacion-regu",
+    "titulo": "¿Deben las políticas de simplificación regulatoria evaluarse comparativamente frente a estandares internacionales para identificar mejores practicas aplicables?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "desregulacion",
+      "subtema": "tramites",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "desregulacion",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Orienta la discusión hacia benchmarking sin prescribir resultado.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "05103bfd0dd351715f8ee99b",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "desregulacion",
+      "per_topic_target": 5,
       "template_index": 9
+    }
+  },
+  {
+    "candidate_id": "desregulacion-11-debe-condicionarse-el-incremento-del-presu",
+    "titulo": "¿Debe condicionarse el incremento del presupuesto en simplificación regulatoria a una evaluación independiente que certifique el uso eficiente de los recursos previos?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "desregulacion",
+      "subtema": "costos regulatorios",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "desregulacion",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Introduce eficiencia presupuestal como requisito sin sesgo ideologico.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "ca86f4dcf38fba8f0c731b8d",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "desregulacion",
+      "per_topic_target": 5,
+      "template_index": 10
+    }
+  },
+  {
+    "candidate_id": "desregulacion-12-deben-eliminarse-los-requisitos-diferencia",
+    "titulo": "¿Deben eliminarse los requisitos diferenciados que generan ventajas injustificadas para ciertos grupos en el acceso a simplificación regulatoria?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "desregulacion",
+      "subtema": "evaluacion normativa",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "desregulacion",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Centra el debate en igualdad ante las normas sin atacar colectivos.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "df446a7e634061efcbd3bdc2",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "desregulacion",
+      "per_topic_target": 5,
+      "template_index": 11
+    }
+  },
+  {
+    "candidate_id": "desregulacion-13-debe-el-estado-limitar-su-intervencion-en-",
+    "titulo": "¿Debe el Estado limitar su intervención en simplificación regulatoria a los casos donde exista evidencia de falla de mercado o dano verificable a terceros?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "desregulacion",
+      "subtema": "tramites",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "desregulacion",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Debate el alcance del Estado con criterio empirico y sin retórica.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "c37bd7735d0b711e131c87ff",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "desregulacion",
+      "per_topic_target": 5,
+      "template_index": 12
+    }
+  },
+  {
+    "candidate_id": "desregulacion-14-que-enfoque-deberia-guiar-la-reforma-de-la",
+    "titulo": "¿Qué enfoque debería guiar la reforma de las normas sobre simplificación regulatoria?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Simplificar unificando normas dispersas en un solo marco legal",
+      "Mantener regulaciones especializadas con mejor coordinacion"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "desregulacion",
+      "subtema": "costos regulatorios",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "desregulacion",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Ofrece dos rutas de reforma comparables sin opción evidentemente correcta.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "d34f16e30b700485bd18f7e1",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "desregulacion",
+      "per_topic_target": 5,
+      "template_index": 13
     }
   }
 ]
