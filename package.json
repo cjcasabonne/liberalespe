@@ -13,6 +13,7 @@
     "qgen:prepare-upload": "node scripts/question-generator/run.js prepare-upload",
     "qgen:apply-upload": "node scripts/question-generator/run.js apply-upload",
     "qgen:new-batch": "node scripts/question-generator/run.js new-batch",
+    "qgen:post-upload-audit": "node scripts/question-generator/run.js post-upload-audit",
     "qgen:upload": "node scripts/question-generator/run.js upload"
   },
   "dependencies": {

@@ -1,0 +1,18 @@
+{
+  "batch_code": "qgen_20260610103944_df7989eb",
+  "db_before": 560,
+  "db_after": 640,
+  "growth": 80,
+  "batches_before": 7,
+  "batches_after": 8,
+  "batch_status": "loaded",
+  "inserted_count": 80,
+  "topics": 16,
+  "candidates_per_topic": 5,
+  "quality_score": null,
+  "neutrality_score": null,
+  "upload_method": "mcp__Supabase__execute_sql",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "uploaded_at": "2026-06-10T00:00:00Z",
+  "checkpoint": "CHECKPOINT_INSERCION_OK"
+}

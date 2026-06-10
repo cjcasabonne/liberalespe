@@ -1,6 +1,9 @@
-const { PAGE_SIZE, FILES, getSupabaseEnv } = require('./config');
+const path = require('path');
+const { PAGE_SIZE, FILES, DATA_DIR, getSupabaseEnv } = require('./config');
 const { appendJsonl, writeJson } = require('./state');
 const { normalizeText, fingerprint } = require('./normalize');
+
+const GLOBAL_CORPUS_FILE = path.join(DATA_DIR, 'global_corpus.json');
 
 const TABLES = [
   {
@@ -96,6 +99,20 @@ async function readTablePaged(table, env) {
   };
 }
 
+function buildGlobalCorpusFromRows(allRows) {
+  const candidateRows = allRows.filter((row) => row.source === 'generated_topic_candidates');
+  const fingerprints = [...new Set(candidateRows.map((row) => row.duplicate_fingerprint).filter(Boolean))];
+  const normalizedTitles = [...new Set(candidateRows.map((row) => row.normalized_title || normalizeText(row.titulo)).filter(Boolean))];
+
+  return {
+    historical_fingerprint_set: fingerprints,
+    historical_normalized_title_set: normalizedTitles,
+    total_historical: candidateRows.length,
+    built_at: new Date().toISOString(),
+    note: 'Built from REST API read of generated_topic_candidates. If RLS blocked, corpus may be incomplete — verify against Supabase MCP.',
+  };
+}
+
 async function readExistingCorpus() {
   const env = getSupabaseEnv();
   if (!env.url || !env.anonKey) {
@@ -125,9 +142,17 @@ async function readExistingCorpus() {
     total_rows: allRows.length,
   });
 
+  // Build global_corpus.json from all read rows
+  const corpus = buildGlobalCorpusFromRows(allRows);
+  writeJson(GLOBAL_CORPUS_FILE, corpus);
+
   return {
     total_rows: allRows.length,
     tables: tableResults,
+    global_corpus: {
+      historical_fingerprints: corpus.historical_fingerprint_set.length,
+      historical_titles: corpus.historical_normalized_title_set.length,
+    },
   };
 }
 

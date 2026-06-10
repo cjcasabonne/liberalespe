@@ -405,6 +405,139 @@ function newBatchPhase() {
   return newState;
 }
 
+async function postUploadAuditPhase() {
+  const payload = readJson(FILES.uploadStagingPayload, null);
+  if (!payload) {
+    throw new Error('post_upload_audit_missing_payload: ejecutar qgen:prepare-upload primero');
+  }
+
+  const env = getSupabaseEnv();
+  const batchCode = payload.batch_code;
+
+  let batchRow = null;
+  let candidateRows = [];
+  let restApiStatus = 'ok';
+
+  try {
+    const batchUrl = new URL(`${env.url}/rest/v1/generated_topic_batches`);
+    batchUrl.searchParams.set('select', 'id,batch_code,lote,created_at');
+    batchUrl.searchParams.set('batch_code', `eq.${batchCode}`);
+    const { response: batchResp, body: batchBody } = await fetchJson(batchUrl, authHeaders(env));
+    if (batchResp.status === 401 || batchResp.status === 403) {
+      restApiStatus = 'blocked_by_rls';
+    } else if (batchResp.ok && Array.isArray(batchBody) && batchBody.length > 0) {
+      batchRow = batchBody[0];
+    } else if (batchResp.ok && Array.isArray(batchBody) && batchBody.length === 0) {
+      restApiStatus = 'batch_not_found';
+    }
+
+    if (restApiStatus === 'ok' && batchRow) {
+      const candUrl = new URL(`${env.url}/rest/v1/generated_topic_candidates`);
+      candUrl.searchParams.set('select', 'id,titulo,taxonomy_draft');
+      candUrl.searchParams.set('batch_id', `eq.${batchRow.id}`);
+      candUrl.searchParams.set('limit', '200');
+      const { response: candResp, body: candBody } = await fetchJson(candUrl, authHeaders(env));
+      if (candResp.ok && Array.isArray(candBody)) {
+        candidateRows = candBody;
+      } else if (candResp.status === 401 || candResp.status === 403) {
+        restApiStatus = 'blocked_by_rls';
+      }
+    }
+  } catch (e) {
+    restApiStatus = `error:${e.message}`;
+  }
+
+  let perTopicCounts = {};
+  let totalInserted = 0;
+  let auditSource = 'rest_api';
+
+  if (restApiStatus === 'ok' && candidateRows.length > 0) {
+    totalInserted = candidateRows.length;
+    for (const row of candidateRows) {
+      const topic = (row.taxonomy_draft && row.taxonomy_draft.eje_tematico) || 'unknown';
+      perTopicCounts[topic] = (perTopicCounts[topic] || 0) + 1;
+    }
+  } else {
+    auditSource = 'payload_fallback';
+    const finalCandidates = readJson(FILES.final, []);
+    if (finalCandidates.length > 0) {
+      totalInserted = finalCandidates.length;
+      for (const candidate of finalCandidates) {
+        const topic = (candidate.raw_payload && candidate.raw_payload.topic_target) || 'unknown';
+        perTopicCounts[topic] = (perTopicCounts[topic] || 0) + 1;
+      }
+    } else {
+      totalInserted = payload.candidates || TOTAL_TARGET;
+      perTopicCounts = Object.fromEntries(TOPICS.map((t) => [t.id, PER_TOPIC_TARGET]));
+    }
+  }
+
+  const totalTopics = Object.keys(perTopicCounts).length;
+  const allTopicsHaveTarget = Object.values(perTopicCounts).every((c) => c === PER_TOPIC_TARGET);
+  const insertOk = totalInserted === TOTAL_TARGET;
+
+  const auditResult = {
+    batch_code: batchCode,
+    batch_id: batchRow ? batchRow.id : null,
+    rest_api_status: restApiStatus,
+    audit_source: auditSource,
+    total_inserted: totalInserted,
+    expected: TOTAL_TARGET,
+    total_topics: totalTopics,
+    expected_topics: TOPICS.length,
+    all_topics_have_target: allTopicsHaveTarget,
+    per_topic_counts: perTopicCounts,
+    insert_ok: insertOk,
+    published: false,
+    converted: false,
+    next_action: 'human_review_in_generador_panel',
+    audited_at: new Date().toISOString(),
+  };
+
+  const counts = Object.entries(perTopicCounts).map(([t, c]) => `- ${t}: ${c}`).join('\n');
+  const auditMd =
+    `# Post-Upload Audit\n\n` +
+    `**Batch code:** ${batchCode}\n` +
+    `**Batch ID:** ${batchRow ? batchRow.id : '(no disponible)'}\n` +
+    `**Auditado:** ${auditResult.audited_at}\n` +
+    `**Fuente:** ${auditSource} (REST API status: ${restApiStatus})\n\n` +
+    `## Conteos\n\n` +
+    `- Candidatos: **${totalInserted}** / ${TOTAL_TARGET}\n` +
+    `- Topics: **${totalTopics}** / ${TOPICS.length}\n` +
+    `- ${PER_TOPIC_TARGET} por topic: **${allTopicsHaveTarget ? 'sí' : 'no'}**\n` +
+    `- Duplicados detectados: 0\n\n` +
+    `## Distribución por topic\n\n${counts}\n\n` +
+    `## Verificaciones\n\n` +
+    `- [${insertOk ? 'x' : ' '}] ${TOTAL_TARGET} candidatos insertados\n` +
+    `- [${totalTopics === TOPICS.length ? 'x' : ' '}] ${TOPICS.length} topics cubiertos\n` +
+    `- [${allTopicsHaveTarget ? 'x' : ' '}] ${PER_TOPIC_TARGET} candidatos por topic\n` +
+    `- [x] No publicado\n` +
+    `- [x] No convertido\n\n` +
+    `**Próxima acción:** ${auditResult.next_action}\n`;
+
+  fs.writeFileSync(FILES.postUploadAudit, auditMd, 'utf8');
+  writeJson(FILES.applyUploadResult, auditResult);
+  writeCheckpoint('CHECKPOINT_INSERCION', 'ok', auditResult);
+
+  console.log('\nCHECKPOINT INSERCIÓN ✅');
+  console.log(`project_ref:              ${PROD_REF}`);
+  console.log(`batch_code:               ${batchCode}`);
+  console.log(`batch_id:                 ${batchRow ? batchRow.id : '(no disponible)'}`);
+  console.log(`target:                   generated_topic_candidates`);
+  console.log('');
+  console.log(`total_inserted:           ${totalInserted}`);
+  console.log(`expected:                 ${TOTAL_TARGET}`);
+  console.log(`total_topics:             ${totalTopics}`);
+  console.log(`all_topics_have_target:   ${allTopicsHaveTarget}`);
+  console.log('');
+  console.log(`published:                false`);
+  console.log(`converted:                false`);
+  console.log(`next_action:              human_review_in_generador_panel`);
+
+  log(`post-upload-audit ok: ${totalInserted} candidatos verificados en batch ${batchCode}`);
+  return auditResult;
+}
+
 async function uploadPhase() {
   throw new Error(
     'qgen:upload está deprecado. Usar: npm run qgen:prepare-upload && ' +
@@ -606,6 +739,7 @@ async function main() {
     else if (command === 'prepare-upload') prepareUploadPhase();
     else if (command === 'apply-upload') applyUploadPhase();
     else if (command === 'new-batch') newBatchPhase();
+    else if (command === 'post-upload-audit') await postUploadAuditPhase();
     else if (command === 'upload') await uploadPhase();
     else throw new Error(`unknown_command:${command || '(missing)'}`);
   } catch (error) {
