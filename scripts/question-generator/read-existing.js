@@ -1,6 +1,7 @@
 const { PAGE_SIZE, FILES, getSupabaseEnv } = require('./config');
 const { appendJsonl, writeJson } = require('./state');
 const { normalizeText, fingerprint } = require('./normalize');
+const fs = require('fs');
 
 const TABLES = [
   {
@@ -125,9 +126,27 @@ async function readExistingCorpus() {
     total_rows: allRows.length,
   });
 
+  // Build global corpus from generated_topic_candidates only (historical dedup sets)
+  const generatedRows = allRows.filter((row) => row.source === 'generated_topic_candidates');
+  const historicalFingerprintSet = [...new Set(generatedRows.map((row) => row.duplicate_fingerprint).filter(Boolean))];
+  const historicalNormalizedTitleSet = [...new Set(generatedRows.map((row) => row.normalized_title).filter(Boolean))];
+
+  const globalCorpus = {
+    historical_fingerprint_set: historicalFingerprintSet,
+    historical_normalized_title_set: historicalNormalizedTitleSet,
+    total_historical: generatedRows.length,
+    built_at: new Date().toISOString(),
+  };
+  writeJson(FILES.globalCorpus, globalCorpus);
+
   return {
     total_rows: allRows.length,
     tables: tableResults,
+    global_corpus: {
+      total_historical: generatedRows.length,
+      fingerprints: historicalFingerprintSet.length,
+      normalized_titles: historicalNormalizedTitleSet.length,
+    },
   };
 }
 

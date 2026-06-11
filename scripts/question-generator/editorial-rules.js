@@ -22,6 +22,8 @@ const BANNED_PATTERNS = [
   'eliminar a',
   'odio',
   'violencia',
+  // Burned template (v6): prohibited formulation and trivial variants
+  'justificar con evidencia publica cualquier nueva restriccion relacionada con',
 ];
 
 function isPlainTextArray(value) {

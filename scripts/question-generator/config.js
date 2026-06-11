@@ -12,6 +12,7 @@ const DOCS_DIR = path.join(ROOT_DIR, 'docs');
 const FILES = {
   state: path.join(DATA_DIR, 'estado_actual.json'),
   existing: path.join(DATA_DIR, 'preguntas_existentes.jsonl'),
+  globalCorpus: path.join(DATA_DIR, 'global_corpus.json'),
   candidates: path.join(DATA_DIR, 'preguntas_candidatas.json'),
   valid: path.join(DATA_DIR, 'preguntas_validas.json'),
   rejected: path.join(DATA_DIR, 'preguntas_rechazadas.json'),
@@ -26,7 +27,7 @@ const FILES = {
   routineDoc: path.join(DOCS_DIR, 'rutina_optima.md'),
 };
 
-const GENERATOR_VERSION = 'v1';
+const GENERATOR_VERSION = 'v6';
 const PER_TOPIC_TARGET = 5;
 const TOTAL_TARGET = 80;
 const PAGE_SIZE = 100;

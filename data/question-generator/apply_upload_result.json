@@ -1,0 +1,11 @@
+{
+  "batch_code": "qgen_20260611102416_dd981d87",
+  "project_ref": "pqqkvmmenqencuretwyx",
+  "db_before": 640,
+  "db_after": 720,
+  "delta": 80,
+  "inserted_count": 80,
+  "batch_status": "loaded",
+  "applied_at": "2026-06-11T10:34:49.188442Z",
+  "status": "ok"
+}

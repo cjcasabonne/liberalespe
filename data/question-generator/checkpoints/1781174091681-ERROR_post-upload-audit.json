@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_post-upload-audit",
+  "status": "error",
+  "timestamp": "2026-06-11T10:34:51.681Z",
+  "error": "post_upload_audit_file_missing"
+}

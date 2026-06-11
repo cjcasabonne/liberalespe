@@ -153,6 +153,19 @@ async function readPhase() {
 
 function generatePhase() {
   ensureDirs();
+
+  // v6: global_corpus.json must exist (built by qgen:read) before generation
+  if (!fs.existsSync(FILES.globalCorpus)) {
+    const err = {
+      phase: 'GENERATE',
+      status: 'error',
+      error: 'ERROR_GLOBAL_CORPUS_MISSING',
+      next_action: 'run_npm_run_qgen:read_first',
+    };
+    writeCheckpoint('ERROR_generate', 'error', err);
+    throw new Error('ERROR_GLOBAL_CORPUS_MISSING: global_corpus.json not found. Run qgen:read first.');
+  }
+
   const all = [];
   const byTopic = {};
 
@@ -161,6 +174,16 @@ function generatePhase() {
     byTopic[topic.id] = topicCandidates;
     all.push(...topicCandidates);
     writeJson(path.join(TOPIC_DATA_DIR, `${topic.id}.candidates.json`), topicCandidates);
+  }
+
+  // v6: burned template guard — no candidate may use the prohibited formulation
+  const BURNED_NORMALIZED = 'justificar con evidencia publica cualquier nueva restriccion relacionada con';
+  const burned = all.filter((c) => {
+    const norm = String(c.titulo || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+    return norm.includes(BURNED_NORMALIZED);
+  });
+  if (burned.length > 0) {
+    throw new Error(`ERROR_BURNED_TEMPLATE_DETECTED: ${burned.length} candidates use the prohibited template`);
   }
 
   writeJson(FILES.candidates, all);
@@ -326,6 +349,27 @@ function applyUploadPhase() {
   return result;
 }
 
+function postUploadAuditPhase() {
+  const result = readJson(FILES.applyUploadResult, null);
+  if (!result) {
+    throw new Error('post_upload_audit_requires_apply_upload_result');
+  }
+  const auditPath = FILES.postUploadAudit;
+  if (!fs.existsSync(auditPath)) {
+    throw new Error('post_upload_audit_file_missing');
+  }
+  writeCheckpoint('FASE_8_POST_UPLOAD_AUDIT', 'ok', {
+    batch_code: result.batch_code || result.batch_code,
+    inserted_candidates: result.inserted_candidates,
+    topics: result.topics,
+    per_topic: result.per_topic,
+    converted: result.converted,
+    published: result.published,
+  });
+  log(`post-upload-audit ok: batch confirmed, ${result.inserted_candidates} candidates`);
+  return result;
+}
+
 function newBatchPhase() {
   ensureDirs();
 
@@ -367,9 +411,8 @@ function newBatchPhase() {
     }
   }
 
-  // Clear existing corpus to force fresh re-read of Supabase
-  // (including all generated_topic_candidates already loaded)
-  for (const p of [FILES.existing, `${FILES.existing}.meta.json`]) {
+  // Clear corpus files to force fresh re-read of Supabase
+  for (const p of [FILES.existing, `${FILES.existing}.meta.json`, FILES.globalCorpus]) {
     if (fs.existsSync(p)) fs.unlinkSync(p);
   }
 
@@ -605,6 +648,7 @@ async function main() {
     else if (command === 'dry-run') dryRunPhase();
     else if (command === 'prepare-upload') prepareUploadPhase();
     else if (command === 'apply-upload') applyUploadPhase();
+    else if (command === 'post-upload-audit') postUploadAuditPhase();
     else if (command === 'new-batch') newBatchPhase();
     else if (command === 'upload') await uploadPhase();
     else throw new Error(`unknown_command:${command || '(missing)'}`);

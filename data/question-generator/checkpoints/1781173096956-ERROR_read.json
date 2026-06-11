@@ -1,0 +1,6 @@
+{
+  "phase": "ERROR_read",
+  "status": "error",
+  "timestamp": "2026-06-11T10:18:16.955Z",
+  "error": "missing_supabase_env"
+}

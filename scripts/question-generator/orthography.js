@@ -46,6 +46,12 @@ const CRITICAL_REPLACEMENTS = [
   ['evalua', 'evalúa'],
   ['evaluen', 'evalúen'],
   ['mas', 'más'],
+  ['tecnico', 'técnico'],
+  ['tecnicos', 'técnicos'],
+  ['tecnica', 'técnica'],
+  ['tecnicas', 'técnicas'],
+  ['obligacion', 'obligación'],
+  ['implementacion', 'implementación'],
 ];
 
 const INTERROGATIVE_REPLACEMENTS = [
@@ -100,6 +106,12 @@ const CRITICAL_UNACCENTED_PATTERNS = [
   'redaccion',
   'evalua',
   'evaluen',
+  'tecnico',
+  'tecnicos',
+  'tecnica',
+  'tecnicas',
+  'obligacion',
+  'implementacion',
 ];
 
 function preserveCase(original, replacement) {
