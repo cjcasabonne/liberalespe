@@ -1,6 +1,7 @@
 const { PAGE_SIZE, FILES, getSupabaseEnv } = require('./config');
 const { appendJsonl, writeJson } = require('./state');
 const { normalizeText, fingerprint } = require('./normalize');
+const fs = require('fs');
 
 const TABLES = [
   {
@@ -123,6 +124,15 @@ async function readExistingCorpus() {
     page_size: PAGE_SIZE,
     tables: tableResults,
     total_rows: allRows.length,
+  });
+
+  // Build global_corpus.json from generated_topic_candidates historical data
+  const generatedRows = allRows.filter((row) => row.source === 'generated_topic_candidates');
+  writeJson(FILES.globalCorpus, {
+    historical_fingerprint_set: generatedRows.map((row) => row.duplicate_fingerprint),
+    historical_normalized_title_set: generatedRows.map((row) => row.normalized_title),
+    total_historical: generatedRows.length,
+    built_at: new Date().toISOString(),
   });
 
   return {

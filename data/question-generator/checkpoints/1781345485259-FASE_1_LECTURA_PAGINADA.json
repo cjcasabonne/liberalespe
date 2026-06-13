@@ -1,0 +1,29 @@
+{
+  "phase": "FASE_1_LECTURA_PAGINADA",
+  "status": "ok",
+  "timestamp": "2026-06-13T10:11:25.259Z",
+  "processed_count": 0,
+  "tables": [
+    {
+      "table": "temas",
+      "status": "blocked_by_rls_or_privilege",
+      "pages": [],
+      "row_count": 0,
+      "message": "HTTP 403"
+    },
+    {
+      "table": "tema_sugerencias",
+      "status": "blocked_by_rls_or_privilege",
+      "pages": [],
+      "row_count": 0,
+      "message": "HTTP 403"
+    },
+    {
+      "table": "generated_topic_candidates",
+      "status": "blocked_by_rls_or_privilege",
+      "pages": [],
+      "row_count": 0,
+      "message": "HTTP 403"
+    }
+  ]
+}

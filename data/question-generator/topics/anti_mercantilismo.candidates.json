@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "anti_mercantilismo-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con privilegios económicos otorgados por el Estado?",
+    "candidate_id": "anti_mercantilismo-01-deben-los-responsables-de-politicas-sobre-",
+    "titulo": "¿Deben los responsables de políticas sobre privilegios económicos otorgados por el Estado responder individualmente ante organismos de control independientes?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "566eeefa226a8ee7a4172d74",
+    "duplicate_fingerprint": "a70e3d74b5bb0ff88682bd68",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -29,8 +29,8 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-02-debe-una-reforma-sobre-privilegios-economi",
-    "titulo": "¿Debe una reforma sobre privilegios económicos otorgados por el Estado priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "anti_mercantilismo-02-debe-el-estado-aprobar-automaticamente-los",
+    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a privilegios económicos otorgados por el Estado si no responde al ciudadano en el plazo legal establecido?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -38,18 +38,18 @@
     "taxonomy_draft": {
       "eje_tematico": "anti_mercantilismo",
       "subtema": "subsidios selectivos",
-      "enfoque": "politica_publica",
+      "enfoque": "ciudadano",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "6adc73d34e4eea0e648f66ec",
+    "duplicate_fingerprint": "4de0de169485e5e32db41a27",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -58,8 +58,8 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre privilegios económicos otorgados por el Estado?",
+    "candidate_id": "anti_mercantilismo-03-deben-los-ciudadanos-contar-con-herramient",
+    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -68,17 +68,17 @@
       "eje_tematico": "anti_mercantilismo",
       "subtema": "captura regulatoria",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "82b14a1d0cc6bdab95e0bcb8",
+    "duplicate_fingerprint": "8f8856d877c34d382a9357ee",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -87,8 +87,8 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre privilegios económicos otorgados por el Estado?",
+    "candidate_id": "anti_mercantilismo-04-debe-exigirse-un-dictamen-tecnico-independ",
+    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -96,18 +96,18 @@
     "taxonomy_draft": {
       "eje_tematico": "anti_mercantilismo",
       "subtema": "competencia",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "moderada"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "8cc5262647d0fdda695aa47e",
+    "duplicate_fingerprint": "dd49c0f93f82f9bc7a01462f",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -116,13 +116,13 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre privilegios económicos otorgados por el Estado?",
+    "candidate_id": "anti_mercantilismo-05-que-tipo-de-intervencion-publica-es-mas-ef",
+    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
+      "Reducir barreras y obligaciones actuales",
+      "Incorporar nuevos mecanismos de supervisión"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -134,12 +134,12 @@
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
+    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "f2bf7a6de1c50e34d41a4e0d",
+    "duplicate_fingerprint": "5fcf71c7f943bc6a0f7e0150",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -148,8 +148,8 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-06-debe-toda-politica-vinculada-a-privilegios",
-    "titulo": "¿Debe toda política vinculada a privilegios económicos otorgados por el Estado tener metas públicas medibles antes de recibir más presupuesto?",
+    "candidate_id": "anti_mercantilismo-06-debe-el-estado-compensar-a-los-ciudadanos-",
+    "titulo": "¿Debe el Estado compensar a los ciudadanos que sufran perjuicios directos y comprobables como consecuencia de políticas sobre privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -157,18 +157,18 @@
     "taxonomy_draft": {
       "eje_tematico": "anti_mercantilismo",
       "subtema": "captura regulatoria",
-      "enfoque": "institucional",
+      "enfoque": "ciudadano",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
+    "quality_notes": "Introduce responsabilidad patrimonial del Estado como criterio de política pública.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "fea32f9942e8d688335e175b",
+    "duplicate_fingerprint": "0795e3e4f3f838be914e106f",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -177,8 +177,8 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con privilegios económicos otorgados por el Estado?",
+    "candidate_id": "anti_mercantilismo-07-deben-publicarse-los-estudios-de-impacto-e",
+    "titulo": "¿Deben publicarse los estudios de impacto económico que respaldan las normas sobre privilegios económicos otorgados por el Estado antes de que entren en vigor?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -186,18 +186,18 @@
     "taxonomy_draft": {
       "eje_tematico": "anti_mercantilismo",
       "subtema": "competencia",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
+    "quality_notes": "Combina transparencia regulatoria y deliberacion ciudadana previa.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "7942075f723b4778a4704b6b",
+    "duplicate_fingerprint": "75e5eaf58772c975b3e67fd1",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -206,30 +206,27 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de privilegios económicos otorgados por el Estado?",
+    "candidate_id": "anti_mercantilismo-08-debe-permitirse-la-participacion-de-actore",
+    "titulo": "¿Debe permitirse la participacion de actores privados acreditados para competir con el Estado en la prestacion de servicios relacionados con privilegios económicos otorgados por el Estado?",
     "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
+    "tipo_votacion": "binaria",
+    "opciones": [],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "anti_mercantilismo",
       "subtema": "subsidios selectivos",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
+    "quality_notes": "Plantea competencia pública y privada sin descalificar ningun modelo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "c4237fa05143f43d406481e8",
+    "duplicate_fingerprint": "2e7da5a181e07cc8723d5301",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -238,27 +235,30 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre privilegios económicos otorgados por el Estado?",
+    "candidate_id": "anti_mercantilismo-09-a-quien-deberia-corresponder-la-potestad-p",
+    "titulo": "¿A quien debería corresponder la potestad principal de dictar normas que regulen privilegios económicos otorgados por el Estado?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Al Poder Ejecutivo via reglamentos tecnicos",
+      "Al Congreso mediante ley expresa"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "anti_mercantilismo",
       "subtema": "captura regulatoria",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
+    "quality_notes": "Contrasta dos fuentes normativas legitimas sin atribuir jerarquia predeterminada.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "b5e4ea729f335fd997fd0963",
+    "duplicate_fingerprint": "c5b391efc3ac4d062abea667",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -267,8 +267,8 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre privilegios económicos otorgados por el Estado cumplen su objetivo sin crear privilegios?",
+    "candidate_id": "anti_mercantilismo-10-debe-el-estado-identificar-y-suprimir-los-",
+    "titulo": "¿Debe el Estado identificar y suprimir los privilegios que algunos actores ostentan en el ambito de privilegios económicos otorgados por el Estado por decisiones previas del Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -282,12 +282,12 @@
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Introduce supresion de privilegios adquiridos como criterio de reforma.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "f5eabaa445db4d1f9502416d",
+    "duplicate_fingerprint": "2f01611041c2949a275792dd",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",

@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "libertad_individual-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con libertad individual?",
+    "candidate_id": "libertad_individual-01-deben-los-responsables-de-politicas-sobre-",
+    "titulo": "¿Deben los responsables de políticas sobre libertad individual responder individualmente ante organismos de control independientes?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "1ff5177b2f841e78fecb713c",
+    "duplicate_fingerprint": "297a0c68b6926a9187bda39c",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -29,8 +29,8 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-02-debe-una-reforma-sobre-libertad-individual",
-    "titulo": "¿Debe una reforma sobre libertad individual priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "libertad_individual-02-debe-el-estado-aprobar-automaticamente-los",
+    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a libertad individual si no responde al ciudadano en el plazo legal establecido?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -38,18 +38,18 @@
     "taxonomy_draft": {
       "eje_tematico": "libertad_individual",
       "subtema": "autonomia ciudadana",
-      "enfoque": "politica_publica",
+      "enfoque": "ciudadano",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "dc539124a8f8f75a35b797d7",
+    "duplicate_fingerprint": "32a9c71ad42d46f746d5fed5",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -58,8 +58,8 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre libertad individual?",
+    "candidate_id": "libertad_individual-03-deben-los-ciudadanos-contar-con-herramient",
+    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten libertad individual?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -68,17 +68,17 @@
       "eje_tematico": "libertad_individual",
       "subtema": "garantias legales",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "08183cf3ff2f25277ee54c14",
+    "duplicate_fingerprint": "a0993501fae0c2fb622a0c00",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -87,8 +87,8 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre libertad individual?",
+    "candidate_id": "libertad_individual-04-debe-exigirse-un-dictamen-tecnico-independ",
+    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre libertad individual?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -96,18 +96,18 @@
     "taxonomy_draft": {
       "eje_tematico": "libertad_individual",
       "subtema": "limites del poder publico",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "moderada"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a5356df076eb4dc3c9c39879",
+    "duplicate_fingerprint": "7293ec3a159f9f783e9c69c8",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -116,13 +116,13 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre libertad individual?",
+    "candidate_id": "libertad_individual-05-que-tipo-de-intervencion-publica-es-mas-ef",
+    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en libertad individual?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
+      "Reducir barreras y obligaciones actuales",
+      "Incorporar nuevos mecanismos de supervisión"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -134,12 +134,12 @@
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
+    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "8c115a7c70f9d093e254d9fb",
+    "duplicate_fingerprint": "ed4456af6f942fc2392d3b0c",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -148,8 +148,8 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-06-debe-toda-politica-vinculada-a-libertad-in",
-    "titulo": "¿Debe toda política vinculada a libertad individual tener metas públicas medibles antes de recibir más presupuesto?",
+    "candidate_id": "libertad_individual-06-debe-el-estado-compensar-a-los-ciudadanos-",
+    "titulo": "¿Debe el Estado compensar a los ciudadanos que sufran perjuicios directos y comprobables como consecuencia de políticas sobre libertad individual?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -157,18 +157,18 @@
     "taxonomy_draft": {
       "eje_tematico": "libertad_individual",
       "subtema": "garantias legales",
-      "enfoque": "institucional",
+      "enfoque": "ciudadano",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
+    "quality_notes": "Introduce responsabilidad patrimonial del Estado como criterio de política pública.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "d8ed215663e86fdd9eee8337",
+    "duplicate_fingerprint": "a1fc934a6335d74669e16a27",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -177,8 +177,8 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con libertad individual?",
+    "candidate_id": "libertad_individual-07-deben-publicarse-los-estudios-de-impacto-e",
+    "titulo": "¿Deben publicarse los estudios de impacto económico que respaldan las normas sobre libertad individual antes de que entren en vigor?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -186,18 +186,18 @@
     "taxonomy_draft": {
       "eje_tematico": "libertad_individual",
       "subtema": "limites del poder publico",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
+    "quality_notes": "Combina transparencia regulatoria y deliberacion ciudadana previa.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "4efa8365d01e750a135752d3",
+    "duplicate_fingerprint": "2a0801c1d06feb0b0b1028d4",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -206,30 +206,27 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de libertad individual?",
+    "candidate_id": "libertad_individual-08-debe-permitirse-la-participacion-de-actore",
+    "titulo": "¿Debe permitirse la participacion de actores privados acreditados para competir con el Estado en la prestacion de servicios relacionados con libertad individual?",
     "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
+    "tipo_votacion": "binaria",
+    "opciones": [],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "libertad_individual",
       "subtema": "autonomia ciudadana",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
+    "quality_notes": "Plantea competencia pública y privada sin descalificar ningun modelo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "b9facec71c2304e4421f46e9",
+    "duplicate_fingerprint": "2a5048970428d05dad362bec",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -238,27 +235,30 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre libertad individual?",
+    "candidate_id": "libertad_individual-09-a-quien-deberia-corresponder-la-potestad-p",
+    "titulo": "¿A quien debería corresponder la potestad principal de dictar normas que regulen libertad individual?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Al Poder Ejecutivo via reglamentos tecnicos",
+      "Al Congreso mediante ley expresa"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "libertad_individual",
       "subtema": "garantias legales",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
+    "quality_notes": "Contrasta dos fuentes normativas legitimas sin atribuir jerarquia predeterminada.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "4e1323d5a4bec3a911035928",
+    "duplicate_fingerprint": "bbd657512bfdf76bd9c24d66",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -267,8 +267,8 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre libertad individual cumplen su objetivo sin crear privilegios?",
+    "candidate_id": "libertad_individual-10-debe-el-estado-identificar-y-suprimir-los-",
+    "titulo": "¿Debe el Estado identificar y suprimir los privilegios que algunos actores ostentan en el ambito de libertad individual por decisiones previas del Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -282,12 +282,12 @@
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Introduce supresion de privilegios adquiridos como criterio de reforma.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "1abcf14216406685c16897fd",
+    "duplicate_fingerprint": "683454d8066945984ecb31ee",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",

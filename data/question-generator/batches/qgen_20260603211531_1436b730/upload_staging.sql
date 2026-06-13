@@ -1,7 +1,22 @@
-[
+BEGIN;
+
+-- ARTEFACTO GENERADO POR qgen:prepare-upload
+-- Solo toca: generated_topic_batches, generated_topic_candidates
+-- NO toca: temas, votos, tema_sugerencias
+-- Ejecutar solo via: set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload
+-- batch_code: qgen_20260603211531_1436b730
+
+DO $qgen$
+DECLARE
+  v_batch_id uuid;
+  v_batch_code text := 'qgen_20260603211531_1436b730';
+  v_expected_count integer := 80;
+  v_inserted_count integer;
+  v_dup_count integer;
+  v_candidates jsonb := $json_payload$[
   {
-    "candidate_id": "libertad_individual-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre libertad individual responder individualmente ante organismos de control independientes?",
+    "topic": "libertad_individual",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con libertad individual?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +30,15 @@
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "297a0c68b6926a9187bda39c",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "1ff5177b2f841e78fecb713c",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -29,8 +47,8 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a libertad individual si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "libertad_individual",
+    "titulo": "¿Debe una reforma sobre libertad individual priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -38,18 +56,21 @@
     "taxonomy_draft": {
       "eje_tematico": "libertad_individual",
       "subtema": "autonomia ciudadana",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "32a9c71ad42d46f746d5fed5",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "dc539124a8f8f75a35b797d7",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -58,8 +79,8 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten libertad individual?",
+    "topic": "libertad_individual",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre libertad individual?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -68,17 +89,20 @@
       "eje_tematico": "libertad_individual",
       "subtema": "garantias legales",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a0993501fae0c2fb622a0c00",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "08183cf3ff2f25277ee54c14",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -87,8 +111,8 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre libertad individual?",
+    "topic": "libertad_individual",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre libertad individual?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -96,18 +120,21 @@
     "taxonomy_draft": {
       "eje_tematico": "libertad_individual",
       "subtema": "limites del poder publico",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "7293ec3a159f9f783e9c69c8",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "a5356df076eb4dc3c9c39879",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -116,13 +143,13 @@
     }
   },
   {
-    "candidate_id": "libertad_individual-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en libertad individual?",
+    "topic": "libertad_individual",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre libertad individual?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -134,12 +161,15 @@
     "ideological_axis": "libertad_individual",
     "deliberative_tension": "libertad_individual_vs_intervencion_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "ed4456af6f942fc2392d3b0c",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "8c115a7c70f9d093e254d9fb",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "libertad_individual",
@@ -148,8 +178,8 @@
     }
   },
   {
-    "candidate_id": "igualdad_ante_la_ley-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre igualdad ante la ley responder individualmente ante organismos de control independientes?",
+    "topic": "igualdad_ante_la_ley",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -163,12 +193,15 @@
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "7ab40110123c5dd62c2cf113",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "420f894ccefae643ac3093ff",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "igualdad_ante_la_ley",
@@ -177,8 +210,8 @@
     }
   },
   {
-    "candidate_id": "igualdad_ante_la_ley-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a igualdad ante la ley si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "igualdad_ante_la_ley",
+    "titulo": "¿Debe una reforma sobre igualdad ante la ley priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -186,18 +219,21 @@
     "taxonomy_draft": {
       "eje_tematico": "igualdad_ante_la_ley",
       "subtema": "privilegios legales",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "f31143f3dfec8161486d34ed",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "0f3b3b5a5f05c1a6966607e4",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "igualdad_ante_la_ley",
@@ -206,8 +242,8 @@
     }
   },
   {
-    "candidate_id": "igualdad_ante_la_ley-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten igualdad ante la ley?",
+    "topic": "igualdad_ante_la_ley",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -216,17 +252,20 @@
       "eje_tematico": "igualdad_ante_la_ley",
       "subtema": "trato institucional",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "8565c1da6cff775ec5f873a8",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "0145d3de1d84d22eefa755d5",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "igualdad_ante_la_ley",
@@ -235,8 +274,8 @@
     }
   },
   {
-    "candidate_id": "igualdad_ante_la_ley-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre igualdad ante la ley?",
+    "topic": "igualdad_ante_la_ley",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -244,18 +283,21 @@
     "taxonomy_draft": {
       "eje_tematico": "igualdad_ante_la_ley",
       "subtema": "reglas generales",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "06005bafed417578c0b762c0",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "dc44cb4a246fc5a6c9422082",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "igualdad_ante_la_ley",
@@ -264,13 +306,13 @@
     }
   },
   {
-    "candidate_id": "igualdad_ante_la_ley-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en igualdad ante la ley?",
+    "topic": "igualdad_ante_la_ley",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -282,12 +324,15 @@
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "5bb8d4e851e7743c823dadb8",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "4966648b5809460ac2f3836b",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "igualdad_ante_la_ley",
@@ -296,8 +341,8 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre límites y funciones del Estado responder individualmente ante organismos de control independientes?",
+    "topic": "estado_limitado",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con límites y funciones del Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -311,12 +356,15 @@
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "af095d44c9fe6a83ae636b74",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "a3b18b9ab0724106b9932cf6",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -325,8 +373,8 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a límites y funciones del Estado si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "estado_limitado",
+    "titulo": "¿Debe una reforma sobre límites y funciones del Estado priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -334,18 +382,21 @@
     "taxonomy_draft": {
       "eje_tematico": "estado_limitado",
       "subtema": "controles institucionales",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "00f90472a7fcdce85cbac41d",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "24b98d4df020255ecd862c27",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -354,8 +405,8 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten límites y funciones del Estado?",
+    "topic": "estado_limitado",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre límites y funciones del Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -364,17 +415,20 @@
       "eje_tematico": "estado_limitado",
       "subtema": "eficacia publica",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "b530968ec7ed648bda9fee3a",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "ca780e492187273969bd47e9",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -383,8 +437,8 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre límites y funciones del Estado?",
+    "topic": "estado_limitado",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre límites y funciones del Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -392,18 +446,21 @@
     "taxonomy_draft": {
       "eje_tematico": "estado_limitado",
       "subtema": "alcance estatal",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "b8f16270172673ac0177c037",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "7c4dde4005e715e5e9445193",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -412,13 +469,13 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en límites y funciones del Estado?",
+    "topic": "estado_limitado",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre límites y funciones del Estado?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -430,12 +487,15 @@
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "3c0ccca635644bb5833f040d",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "982f3bd7ff6aaf0512908e75",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -444,8 +504,8 @@
     }
   },
   {
-    "candidate_id": "instituciones_publicas-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre instituciones públicas responder individualmente ante organismos de control independientes?",
+    "topic": "instituciones_publicas",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con instituciones públicas?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -459,12 +519,15 @@
     "ideological_axis": "instituciones_publicas",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "4b97674b23f83dbc72da7baa",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "58768eec07faa063c09f1a8b",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "instituciones_publicas",
@@ -473,8 +536,8 @@
     }
   },
   {
-    "candidate_id": "instituciones_publicas-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a instituciones públicas si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "instituciones_publicas",
+    "titulo": "¿Debe una reforma sobre instituciones públicas priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -482,18 +545,21 @@
     "taxonomy_draft": {
       "eje_tematico": "instituciones_publicas",
       "subtema": "confianza institucional",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "instituciones_publicas",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "02719cc54cc316839eb6a0dc",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "bb42cf56d27eb4f598db9738",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "instituciones_publicas",
@@ -502,8 +568,8 @@
     }
   },
   {
-    "candidate_id": "instituciones_publicas-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten instituciones públicas?",
+    "topic": "instituciones_publicas",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre instituciones públicas?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -512,17 +578,20 @@
       "eje_tematico": "instituciones_publicas",
       "subtema": "reglas de decision",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "instituciones_publicas",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "4b2ea8f23924a287fc8bfac8",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "aebc721ccc92981374a4c607",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "instituciones_publicas",
@@ -531,8 +600,8 @@
     }
   },
   {
-    "candidate_id": "instituciones_publicas-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre instituciones públicas?",
+    "topic": "instituciones_publicas",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre instituciones públicas?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -540,18 +609,21 @@
     "taxonomy_draft": {
       "eje_tematico": "instituciones_publicas",
       "subtema": "rendicion de cuentas",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "instituciones_publicas",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "1f229f1bfa245ff0718c9599",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "ffe9fad017a37d85959c4e5a",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "instituciones_publicas",
@@ -560,13 +632,13 @@
     }
   },
   {
-    "candidate_id": "instituciones_publicas-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en instituciones públicas?",
+    "topic": "instituciones_publicas",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre instituciones públicas?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -578,12 +650,15 @@
     "ideological_axis": "instituciones_publicas",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "4b1687514fe914b113cd6c8c",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "6a2252bea1668bf677985b22",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "instituciones_publicas",
@@ -592,8 +667,8 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre competencia y mercado responder individualmente ante organismos de control independientes?",
+    "topic": "mercado_libre",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con competencia y mercado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -607,12 +682,15 @@
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "417d980c60852c723b89aa7f",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "b18ed99f78ea2b157bbac36d",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -621,8 +699,8 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a competencia y mercado si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "mercado_libre",
+    "titulo": "¿Debe una reforma sobre competencia y mercado priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -630,18 +708,21 @@
     "taxonomy_draft": {
       "eje_tematico": "mercado_libre",
       "subtema": "barreras de entrada",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "6a82dd115e020a09dfebaee5",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "d63a1a53164f1dfa35b475a9",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -650,8 +731,8 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten competencia y mercado?",
+    "topic": "mercado_libre",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre competencia y mercado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -660,17 +741,20 @@
       "eje_tematico": "mercado_libre",
       "subtema": "consumidores",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "fbc0f92437c4af9b285be92d",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "c05f055b7ab371aaeedd002f",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -679,8 +763,8 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre competencia y mercado?",
+    "topic": "mercado_libre",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre competencia y mercado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -688,18 +772,21 @@
     "taxonomy_draft": {
       "eje_tematico": "mercado_libre",
       "subtema": "competencia abierta",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "813a73b319737e1eb4496203",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "3dc015aea74347e3cead39c8",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -708,13 +795,13 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en competencia y mercado?",
+    "topic": "mercado_libre",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre competencia y mercado?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -726,12 +813,15 @@
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "cd985bd255b28c8504187dce",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "bfa0587091d75b6e34318c58",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -740,8 +830,8 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre emprendimiento responder individualmente ante organismos de control independientes?",
+    "topic": "emprendimiento",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con emprendimiento?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -755,12 +845,15 @@
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "cd90aa32b9e6ca00d03e6b2a",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "48fb2aafecf99083cc7651d8",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -769,8 +862,8 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a emprendimiento si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "emprendimiento",
+    "titulo": "¿Debe una reforma sobre emprendimiento priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -778,18 +871,21 @@
     "taxonomy_draft": {
       "eje_tematico": "emprendimiento",
       "subtema": "burocracia",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "63bc95eed62847c04ce52a8f",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "e80ff3e081068d34701cd90c",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -798,8 +894,8 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten emprendimiento?",
+    "topic": "emprendimiento",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre emprendimiento?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -808,17 +904,20 @@
       "eje_tematico": "emprendimiento",
       "subtema": "nuevos negocios",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "d42d9852be69b11a040e6581",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "a02b07300dec86cbcf7b1353",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -827,8 +926,8 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre emprendimiento?",
+    "topic": "emprendimiento",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre emprendimiento?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -836,18 +935,21 @@
     "taxonomy_draft": {
       "eje_tematico": "emprendimiento",
       "subtema": "formalizacion",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "587b54f0418e4266ca94488b",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "21c475523a9f313d87a31ba5",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -856,13 +958,13 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en emprendimiento?",
+    "topic": "emprendimiento",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre emprendimiento?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -874,12 +976,15 @@
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "7759e2abf0f5fff8bd40fc68",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "6095efdcca89fabeff04a6c6",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -888,8 +993,8 @@
     }
   },
   {
-    "candidate_id": "propiedad_privada-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre propiedad privada responder individualmente ante organismos de control independientes?",
+    "topic": "propiedad_privada",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -903,12 +1008,15 @@
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "f1553656096948e1893a0fa4",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "6872c85c1b2fbd25437f0462",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "propiedad_privada",
@@ -917,8 +1025,8 @@
     }
   },
   {
-    "candidate_id": "propiedad_privada-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a propiedad privada si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "propiedad_privada",
+    "titulo": "¿Debe una reforma sobre propiedad privada priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -926,18 +1034,21 @@
     "taxonomy_draft": {
       "eje_tematico": "propiedad_privada",
       "subtema": "uso de bienes",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "78dbb5831bfaffa2999980c2",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "9af04f3b77030aa3ff3e0fb2",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "propiedad_privada",
@@ -946,8 +1057,8 @@
     }
   },
   {
-    "candidate_id": "propiedad_privada-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten propiedad privada?",
+    "topic": "propiedad_privada",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -956,17 +1067,20 @@
       "eje_tematico": "propiedad_privada",
       "subtema": "garantias patrimoniales",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "325a5f203010398af31a4466",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "88eca51ec2bed51d6f28541f",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "propiedad_privada",
@@ -975,8 +1089,8 @@
     }
   },
   {
-    "candidate_id": "propiedad_privada-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre propiedad privada?",
+    "topic": "propiedad_privada",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -984,18 +1098,21 @@
     "taxonomy_draft": {
       "eje_tematico": "propiedad_privada",
       "subtema": "seguridad juridica",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a907ae608e5aae3aa6742562",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "ba939dedcbab067c64495778",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "propiedad_privada",
@@ -1004,13 +1121,13 @@
     }
   },
   {
-    "candidate_id": "propiedad_privada-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en propiedad privada?",
+    "topic": "propiedad_privada",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -1022,12 +1139,15 @@
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "e70c155b93a2968cb619d07e",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "317979a9131e2308877b6f60",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "propiedad_privada",
@@ -1036,8 +1156,8 @@
     }
   },
   {
-    "candidate_id": "desregulacion-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre simplificación regulatoria responder individualmente ante organismos de control independientes?",
+    "topic": "desregulacion",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1051,12 +1171,15 @@
     "ideological_axis": "desregulacion",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a0985a58e8e161c2aa0d685f",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "0de125ab9e3d5f9a8070e7e3",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "desregulacion",
@@ -1065,8 +1188,8 @@
     }
   },
   {
-    "candidate_id": "desregulacion-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a simplificación regulatoria si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "desregulacion",
+    "titulo": "¿Debe una reforma sobre simplificación regulatoria priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1074,18 +1197,21 @@
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
       "subtema": "costos regulatorios",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "desregulacion",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "6a88668eeab84e2b77650873",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "faeeceb35095e2faa0d6aab7",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "desregulacion",
@@ -1094,8 +1220,8 @@
     }
   },
   {
-    "candidate_id": "desregulacion-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten simplificación regulatoria?",
+    "topic": "desregulacion",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1104,17 +1230,20 @@
       "eje_tematico": "desregulacion",
       "subtema": "evaluacion normativa",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "desregulacion",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "81f39c581e46bc6c0d00e393",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "75e19864d4e44108427b937b",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "desregulacion",
@@ -1123,8 +1252,8 @@
     }
   },
   {
-    "candidate_id": "desregulacion-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre simplificación regulatoria?",
+    "topic": "desregulacion",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1132,18 +1261,21 @@
     "taxonomy_draft": {
       "eje_tematico": "desregulacion",
       "subtema": "tramites",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "desregulacion",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "4ea6afa050aa092b8945f82f",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "5075625d03b389842d8af97b",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "desregulacion",
@@ -1152,13 +1284,13 @@
     }
   },
   {
-    "candidate_id": "desregulacion-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en simplificación regulatoria?",
+    "topic": "desregulacion",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre simplificación regulatoria?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -1170,12 +1302,15 @@
     "ideological_axis": "desregulacion",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "073ba7a9aa40a10db1ee34bc",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "79b98c54f62547112f381725",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "desregulacion",
@@ -1184,8 +1319,8 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre responsabilidad fiscal responder individualmente ante organismos de control independientes?",
+    "topic": "responsabilidad_fiscal",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con responsabilidad fiscal?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1199,12 +1334,15 @@
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "cccb250d5f8576d46ca45df0",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "7fa4e697f937a463f4adf52c",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -1213,8 +1351,8 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a responsabilidad fiscal si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "responsabilidad_fiscal",
+    "titulo": "¿Debe una reforma sobre responsabilidad fiscal priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1222,18 +1360,21 @@
     "taxonomy_draft": {
       "eje_tematico": "responsabilidad_fiscal",
       "subtema": "deuda",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a1b83c864f44a195d058e688",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "50382b45af8452c068810987",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -1242,8 +1383,8 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten responsabilidad fiscal?",
+    "topic": "responsabilidad_fiscal",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre responsabilidad fiscal?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1252,17 +1393,20 @@
       "eje_tematico": "responsabilidad_fiscal",
       "subtema": "prioridades presupuestales",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "3b5da85cfece5174d55b85fb",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "5fe006557807409e0a682a33",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -1271,8 +1415,8 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre responsabilidad fiscal?",
+    "topic": "responsabilidad_fiscal",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre responsabilidad fiscal?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1280,18 +1424,21 @@
     "taxonomy_draft": {
       "eje_tematico": "responsabilidad_fiscal",
       "subtema": "gasto publico",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "78109668581abb3145b40539",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "8469d295dc54d7b4e02c9ed0",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -1300,13 +1447,13 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en responsabilidad fiscal?",
+    "topic": "responsabilidad_fiscal",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre responsabilidad fiscal?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -1318,12 +1465,15 @@
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "5c065f84807fadf4a8daeef4",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "407497c83b1aa272ffbd0a8f",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -1332,8 +1482,8 @@
     }
   },
   {
-    "candidate_id": "anticorrupcion-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre lucha contra la corrupción responder individualmente ante organismos de control independientes?",
+    "topic": "anticorrupcion",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1347,12 +1497,15 @@
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "75cceb1909335e20dcf87f7c",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "bc5b48598d419992c39efb8f",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anticorrupcion",
@@ -1361,8 +1514,8 @@
     }
   },
   {
-    "candidate_id": "anticorrupcion-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a lucha contra la corrupción si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "anticorrupcion",
+    "titulo": "¿Debe una reforma sobre lucha contra la corrupción priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1370,18 +1523,21 @@
     "taxonomy_draft": {
       "eje_tematico": "anticorrupcion",
       "subtema": "compras publicas",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "fa9f63e10944026284aeffb0",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "136c5b28feecdb1a06cd17ba",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anticorrupcion",
@@ -1390,8 +1546,8 @@
     }
   },
   {
-    "candidate_id": "anticorrupcion-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten lucha contra la corrupción?",
+    "topic": "anticorrupcion",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1400,17 +1556,20 @@
       "eje_tematico": "anticorrupcion",
       "subtema": "sanciones",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "d198b772f161731ac48e0897",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "f57b4f5f9b7b2eb6210a2a40",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anticorrupcion",
@@ -1419,8 +1578,8 @@
     }
   },
   {
-    "candidate_id": "anticorrupcion-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre lucha contra la corrupción?",
+    "topic": "anticorrupcion",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1428,18 +1587,21 @@
     "taxonomy_draft": {
       "eje_tematico": "anticorrupcion",
       "subtema": "transparencia",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "7c0a0f345c4a5ce519b77e95",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "2dd1fc4a672b10cdb8862340",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anticorrupcion",
@@ -1448,13 +1610,13 @@
     }
   },
   {
-    "candidate_id": "anticorrupcion-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en lucha contra la corrupción?",
+    "topic": "anticorrupcion",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre lucha contra la corrupción?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -1466,12 +1628,15 @@
     "ideological_axis": "anticorrupcion",
     "deliberative_tension": "ciudadano_vs_poder_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "883ef1be0607f8e5eda80ca2",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "c5c0c58e0b32e5c8d5ee5bf4",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anticorrupcion",
@@ -1480,8 +1645,8 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre privilegios económicos otorgados por el Estado responder individualmente ante organismos de control independientes?",
+    "topic": "anti_mercantilismo",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1495,12 +1660,15 @@
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a70e3d74b5bb0ff88682bd68",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "566eeefa226a8ee7a4172d74",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -1509,8 +1677,8 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a privilegios económicos otorgados por el Estado si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "anti_mercantilismo",
+    "titulo": "¿Debe una reforma sobre privilegios económicos otorgados por el Estado priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1518,18 +1686,21 @@
     "taxonomy_draft": {
       "eje_tematico": "anti_mercantilismo",
       "subtema": "subsidios selectivos",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "4de0de169485e5e32db41a27",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "6adc73d34e4eea0e648f66ec",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -1538,8 +1709,8 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten privilegios económicos otorgados por el Estado?",
+    "topic": "anti_mercantilismo",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1548,17 +1719,20 @@
       "eje_tematico": "anti_mercantilismo",
       "subtema": "captura regulatoria",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "8f8856d877c34d382a9357ee",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "82b14a1d0cc6bdab95e0bcb8",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -1567,8 +1741,8 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre privilegios económicos otorgados por el Estado?",
+    "topic": "anti_mercantilismo",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1576,18 +1750,21 @@
     "taxonomy_draft": {
       "eje_tematico": "anti_mercantilismo",
       "subtema": "competencia",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "dd49c0f93f82f9bc7a01462f",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "8cc5262647d0fdda695aa47e",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -1596,13 +1773,13 @@
     }
   },
   {
-    "candidate_id": "anti_mercantilismo-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en privilegios económicos otorgados por el Estado?",
+    "topic": "anti_mercantilismo",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre privilegios económicos otorgados por el Estado?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -1614,12 +1791,15 @@
     "ideological_axis": "anti_mercantilismo",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "5fcf71c7f943bc6a0f7e0150",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "f2bf7a6de1c50e34d41a4e0d",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "anti_mercantilismo",
@@ -1628,8 +1808,8 @@
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre seguridad ciudadana responder individualmente ante organismos de control independientes?",
+    "topic": "seguridad_ciudadana",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1643,12 +1823,15 @@
     "ideological_axis": "seguridad_ciudadana",
     "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "d1d93162d661d0755db350ac",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "40190c1ab53f7986da95efa3",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
@@ -1657,8 +1840,8 @@
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a seguridad ciudadana si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "seguridad_ciudadana",
+    "titulo": "¿Debe una reforma sobre seguridad ciudadana priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1666,18 +1849,21 @@
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
       "subtema": "control del delito",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "seguridad_ciudadana",
     "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "27b25c5cd5c541817116a149",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "9cbebf6c52a0b747ac391691",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
@@ -1686,8 +1872,8 @@
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten seguridad ciudadana?",
+    "topic": "seguridad_ciudadana",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1696,17 +1882,20 @@
       "eje_tematico": "seguridad_ciudadana",
       "subtema": "garantias ciudadanas",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "seguridad_ciudadana",
     "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "970c335c7902a35cd40e059e",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "0775db84f6a96821a7a4371e",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
@@ -1715,8 +1904,8 @@
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre seguridad ciudadana?",
+    "topic": "seguridad_ciudadana",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1724,18 +1913,21 @@
     "taxonomy_draft": {
       "eje_tematico": "seguridad_ciudadana",
       "subtema": "prevencion",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "seguridad_ciudadana",
     "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "9450fb0d30556222a9d5f7f4",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "baa86865478f4316c3fb6884",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
@@ -1744,13 +1936,13 @@
     }
   },
   {
-    "candidate_id": "seguridad_ciudadana-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en seguridad ciudadana?",
+    "topic": "seguridad_ciudadana",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre seguridad ciudadana?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -1762,12 +1954,15 @@
     "ideological_axis": "seguridad_ciudadana",
     "deliberative_tension": "seguridad_ciudadana_vs_arbitrariedad",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "50deeab3d964581480c33e33",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "4bbe772036bea98760ed66e5",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "seguridad_ciudadana",
@@ -1776,8 +1971,8 @@
     }
   },
   {
-    "candidate_id": "estado_de_derecho-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre Estado de derecho responder individualmente ante organismos de control independientes?",
+    "topic": "estado_de_derecho",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1791,12 +1986,15 @@
     "ideological_axis": "estado_de_derecho",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "b20a5d39460e2c733b444f46",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "56ce9f406f9658a970d158a0",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
@@ -1805,8 +2003,8 @@
     }
   },
   {
-    "candidate_id": "estado_de_derecho-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a Estado de derecho si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "estado_de_derecho",
+    "titulo": "¿Debe una reforma sobre Estado de derecho priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1814,18 +2012,21 @@
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
       "subtema": "cumplimiento de normas",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "estado_de_derecho",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "420cefbd92dd251b5b384141",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "d58963eb281609b18495c414",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
@@ -1834,8 +2035,8 @@
     }
   },
   {
-    "candidate_id": "estado_de_derecho-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten Estado de derecho?",
+    "topic": "estado_de_derecho",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1844,17 +2045,20 @@
       "eje_tematico": "estado_de_derecho",
       "subtema": "independencia institucional",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "estado_de_derecho",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "1860d0b24ec2cb8f1b04ce36",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "f1c1dc7bee0919291f0bc8b1",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
@@ -1863,8 +2067,8 @@
     }
   },
   {
-    "candidate_id": "estado_de_derecho-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre Estado de derecho?",
+    "topic": "estado_de_derecho",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1872,18 +2076,21 @@
     "taxonomy_draft": {
       "eje_tematico": "estado_de_derecho",
       "subtema": "debido proceso",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "estado_de_derecho",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "afe302c991037dcc004ba6a2",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "470bd9f31227f2bd05b779ef",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
@@ -1892,13 +2099,13 @@
     }
   },
   {
-    "candidate_id": "estado_de_derecho-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en Estado de derecho?",
+    "topic": "estado_de_derecho",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre Estado de derecho?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -1910,12 +2117,15 @@
     "ideological_axis": "estado_de_derecho",
     "deliberative_tension": "instituciones_fuertes_vs_captura_del_poder",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a74ca67689c8ccc13eea95ca",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "7c7508851ffd32d627c42f49",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_de_derecho",
@@ -1924,8 +2134,8 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre mérito en el sector público responder individualmente ante organismos de control independientes?",
+    "topic": "merito_y_talento",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con mérito en el sector público?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1939,12 +2149,15 @@
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "e12ad1eca09578e9abd261f0",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "59a7289bf8dc5cc6ecc7d862",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -1953,8 +2166,8 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a mérito en el sector público si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "merito_y_talento",
+    "titulo": "¿Debe una reforma sobre mérito en el sector público priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1962,18 +2175,21 @@
     "taxonomy_draft": {
       "eje_tematico": "merito_y_talento",
       "subtema": "evaluacion de desempeno",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "623f13612ef6f1fe68ca4d7f",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "041fdeb05602eab249a337b6",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -1982,8 +2198,8 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten mérito en el sector público?",
+    "topic": "merito_y_talento",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre mérito en el sector público?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -1992,17 +2208,20 @@
       "eje_tematico": "merito_y_talento",
       "subtema": "nombramientos",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "4ac5c48c28ddc045f9c45813",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "fda02a0343044e2a5f9ae7fd",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -2011,8 +2230,8 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre mérito en el sector público?",
+    "topic": "merito_y_talento",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre mérito en el sector público?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2020,18 +2239,21 @@
     "taxonomy_draft": {
       "eje_tematico": "merito_y_talento",
       "subtema": "servicio civil",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "0616c32efa93e07c62a9eb92",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "016f2f8e8ccf5058f0e220dc",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -2040,13 +2262,13 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en mérito en el sector público?",
+    "topic": "merito_y_talento",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre mérito en el sector público?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -2058,12 +2280,15 @@
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "aca442cb39be53c88a69b8ef",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "96186a2418b02512a8442f6e",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -2072,8 +2297,8 @@
     }
   },
   {
-    "candidate_id": "ciudadania_y_control_del_poder-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre control ciudadano del poder responder individualmente ante organismos de control independientes?",
+    "topic": "ciudadania_y_control_del_poder",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2087,12 +2312,15 @@
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "668e9696548ac70f252df6d0",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "7a33f8d9c4eae0baec165d62",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "ciudadania_y_control_del_poder",
@@ -2101,8 +2329,8 @@
     }
   },
   {
-    "candidate_id": "ciudadania_y_control_del_poder-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a control ciudadano del poder si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "ciudadania_y_control_del_poder",
+    "titulo": "¿Debe una reforma sobre control ciudadano del poder priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2110,18 +2338,21 @@
     "taxonomy_draft": {
       "eje_tematico": "ciudadania_y_control_del_poder",
       "subtema": "acceso a informacion",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "428ede46fe13c852259c26ea",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "5e84e9741725bb572987ccf0",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "ciudadania_y_control_del_poder",
@@ -2130,8 +2361,8 @@
     }
   },
   {
-    "candidate_id": "ciudadania_y_control_del_poder-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten control ciudadano del poder?",
+    "topic": "ciudadania_y_control_del_poder",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2140,17 +2371,20 @@
       "eje_tematico": "ciudadania_y_control_del_poder",
       "subtema": "responsabilidad politica",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "52fb5f5b8346d707052800de",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "36aae7a765b35087121dd4ce",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "ciudadania_y_control_del_poder",
@@ -2159,8 +2393,8 @@
     }
   },
   {
-    "candidate_id": "ciudadania_y_control_del_poder-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre control ciudadano del poder?",
+    "topic": "ciudadania_y_control_del_poder",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2168,18 +2402,21 @@
     "taxonomy_draft": {
       "eje_tematico": "ciudadania_y_control_del_poder",
       "subtema": "fiscalizacion ciudadana",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "838eb06e151e00438a4c88bf",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "ee94f25a41864c14cc93c5a3",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "ciudadania_y_control_del_poder",
@@ -2188,13 +2425,13 @@
     }
   },
   {
-    "candidate_id": "ciudadania_y_control_del_poder-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en control ciudadano del poder?",
+    "topic": "ciudadania_y_control_del_poder",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre control ciudadano del poder?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -2206,12 +2443,15 @@
     "ideological_axis": "ciudadania_y_control_del_poder",
     "deliberative_tension": "ciudadania_activa_vs_poder_sin_control",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "e72c01b9af628710d919b33c",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "1ccca3966195b035df6b85bc",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "ciudadania_y_control_del_poder",
@@ -2220,8 +2460,8 @@
     }
   },
   {
-    "candidate_id": "innovacion_y_competitividad-01-deben-los-responsables-de-politicas-sobre-",
-    "titulo": "¿Deben los responsables de políticas sobre innovación y competitividad responder individualmente ante organismos de control independientes?",
+    "topic": "innovacion_y_competitividad",
+    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con innovación y competitividad?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2235,12 +2475,15 @@
     "ideological_axis": "innovacion_y_competitividad",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce responsabilidad personal del funcionario sin señalar actores concretos.",
+    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "f8615fa8d8d483241caf20d8",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "5c86feeca72fa6ebb06b6b20",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "innovacion_y_competitividad",
@@ -2249,8 +2492,8 @@
     }
   },
   {
-    "candidate_id": "innovacion_y_competitividad-02-debe-el-estado-aprobar-automaticamente-los",
-    "titulo": "¿Debe el Estado aprobar automaticamente los trámites vinculados a innovación y competitividad si no responde al ciudadano en el plazo legal establecido?",
+    "topic": "innovacion_y_competitividad",
+    "titulo": "¿Debe una reforma sobre innovación y competitividad priorizar reglas generales antes que beneficios para grupos específicos?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2258,18 +2501,21 @@
     "taxonomy_draft": {
       "eje_tematico": "innovacion_y_competitividad",
       "subtema": "reglas para innovar",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "innovacion_y_competitividad",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce silencio positivo como mecanismo de eficiencia administrativa.",
+    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "35c5c96a40cff0e39adfd483",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "7f0542dee7dd16cfb6bd29a6",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "innovacion_y_competitividad",
@@ -2278,8 +2524,8 @@
     }
   },
   {
-    "candidate_id": "innovacion_y_competitividad-03-deben-los-ciudadanos-contar-con-herramient",
-    "titulo": "¿Deben los ciudadanos contar con herramientas accesibles para impugnar decisiones administrativas que afecten innovación y competitividad?",
+    "topic": "innovacion_y_competitividad",
+    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre innovación y competitividad?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2288,17 +2534,20 @@
       "eje_tematico": "innovacion_y_competitividad",
       "subtema": "productividad",
       "enfoque": "ciudadano",
-      "intensidad_de_debate": "alta"
+      "intensidad_de_debate": "baja"
     },
     "ideological_axis": "innovacion_y_competitividad",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea impugnacion ciudadana sin señalar actores concretos.",
+    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "9d540db4ed5cc1f1c8306926",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "6398f1520f6662feab331386",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "innovacion_y_competitividad",
@@ -2307,8 +2556,8 @@
     }
   },
   {
-    "candidate_id": "innovacion_y_competitividad-04-debe-exigirse-un-dictamen-tecnico-independ",
-    "titulo": "¿Debe exigirse un dictamen tecnico independiente antes de que el Congreso vote cualquier cambio normativo sobre innovación y competitividad?",
+    "topic": "innovacion_y_competitividad",
+    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre innovación y competitividad?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -2316,18 +2565,21 @@
     "taxonomy_draft": {
       "eje_tematico": "innovacion_y_competitividad",
       "subtema": "competitividad",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "innovacion_y_competitividad",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en la calidad tecnica previa a la decisión legislativa.",
+    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "50e4df3bd72dcad01bfd37bb",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "a2cb07e00633ae0b88ebf356",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "innovacion_y_competitividad",
@@ -2336,13 +2588,13 @@
     }
   },
   {
-    "candidate_id": "innovacion_y_competitividad-05-que-tipo-de-intervencion-publica-es-mas-ef",
-    "titulo": "¿Qué tipo de intervención pública es más eficaz para mejorar los resultados en innovación y competitividad?",
+    "topic": "innovacion_y_competitividad",
+    "titulo": "¿Qué criterio debería priorizar una reforma sobre innovación y competitividad?",
     "descripcion": null,
     "tipo_votacion": "opciones",
     "opciones": [
-      "Reducir barreras y obligaciones actuales",
-      "Incorporar nuevos mecanismos de supervisión"
+      "Reglas simples y fiscalizables",
+      "Controles administrativos más detallados"
     ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
@@ -2354,12 +2606,15 @@
     "ideological_axis": "innovacion_y_competitividad",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta dos enfoques institucionales sin opción evidentemente correcta.",
+    "quality_notes": "Ofrece alternativas institucionales comparables.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a1495e47c6169943b22dab0e",
+    "quality_score": null,
+    "neutrality_score": null,
+    "duplicate_fingerprint": "3943a57a3ea21bcc32555cc6",
+    "status": "pending_review",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "innovacion_y_competitividad",
@@ -2367,4 +2622,76 @@
       "template_index": 4
     }
   }
-]
+]$json_payload$::jsonb;
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM generated_topic_batches WHERE batch_code = v_batch_code
+  ) THEN
+    RAISE EXCEPTION 'batch_code_ya_cargado: %', v_batch_code;
+  END IF;
+
+  INSERT INTO generated_topic_batches (
+    batch_code, source, ideological_profile, status, expected_count, notes, created_at
+  ) VALUES (
+    v_batch_code,
+    'question-generator',
+    'liberal_democratic',
+    'draft',
+    v_expected_count,
+    'Generado por qgen:prepare-upload. No toca temas, votos ni tema_sugerencias.',
+    now()
+  ) RETURNING id INTO v_batch_id;
+
+  INSERT INTO generated_topic_candidates (
+    batch_id, titulo, descripcion, tipo_votacion, opciones, publico_objetivo,
+    taxonomy_draft, ideological_axis, deliberative_tension, neutrality_notes, quality_notes,
+    risk_flags, requires_source, source_required_reason, human_review_required,
+    quality_score, neutrality_score, duplicate_fingerprint, raw_payload
+  )
+  SELECT
+    v_batch_id,
+    rec->>'titulo',
+    nullif(btrim(coalesce(rec->>'descripcion', '')), ''),
+    rec->>'tipo_votacion',
+    coalesce(rec->'opciones', '[]'::jsonb),
+    rec->>'publico_objetivo',
+    coalesce(rec->'taxonomy_draft', '{}'::jsonb),
+    nullif(btrim(coalesce(rec->>'ideological_axis', '')), ''),
+    nullif(btrim(coalesce(rec->>'deliberative_tension', '')), ''),
+    nullif(btrim(coalesce(rec->>'neutrality_notes', '')), ''),
+    nullif(btrim(coalesce(rec->>'quality_notes', '')), ''),
+    coalesce(rec->'risk_flags', '[]'::jsonb),
+    coalesce((nullif(rec->>'requires_source', ''))::boolean, false),
+    nullif(btrim(coalesce(rec->>'source_required_reason', '')), ''),
+    true,
+    (nullif(rec->>'quality_score', ''))::integer,
+    (nullif(rec->>'neutrality_score', ''))::integer,
+    rec->>'duplicate_fingerprint',
+    rec
+  FROM jsonb_array_elements(v_candidates) AS rec;
+
+  GET DIAGNOSTICS v_inserted_count = ROW_COUNT;
+
+  IF v_inserted_count <> v_expected_count THEN
+    RAISE EXCEPTION 'conteo_invalido: insertados %, esperados %', v_inserted_count, v_expected_count;
+  END IF;
+
+  SELECT COUNT(*) INTO v_dup_count
+  FROM (
+    SELECT duplicate_fingerprint
+    FROM generated_topic_candidates
+    WHERE batch_id = v_batch_id
+    GROUP BY duplicate_fingerprint
+    HAVING COUNT(*) > 1
+  ) d;
+
+  IF v_dup_count > 0 THEN
+    RAISE EXCEPTION 'duplicados_detectados_por_fingerprint: %', v_dup_count;
+  END IF;
+
+  UPDATE generated_topic_batches
+  SET status = 'loaded', inserted_count = v_inserted_count, updated_at = now()
+  WHERE id = v_batch_id;
+END $qgen$;
+
+COMMIT;

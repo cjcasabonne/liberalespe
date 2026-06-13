@@ -367,9 +367,9 @@ function newBatchPhase() {
     }
   }
 
-  // Clear existing corpus to force fresh re-read of Supabase
+  // Clear existing corpus and global corpus to force fresh re-read of Supabase
   // (including all generated_topic_candidates already loaded)
-  for (const p of [FILES.existing, `${FILES.existing}.meta.json`]) {
+  for (const p of [FILES.existing, `${FILES.existing}.meta.json`, FILES.globalCorpus]) {
     if (fs.existsSync(p)) fs.unlinkSync(p);
   }
 
@@ -403,6 +403,21 @@ function newBatchPhase() {
   log(`  próxima acción: npm run qgen:read`);
 
   return newState;
+}
+
+function postUploadAuditPhase() {
+  const result = readJson(FILES.applyUploadResult, null);
+  if (!result || result.routine_status !== 'uploaded_to_supabase_staging') {
+    throw new Error('apply_upload_result_missing_or_invalid: run qgen:apply-upload first');
+  }
+
+  if (fs.existsSync(FILES.postUploadAudit)) {
+    const audit = fs.readFileSync(FILES.postUploadAudit, 'utf8');
+    console.log(audit);
+  }
+
+  log(`post-upload-audit ok: batch_code=${result.batch_code}, inserted=${result.inserted_candidates}`);
+  return result;
 }
 
 async function uploadPhase() {
@@ -606,6 +621,7 @@ async function main() {
     else if (command === 'prepare-upload') prepareUploadPhase();
     else if (command === 'apply-upload') applyUploadPhase();
     else if (command === 'new-batch') newBatchPhase();
+    else if (command === 'post-upload-audit') postUploadAuditPhase();
     else if (command === 'upload') await uploadPhase();
     else throw new Error(`unknown_command:${command || '(missing)'}`);
   } catch (error) {
