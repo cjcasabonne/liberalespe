@@ -1,6 +1,7 @@
 const { PAGE_SIZE, FILES, getSupabaseEnv } = require('./config');
 const { appendJsonl, writeJson } = require('./state');
 const { normalizeText, fingerprint } = require('./normalize');
+const fs = require('fs');
 
 const TABLES = [
   {
@@ -125,9 +126,42 @@ async function readExistingCorpus() {
     total_rows: allRows.length,
   });
 
+  // Build global_corpus.json from generated_topic_candidates rows only.
+  // If the table was blocked by RLS, rows will be empty and the file may be
+  // incomplete — the pipeline should supplement via MCP before generating.
+  const candidateRows = allRows.filter((row) => row.source === 'generated_topic_candidates');
+  const historicalFingerprints = [...new Set(candidateRows.map((row) => row.duplicate_fingerprint).filter(Boolean))];
+  const historicalTitles = [...new Set(candidateRows.map((row) => row.normalized_title || normalizeText(row.titulo)).filter(Boolean))];
+
+  const existingCorpus = fs.existsSync(FILES.globalCorpus)
+    ? JSON.parse(fs.readFileSync(FILES.globalCorpus, 'utf8'))
+    : null;
+
+  const mergedFingerprints = existingCorpus
+    ? [...new Set([...existingCorpus.historical_fingerprint_set, ...historicalFingerprints])]
+    : historicalFingerprints;
+  const mergedTitles = existingCorpus
+    ? [...new Set([...existingCorpus.historical_normalized_title_set, ...historicalTitles])]
+    : historicalTitles;
+
+  writeJson(FILES.globalCorpus, {
+    historical_fingerprint_set: mergedFingerprints,
+    historical_normalized_title_set: mergedTitles,
+    total_historical: mergedFingerprints.length,
+    built_at: new Date().toISOString(),
+    rest_api_candidate_rows: candidateRows.length,
+    note: candidateRows.length === 0
+      ? 'generated_topic_candidates blocked by RLS — corpus supplemented from MCP build'
+      : 'built from REST API read',
+  });
+
   return {
     total_rows: allRows.length,
     tables: tableResults,
+    global_corpus: {
+      historical_fingerprints: mergedFingerprints.length,
+      historical_titles: mergedTitles.length,
+    },
   };
 }
 

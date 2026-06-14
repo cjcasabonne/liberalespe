@@ -1,0 +1,26 @@
+{
+  "phase": "FASE_2_GENERACION",
+  "status": "ok",
+  "timestamp": "2026-06-14T10:19:26.532Z",
+  "topics": 16,
+  "candidates": 176,
+  "per_topic_initial": {
+    "libertad_individual": 11,
+    "igualdad_ante_la_ley": 11,
+    "estado_limitado": 11,
+    "instituciones_publicas": 11,
+    "mercado_libre": 11,
+    "emprendimiento": 11,
+    "propiedad_privada": 11,
+    "desregulacion": 11,
+    "responsabilidad_fiscal": 11,
+    "anticorrupcion": 11,
+    "anti_mercantilismo": 11,
+    "seguridad_ciudadana": 11,
+    "estado_de_derecho": 11,
+    "merito_y_talento": 11,
+    "ciudadania_y_control_del_poder": 11,
+    "innovacion_y_competitividad": 11
+  },
+  "global_corpus_fingerprints": 800
+}

@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "igualdad_ante_la_ley-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con igualdad ante la ley?",
+    "candidate_id": "igualdad_ante_la_ley-01-deben-establecerse-limites-claros-a-la-int",
+    "titulo": "¿Deben establecerse límites claros a la intervención del Estado en materia de igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -10,27 +10,30 @@
       "eje_tematico": "igualdad_ante_la_ley",
       "subtema": "reglas generales",
       "enfoque": "institucional",
-      "intensidad_de_debate": "moderada"
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Plantea límites institucionales sin impugnar al Estado en general.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "420f894ccefae643ac3093ff",
+    "quality_score": 75,
+    "neutrality_score": 80,
+    "duplicate_fingerprint": "e2123768d914349e9646db11",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "limites_institucionales",
+      "generation_variant": "T0",
       "topic_target": "igualdad_ante_la_ley",
-      "per_topic_target": 5,
-      "template_index": 0
+      "per_topic_target": 5
     }
   },
   {
-    "candidate_id": "igualdad_ante_la_ley-02-debe-una-reforma-sobre-igualdad-ante-la-le",
-    "titulo": "¿Debe una reforma sobre igualdad ante la ley priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "igualdad_ante_la_ley-02-deben-aplicarse-las-mismas-reglas-sobre-ig",
+    "titulo": "¿Deben aplicarse las mismas reglas sobre igualdad ante la ley a todos los actores sin excepción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -44,22 +47,25 @@
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Contrasta igualdad normativa y privilegios sin atacar actores específicos.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "0f3b3b5a5f05c1a6966607e4",
+    "quality_score": 78,
+    "neutrality_score": 82,
+    "duplicate_fingerprint": "2caf426bb1872217d399ee3e",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "igualdad_ante_normas",
+      "generation_variant": "T1",
       "topic_target": "igualdad_ante_la_ley",
-      "per_topic_target": 5,
-      "template_index": 1
+      "per_topic_target": 5
     }
   },
   {
-    "candidate_id": "igualdad_ante_la_ley-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre igualdad ante la ley?",
+    "candidate_id": "igualdad_ante_la_ley-03-debe-disenarse-un-mecanismo-de-evaluacion-",
+    "titulo": "¿Debe diseñarse un mecanismo de evaluación de costos antes de ampliar normas sobre igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -67,28 +73,127 @@
     "taxonomy_draft": {
       "eje_tematico": "igualdad_ante_la_ley",
       "subtema": "trato institucional",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "igualdad_ante_la_ley",
+    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Introduce evaluación de costos regulatorios como criterio deliberativo neutral.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": 76,
+    "neutrality_score": 80,
+    "duplicate_fingerprint": "b163486a0a552617b6efd6e6",
+    "raw_payload": {
+      "generator_version": "v6",
+      "generation_family": "evaluacion_costos_regulatorios",
+      "generation_variant": "T2",
+      "topic_target": "igualdad_ante_la_ley",
+      "per_topic_target": 5
+    }
+  },
+  {
+    "candidate_id": "igualdad_ante_la_ley-04-deben-simplificarse-los-procedimientos-adm",
+    "titulo": "¿Deben simplificarse los procedimientos administrativos que regulan igualdad ante la ley?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "igualdad_ante_la_ley",
+      "subtema": "reglas generales",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "baja"
     },
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Evalúa carga administrativa sin presuponer que la simplificación es necesariamente correcta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "0145d3de1d84d22eefa755d5",
+    "quality_score": 75,
+    "neutrality_score": 78,
+    "duplicate_fingerprint": "af9a330efb80091b0538f505",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "simplificacion_administrativa",
+      "generation_variant": "T3",
       "topic_target": "igualdad_ante_la_ley",
-      "per_topic_target": 5,
-      "template_index": 2
+      "per_topic_target": 5
     }
   },
   {
-    "candidate_id": "igualdad_ante_la_ley-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre igualdad ante la ley?",
+    "candidate_id": "igualdad_ante_la_ley-05-deben-eliminarse-las-barreras-que-impiden-",
+    "titulo": "¿Deben eliminarse las barreras que impiden la participación de nuevos actores en igualdad ante la ley?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "igualdad_ante_la_ley",
+      "subtema": "privilegios legales",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "igualdad_ante_la_ley",
+    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Debate sobre competencia y acceso sin descalificar el marco regulatorio existente.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": 76,
+    "neutrality_score": 79,
+    "duplicate_fingerprint": "fb0df672ee0293a3f3b94549",
+    "raw_payload": {
+      "generator_version": "v6",
+      "generation_family": "barreras_entrada",
+      "generation_variant": "T4",
+      "topic_target": "igualdad_ante_la_ley",
+      "per_topic_target": 5
+    }
+  },
+  {
+    "candidate_id": "igualdad_ante_la_ley-06-debe-el-estado-garantizar-reglas-estables-",
+    "titulo": "¿Debe el Estado garantizar reglas estables y predecibles en materia de igualdad ante la ley?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "igualdad_ante_la_ley",
+      "subtema": "trato institucional",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "igualdad_ante_la_ley",
+    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Centra el debate en seguridad jurídica como bien público sin sesgo ideológico explícito.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": 79,
+    "neutrality_score": 82,
+    "duplicate_fingerprint": "2fe30bacbcfd2ff183f5c7ab",
+    "raw_payload": {
+      "generator_version": "v6",
+      "generation_family": "seguridad_juridica",
+      "generation_variant": "T5",
+      "topic_target": "igualdad_ante_la_ley",
+      "per_topic_target": 5
+    }
+  },
+  {
+    "candidate_id": "igualdad_ante_la_ley-07-deben-disenarse-incentivos-que-promuevan-m",
+    "titulo": "¿Deben diseñarse incentivos que promuevan mejores resultados en igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -102,173 +207,89 @@
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Abre la discusión sobre diseño de incentivos sin prescribir soluciones.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "dc44cb4a246fc5a6c9422082",
+    "quality_score": 75,
+    "neutrality_score": 80,
+    "duplicate_fingerprint": "9bea11633bfdf6e11b64dac5",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "incentivos",
+      "generation_variant": "T6",
       "topic_target": "igualdad_ante_la_ley",
-      "per_topic_target": 5,
-      "template_index": 3
+      "per_topic_target": 5
     }
   },
   {
-    "candidate_id": "igualdad_ante_la_ley-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre igualdad ante la ley?",
+    "candidate_id": "igualdad_ante_la_ley-08-debe-descentralizarse-la-gestion-de-las-po",
+    "titulo": "¿Debe descentralizarse la gestión de las políticas vinculadas a igualdad ante la ley?",
     "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
-    ],
+    "tipo_votacion": "binaria",
+    "opciones": [],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "igualdad_ante_la_ley",
       "subtema": "privilegios legales",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "igualdad_ante_la_ley",
-    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "4966648b5809460ac2f3836b",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "igualdad_ante_la_ley",
-      "per_topic_target": 5,
-      "template_index": 4
-    }
-  },
-  {
-    "candidate_id": "igualdad_ante_la_ley-06-debe-toda-politica-vinculada-a-igualdad-an",
-    "titulo": "¿Debe toda política vinculada a igualdad ante la ley tener metas públicas medibles antes de recibir más presupuesto?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "igualdad_ante_la_ley",
-      "subtema": "trato institucional",
       "enfoque": "institucional",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "igualdad_ante_la_ley",
-    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "76d2ce27c16689f6ba4907cb",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "igualdad_ante_la_ley",
-      "per_topic_target": 5,
-      "template_index": 5
-    }
-  },
-  {
-    "candidate_id": "igualdad_ante_la_ley-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con igualdad ante la ley?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "igualdad_ante_la_ley",
-      "subtema": "reglas generales",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "igualdad_ante_la_ley",
-    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "de0f7f0e95b88086a05cd4a7",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "igualdad_ante_la_ley",
-      "per_topic_target": 5,
-      "template_index": 6
-    }
-  },
-  {
-    "candidate_id": "igualdad_ante_la_ley-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de igualdad ante la ley?",
-    "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "igualdad_ante_la_ley",
-      "subtema": "privilegios legales",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "igualdad_ante_la_ley",
-    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "d197c152514f305f83a46d81",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "igualdad_ante_la_ley",
-      "per_topic_target": 5,
-      "template_index": 7
-    }
-  },
-  {
-    "candidate_id": "igualdad_ante_la_ley-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre igualdad ante la ley?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "igualdad_ante_la_ley",
-      "subtema": "trato institucional",
-      "enfoque": "ciudadano",
       "intensidad_de_debate": "baja"
     },
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
+    "quality_notes": "Debate territorial sin presuponer que la descentralizacion es siempre superior.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "d0b48be5b8d7d863eab61fb1",
+    "quality_score": 74,
+    "neutrality_score": 78,
+    "duplicate_fingerprint": "256b903295384472136d00a7",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "descentralizacion",
+      "generation_variant": "T7",
       "topic_target": "igualdad_ante_la_ley",
-      "per_topic_target": 5,
-      "template_index": 8
+      "per_topic_target": 5
     }
   },
   {
-    "candidate_id": "igualdad_ante_la_ley-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre igualdad ante la ley cumplen su objetivo sin crear privilegios?",
+    "candidate_id": "igualdad_ante_la_ley-09-deben-aplicarse-criterios-de-fiscalizacion",
+    "titulo": "¿Deben aplicarse criterios de fiscalización proporcionales al riesgo en el ámbito de igualdad ante la ley?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "igualdad_ante_la_ley",
+      "subtema": "trato institucional",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "igualdad_ante_la_ley",
+    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Introduce proporcionalidad en fiscalización como criterio institucional deliberativo.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": 77,
+    "neutrality_score": 80,
+    "duplicate_fingerprint": "5bfa9c3879f2d5b96cfee639",
+    "raw_payload": {
+      "generator_version": "v6",
+      "generation_family": "fiscalizacion_proporcional",
+      "generation_variant": "T8",
+      "topic_target": "igualdad_ante_la_ley",
+      "per_topic_target": 5
+    }
+  },
+  {
+    "candidate_id": "igualdad_ante_la_ley-10-deben-establecerse-consecuencias-claras-pa",
+    "titulo": "¿Deben establecerse consecuencias claras para los funcionarios que incumplan sus responsabilidades en igualdad ante la ley?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -276,23 +297,61 @@
     "taxonomy_draft": {
       "eje_tematico": "igualdad_ante_la_ley",
       "subtema": "reglas generales",
-      "enfoque": "politica_publica",
+      "enfoque": "institucional",
       "intensidad_de_debate": "alta"
     },
     "ideological_axis": "igualdad_ante_la_ley",
     "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Centra el debate en rendición de cuentas institucional sin nombrar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "9aa433de1467b9c266d65893",
+    "quality_score": 78,
+    "neutrality_score": 78,
+    "duplicate_fingerprint": "ed12df5c2fd528a5547bdb16",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "responsabilidad_funcionario",
+      "generation_variant": "T9",
       "topic_target": "igualdad_ante_la_ley",
-      "per_topic_target": 5,
-      "template_index": 9
+      "per_topic_target": 5
+    }
+  },
+  {
+    "candidate_id": "igualdad_ante_la_ley-11-cual-deberia-ser-el-principal-criterio-par",
+    "titulo": "¿Cuál debería ser el principal criterio para evaluar el desempeño de las políticas de igualdad ante la ley?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Resultados medibles y verificados por organismos independientes",
+      "Cumplimiento de procedimientos formales establecidos por ley"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "igualdad_ante_la_ley",
+      "subtema": "privilegios legales",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "igualdad_ante_la_ley",
+    "deliberative_tension": "igualdad_ante_la_ley_vs_privilegios",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Ofrece dos criterios institucionales comparables sin opción evidentemente correcta.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": 80,
+    "neutrality_score": 85,
+    "duplicate_fingerprint": "c5284b5fe537042fcbbbc497",
+    "raw_payload": {
+      "generator_version": "v6",
+      "generation_family": "rendicion_cuentas",
+      "generation_variant": "T10",
+      "topic_target": "igualdad_ante_la_ley",
+      "per_topic_target": 5
     }
   }
 ]

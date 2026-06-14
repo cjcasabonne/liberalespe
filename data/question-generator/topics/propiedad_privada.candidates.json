@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "propiedad_privada-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con propiedad privada?",
+    "candidate_id": "propiedad_privada-01-deben-establecerse-limites-claros-a-la-int",
+    "titulo": "¿Deben establecerse límites claros a la intervención del Estado en materia de propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -10,27 +10,30 @@
       "eje_tematico": "propiedad_privada",
       "subtema": "seguridad juridica",
       "enfoque": "institucional",
-      "intensidad_de_debate": "moderada"
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Plantea límites institucionales sin impugnar al Estado en general.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "6872c85c1b2fbd25437f0462",
+    "quality_score": 75,
+    "neutrality_score": 80,
+    "duplicate_fingerprint": "ea72523172ea702752435eb3",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "limites_institucionales",
+      "generation_variant": "T0",
       "topic_target": "propiedad_privada",
-      "per_topic_target": 5,
-      "template_index": 0
+      "per_topic_target": 5
     }
   },
   {
-    "candidate_id": "propiedad_privada-02-debe-una-reforma-sobre-propiedad-privada-p",
-    "titulo": "¿Debe una reforma sobre propiedad privada priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "propiedad_privada-02-deben-aplicarse-las-mismas-reglas-sobre-pr",
+    "titulo": "¿Deben aplicarse las mismas reglas sobre propiedad privada a todos los actores sin excepción?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -44,22 +47,25 @@
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Contrasta igualdad normativa y privilegios sin atacar actores específicos.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "9af04f3b77030aa3ff3e0fb2",
+    "quality_score": 78,
+    "neutrality_score": 82,
+    "duplicate_fingerprint": "aa938ee71cdf5be132d808d2",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "igualdad_ante_normas",
+      "generation_variant": "T1",
       "topic_target": "propiedad_privada",
-      "per_topic_target": 5,
-      "template_index": 1
+      "per_topic_target": 5
     }
   },
   {
-    "candidate_id": "propiedad_privada-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre propiedad privada?",
+    "candidate_id": "propiedad_privada-03-debe-disenarse-un-mecanismo-de-evaluacion-",
+    "titulo": "¿Debe diseñarse un mecanismo de evaluación de costos antes de ampliar normas sobre propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -67,28 +73,127 @@
     "taxonomy_draft": {
       "eje_tematico": "propiedad_privada",
       "subtema": "garantias patrimoniales",
-      "enfoque": "ciudadano",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "propiedad_privada",
+    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Introduce evaluación de costos regulatorios como criterio deliberativo neutral.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": 76,
+    "neutrality_score": 80,
+    "duplicate_fingerprint": "a3e5e655d7a19a9f3153bd02",
+    "raw_payload": {
+      "generator_version": "v6",
+      "generation_family": "evaluacion_costos_regulatorios",
+      "generation_variant": "T2",
+      "topic_target": "propiedad_privada",
+      "per_topic_target": 5
+    }
+  },
+  {
+    "candidate_id": "propiedad_privada-04-deben-simplificarse-los-procedimientos-adm",
+    "titulo": "¿Deben simplificarse los procedimientos administrativos que regulan propiedad privada?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "propiedad_privada",
+      "subtema": "seguridad juridica",
+      "enfoque": "politica_publica",
       "intensidad_de_debate": "baja"
     },
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Evalúa carga administrativa sin presuponer que la simplificación es necesariamente correcta.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "88eca51ec2bed51d6f28541f",
+    "quality_score": 75,
+    "neutrality_score": 78,
+    "duplicate_fingerprint": "9ccd6e325048b39e7a8eac71",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "simplificacion_administrativa",
+      "generation_variant": "T3",
       "topic_target": "propiedad_privada",
-      "per_topic_target": 5,
-      "template_index": 2
+      "per_topic_target": 5
     }
   },
   {
-    "candidate_id": "propiedad_privada-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre propiedad privada?",
+    "candidate_id": "propiedad_privada-05-deben-eliminarse-las-barreras-que-impiden-",
+    "titulo": "¿Deben eliminarse las barreras que impiden la participación de nuevos actores en propiedad privada?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "propiedad_privada",
+      "subtema": "uso de bienes",
+      "enfoque": "politica_publica",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "propiedad_privada",
+    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Debate sobre competencia y acceso sin descalificar el marco regulatorio existente.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": 76,
+    "neutrality_score": 79,
+    "duplicate_fingerprint": "08c8048efaa82f34d25bac90",
+    "raw_payload": {
+      "generator_version": "v6",
+      "generation_family": "barreras_entrada",
+      "generation_variant": "T4",
+      "topic_target": "propiedad_privada",
+      "per_topic_target": 5
+    }
+  },
+  {
+    "candidate_id": "propiedad_privada-06-debe-el-estado-garantizar-reglas-estables-",
+    "titulo": "¿Debe el Estado garantizar reglas estables y predecibles en materia de propiedad privada?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "propiedad_privada",
+      "subtema": "garantias patrimoniales",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "propiedad_privada",
+    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Centra el debate en seguridad jurídica como bien público sin sesgo ideológico explícito.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": 79,
+    "neutrality_score": 82,
+    "duplicate_fingerprint": "15bce2398247641cb4d0f805",
+    "raw_payload": {
+      "generator_version": "v6",
+      "generation_family": "seguridad_juridica",
+      "generation_variant": "T5",
+      "topic_target": "propiedad_privada",
+      "per_topic_target": 5
+    }
+  },
+  {
+    "candidate_id": "propiedad_privada-07-deben-disenarse-incentivos-que-promuevan-m",
+    "titulo": "¿Deben diseñarse incentivos que promuevan mejores resultados en propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -102,173 +207,89 @@
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Abre la discusión sobre diseño de incentivos sin prescribir soluciones.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "ba939dedcbab067c64495778",
+    "quality_score": 75,
+    "neutrality_score": 80,
+    "duplicate_fingerprint": "ca38fc0111c882f952fc2340",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "incentivos",
+      "generation_variant": "T6",
       "topic_target": "propiedad_privada",
-      "per_topic_target": 5,
-      "template_index": 3
+      "per_topic_target": 5
     }
   },
   {
-    "candidate_id": "propiedad_privada-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre propiedad privada?",
+    "candidate_id": "propiedad_privada-08-debe-descentralizarse-la-gestion-de-las-po",
+    "titulo": "¿Debe descentralizarse la gestión de las políticas vinculadas a propiedad privada?",
     "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
-    ],
+    "tipo_votacion": "binaria",
+    "opciones": [],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "propiedad_privada",
       "subtema": "uso de bienes",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "propiedad_privada",
-    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "317979a9131e2308877b6f60",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "propiedad_privada",
-      "per_topic_target": 5,
-      "template_index": 4
-    }
-  },
-  {
-    "candidate_id": "propiedad_privada-06-debe-toda-politica-vinculada-a-propiedad-p",
-    "titulo": "¿Debe toda política vinculada a propiedad privada tener metas públicas medibles antes de recibir más presupuesto?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "propiedad_privada",
-      "subtema": "garantias patrimoniales",
       "enfoque": "institucional",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "propiedad_privada",
-    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "9a177ff023ddd1887d0c5bd2",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "propiedad_privada",
-      "per_topic_target": 5,
-      "template_index": 5
-    }
-  },
-  {
-    "candidate_id": "propiedad_privada-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con propiedad privada?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "propiedad_privada",
-      "subtema": "seguridad juridica",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "propiedad_privada",
-    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "c0e6e12d3a751ed3ba930600",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "propiedad_privada",
-      "per_topic_target": 5,
-      "template_index": 6
-    }
-  },
-  {
-    "candidate_id": "propiedad_privada-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de propiedad privada?",
-    "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "propiedad_privada",
-      "subtema": "uso de bienes",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "propiedad_privada",
-    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "5ecd18294ccb6956010d08d5",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "propiedad_privada",
-      "per_topic_target": 5,
-      "template_index": 7
-    }
-  },
-  {
-    "candidate_id": "propiedad_privada-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre propiedad privada?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "propiedad_privada",
-      "subtema": "garantias patrimoniales",
-      "enfoque": "ciudadano",
       "intensidad_de_debate": "baja"
     },
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
+    "quality_notes": "Debate territorial sin presuponer que la descentralizacion es siempre superior.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "3cdc8bc4551e257ec24410b2",
+    "quality_score": 74,
+    "neutrality_score": 78,
+    "duplicate_fingerprint": "6fec87967843cf243533c70b",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "descentralizacion",
+      "generation_variant": "T7",
       "topic_target": "propiedad_privada",
-      "per_topic_target": 5,
-      "template_index": 8
+      "per_topic_target": 5
     }
   },
   {
-    "candidate_id": "propiedad_privada-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre propiedad privada cumplen su objetivo sin crear privilegios?",
+    "candidate_id": "propiedad_privada-09-deben-aplicarse-criterios-de-fiscalizacion",
+    "titulo": "¿Deben aplicarse criterios de fiscalización proporcionales al riesgo en el ámbito de propiedad privada?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "propiedad_privada",
+      "subtema": "garantias patrimoniales",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "propiedad_privada",
+    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Introduce proporcionalidad en fiscalización como criterio institucional deliberativo.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": 77,
+    "neutrality_score": 80,
+    "duplicate_fingerprint": "167e57f8d36c3df893d730f0",
+    "raw_payload": {
+      "generator_version": "v6",
+      "generation_family": "fiscalizacion_proporcional",
+      "generation_variant": "T8",
+      "topic_target": "propiedad_privada",
+      "per_topic_target": 5
+    }
+  },
+  {
+    "candidate_id": "propiedad_privada-10-deben-establecerse-consecuencias-claras-pa",
+    "titulo": "¿Deben establecerse consecuencias claras para los funcionarios que incumplan sus responsabilidades en propiedad privada?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -276,23 +297,61 @@
     "taxonomy_draft": {
       "eje_tematico": "propiedad_privada",
       "subtema": "seguridad juridica",
-      "enfoque": "politica_publica",
+      "enfoque": "institucional",
       "intensidad_de_debate": "alta"
     },
     "ideological_axis": "propiedad_privada",
     "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Centra el debate en rendición de cuentas institucional sin nombrar actores.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "578324a8fc4f8299344fc317",
+    "quality_score": 78,
+    "neutrality_score": 78,
+    "duplicate_fingerprint": "ca0b8dbf8e042b1e7ffc35dc",
     "raw_payload": {
-      "generator_version": "v1",
+      "generator_version": "v6",
+      "generation_family": "responsabilidad_funcionario",
+      "generation_variant": "T9",
       "topic_target": "propiedad_privada",
-      "per_topic_target": 5,
-      "template_index": 9
+      "per_topic_target": 5
+    }
+  },
+  {
+    "candidate_id": "propiedad_privada-11-cual-deberia-ser-el-principal-criterio-par",
+    "titulo": "¿Cuál debería ser el principal criterio para evaluar el desempeño de las políticas de propiedad privada?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Resultados medibles y verificados por organismos independientes",
+      "Cumplimiento de procedimientos formales establecidos por ley"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "propiedad_privada",
+      "subtema": "uso de bienes",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "propiedad_privada",
+    "deliberative_tension": "propiedad_privada_vs_arbitrariedad_estatal",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Ofrece dos criterios institucionales comparables sin opción evidentemente correcta.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "quality_score": 80,
+    "neutrality_score": 85,
+    "duplicate_fingerprint": "f177cae0c563d368807682b4",
+    "raw_payload": {
+      "generator_version": "v6",
+      "generation_family": "rendicion_cuentas",
+      "generation_variant": "T10",
+      "topic_target": "propiedad_privada",
+      "per_topic_target": 5
     }
   }
 ]

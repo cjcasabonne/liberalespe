@@ -153,14 +153,64 @@ async function readPhase() {
 
 function generatePhase() {
   ensureDirs();
+
+  // v6: global_corpus.json must exist and be populated before generating.
+  if (!fs.existsSync(FILES.globalCorpus)) {
+    throw new Error('global_corpus_missing: run npm run qgen:read first to build global_corpus.json');
+  }
+  const globalCorpus = readJson(FILES.globalCorpus, null);
+  if (!globalCorpus || !Array.isArray(globalCorpus.historical_fingerprint_set)) {
+    throw new Error('global_corpus_invalid: run npm run qgen:read to rebuild global_corpus.json');
+  }
+
+  const historicalFingerprints = new Set(globalCorpus.historical_fingerprint_set);
+  const historicalTitles = new Set(globalCorpus.historical_normalized_title_set || []);
+
+  const { normalizeText } = require('./normalize');
+
   const all = [];
   const byTopic = {};
+  const batchFingerprints = new Set();
+  const batchTitles = new Set();
 
   for (const topic of TOPICS) {
     const topicCandidates = generateTopicCandidates(topic);
-    byTopic[topic.id] = topicCandidates;
-    all.push(...topicCandidates);
-    writeJson(path.join(TOPIC_DATA_DIR, `${topic.id}.candidates.json`), topicCandidates);
+    const accepted = [];
+
+    for (const candidate of topicCandidates) {
+      const fp = candidate.duplicate_fingerprint;
+      const nt = normalizeText(candidate.titulo);
+
+      if (historicalFingerprints.has(fp) || historicalTitles.has(nt)) {
+        log(`  [skip] global duplicate: ${topic.id} — ${candidate.titulo.slice(0, 60)}`);
+        continue;
+      }
+      if (batchFingerprints.has(fp) || batchTitles.has(nt)) {
+        log(`  [skip] batch duplicate: ${topic.id} — ${candidate.titulo.slice(0, 60)}`);
+        continue;
+      }
+
+      accepted.push(candidate);
+      batchFingerprints.add(fp);
+      batchTitles.add(nt);
+    }
+
+    if (accepted.length < PER_TOPIC_TARGET) {
+      const err = {
+        phase: 'GENERATE',
+        status: 'error',
+        error: 'ERROR_INSUFFICIENT_UNIQUE_CANDIDATES_FOR_TOPIC',
+        topic: topic.id,
+        attempts: topicCandidates.length,
+        unique_found: accepted.length,
+      };
+      writeCheckpoint('ERROR_GENERATE', 'error', err);
+      throw new Error(`ERROR_INSUFFICIENT_UNIQUE_CANDIDATES_FOR_TOPIC: ${topic.id} found ${accepted.length}, need ${PER_TOPIC_TARGET}`);
+    }
+
+    byTopic[topic.id] = accepted;
+    all.push(...accepted);
+    writeJson(path.join(TOPIC_DATA_DIR, `${topic.id}.candidates.json`), accepted);
   }
 
   writeJson(FILES.candidates, all);
@@ -168,8 +218,9 @@ function generatePhase() {
     topics: TOPICS.length,
     candidates: all.length,
     per_topic_initial: Object.fromEntries(Object.entries(byTopic).map(([topic, rows]) => [topic, rows.length])),
+    global_corpus_fingerprints: historicalFingerprints.size,
   });
-  log(`generate ok: ${all.length} candidates`);
+  log(`generate ok: ${all.length} candidates (${historicalFingerprints.size} historical fingerprints checked)`);
   return { candidates: all.length };
 }
 
