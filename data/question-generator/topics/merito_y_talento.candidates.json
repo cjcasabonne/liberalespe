@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "merito_y_talento-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con mérito en el sector público?",
+    "candidate_id": "merito_y_talento-01-debe-el-estado-eliminar-todo-tramite-no-es",
+    "titulo": "¿Debe el Estado eliminar todo trámite no esencial antes de imponer nuevas obligaciones sobre mérito en el sector público?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Prioriza la simplificación administrativa antes de ampliar cargas regulatorias.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "59a7289bf8dc5cc6ecc7d862",
+    "duplicate_fingerprint": "486eade4758eb0ee682e3358",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -29,8 +29,8 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-02-debe-una-reforma-sobre-merito-en-el-sector",
-    "titulo": "¿Debe una reforma sobre mérito en el sector público priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "merito_y_talento-02-debe-la-norma-que-regula-merito-en-el-sect",
+    "titulo": "¿Debe la norma que regula mérito en el sector público excluir explícitamente tratamientos diferenciados por vínculo político o posición sectorial?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -44,12 +44,12 @@
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Promueve igualdad formal ante la norma sin favorecer grupos con influencia.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "041fdeb05602eab249a337b6",
+    "duplicate_fingerprint": "19bf18ff921bef15afaa61d1",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -58,8 +58,8 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre mérito en el sector público?",
+    "candidate_id": "merito_y_talento-03-debe-el-estado-restringir-la-fiscalizacion",
+    "titulo": "¿Debe el Estado restringir la fiscalización sobre mérito en el sector público a los casos con evidencia documentada de incumplimiento previo?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -67,18 +67,18 @@
     "taxonomy_draft": {
       "eje_tematico": "merito_y_talento",
       "subtema": "nombramientos",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Vincula la fiscalización a criterios proporcionales y no arbitrarios.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "fda02a0343044e2a5f9ae7fd",
+    "duplicate_fingerprint": "e63f7762c6bf6de945dcc67f",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -87,27 +87,30 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre mérito en el sector público?",
+    "candidate_id": "merito_y_talento-04-que-tipo-de-incentivo-deberia-priorizar-un",
+    "titulo": "¿Qué tipo de incentivo debería priorizar una política pública para mejorar los resultados en mérito en el sector público?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reducción de cargas y trámites para los agentes que cumplen voluntariamente",
+      "Transferencias condicionadas a indicadores de resultado verificables"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "merito_y_talento",
       "subtema": "servicio civil",
       "enfoque": "politica_publica",
-      "intensidad_de_debate": "moderada"
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Contrasta incentivos mediante reduccion de cargas e incentivos vinculados a desempeno.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "016f2f8e8ccf5058f0e220dc",
+    "duplicate_fingerprint": "dc9a497a978d782861a250a2",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -116,30 +119,27 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre mérito en el sector público?",
+    "candidate_id": "merito_y_talento-05-debe-el-estado-publicar-comparaciones-anua",
+    "titulo": "¿Debe el Estado publicar comparaciones anuales entre los compromisos asumidos y los resultados obtenidos en mérito en el sector público?",
     "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
-    ],
+    "tipo_votacion": "binaria",
+    "opciones": [],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "merito_y_talento",
       "subtema": "evaluacion de desempeno",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
+    "quality_notes": "Fortalece el control ciudadano mediante información comparable y verificable.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "96186a2418b02512a8442f6e",
+    "duplicate_fingerprint": "6da6ff87a55457ecf7ad91bc",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -148,8 +148,8 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-06-debe-toda-politica-vinculada-a-merito-en-e",
-    "titulo": "¿Debe toda política vinculada a mérito en el sector público tener metas públicas medibles antes de recibir más presupuesto?",
+    "candidate_id": "merito_y_talento-06-debe-trasladarse-la-competencia-sobre-meri",
+    "titulo": "¿Debe trasladarse la competencia sobre mérito en el sector público al nivel de gobierno más cercano al ciudadano directamente afectado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -163,12 +163,12 @@
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
+    "quality_notes": "Evalúa la asignacion de competencias segun el principio de subsidiariedad.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "f515a4d96d64b93d86ff208d",
+    "duplicate_fingerprint": "2ace947d4dbb09a24dc6b9f0",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",
@@ -177,98 +177,8 @@
     }
   },
   {
-    "candidate_id": "merito_y_talento-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con mérito en el sector público?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "merito_y_talento",
-      "subtema": "servicio civil",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "merito_y_talento",
-    "deliberative_tension": "merito_vs_clientelismo",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "7ac5ba02892251f27b3b78f9",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "merito_y_talento",
-      "per_topic_target": 5,
-      "template_index": 6
-    }
-  },
-  {
-    "candidate_id": "merito_y_talento-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de mérito en el sector público?",
-    "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "merito_y_talento",
-      "subtema": "evaluacion de desempeno",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "merito_y_talento",
-    "deliberative_tension": "merito_vs_clientelismo",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "7d330be22947bd669d6166d7",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "merito_y_talento",
-      "per_topic_target": 5,
-      "template_index": 7
-    }
-  },
-  {
-    "candidate_id": "merito_y_talento-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre mérito en el sector público?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "merito_y_talento",
-      "subtema": "nombramientos",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
-    },
-    "ideological_axis": "merito_y_talento",
-    "deliberative_tension": "merito_vs_clientelismo",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "252d49c65ee9dc1584149073",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "merito_y_talento",
-      "per_topic_target": 5,
-      "template_index": 8
-    }
-  },
-  {
-    "candidate_id": "merito_y_talento-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre mérito en el sector público cumplen su objetivo sin crear privilegios?",
+    "candidate_id": "merito_y_talento-07-debe-el-estado-garantizar-que-ningun-cambi",
+    "titulo": "¿Debe el Estado garantizar que ningún cambio normativo sobre mérito en el sector público afecte derechos constituidos antes de su entrada en vigor?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -282,12 +192,102 @@
     "ideological_axis": "merito_y_talento",
     "deliberative_tension": "merito_vs_clientelismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Protege la seguridad jurídica frente a modificaciones retroactivas de normas.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "3e5d23bba9f66f92596fe092",
+    "duplicate_fingerprint": "197f65f5017b7c1e7678b4f9",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "merito_y_talento",
+      "per_topic_target": 5,
+      "template_index": 6
+    }
+  },
+  {
+    "candidate_id": "merito_y_talento-08-que-mecanismo-deberia-existir-para-respons",
+    "titulo": "¿Qué mecanismo debería existir para responsabilizar a los funcionarios por malos resultados en mérito en el sector público?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Evaluación de desempeño vinculada a la permanencia en el cargo",
+      "Auditoría externa con capacidad de sancionar directamente"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "merito_y_talento",
+      "subtema": "evaluacion de desempeno",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "merito_y_talento",
+    "deliberative_tension": "merito_vs_clientelismo",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea opciones de responsabilidad funcional directa sin impunidad por defecto.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "569b316eda00cfde2814d891",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "merito_y_talento",
+      "per_topic_target": 5,
+      "template_index": 7
+    }
+  },
+  {
+    "candidate_id": "merito_y_talento-09-debe-el-estado-mapear-y-publicar-las-princ",
+    "titulo": "¿Debe el Estado mapear y publicar las principales barreras que limitan el acceso equitativo a mérito en el sector público?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "merito_y_talento",
+      "subtema": "nombramientos",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "merito_y_talento",
+    "deliberative_tension": "merito_vs_clientelismo",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Promueve transparencia sobre barreras de acceso sin asumir una solucion estatal unica.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "bd61b9e5338e39b84b9735b2",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "merito_y_talento",
+      "per_topic_target": 5,
+      "template_index": 8
+    }
+  },
+  {
+    "candidate_id": "merito_y_talento-10-debe-el-organismo-responsable-de-merito-en",
+    "titulo": "¿Debe el organismo responsable de mérito en el sector público presentar un informe anual de resultados auditado por una entidad independiente?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "merito_y_talento",
+      "subtema": "servicio civil",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "merito_y_talento",
+    "deliberative_tension": "merito_vs_clientelismo",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Vincula la rendición de cuentas con auditoria externa y periodicidad definida.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "c462d48a8001b2ace03c25db",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "merito_y_talento",

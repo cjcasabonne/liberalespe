@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "responsabilidad_fiscal-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con responsabilidad fiscal?",
+    "candidate_id": "responsabilidad_fiscal-01-debe-el-estado-eliminar-todo-tramite-no-es",
+    "titulo": "¿Debe el Estado eliminar todo trámite no esencial antes de imponer nuevas obligaciones sobre responsabilidad fiscal?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Prioriza la simplificación administrativa antes de ampliar cargas regulatorias.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "7fa4e697f937a463f4adf52c",
+    "duplicate_fingerprint": "89bb4734c5d70c1cae8cc877",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -29,8 +29,8 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-02-debe-una-reforma-sobre-responsabilidad-fis",
-    "titulo": "¿Debe una reforma sobre responsabilidad fiscal priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "responsabilidad_fiscal-02-debe-la-norma-que-regula-responsabilidad-f",
+    "titulo": "¿Debe la norma que regula responsabilidad fiscal excluir explícitamente tratamientos diferenciados por vínculo político o posición sectorial?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -44,12 +44,12 @@
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Promueve igualdad formal ante la norma sin favorecer grupos con influencia.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "50382b45af8452c068810987",
+    "duplicate_fingerprint": "553de9e359cd9752f6675887",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -58,8 +58,8 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre responsabilidad fiscal?",
+    "candidate_id": "responsabilidad_fiscal-03-debe-el-estado-restringir-la-fiscalizacion",
+    "titulo": "¿Debe el Estado restringir la fiscalización sobre responsabilidad fiscal a los casos con evidencia documentada de incumplimiento previo?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -67,18 +67,18 @@
     "taxonomy_draft": {
       "eje_tematico": "responsabilidad_fiscal",
       "subtema": "prioridades presupuestales",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Vincula la fiscalización a criterios proporcionales y no arbitrarios.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "5fe006557807409e0a682a33",
+    "duplicate_fingerprint": "064153cc2312316f7a58b1fb",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -87,27 +87,30 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre responsabilidad fiscal?",
+    "candidate_id": "responsabilidad_fiscal-04-que-tipo-de-incentivo-deberia-priorizar-un",
+    "titulo": "¿Qué tipo de incentivo debería priorizar una política pública para mejorar los resultados en responsabilidad fiscal?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reducción de cargas y trámites para los agentes que cumplen voluntariamente",
+      "Transferencias condicionadas a indicadores de resultado verificables"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "responsabilidad_fiscal",
       "subtema": "gasto publico",
       "enfoque": "politica_publica",
-      "intensidad_de_debate": "moderada"
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Contrasta incentivos mediante reduccion de cargas e incentivos vinculados a desempeno.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "8469d295dc54d7b4e02c9ed0",
+    "duplicate_fingerprint": "8b675b6ca9c883b9b4df3f95",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -116,30 +119,27 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre responsabilidad fiscal?",
+    "candidate_id": "responsabilidad_fiscal-05-debe-el-estado-publicar-comparaciones-anua",
+    "titulo": "¿Debe el Estado publicar comparaciones anuales entre los compromisos asumidos y los resultados obtenidos en responsabilidad fiscal?",
     "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
-    ],
+    "tipo_votacion": "binaria",
+    "opciones": [],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "responsabilidad_fiscal",
       "subtema": "deuda",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
+    "quality_notes": "Fortalece el control ciudadano mediante información comparable y verificable.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "407497c83b1aa272ffbd0a8f",
+    "duplicate_fingerprint": "76360aa27f7465d074f482aa",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -148,8 +148,8 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-06-debe-toda-politica-vinculada-a-responsabil",
-    "titulo": "¿Debe toda política vinculada a responsabilidad fiscal tener metas públicas medibles antes de recibir más presupuesto?",
+    "candidate_id": "responsabilidad_fiscal-06-debe-trasladarse-la-competencia-sobre-resp",
+    "titulo": "¿Debe trasladarse la competencia sobre responsabilidad fiscal al nivel de gobierno más cercano al ciudadano directamente afectado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -163,12 +163,12 @@
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
+    "quality_notes": "Evalúa la asignacion de competencias segun el principio de subsidiariedad.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "b51a75787da2eebde0e78146",
+    "duplicate_fingerprint": "10208aa8a16f1fdf9f18d91b",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",
@@ -177,98 +177,8 @@
     }
   },
   {
-    "candidate_id": "responsabilidad_fiscal-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con responsabilidad fiscal?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "responsabilidad_fiscal",
-      "subtema": "gasto publico",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "responsabilidad_fiscal",
-    "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "12ff5d6808d57d0092b7a223",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "responsabilidad_fiscal",
-      "per_topic_target": 5,
-      "template_index": 6
-    }
-  },
-  {
-    "candidate_id": "responsabilidad_fiscal-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de responsabilidad fiscal?",
-    "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "responsabilidad_fiscal",
-      "subtema": "deuda",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "responsabilidad_fiscal",
-    "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "f5410cfd5ba31b8c9ff27cc0",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "responsabilidad_fiscal",
-      "per_topic_target": 5,
-      "template_index": 7
-    }
-  },
-  {
-    "candidate_id": "responsabilidad_fiscal-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre responsabilidad fiscal?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "responsabilidad_fiscal",
-      "subtema": "prioridades presupuestales",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
-    },
-    "ideological_axis": "responsabilidad_fiscal",
-    "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "5e50d4a692d01cc76b7f3409",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "responsabilidad_fiscal",
-      "per_topic_target": 5,
-      "template_index": 8
-    }
-  },
-  {
-    "candidate_id": "responsabilidad_fiscal-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre responsabilidad fiscal cumplen su objetivo sin crear privilegios?",
+    "candidate_id": "responsabilidad_fiscal-07-debe-el-estado-garantizar-que-ningun-cambi",
+    "titulo": "¿Debe el Estado garantizar que ningún cambio normativo sobre responsabilidad fiscal afecte derechos constituidos antes de su entrada en vigor?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -282,12 +192,102 @@
     "ideological_axis": "responsabilidad_fiscal",
     "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Protege la seguridad jurídica frente a modificaciones retroactivas de normas.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "8b6ba4ae06f7e1e5d1b3c386",
+    "duplicate_fingerprint": "d1e30c195f4e07375278db37",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "responsabilidad_fiscal",
+      "per_topic_target": 5,
+      "template_index": 6
+    }
+  },
+  {
+    "candidate_id": "responsabilidad_fiscal-08-que-mecanismo-deberia-existir-para-respons",
+    "titulo": "¿Qué mecanismo debería existir para responsabilizar a los funcionarios por malos resultados en responsabilidad fiscal?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Evaluación de desempeño vinculada a la permanencia en el cargo",
+      "Auditoría externa con capacidad de sancionar directamente"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "responsabilidad_fiscal",
+      "subtema": "deuda",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "responsabilidad_fiscal",
+    "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea opciones de responsabilidad funcional directa sin impunidad por defecto.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "2134f577e32229c25226f1b7",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "responsabilidad_fiscal",
+      "per_topic_target": 5,
+      "template_index": 7
+    }
+  },
+  {
+    "candidate_id": "responsabilidad_fiscal-09-debe-el-estado-mapear-y-publicar-las-princ",
+    "titulo": "¿Debe el Estado mapear y publicar las principales barreras que limitan el acceso equitativo a responsabilidad fiscal?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "responsabilidad_fiscal",
+      "subtema": "prioridades presupuestales",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "responsabilidad_fiscal",
+    "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Promueve transparencia sobre barreras de acceso sin asumir una solucion estatal unica.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "410593863e10de153d0d21b6",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "responsabilidad_fiscal",
+      "per_topic_target": 5,
+      "template_index": 8
+    }
+  },
+  {
+    "candidate_id": "responsabilidad_fiscal-10-debe-el-organismo-responsable-de-responsab",
+    "titulo": "¿Debe el organismo responsable de responsabilidad fiscal presentar un informe anual de resultados auditado por una entidad independiente?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "responsabilidad_fiscal",
+      "subtema": "gasto publico",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "responsabilidad_fiscal",
+    "deliberative_tension": "responsabilidad_fiscal_vs_gasto_politico",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Vincula la rendición de cuentas con auditoria externa y periodicidad definida.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "67931f1dab78d43eea2a8596",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "responsabilidad_fiscal",

@@ -1,0 +1,20 @@
+{
+  "batch_code": "qgen_20260615101753_00868272",
+  "project_id": "pqqkvmmenqencuretwyx",
+  "upload_method": "chunked_mcp_execute_sql",
+  "chunks_executed": 4,
+  "candidates_per_chunk": 20,
+  "total_candidates_inserted": 80,
+  "batch_status_before": "draft",
+  "batch_status_after": "loaded",
+  "timestamp": "2026-06-15T10:17:53.555Z",
+  "sql_files": [
+    "chunk_0_batch.sql",
+    "chunk_1_candidates.sql",
+    "chunk_2_candidates.sql",
+    "chunk_3_candidates.sql",
+    "chunk_4_candidates.sql",
+    "chunk_final_update.sql"
+  ],
+  "errors": []
+}

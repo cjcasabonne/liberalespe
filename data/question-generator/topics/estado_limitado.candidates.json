@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "estado_limitado-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con límites y funciones del Estado?",
+    "candidate_id": "estado_limitado-01-debe-el-estado-eliminar-todo-tramite-no-es",
+    "titulo": "¿Debe el Estado eliminar todo trámite no esencial antes de imponer nuevas obligaciones sobre límites y funciones del Estado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Prioriza la simplificación administrativa antes de ampliar cargas regulatorias.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a3b18b9ab0724106b9932cf6",
+    "duplicate_fingerprint": "f136b103c459810c498be91d",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -29,8 +29,8 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-02-debe-una-reforma-sobre-limites-y-funciones",
-    "titulo": "¿Debe una reforma sobre límites y funciones del Estado priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "estado_limitado-02-debe-la-norma-que-regula-limites-y-funcion",
+    "titulo": "¿Debe la norma que regula límites y funciones del Estado excluir explícitamente tratamientos diferenciados por vínculo político o posición sectorial?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -44,12 +44,12 @@
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Promueve igualdad formal ante la norma sin favorecer grupos con influencia.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "24b98d4df020255ecd862c27",
+    "duplicate_fingerprint": "910981f8fbe364271fe93b13",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -58,8 +58,8 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre límites y funciones del Estado?",
+    "candidate_id": "estado_limitado-03-debe-el-estado-restringir-la-fiscalizacion",
+    "titulo": "¿Debe el Estado restringir la fiscalización sobre límites y funciones del Estado a los casos con evidencia documentada de incumplimiento previo?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -67,18 +67,18 @@
     "taxonomy_draft": {
       "eje_tematico": "estado_limitado",
       "subtema": "eficacia publica",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Vincula la fiscalización a criterios proporcionales y no arbitrarios.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "ca780e492187273969bd47e9",
+    "duplicate_fingerprint": "743872f57d152fffec5489ca",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -87,27 +87,30 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre límites y funciones del Estado?",
+    "candidate_id": "estado_limitado-04-que-tipo-de-incentivo-deberia-priorizar-un",
+    "titulo": "¿Qué tipo de incentivo debería priorizar una política pública para mejorar los resultados en límites y funciones del Estado?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reducción de cargas y trámites para los agentes que cumplen voluntariamente",
+      "Transferencias condicionadas a indicadores de resultado verificables"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_limitado",
       "subtema": "alcance estatal",
       "enfoque": "politica_publica",
-      "intensidad_de_debate": "moderada"
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Contrasta incentivos mediante reduccion de cargas e incentivos vinculados a desempeno.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "7c4dde4005e715e5e9445193",
+    "duplicate_fingerprint": "9b4ffc22e7fc651badf77fd2",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -116,30 +119,27 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre límites y funciones del Estado?",
+    "candidate_id": "estado_limitado-05-debe-el-estado-publicar-comparaciones-anua",
+    "titulo": "¿Debe el Estado publicar comparaciones anuales entre los compromisos asumidos y los resultados obtenidos en límites y funciones del Estado?",
     "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
-    ],
+    "tipo_votacion": "binaria",
+    "opciones": [],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "estado_limitado",
       "subtema": "controles institucionales",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
+    "quality_notes": "Fortalece el control ciudadano mediante información comparable y verificable.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "982f3bd7ff6aaf0512908e75",
+    "duplicate_fingerprint": "4cb444951038a271923793b0",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -148,8 +148,8 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-06-debe-toda-politica-vinculada-a-limites-y-f",
-    "titulo": "¿Debe toda política vinculada a límites y funciones del Estado tener metas públicas medibles antes de recibir más presupuesto?",
+    "candidate_id": "estado_limitado-06-debe-trasladarse-la-competencia-sobre-limi",
+    "titulo": "¿Debe trasladarse la competencia sobre límites y funciones del Estado al nivel de gobierno más cercano al ciudadano directamente afectado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -163,12 +163,12 @@
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
+    "quality_notes": "Evalúa la asignacion de competencias segun el principio de subsidiariedad.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "3f1f7fdea81f8bd6df3f99c6",
+    "duplicate_fingerprint": "39c8d51fde73e06cdcec224f",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",
@@ -177,98 +177,8 @@
     }
   },
   {
-    "candidate_id": "estado_limitado-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con límites y funciones del Estado?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "estado_limitado",
-      "subtema": "alcance estatal",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "estado_limitado",
-    "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "3c2641cdc6c40ccb5a301b39",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "estado_limitado",
-      "per_topic_target": 5,
-      "template_index": 6
-    }
-  },
-  {
-    "candidate_id": "estado_limitado-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de límites y funciones del Estado?",
-    "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "estado_limitado",
-      "subtema": "controles institucionales",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "estado_limitado",
-    "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "4c1fc0a3b59ffc1e5d259f67",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "estado_limitado",
-      "per_topic_target": 5,
-      "template_index": 7
-    }
-  },
-  {
-    "candidate_id": "estado_limitado-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre límites y funciones del Estado?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "estado_limitado",
-      "subtema": "eficacia publica",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
-    },
-    "ideological_axis": "estado_limitado",
-    "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "ba0ec04d3ea2a22aa27afb3f",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "estado_limitado",
-      "per_topic_target": 5,
-      "template_index": 8
-    }
-  },
-  {
-    "candidate_id": "estado_limitado-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre límites y funciones del Estado cumplen su objetivo sin crear privilegios?",
+    "candidate_id": "estado_limitado-07-debe-el-estado-garantizar-que-ningun-cambi",
+    "titulo": "¿Debe el Estado garantizar que ningún cambio normativo sobre límites y funciones del Estado afecte derechos constituidos antes de su entrada en vigor?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -282,12 +192,102 @@
     "ideological_axis": "estado_limitado",
     "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Protege la seguridad jurídica frente a modificaciones retroactivas de normas.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "34bc6aabeaceefa4f4cdb929",
+    "duplicate_fingerprint": "678337eea18a7ace60d6e657",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_limitado",
+      "per_topic_target": 5,
+      "template_index": 6
+    }
+  },
+  {
+    "candidate_id": "estado_limitado-08-que-mecanismo-deberia-existir-para-respons",
+    "titulo": "¿Qué mecanismo debería existir para responsabilizar a los funcionarios por malos resultados en límites y funciones del Estado?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Evaluación de desempeño vinculada a la permanencia en el cargo",
+      "Auditoría externa con capacidad de sancionar directamente"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_limitado",
+      "subtema": "controles institucionales",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "estado_limitado",
+    "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea opciones de responsabilidad funcional directa sin impunidad por defecto.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "065f5a1f45d811e1cf44d193",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_limitado",
+      "per_topic_target": 5,
+      "template_index": 7
+    }
+  },
+  {
+    "candidate_id": "estado_limitado-09-debe-el-estado-mapear-y-publicar-las-princ",
+    "titulo": "¿Debe el Estado mapear y publicar las principales barreras que limitan el acceso equitativo a límites y funciones del Estado?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_limitado",
+      "subtema": "eficacia publica",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "estado_limitado",
+    "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Promueve transparencia sobre barreras de acceso sin asumir una solucion estatal unica.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "a66cb889f713f3100b52a0a3",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "estado_limitado",
+      "per_topic_target": 5,
+      "template_index": 8
+    }
+  },
+  {
+    "candidate_id": "estado_limitado-10-debe-el-organismo-responsable-de-limites-y",
+    "titulo": "¿Debe el organismo responsable de límites y funciones del Estado presentar un informe anual de resultados auditado por una entidad independiente?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "estado_limitado",
+      "subtema": "alcance estatal",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "estado_limitado",
+    "deliberative_tension": "estado_limitado_eficaz_vs_estado_grande_ineficiente",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Vincula la rendición de cuentas con auditoria externa y periodicidad definida.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "708efac6676c55e8a77e0f06",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "estado_limitado",

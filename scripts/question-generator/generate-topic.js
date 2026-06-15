@@ -3,77 +3,87 @@ const { fingerprint, slugify } = require('./normalize');
 const { fixSpanishOrthography, fixVisibleCandidateText } = require('./orthography');
 
 const TEMPLATES = [
+  // Family: simplificacion administrativa
   {
     type: 'binaria',
     focus: 'institucional',
     intensity: 'moderada',
-    title: (topic) => `Debe el Estado justificar con evidencia publica cualquier nueva restriccion relacionada con ${topic.subject}?`,
-    notes: 'Evalua limites al poder publico sin inducir una respuesta.',
+    title: (topic) => `Debe el Estado eliminar todo tramite no esencial antes de imponer nuevas obligaciones sobre ${topic.subject}?`,
+    notes: 'Prioriza la simplificacion administrativa antes de ampliar cargas regulatorias.',
   },
+  // Family: igualdad ante normas
   {
     type: 'binaria',
     focus: 'politica_publica',
     intensity: 'moderada',
-    title: (topic) => `Debe una reforma sobre ${topic.subject} priorizar reglas generales antes que beneficios para grupos especificos?`,
-    notes: 'Contrasta reglas generales y excepciones sin atacar actores.',
+    title: (topic) => `Debe la norma que regula ${topic.subject} excluir explícitamente tratamientos diferenciados por vínculo político o posición sectorial?`,
+    notes: 'Promueve igualdad formal ante la norma sin favorecer grupos con influencia.',
   },
+  // Family: fiscalizacion proporcional
   {
     type: 'binaria',
-    focus: 'ciudadano',
-    intensity: 'baja',
-    title: (topic) => `Debe la ciudadania contar con reportes simples para evaluar resultados sobre ${topic.subject}?`,
-    notes: 'Promueve rendicion de cuentas con lenguaje neutral.',
+    focus: 'institucional',
+    intensity: 'alta',
+    title: (topic) => `Debe el Estado restringir la fiscalizacion sobre ${topic.subject} a los casos con evidencia documentada de incumplimiento previo?`,
+    notes: 'Vincula la fiscalizacion a criterios proporcionales y no arbitrarios.',
   },
-  {
-    type: 'binaria',
-    focus: 'politica_publica',
-    intensity: 'moderada',
-    title: (topic) => `Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre ${topic.subject}?`,
-    notes: 'Introduce costo fiscal y regulatorio como criterio deliberativo.',
-  },
+  // Family: incentivos (opciones)
   {
     type: 'opciones',
     focus: 'politica_publica',
     intensity: 'alta',
-    title: (topic) => `Que criterio deberia priorizar una reforma sobre ${topic.subject}?`,
-    options: ['Reglas simples y fiscalizables', 'Controles administrativos mas detallados'],
-    notes: 'Ofrece alternativas institucionales comparables.',
+    title: (topic) => `Que tipo de incentivo deberia priorizar una politica publica para mejorar los resultados en ${topic.subject}?`,
+    options: ['Reducción de cargas y trámites para los agentes que cumplen voluntariamente', 'Transferencias condicionadas a indicadores de resultado verificables'],
+    notes: 'Contrasta incentivos mediante reduccion de cargas e incentivos vinculados a desempeno.',
   },
+  // Family: control ciudadano
+  {
+    type: 'binaria',
+    focus: 'ciudadano',
+    intensity: 'moderada',
+    title: (topic) => `Debe el Estado publicar comparaciones anuales entre los compromisos asumidos y los resultados obtenidos en ${topic.subject}?`,
+    notes: 'Fortalece el control ciudadano mediante informacion comparable y verificable.',
+  },
+  // Family: descentralizacion
   {
     type: 'binaria',
     focus: 'institucional',
     intensity: 'moderada',
-    title: (topic) => `Debe toda politica vinculada a ${topic.subject} tener metas publicas medibles antes de recibir mas presupuesto?`,
-    notes: 'Centra la discusion en metas y presupuesto.',
+    title: (topic) => `Debe trasladarse la competencia sobre ${topic.subject} al nivel de gobierno mas cercano al ciudadano directamente afectado?`,
+    notes: 'Evalua la asignacion de competencias segun el principio de subsidiariedad.',
   },
-  {
-    type: 'binaria',
-    focus: 'institucional',
-    intensity: 'alta',
-    title: (topic) => `Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con ${topic.subject}?`,
-    notes: 'Ubica el debate en control institucional.',
-  },
-  {
-    type: 'opciones',
-    focus: 'ciudadano',
-    intensity: 'moderada',
-    title: (topic) => `Que mecanismo seria mas util para mejorar la supervision de ${topic.subject}?`,
-    options: ['Indicadores publicos periodicos', 'Auditorias externas focalizadas'],
-    notes: 'Plantea mecanismos de supervision sin opcion evidentemente correcta.',
-  },
-  {
-    type: 'binaria',
-    focus: 'ciudadano',
-    intensity: 'baja',
-    title: (topic) => `Debe publicarse informacion comparable para que los ciudadanos evaluen decisiones sobre ${topic.subject}?`,
-    notes: 'Refuerza acceso a informacion y control ciudadano.',
-  },
+  // Family: seguridad juridica
   {
     type: 'binaria',
     focus: 'politica_publica',
     intensity: 'alta',
-    title: (topic) => `Debe revisarse periodicamente si las reglas sobre ${topic.subject} cumplen su objetivo sin crear privilegios?`,
-    notes: 'Combina evaluacion regulatoria y neutralidad ante privilegios.',
+    title: (topic) => `Debe el Estado garantizar que ningún cambio normativo sobre ${topic.subject} afecte derechos constituidos antes de su entrada en vigor?`,
+    notes: 'Protege la seguridad juridica frente a modificaciones retroactivas de normas.',
+  },
+  // Family: responsabilidad del funcionario (opciones)
+  {
+    type: 'opciones',
+    focus: 'institucional',
+    intensity: 'alta',
+    title: (topic) => `Que mecanismo deberia existir para responsabilizar a los funcionarios por malos resultados en ${topic.subject}?`,
+    options: ['Evaluación de desempeño vinculada a la permanencia en el cargo', 'Auditoría externa con capacidad de sancionar directamente'],
+    notes: 'Plantea opciones de responsabilidad funcional directa sin impunidad por defecto.',
+  },
+  // Family: barreras de entrada
+  {
+    type: 'binaria',
+    focus: 'ciudadano',
+    intensity: 'moderada',
+    title: (topic) => `Debe el Estado mapear y publicar las principales barreras que limitan el acceso equitativo a ${topic.subject}?`,
+    notes: 'Promueve transparencia sobre barreras de acceso sin asumir una solucion estatal unica.',
+  },
+  // Family: rendicion de cuentas de resultados
+  {
+    type: 'binaria',
+    focus: 'ciudadano',
+    intensity: 'baja',
+    title: (topic) => `Debe el organismo responsable de ${topic.subject} presentar un informe anual de resultados auditado por una entidad independiente?`,
+    notes: 'Vincula la rendicion de cuentas con auditoria externa y periodicidad definida.',
   },
 ];
 

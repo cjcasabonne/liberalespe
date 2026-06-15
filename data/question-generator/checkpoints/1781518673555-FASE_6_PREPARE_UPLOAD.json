@@ -1,14 +1,9 @@
 {
-  "phase": "CHECKPOINT_INSERCION",
+  "phase": "FASE_6_PREPARE_UPLOAD",
   "status": "ok",
   "timestamp": "2026-06-15T10:17:53.555Z",
   "batch_code": "qgen_20260615101753_00868272",
   "candidates": 80,
-  "db_before": 880,
-  "db_after": 960,
-  "delta": 80,
-  "batch_status": "loaded",
-  "duplicate_fingerprints": 0,
   "topics": {
     "libertad_individual": 5,
     "igualdad_ante_la_ley": 5,
@@ -27,5 +22,5 @@
     "ciudadania_y_control_del_poder": 5,
     "innovacion_y_competitividad": 5
   },
-  "next_action": "revisar candidatos en Supabase staging → aprobación humana"
+  "next_action": "set QGEN_APPLY_UPLOAD_CONFIRM=true && npm run qgen:apply-upload"
 }

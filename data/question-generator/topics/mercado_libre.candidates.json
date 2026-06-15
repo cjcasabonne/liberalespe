@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "mercado_libre-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con competencia y mercado?",
+    "candidate_id": "mercado_libre-01-debe-el-estado-eliminar-todo-tramite-no-es",
+    "titulo": "¿Debe el Estado eliminar todo trámite no esencial antes de imponer nuevas obligaciones sobre competencia y mercado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Prioriza la simplificación administrativa antes de ampliar cargas regulatorias.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "b18ed99f78ea2b157bbac36d",
+    "duplicate_fingerprint": "68076be6ca500ebbd772ba72",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -29,8 +29,8 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-02-debe-una-reforma-sobre-competencia-y-merca",
-    "titulo": "¿Debe una reforma sobre competencia y mercado priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "mercado_libre-02-debe-la-norma-que-regula-competencia-y-mer",
+    "titulo": "¿Debe la norma que regula competencia y mercado excluir explícitamente tratamientos diferenciados por vínculo político o posición sectorial?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -44,12 +44,12 @@
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Promueve igualdad formal ante la norma sin favorecer grupos con influencia.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "d63a1a53164f1dfa35b475a9",
+    "duplicate_fingerprint": "eec8213f7ae996e95eec401c",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -58,8 +58,8 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre competencia y mercado?",
+    "candidate_id": "mercado_libre-03-debe-el-estado-restringir-la-fiscalizacion",
+    "titulo": "¿Debe el Estado restringir la fiscalización sobre competencia y mercado a los casos con evidencia documentada de incumplimiento previo?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -67,18 +67,18 @@
     "taxonomy_draft": {
       "eje_tematico": "mercado_libre",
       "subtema": "consumidores",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Vincula la fiscalización a criterios proporcionales y no arbitrarios.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "c05f055b7ab371aaeedd002f",
+    "duplicate_fingerprint": "dfb1740a893acff752bb16ff",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -87,27 +87,30 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre competencia y mercado?",
+    "candidate_id": "mercado_libre-04-que-tipo-de-incentivo-deberia-priorizar-un",
+    "titulo": "¿Qué tipo de incentivo debería priorizar una política pública para mejorar los resultados en competencia y mercado?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reducción de cargas y trámites para los agentes que cumplen voluntariamente",
+      "Transferencias condicionadas a indicadores de resultado verificables"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "mercado_libre",
       "subtema": "competencia abierta",
       "enfoque": "politica_publica",
-      "intensidad_de_debate": "moderada"
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Contrasta incentivos mediante reduccion de cargas e incentivos vinculados a desempeno.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "3dc015aea74347e3cead39c8",
+    "duplicate_fingerprint": "7c0021f0058fc7c3ac2c2e65",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -116,30 +119,27 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre competencia y mercado?",
+    "candidate_id": "mercado_libre-05-debe-el-estado-publicar-comparaciones-anua",
+    "titulo": "¿Debe el Estado publicar comparaciones anuales entre los compromisos asumidos y los resultados obtenidos en competencia y mercado?",
     "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
-    ],
+    "tipo_votacion": "binaria",
+    "opciones": [],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "mercado_libre",
       "subtema": "barreras de entrada",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
+    "quality_notes": "Fortalece el control ciudadano mediante información comparable y verificable.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "bfa0587091d75b6e34318c58",
+    "duplicate_fingerprint": "47a75bae51c94e39780705a6",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -148,8 +148,8 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-06-debe-toda-politica-vinculada-a-competencia",
-    "titulo": "¿Debe toda política vinculada a competencia y mercado tener metas públicas medibles antes de recibir más presupuesto?",
+    "candidate_id": "mercado_libre-06-debe-trasladarse-la-competencia-sobre-comp",
+    "titulo": "¿Debe trasladarse la competencia sobre competencia y mercado al nivel de gobierno más cercano al ciudadano directamente afectado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -163,12 +163,12 @@
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
+    "quality_notes": "Evalúa la asignacion de competencias segun el principio de subsidiariedad.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a55ddde7e6d13d777e17260e",
+    "duplicate_fingerprint": "286d223bdc7d13fcd6e4c8c7",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",
@@ -177,98 +177,8 @@
     }
   },
   {
-    "candidate_id": "mercado_libre-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con competencia y mercado?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "mercado_libre",
-      "subtema": "competencia abierta",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "mercado_libre",
-    "deliberative_tension": "competencia_vs_mercantilismo",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "5badc973ffa6dd8c84bf8399",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "mercado_libre",
-      "per_topic_target": 5,
-      "template_index": 6
-    }
-  },
-  {
-    "candidate_id": "mercado_libre-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de competencia y mercado?",
-    "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "mercado_libre",
-      "subtema": "barreras de entrada",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "mercado_libre",
-    "deliberative_tension": "competencia_vs_mercantilismo",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "9f7eefbfcf9326e817fd6ced",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "mercado_libre",
-      "per_topic_target": 5,
-      "template_index": 7
-    }
-  },
-  {
-    "candidate_id": "mercado_libre-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre competencia y mercado?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "mercado_libre",
-      "subtema": "consumidores",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
-    },
-    "ideological_axis": "mercado_libre",
-    "deliberative_tension": "competencia_vs_mercantilismo",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "91a71193e8451415582a923b",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "mercado_libre",
-      "per_topic_target": 5,
-      "template_index": 8
-    }
-  },
-  {
-    "candidate_id": "mercado_libre-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre competencia y mercado cumplen su objetivo sin crear privilegios?",
+    "candidate_id": "mercado_libre-07-debe-el-estado-garantizar-que-ningun-cambi",
+    "titulo": "¿Debe el Estado garantizar que ningún cambio normativo sobre competencia y mercado afecte derechos constituidos antes de su entrada en vigor?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -282,12 +192,102 @@
     "ideological_axis": "mercado_libre",
     "deliberative_tension": "competencia_vs_mercantilismo",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Protege la seguridad jurídica frente a modificaciones retroactivas de normas.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "957fae5bc3e39117ab006969",
+    "duplicate_fingerprint": "396e252894b32a25a535a74a",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "mercado_libre",
+      "per_topic_target": 5,
+      "template_index": 6
+    }
+  },
+  {
+    "candidate_id": "mercado_libre-08-que-mecanismo-deberia-existir-para-respons",
+    "titulo": "¿Qué mecanismo debería existir para responsabilizar a los funcionarios por malos resultados en competencia y mercado?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Evaluación de desempeño vinculada a la permanencia en el cargo",
+      "Auditoría externa con capacidad de sancionar directamente"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "mercado_libre",
+      "subtema": "barreras de entrada",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "mercado_libre",
+    "deliberative_tension": "competencia_vs_mercantilismo",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea opciones de responsabilidad funcional directa sin impunidad por defecto.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "b1b1a30abe9ae630c870b9ec",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "mercado_libre",
+      "per_topic_target": 5,
+      "template_index": 7
+    }
+  },
+  {
+    "candidate_id": "mercado_libre-09-debe-el-estado-mapear-y-publicar-las-princ",
+    "titulo": "¿Debe el Estado mapear y publicar las principales barreras que limitan el acceso equitativo a competencia y mercado?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "mercado_libre",
+      "subtema": "consumidores",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "mercado_libre",
+    "deliberative_tension": "competencia_vs_mercantilismo",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Promueve transparencia sobre barreras de acceso sin asumir una solucion estatal unica.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "a58946771d2ac683af2423bb",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "mercado_libre",
+      "per_topic_target": 5,
+      "template_index": 8
+    }
+  },
+  {
+    "candidate_id": "mercado_libre-10-debe-el-organismo-responsable-de-competenc",
+    "titulo": "¿Debe el organismo responsable de competencia y mercado presentar un informe anual de resultados auditado por una entidad independiente?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "mercado_libre",
+      "subtema": "competencia abierta",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "mercado_libre",
+    "deliberative_tension": "competencia_vs_mercantilismo",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Vincula la rendición de cuentas con auditoria externa y periodicidad definida.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "f8ecb1ae4304fdfc3b01ebfe",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "mercado_libre",

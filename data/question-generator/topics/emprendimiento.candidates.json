@@ -1,7 +1,7 @@
 [
   {
-    "candidate_id": "emprendimiento-01-debe-el-estado-justificar-con-evidencia-pu",
-    "titulo": "¿Debe el Estado justificar con evidencia pública cualquier nueva restricción relacionada con emprendimiento?",
+    "candidate_id": "emprendimiento-01-debe-el-estado-eliminar-todo-tramite-no-es",
+    "titulo": "¿Debe el Estado eliminar todo trámite no esencial antes de imponer nuevas obligaciones sobre emprendimiento?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -15,12 +15,12 @@
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Evalúa límites al poder público sin inducir una respuesta.",
+    "quality_notes": "Prioriza la simplificación administrativa antes de ampliar cargas regulatorias.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "48fb2aafecf99083cc7651d8",
+    "duplicate_fingerprint": "a04443ad77442eb2a0519554",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -29,8 +29,8 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-02-debe-una-reforma-sobre-emprendimiento-prio",
-    "titulo": "¿Debe una reforma sobre emprendimiento priorizar reglas generales antes que beneficios para grupos específicos?",
+    "candidate_id": "emprendimiento-02-debe-la-norma-que-regula-emprendimiento-ex",
+    "titulo": "¿Debe la norma que regula emprendimiento excluir explícitamente tratamientos diferenciados por vínculo político o posición sectorial?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -44,12 +44,12 @@
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Contrasta reglas generales y excepciones sin atacar actores.",
+    "quality_notes": "Promueve igualdad formal ante la norma sin favorecer grupos con influencia.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "e80ff3e081068d34701cd90c",
+    "duplicate_fingerprint": "d99a288687b4b60b9520474e",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -58,8 +58,8 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-03-debe-la-ciudadania-contar-con-reportes-sim",
-    "titulo": "¿Debe la ciudadanía contar con reportes simples para evaluar resultados sobre emprendimiento?",
+    "candidate_id": "emprendimiento-03-debe-el-estado-restringir-la-fiscalizacion",
+    "titulo": "¿Debe el Estado restringir la fiscalización sobre emprendimiento a los casos con evidencia documentada de incumplimiento previo?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -67,18 +67,18 @@
     "taxonomy_draft": {
       "eje_tematico": "emprendimiento",
       "subtema": "nuevos negocios",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Promueve rendición de cuentas con lenguaje neutral.",
+    "quality_notes": "Vincula la fiscalización a criterios proporcionales y no arbitrarios.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "a02b07300dec86cbcf7b1353",
+    "duplicate_fingerprint": "7aafc5d006ba961817576b77",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -87,27 +87,30 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-04-debe-evaluarse-el-costo-fiscal-y-regulator",
-    "titulo": "¿Debe evaluarse el costo fiscal y regulatorio antes de ampliar medidas sobre emprendimiento?",
+    "candidate_id": "emprendimiento-04-que-tipo-de-incentivo-deberia-priorizar-un",
+    "titulo": "¿Qué tipo de incentivo debería priorizar una política pública para mejorar los resultados en emprendimiento?",
     "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Reducción de cargas y trámites para los agentes que cumplen voluntariamente",
+      "Transferencias condicionadas a indicadores de resultado verificables"
+    ],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "emprendimiento",
       "subtema": "formalizacion",
       "enfoque": "politica_publica",
-      "intensidad_de_debate": "moderada"
+      "intensidad_de_debate": "alta"
     },
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Introduce costo fiscal y regulatorio como criterio deliberativo.",
+    "quality_notes": "Contrasta incentivos mediante reduccion de cargas e incentivos vinculados a desempeno.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "21c475523a9f313d87a31ba5",
+    "duplicate_fingerprint": "effe37ab41a0bd65fda38ab0",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -116,30 +119,27 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-05-que-criterio-deberia-priorizar-una-reforma",
-    "titulo": "¿Qué criterio debería priorizar una reforma sobre emprendimiento?",
+    "candidate_id": "emprendimiento-05-debe-el-estado-publicar-comparaciones-anua",
+    "titulo": "¿Debe el Estado publicar comparaciones anuales entre los compromisos asumidos y los resultados obtenidos en emprendimiento?",
     "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Reglas simples y fiscalizables",
-      "Controles administrativos más detallados"
-    ],
+    "tipo_votacion": "binaria",
+    "opciones": [],
     "publico_objetivo": "afiliados",
     "taxonomy_draft": {
       "eje_tematico": "emprendimiento",
       "subtema": "burocracia",
-      "enfoque": "politica_publica",
-      "intensidad_de_debate": "alta"
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
     },
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ofrece alternativas institucionales comparables.",
+    "quality_notes": "Fortalece el control ciudadano mediante información comparable y verificable.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "6095efdcca89fabeff04a6c6",
+    "duplicate_fingerprint": "a88a8bc89af597dd6123ff33",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -148,8 +148,8 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-06-debe-toda-politica-vinculada-a-emprendimie",
-    "titulo": "¿Debe toda política vinculada a emprendimiento tener metas públicas medibles antes de recibir más presupuesto?",
+    "candidate_id": "emprendimiento-06-debe-trasladarse-la-competencia-sobre-empr",
+    "titulo": "¿Debe trasladarse la competencia sobre emprendimiento al nivel de gobierno más cercano al ciudadano directamente afectado?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -163,12 +163,12 @@
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Centra la discusión en metas y presupuesto.",
+    "quality_notes": "Evalúa la asignacion de competencias segun el principio de subsidiariedad.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "16597bcba4a1c2f6d5a137aa",
+    "duplicate_fingerprint": "d490df1979c903cfc4f34dae",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
@@ -177,98 +177,8 @@
     }
   },
   {
-    "candidate_id": "emprendimiento-07-debe-el-congreso-exigir-evaluaciones-indep",
-    "titulo": "¿Debe el Congreso exigir evaluaciones independientes antes de aprobar cambios relacionados con emprendimiento?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "emprendimiento",
-      "subtema": "formalizacion",
-      "enfoque": "institucional",
-      "intensidad_de_debate": "alta"
-    },
-    "ideological_axis": "emprendimiento",
-    "deliberative_tension": "emprendimiento_vs_burocracia",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Ubica el debate en control institucional.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "87190eecc0efe07ceaefaea0",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "emprendimiento",
-      "per_topic_target": 5,
-      "template_index": 6
-    }
-  },
-  {
-    "candidate_id": "emprendimiento-08-que-mecanismo-seria-mas-util-para-mejorar-",
-    "titulo": "¿Qué mecanismo sería más útil para mejorar la supervisión de emprendimiento?",
-    "descripcion": null,
-    "tipo_votacion": "opciones",
-    "opciones": [
-      "Indicadores públicos periódicos",
-      "Auditorias externas focalizadas"
-    ],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "emprendimiento",
-      "subtema": "burocracia",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "moderada"
-    },
-    "ideological_axis": "emprendimiento",
-    "deliberative_tension": "emprendimiento_vs_burocracia",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Plantea mecanismos de supervisión sin opción evidentemente correcta.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "3cb66a6849916d594491775a",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "emprendimiento",
-      "per_topic_target": 5,
-      "template_index": 7
-    }
-  },
-  {
-    "candidate_id": "emprendimiento-09-debe-publicarse-informacion-comparable-par",
-    "titulo": "¿Debe publicarse información comparable para que los ciudadanos evalúen decisiones sobre emprendimiento?",
-    "descripcion": null,
-    "tipo_votacion": "binaria",
-    "opciones": [],
-    "publico_objetivo": "afiliados",
-    "taxonomy_draft": {
-      "eje_tematico": "emprendimiento",
-      "subtema": "nuevos negocios",
-      "enfoque": "ciudadano",
-      "intensidad_de_debate": "baja"
-    },
-    "ideological_axis": "emprendimiento",
-    "deliberative_tension": "emprendimiento_vs_burocracia",
-    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Refuerza acceso a información y control ciudadano.",
-    "risk_flags": [],
-    "requires_source": false,
-    "source_required_reason": null,
-    "human_review_required": true,
-    "duplicate_fingerprint": "029b94f889f1c1c98c9222ce",
-    "raw_payload": {
-      "generator_version": "v1",
-      "topic_target": "emprendimiento",
-      "per_topic_target": 5,
-      "template_index": 8
-    }
-  },
-  {
-    "candidate_id": "emprendimiento-10-debe-revisarse-periodicamente-si-las-regla",
-    "titulo": "¿Debe revisarse periódicamente si las reglas sobre emprendimiento cumplen su objetivo sin crear privilegios?",
+    "candidate_id": "emprendimiento-07-debe-el-estado-garantizar-que-ningun-cambi",
+    "titulo": "¿Debe el Estado garantizar que ningún cambio normativo sobre emprendimiento afecte derechos constituidos antes de su entrada en vigor?",
     "descripcion": null,
     "tipo_votacion": "binaria",
     "opciones": [],
@@ -282,12 +192,102 @@
     "ideological_axis": "emprendimiento",
     "deliberative_tension": "emprendimiento_vs_burocracia",
     "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
-    "quality_notes": "Combina evaluación regulatoria y neutralidad ante privilegios.",
+    "quality_notes": "Protege la seguridad jurídica frente a modificaciones retroactivas de normas.",
     "risk_flags": [],
     "requires_source": false,
     "source_required_reason": null,
     "human_review_required": true,
-    "duplicate_fingerprint": "9da5753d7bef5da4c4d87ff9",
+    "duplicate_fingerprint": "5f2defdd7f9a196886c33f37",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "emprendimiento",
+      "per_topic_target": 5,
+      "template_index": 6
+    }
+  },
+  {
+    "candidate_id": "emprendimiento-08-que-mecanismo-deberia-existir-para-respons",
+    "titulo": "¿Qué mecanismo debería existir para responsabilizar a los funcionarios por malos resultados en emprendimiento?",
+    "descripcion": null,
+    "tipo_votacion": "opciones",
+    "opciones": [
+      "Evaluación de desempeño vinculada a la permanencia en el cargo",
+      "Auditoría externa con capacidad de sancionar directamente"
+    ],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "emprendimiento",
+      "subtema": "burocracia",
+      "enfoque": "institucional",
+      "intensidad_de_debate": "alta"
+    },
+    "ideological_axis": "emprendimiento",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Plantea opciones de responsabilidad funcional directa sin impunidad por defecto.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "f65cd5e4007247c6e4331df7",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "emprendimiento",
+      "per_topic_target": 5,
+      "template_index": 7
+    }
+  },
+  {
+    "candidate_id": "emprendimiento-09-debe-el-estado-mapear-y-publicar-las-princ",
+    "titulo": "¿Debe el Estado mapear y publicar las principales barreras que limitan el acceso equitativo a emprendimiento?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "emprendimiento",
+      "subtema": "nuevos negocios",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "moderada"
+    },
+    "ideological_axis": "emprendimiento",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Promueve transparencia sobre barreras de acceso sin asumir una solucion estatal unica.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "99feeedbbd4bb2f816a69167",
+    "raw_payload": {
+      "generator_version": "v1",
+      "topic_target": "emprendimiento",
+      "per_topic_target": 5,
+      "template_index": 8
+    }
+  },
+  {
+    "candidate_id": "emprendimiento-10-debe-el-organismo-responsable-de-emprendim",
+    "titulo": "¿Debe el organismo responsable de emprendimiento presentar un informe anual de resultados auditado por una entidad independiente?",
+    "descripcion": null,
+    "tipo_votacion": "binaria",
+    "opciones": [],
+    "publico_objetivo": "afiliados",
+    "taxonomy_draft": {
+      "eje_tematico": "emprendimiento",
+      "subtema": "formalizacion",
+      "enfoque": "ciudadano",
+      "intensidad_de_debate": "baja"
+    },
+    "ideological_axis": "emprendimiento",
+    "deliberative_tension": "emprendimiento_vs_burocracia",
+    "neutrality_notes": "Redacción deliberativa sin llamados partidarios ni ataque personal.",
+    "quality_notes": "Vincula la rendición de cuentas con auditoria externa y periodicidad definida.",
+    "risk_flags": [],
+    "requires_source": false,
+    "source_required_reason": null,
+    "human_review_required": true,
+    "duplicate_fingerprint": "4511669b9f783d088dd62263",
     "raw_payload": {
       "generator_version": "v1",
       "topic_target": "emprendimiento",
